@@ -2,7 +2,7 @@
 个人博客 - 基于Hexo + Chic主题搭建
 
 ## 博客地址
-https://duckseedyhb.github.io
+https://duckweed-yhb.github.io
 
 ## 主要功能
 - 自定义首页样式，包含博客/知乎/GitHub/B站导航图标
