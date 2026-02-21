@@ -1,0 +1,98 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site 站点核心配置（已替换为你的信息）
+title: Duckweed's Space
+subtitle: 技术成长 · 考研历程 · 读书感悟
+description: Duckweed的个人成长空间，记录编程学习、考研备考、读书思考的点滴
+keywords: 编程,技术,考研,读书,成长,Hexo
+author: Duckweed  # 你的名字（已替换）
+language: zh-CN  # 中文显示
+timezone: Asia/Shanghai  # 国内时区
+
+# URL 适配GitHub Pages（关键！）
+url: https://DUCKSEEDYHB.github.io
+root: /  # 根路径，保证静态资源（背景图）能找到
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+# Directory 目录配置（默认即可）
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing 写作配置（适配多元内容）
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true # 外部链接新标签打开
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: true # 开启文章资源文件夹（存放截图/附件）
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true # 代码行号
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# Home page setting 首页配置
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag 分类适配（技术/考研/读书）
+default_category: 日常记录
+category_map:
+  技术学习: tech
+  考研历程: postgraduate
+  读书感悟: reading
+  生活杂记: life
+tag_map:
+
+# Metadata elements
+meta_generator: true
+
+# Date / Time format
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'
+
+# Pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+include:
+exclude:
+ignore:
+
+# Extensions 主题配置（必须是landscape）
+theme: landscape
+
+# Deployment 部署配置（核心！部署到GitHub）
+deploy:
+  type: git
+  repo: https://github.com/DUCKSEEDYHB/DUCKSEEDYHB.github.io.git
+  branch: main
+  message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"

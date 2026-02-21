@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= config.title %></title>
+  <meta name="description" content="<%= config.description %>">
+  <meta name="author" content="<%= config.author %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 引入基础样式和自定义背景样式 -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/custom-bg.css">
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1><%= config.title %></h1>
+      <p><%= config.subtitle %></p>
+    </header>
+
+    <main>
+      <!-- 显示博客文章列表 -->
+      <% site.posts.forEach(function(post) { %>
+        <article class="article">
+          <h2><a href="<%= url_for(post.path) %>"><%= post.title %></a></h2>
+          <time><%= post.date.format(config.date_format) %></time>
+          <div class="content"><%= post.excerpt %></div>
+        </article>
+      <% }) %>
+    </main>
+
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> <%= config.author %></p>
+    </footer>
+  </div>
+</body>
+</html>
