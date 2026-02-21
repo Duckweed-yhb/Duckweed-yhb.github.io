@@ -1,0 +1,56 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: Duckweed's Space
+email: 3071974740@qq.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Duckweed的个人成长空间，记录编程学习、考研备考、读书思考的点滴
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://Duckweed-yhb.github.io" # 你的GitHub Pages地址
+github_username: Duckweed-yhb
+bilibili_username: 陌上花开我可归矣 # 替换为你的B站账号（比如：UID或昵称）
+bilibili_url: "https://space.bilibili.com/3546703303019495?spm_id_from=333.337.0.0" # 替换为你的B站空间链接
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# 自定义社交链接（替换Twitter为B站）
+minima:
+  social_links:
+    - { platform: github, user_url: "https://github.com/Duckweed-yhb" }
+    - { platform: bilibili, user_url: "https://space.bilibili.com/你的B站UID" } # 替换为你的B站链接

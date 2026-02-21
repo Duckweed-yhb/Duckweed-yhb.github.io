@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang }}">
+  {%- include head.html -%}
+  <!-- 引入Font Awesome图标库（B站图标需要） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <!-- 引入自定义样式 -->
+  <link rel="stylesheet" href="{{ '/assets/css/custom-bg.css' | relative_url }}">
+
+  <body>
+    <!-- 背景视频标签（核心） -->
+    <video class="bg-video" autoplay loop muted playsinline>
+      <!-- 替换为你的视频文件路径，建议用 mp4 格式 -->
+      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+      <!-- 视频加载失败时的兜底提示 -->
+      你的浏览器不支持视频播放，请升级浏览器。
+    </video>
+
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+  </body>
+</html>

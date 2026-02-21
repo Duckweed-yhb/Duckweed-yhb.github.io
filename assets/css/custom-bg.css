@@ -1,0 +1,230 @@
+/* 全局样式重置 - 统一浏览器默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 背景视频核心样式 - 100%完整展示（无裁剪） */
+.bg-video {
+    position: fixed;          /* 固定在屏幕，不随滚动移动 */
+    top: 0;
+    left: 0;
+    width: 100%;              /* 宽度占满屏幕 */
+    height: 100%;             /* 高度占满屏幕 */
+    z-index: -1;              /* 放在内容最底层，不遮挡文字 */
+    object-fit: contain;      /* 核心：完整展示视频，不裁剪（留白用背景色填充） */
+    background: #0a1a3a;      /* 匹配视频的深蓝色，让留白更融合 */
+}
+
+/* 页面基础样式 - 保证内容可读性 */
+body {
+    min-height: 100vh;
+    width: 100%;
+    font-family: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    padding: 0 15px;
+    /* 视频加载失败时的兜底背景色 */
+    background-color: #0a1a3a;
+}
+
+/* 导航栏样式 - 半透明+圆角+阴影 */
+.site-header {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px 5% 30px auto;  /* 右侧对齐，不遮挡视频人物 */
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;       /* 保证在视频上层 */
+    z-index: 10;              /* 高于视频层级 */
+}
+
+.site-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+    margin-bottom: 10px;      /* 移动端标题和导航换行 */
+}
+
+.site-nav .page-link {
+    margin-left: 20px;
+    color: #34495e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.site-nav .page-link:hover {
+    color: #3498db;           /* hover 变色，提升交互 */
+}
+
+/* 主内容区 - 核心内容容器（右侧对齐，不遮挡人物） */
+.page-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    margin: 0 5% 30px auto;   /* 右侧对齐，左侧留空展示视频人物 */
+    max-width: 500px;         /* 收窄宽度，进一步避免遮挡 */
+    position: relative;       /* 保证在视频上层 */
+    z-index: 10;              /* 高于视频层级 */
+}
+
+/* 文章列表样式 - 卡片化+悬浮效果 */
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+
+.post {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post:hover {
+    transform: translateY(-5px);        /* 悬浮轻微上浮 */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.post-link {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #2980b9;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.post-link:hover {
+    color: #1a5276;
+}
+
+.post-meta {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+/* 页脚样式 - 修复图标显示不全+适配B站图标 */
+.site-footer {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    margin: 30px 5% 20px auto;   /* 右侧对齐，匹配整体布局 */
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;     /* 顶部对齐，避免图标截断 */
+    flex-wrap: wrap;
+    position: relative;          /* 保证在视频上层 */
+    z-index: 10;                 /* 高于视频层级 */
+    min-height: 160px;           /* 增加最小高度，确保图标完整显示 */
+}
+
+.footer-col-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;                   /* 列之间留空，不拥挤 */
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 150px;            /* 移动端列最小宽度，不挤压 */
+}
+
+.footer-heading {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.contact-list, .social-media-list {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-list li, .social-media-list li {
+    margin-bottom: 12px;         /* 增加间距，避免图标拥挤 */
+    font-size: 1.1em;            /* 放大图标文字，更清晰 */
+}
+
+.contact-list a, .social-media-list a {
+    color: #34495e;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;               /* 图标+文字对齐 */
+    align-items: center;
+    gap: 8px;                    /* 图标和文字间距 */
+}
+
+/* B站图标样式（替换Twitter） */
+.social-media-list a[href*="bilibili.com"]::before {
+    content: "";                /* B站图标字符 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #fb7299;              /* B站粉色主色调 */
+    font-size: 1.2em;
+}
+
+/* GitHub图标样式优化 */
+.social-media-list a[href*="github.com"]::before {
+    content: "";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.contact-list a:hover, .social-media-list a:hover {
+    color: #3498db;
+}
+
+/* 移动端适配 - 屏幕小于768px时生效 */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 15px 20px;
+        margin: 20px auto 30px auto;  /* 移动端改回居中，避免贴边 */
+        max-width: 90%;
+    }
+    .site-title {
+        font-size: 1.5em;
+    }
+    .site-nav .page-link {
+        margin-left: 10px;
+        font-size: 0.9em;
+    }
+    .page-content {
+        padding: 20px;
+        margin: 0 auto 30px auto;     /* 移动端改回居中 */
+        max-width: 90%;
+    }
+    .post {
+        padding: 20px;
+    }
+    .post-link {
+        font-size: 1.2em;
+    }
+    .site-footer {
+        margin: 30px auto 20px auto;  /* 移动端改回居中 */
+        max-width: 90%;
+        min-height: 140px;            /* 移动端调整最小高度 */
+    }
+    /* 移动端视频优化 - 适配小屏幕 */
+    .bg-video {
+        object-fit: contain;
+        background: #0a1a3a;
+    }
+}
