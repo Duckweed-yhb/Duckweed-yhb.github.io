@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div class="page-content">
+  <article class="post-container">
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title | escape }}</h1>
+      <p class="post-meta">
+        {{ page.date | date: "%Y-%m-%d" }} • {{ page.author | default: site.author }}
+        {%- if page.categories.size > 0 -%}
+          • <span class="post-category"><a href="{{ '/categories/' | relative_url }}{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
+        {%- endif -%}
+        {%- if page.tags.size > 0 -%}
+          • <span class="post-tags">
+            {%- for tag in page.tags -%}
+              <a href="{{ '/tags/' | relative_url }}{{ tag | slugify }}">{{ tag }}</a>{%- unless forloop.last %}, {% endunless -%}
+            {%- endfor -%}
+          </span>
+        {%- endif -%}
+      </p>
+    </header>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+</div>

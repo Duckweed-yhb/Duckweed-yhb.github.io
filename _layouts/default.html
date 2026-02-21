@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang }}">
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
   {%- include head.html -%}
   <!-- 引入Font Awesome图标库（B站图标需要） -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <!-- 引入自定义样式 -->
   <link rel="stylesheet" href="{{ '/assets/css/custom-bg.css' | relative_url }}">
 
-  <body>
+  <!-- 🔥 关键：添加layout-xxx类名，让CSS区分页面类型 🔥 -->
+  <body class="layout-{{ page.layout }}">
     <!-- 背景视频标签（核心） -->
     <video class="bg-video" autoplay loop muted playsinline>
       <!-- 替换为你的视频文件路径，建议用 mp4 格式 -->

@@ -24,7 +24,7 @@ bilibili_url: "https://space.bilibili.com/3546703303019495?spm_id_from=333.337.0
 # ===================== 主题与插件配置 =====================
 # 使用minima主题
 theme: minima
-# 启用的插件（仅保留必要的feed插件）
+# 启用的插件（仅保留必要的feed插件，移除分页插件）
 plugins:
   - jekyll-feed
 
@@ -42,9 +42,9 @@ defaults:
     values:
       layout: "page"
 
-# 文章排序方式（按日期倒序）
-paginate: 5 # 首页显示5篇文章
-paginate_path: "/page/:num/"
+# 注释掉分页配置，避免依赖jekyll-paginate插件
+# paginate: 5 # 首页显示5篇文章
+# paginate_path: "/page/:num/"
 
 # ===================== 排除文件 =====================
 # Jekyll编译时忽略的文件/目录

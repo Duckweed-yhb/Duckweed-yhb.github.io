@@ -80,19 +80,41 @@ body {
     background-color: rgba(52, 152, 219, 0.1); /* 轻微背景色，更易识别 */
 }
 
-/* 主内容区 - 核心内容容器（右侧对齐，不遮挡人物） */
-.page-content {
+/* 响应式菜单样式适配 */
+.nav-trigger {
+    display: none;
+}
+
+.menu-icon {
+    display: none;
+}
+
+/* 🔥 核心修复：区分首页和文章页的page-content样式 🔥 */
+/* 首页（layout=home）- 保留右侧对齐+背景 */
+body.layout-home .page-content {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    margin: 0 5% 30px auto;   /* 右侧对齐，左侧留空展示视频人物 */
-    max-width: 500px;         /* 收窄宽度，进一步避免遮挡 */
-    position: relative;       /* 保证在视频上层 */
-    z-index: 10;              /* 高于视频层级 */
+    margin: 0 5% 30px auto;   /* 右侧对齐 */
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
 }
 
-/* 文章列表样式 - 卡片化+悬浮效果 */
+/* 文章页（layout=post）- 居中+透明背景（无默认背景） */
+body.layout-post .page-content {
+    background-color: transparent !important; /* 透明，不遮挡背景视频 */
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 auto 30px auto !important;      /* 全局居中 */
+    max-width: 1200px !important;             /* 放宽宽度 */
+    position: relative;
+    z-index: 10;
+}
+
+/* 文章列表样式 - 卡片化+悬浮效果（仅首页生效） */
 .post-list {
     list-style: none;
     padding: 0;
@@ -128,6 +150,92 @@ body {
     color: #7f8c8d;
     font-size: 0.9em;
     margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 🔥 文章详情页核心样式 - 居中+高透明（强制生效）🔥 */
+.post-container {
+    max-width: 800px !important;        /* 文章宽度 */
+    margin: 2rem auto 30px auto !important; /* 强制水平居中 */
+    padding: 2rem;
+    /* 关键：0.6透明度，清晰看到背景视频（可自行调整） */
+    background-color: rgba(255, 255, 255, 0.6) !important; 
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 10;
+}
+
+/* 文章详情页标题 - 居中 */
+.post-container .post-title {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    text-align: center; /* 标题居中 */
+}
+
+/* 文章详情页元信息 - 居中 */
+.post-container .post-meta {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    text-align: center; /* 元信息居中 */
+}
+
+/* 文章详情页内容 - 左对齐（如需居中，改text-align: center） */
+.post-container .post-content {
+    color: #2d3748;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: left; 
+    padding: 0 1rem; /* 避免文字贴边 */
+}
+
+/* 文章详情页代码块样式（适配透明背景） */
+.post-container .post-content pre {
+    background-color: rgba(247, 250, 252, 0.9); /* 代码块轻微透明 */
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.post-container .post-content code {
+    background-color: rgba(247, 250, 252, 0.9);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+}
+
+/* 文章详情页 - 分类/标签样式 */
+.post-category, .post-tags {
+    display: inline-block;
+}
+
+.post-category a {
+    color: #3498db !important;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.post-tags a {
+    color: #fb7299 !important;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(251, 114, 153, 0.1);
+}
+
+.post-category a:hover, .post-tags a:hover {
+    opacity: 0.8;
 }
 
 /* 页脚样式 - 适配纯本地SVG图标（GitHub+知乎+B站） */
@@ -219,6 +327,99 @@ body {
     content: none !important;
 }
 
+/* 分类/标签页样式 - 居中显示 */
+.category-list, .tag-list {
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 0 auto 20px auto !important; /* 居中 */
+    max-width: 800px;
+}
+
+.category-list h3, .tag-list h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #3498db;
+    text-align: center;
+}
+
+.category-list ul, .tag-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.category-list li, .tag-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-date {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* 标签云样式 - 居中显示 */
+.tag-cloud {
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 0 auto 20px auto !important; /* 居中 */
+    max-width: 800px;
+}
+
+.tag-cloud a {
+    display: inline-block; 
+    padding: 5px 12px; 
+    margin: 0 8px 8px 0; 
+    background: #f0f8ff; 
+    color: #3498db; 
+    border-radius: 20px; 
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag-cloud a:hover {
+    background-color: #3498db;
+    color: white !important;
+}
+
+/* 分类导航样式 */
+.category-nav {
+    margin-top: 30px; 
+    padding: 15px; 
+    background: #f5f5f5; 
+    border-radius: 8px;
+}
+
+.category-nav h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.category-nav ul {
+    list-style: none; 
+    padding: 0; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px;
+}
+
+.category-nav ul li a {
+    color: #3498db; 
+    text-decoration: none;
+}
+
+.category-nav ul li a:hover {
+    text-decoration: underline;
+}
+
 /* 移动端适配 - 屏幕小于768px时生效 */
 @media (max-width: 768px) {
     .site-header {
@@ -232,10 +433,32 @@ body {
     .site-nav .page-link {
         font-size: 0.9em;
     }
-    .page-content {
-        padding: 20px;
-        margin: 0 auto 30px auto;     /* 移动端改回居中 */
+    /* 移动端响应式菜单显示 */
+    .menu-icon {
+        display: inline-block;
+        cursor: pointer;
+    }
+    .nav-trigger:not(:checked) ~ .trigger {
+        display: none;
+    }
+    .nav-trigger:checked ~ .trigger {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+    /* 首页移动端居中 */
+    body.layout-home .page-content {
+        margin: 0 auto 30px auto;
         max-width: 90%;
+    }
+    /* 文章页移动端适配 */
+    .post-container {
+        margin: 2rem auto 30px auto;
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+    .post-container .post-title {
+        font-size: 1.8rem;
     }
     .post {
         padding: 20px;
@@ -260,5 +483,18 @@ body {
     .bg-video {
         object-fit: contain;
         background: #0a1a3a;
+    }
+    /* 移动端分类/标签页适配 */
+    .category-list li, .tag-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .tag-cloud {
+        padding: 15px;
+    }
+    .tag-cloud a {
+        padding: 4px 10px;
+        font-size: 0.9em;
     }
 }
