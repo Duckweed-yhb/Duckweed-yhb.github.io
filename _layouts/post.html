@@ -18,6 +18,16 @@ layout: default
           </span>
         {%- endif -%}
       </p>
+
+      <!-- 新增：自动渲染文章封面图 -->
+      {% if page.image %}
+        <div class="post-cover" style="margin: 20px 0; text-align: center;">
+          <img src="{{ page.image | relative_url }}" 
+               width="80%" 
+               style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+               alt="{{ page.title }}封面">
+        </div>
+      {% endif %}
     </header>
 
     <div class="post-content">
