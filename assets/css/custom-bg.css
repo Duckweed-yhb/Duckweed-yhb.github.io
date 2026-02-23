@@ -171,6 +171,41 @@ body.layout-post .page-content {
     align-items: center;
 }
 
+/* ========== 新增：阅读量统计样式（PC+移动端适配） ========== */
+/* 基础阅读量样式 */
+.post-views {
+    color: #666;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px; /* 图标和文字间距 */
+}
+
+/* 阅读量图标样式 */
+.post-views i {
+    color: #888;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+/* 鼠标悬浮时图标变色（和导航栏hover色统一） */
+.post:hover .post-views i {
+    color: #3498db;
+}
+
+/* 文章详情页阅读量样式强化 */
+.post-container .post-views {
+    color: #718096;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.post-container .post-views i {
+    color: #94a3b8;
+}
+
+/* ========== 阅读量样式结束 ========== */
+
 /* 文章详情页核心样式 - 移动端适配强化 */
 .post-container {
     max-width: 800px !important;
@@ -515,6 +550,16 @@ body.layout-post .page-content {
     .post-link {
         font-size: 1.2em;
     }
+
+    /* ========== 移动端阅读量样式适配 ========== */
+    .post-views {
+        font-size: 0.85em; /* 移动端缩小阅读量文字 */
+    }
+
+    .post-views i {
+        font-size: 0.9em; /* 移动端缩小图标 */
+    }
+    /* ========== 移动端阅读量样式结束 ========== */
 
     /* 页脚移动端：全屏宽度+优化布局 */
     .site-footer {
