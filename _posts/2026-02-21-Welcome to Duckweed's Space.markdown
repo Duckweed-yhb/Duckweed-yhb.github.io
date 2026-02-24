@@ -3,7 +3,7 @@ layout: post
 title:  "Welcome to Duckweed's Space"
 date:   2026-02-21 14:30:00 +0800
 categories: 公告  # 分类（可多个，空格分隔）
-tags: 博客上线 个人空间 新手入门  # 标签（多个用空格分隔）
+tags: 博客上线 个人空间   # 标签（多个用空格分隔）
 ---
 
 # 欢迎来到 Duckweed's Space 🎉
