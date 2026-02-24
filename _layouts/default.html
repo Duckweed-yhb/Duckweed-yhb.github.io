@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
   {%- include head.html -%}
+  <head>
+    <!-- 保留原有head里的内容（从head.html引入），补充MathJax配置 -->
+    {% if page.math %}
+      <!-- MathJax公式渲染（仅在需要的文章页加载） -->
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式用 $...$
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],  // 块公式用 $$...$$
+            processEscapes: true,  // 允许转义$符号（\$表示普通$）
+            autoNumber: "AMS"  // 可选：自动给公式编号，不需要可删除
+          },
+          svg: {
+            fontCache: "global"
+          },
+          startup: {
+            pageReady: function() {
+              return MathJax.startup.defaultPageReady().then(function() {
+                // 避免公式渲染闪烁
+                document.querySelectorAll('.MathJax').forEach(el => {
+                  el.style.opacity = 1;
+                });
+              });
+            }
+          }
+        };
+      </script>
+    {% endif %}
+  </head>
   <!-- 引入Font Awesome图标库（B站图标需要） -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <!-- 引入自定义样式 -->
