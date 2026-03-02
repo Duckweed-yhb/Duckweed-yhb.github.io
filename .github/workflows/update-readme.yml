@@ -1,47 +1,60 @@
 name: Auto Update README (Jekyll Blog)
 
-# 触发条件：
-# 1. 推送博客文件到 _posts 目录
-# 2. 手动触发
-# 3. 每天定时更新（可选）
+# 触发条件：覆盖更多场景，确保能触发
 on:
   push:
     branches: [ main, master ]
     paths:
       - '_posts/**/*.md'
       - '_posts/**/*.markdown'
-      - 'templates/README.template.md'
-      - 'scripts/generate_readme.py'
-  workflow_dispatch:
+      - 'templates/**'
+      - 'scripts/**'
+  workflow_dispatch:  # 手动触发（优先级最高）
   schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 0 点更新（可选）
+    - cron: '0 0 * * *'  # 每天 UTC 0 点更新（北京时间 8 点）
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 授予写入权限（关键）
+      contents: write  # 必须的写入权限
+      pull-requests: write
     steps:
       - name: 拉取仓库代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 拉取完整历史
-        
+          fetch-depth: 0  # 拉取完整提交历史，避免git操作报错
+          token: ${{ github.token }}  # 显式指定token，解决权限问题
+
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip'
-        
+          # 移除cache配置：解决无requirements.txt导致的缓存报错
+          # cache: 'pip' 
+
       - name: 安装依赖
-        run: pip install pyyaml  # 解析 Jekyll Front Matter 必需
-        
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml  # 明确安装pyyaml，确保解析Front Matter
+
       - name: 生成 README
-        run: python scripts/generate_readme.py
-        
+        run: |
+          # 先检查脚本是否存在，避免执行失败
+          if [ -f "scripts/generate_readme.py" ]; then
+            python scripts/generate_readme.py
+            echo "README生成成功！"
+          else
+            echo "错误：scripts/generate_readme.py 文件不存在！"
+            exit 1
+          fi
+
       - name: 提交更新
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: auto update README from Jekyll posts"
           file_pattern: "README.md"
-          branch: main  # 你的主分支（master 则改为 master）
+          branch: main  # 确认你的主分支是main（如果是master请修改）
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          push_options: "--force"  # 解决偶尔的推送冲突
