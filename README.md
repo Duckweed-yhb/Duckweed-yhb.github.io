@@ -11,7 +11,7 @@
 ## 🛠️ 技术栈
 - 博客框架：Jekyll + GitHub Pages
 - 常用语言：Java / Vue / Python / C / LaTeX
-- 专业工具：MATLAB（电力系统仿真）
+- 专业工具：MATLAB（电力系统仿真）、PSCAD / EMTDC（暂态仿真）
 
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
@@ -48,9 +48,10 @@
 │   └── videos
 ├── data
 │   ├── friends.yml
+├── index.md
 ├── pages
 │   ├── archive.md
-│   ├── friends.md
+│   └── friends.md
 ├── requirements.txt
 ├── scripts
 │   └── generate_readme.py
@@ -59,7 +60,7 @@
 ```
 
 ---
-> 最后更新：2026-03-03 13:06:07 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-03-03 13:19:46 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
