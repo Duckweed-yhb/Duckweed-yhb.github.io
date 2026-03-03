@@ -7,13 +7,13 @@
 
 /* 背景视频核心样式 - 区分PC/移动端适配 */
 .bg-video {
-    position: fixed;          /* 固定在屏幕，不随滚动移动 */
+    position: fixed;          
     top: 0;
     left: 0;
-    width: 100vw;             /* 用vw单位，适配手机宽度 */
-    height: 100vh;            /* 用vh单位，适配手机高度 */
-    z-index: -1;              /* 放在内容最底层，不遮挡文字 */
-    background: #0a1a3a;      /* 匹配视频的深蓝色，让留白更融合 */
+    width: 100vw;             
+    height: 100vh;            
+    z-index: -1;              
+    background: #0a1a3a;      
 }
 
 /* PC端视频：完整展示（无裁剪） */
@@ -23,35 +23,35 @@
     }
 }
 
-/* 🔥 移动端视频：填充屏幕（避免黑边/留白），优先显示核心画面 */
+/* 移动端视频：填充屏幕（避免黑边/留白） */
 @media (max-width: 768px) {
     .bg-video {
-        object-fit: cover;    /* 覆盖屏幕，裁剪非核心区域（手机端更友好） */
-        object-position: center; /* 居中显示视频核心内容 */
+        object-fit: cover;    
+        object-position: center;
     }
 }
 
-/* 页面基础样式 - 移动端优化 */
+/* 页面基础样式 - 全局统一 */
 body {
     min-height: 100vh;
     width: 100%;
     font-family: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.7; /* 优化全局行高，提升阅读感 */
     color: #333;
-    padding: 0 10px;          /* 移动端减少左右内边距，避免内容挤压 */
-    background-color: #0a1a3a;/* 视频加载失败时的兜底背景色 */
-    /* 移动端禁止横向滚动，避免适配问题 */
+    padding: 0 10px;          
+    background-color: #0a1a3a;
     overflow-x: hidden;
 }
 
-/* 导航栏样式 - 移动端适配强化 */
+/* 导航栏样式 - 统一居中+宽度+透明度 */
 .site-header {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
     padding: 15px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 20px 5% 30px auto;
-    max-width: 800px;
+    margin: 20px auto 30px auto; /* 统一居中 */
+    max-width: 950px; /* 和文章框宽度统一 */
+    width: 90%; /* 适配屏幕 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,8 +85,8 @@ body {
     color: #34495e;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
-    padding: 5px 10px;
+    transition: all 0.3s ease; /* 统一过渡效果 */
+    padding: 8px 12px; /* 增大点击区域 */
     border-radius: 6px;
 }
 
@@ -95,25 +95,33 @@ body {
     background-color: rgba(52, 152, 219, 0.1);
 }
 
-/* 响应式菜单样式 - 移动端优化 */
+/* 响应式菜单样式 - 优化移动端体验 */
 .nav-trigger {
     display: none;
 }
 
 .menu-icon {
     display: none;
-    font-size: 1.5em;         /* 增大移动端菜单图标，方便点击 */
+    font-size: 1.6em; /* 增大图标，更易点击 */
     color: #2c3e50;
+    padding: 8px; /* 扩大点击区域 */
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-/* 区分首页和文章页的page-content样式 */
+.menu-icon:hover {
+    color: #3498db;
+}
+
+/* 区分首页和文章页的page-content样式 - 统一透明度+居中 */
 body.layout-home .page-content {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    padding: 40px 35px; /* 加大内边距，提升呼吸感 */
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    margin: 0 5% 30px auto;
-    max-width: 500px;
+    margin: 0 auto 30px auto; /* 统一居中 */
+    max-width: 950px; /* 和导航/文章框统一宽度 */
+    width: 90%;
     position: relative;
     z-index: 10;
 }
@@ -129,21 +137,21 @@ body.layout-post .page-content {
     z-index: 10;
 }
 
-/* 文章列表样式 - 调大尺寸核心修改 */
+/* 文章列表样式 - 统一风格+优化间距 */
 .post-list {
     list-style: none;
     padding: 0;
 }
 
 .post {
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    padding: 35px 30px;       /* 调大内边距：原25px → 35px(上下)/30px(左右) */
+    background-color: rgba(255, 255, 255, 0.88) !important; /* 统一透明度 */
+    padding: 40px 35px; /* 加大内边距，提升阅读呼吸感 */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin: 0 auto 25px auto; /* 改为居中显示，视觉更平衡 */
-    max-width: 900px;         /* 调大最大宽度：原无 → 900px */
-    width: 90%;               /* 适配屏幕宽度，占90% */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto 30px auto; /* 统一居中+加大间距 */
+    max-width: 950px; /* 全局统一宽度 */
+    width: 90%;
+    transition: all 0.3s ease; /* 统一过渡 */
 }
 
 .post:hover {
@@ -152,11 +160,13 @@ body.layout-post .page-content {
 }
 
 .post-link {
-    font-size: 1.5em;
+    font-size: 1.6em; /* 加大标题字号 */
     font-weight: 600;
     color: #2980b9;
     text-decoration: none;
     transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 15px; /* 加大标题和元信息间距 */
 }
 
 .post-link:hover {
@@ -165,40 +175,38 @@ body.layout-post .page-content {
 
 .post-meta {
     color: #7f8c8d;
-    font-size: 0.9em;
-    margin-bottom: 15px;
+    font-size: 0.95em; /* 稍大字号，提升可读性 */
+    margin-bottom: 20px; /* 加大元信息和内容间距 */
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0; /* 增加分隔线，更清晰 */
 }
 
-/* ========== 新增：阅读量统计样式（PC+移动端适配） ========== */
-/* 基础阅读量样式 */
+/* 阅读量统计样式 - 优化视觉 */
 .post-views {
     color: #666;
-    font-size: 0.9em;
+    font-size: 0.95em;
     display: inline-flex;
     align-items: center;
-    gap: 4px; /* 图标和文字间距 */
+    gap: 6px;
 }
 
-/* 阅读量图标样式 */
 .post-views i {
     color: #888;
-    font-size: 0.95em;
+    font-size: 1em;
     transition: color 0.3s ease;
 }
 
-/* 鼠标悬浮时图标变色（和导航栏hover色统一） */
 .post:hover .post-views i {
     color: #3498db;
 }
 
-/* 文章详情页阅读量样式强化 */
 .post-container .post-views {
     color: #718096;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
 }
 
@@ -206,72 +214,73 @@ body.layout-post .page-content {
     color: #94a3b8;
 }
 
-/* ========== 阅读量样式结束 ========== */
-
-/* 文章详情页核心样式 - 调大尺寸核心修改 + 移动端适配强化 */
+/* 文章详情页核心样式 - 统一+优化阅读体验 */
 .post-container {
-    max-width: 950px !important;   /* 调大最大宽度：原800px → 950px */
-    width: 95%;                    /* 适配屏幕宽度，占95% */
+    max-width: 950px !important; /* 全局统一宽度 */
+    width: 90% !important;
     margin: 2rem auto 30px auto !important;
-    padding: 2.5rem 2rem;          /* 调大内边距：原2rem → 2.5rem(上下)/2rem(左右) */
-    background-color: rgba(255, 255, 255, 0.6) !important;
+    padding: 3rem 2.5rem; /* 加大内边距，提升呼吸感 */
+    background-color: rgba(255, 255, 255, 0.88) !important; /* 统一透明度 */
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     position: relative;
     z-index: 10;
-    /* 移动端增加最小内边距，避免文字贴边 */
     min-width: 0 !important;
 }
 
 .post-container .post-title {
-    font-size: 2rem;
+    font-size: 2.2em; /* 加大标题字号 */
     color: #2d3748;
-    margin-bottom: 1rem;
-    line-height: 1.3;
+    margin-bottom: 1.5rem; /* 加大间距 */
+    line-height: 1.4;
     text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .post-container .post-meta {
     color: #718096;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem; /* 加大间距 */
+    padding-bottom: 15px;
     border-bottom: 1px solid #eee;
     text-align: center;
 }
 
 .post-container .post-content {
     color: #2d3748;
-    line-height: 1.8;
-    font-size: 1.1rem;
+    line-height: 1.8; /* 优化行高，提升阅读感 */
+    font-size: 1.15em; /* 稍大字号 */
     text-align: left;
-    padding: 0 1rem;
-    /* 移动端内容换行优化，避免长文字溢出 */
+    padding: 0 0.5rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-/* 文章详情页代码块 - 移动端适配 */
+/* 文章内容段落间距 - 核心提升阅读感 */
+.post-container .post-content p {
+    margin-bottom: 1.5rem; /* 加大段落间距 */
+}
+
+/* 文章详情页代码块 - 优化样式 */
 .post-container .post-content pre {
-    background-color: rgba(247, 250, 252, 0.9);
-    padding: 1rem;
+    background-color: rgba(247, 250, 252, 0.95);
+    padding: 1.2rem;
     border-radius: 8px;
-    overflow-x: auto;         /* 代码块横向滚动，适配手机屏幕 */
+    overflow-x: auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    /* 移动端缩小代码块内边距，节省空间 */
-    padding: 0.8rem;
+    margin: 1.5rem 0; /* 加大代码块间距 */
 }
 
 .post-container .post-content code {
-    background-color: rgba(247, 250, 252, 0.9);
-    padding: 0.2rem 0.4rem;
+    background-color: rgba(247, 250, 252, 0.95);
+    padding: 0.3rem 0.5rem;
     border-radius: 4px;
     font-family: 'Fira Code', monospace;
-    /* 移动端缩小字体，避免代码溢出 */
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
-/* 分类/标签样式 */
+/* 分类/标签样式 - 优化视觉 */
 .post-category, .post-tags {
     display: inline-block;
 }
@@ -279,38 +288,42 @@ body.layout-post .page-content {
 .post-category a {
     color: #3498db !important;
     text-decoration: none;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px; /* 加大点击区域 */
+    border-radius: 6px;
     background: rgba(52, 152, 219, 0.1);
+    transition: all 0.3s ease;
 }
 
 .post-tags a {
     color: #fb7299 !important;
     text-decoration: none;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px; /* 加大点击区域 */
+    border-radius: 6px;
     background: rgba(251, 114, 153, 0.1);
+    transition: all 0.3s ease;
 }
 
 .post-category a:hover, .post-tags a:hover {
-    opacity: 0.8;
+    opacity: 0.9;
+    transform: translateY(-2px); /* 轻微悬浮效果 */
 }
 
-/* 页脚样式 - 移动端适配 */
+/* 页脚样式 - 统一居中+宽度+透明度 */
 .site-footer {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 30px 30px 40px;
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    padding: 40px 35px; /* 加大内边距 */
     border-radius: 12px;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-    margin: 30px 5% 20px auto;
-    max-width: 800px;
+    margin: 30px auto 20px auto; /* 统一居中 */
+    max-width: 950px; /* 全局统一宽度 */
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     position: relative;
     z-index: 10;
-    min-height: 200px;
+    min-height: auto; /* 自适应高度 */
 }
 
 .footer-col-wrapper {
@@ -322,14 +335,16 @@ body.layout-post .page-content {
 
 .footer-col {
     flex: 1;
-    min-width: 180px;
+    min-width: 200px; /* 加大最小宽度，避免挤压 */
 }
 
 .footer-heading {
-    font-size: 1.1em;
+    font-size: 1.2em; /* 加大标题字号 */
     font-weight: 600;
     margin-bottom: 20px;
     color: #2c3e50;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3498db; /* 增加分隔线 */
 }
 
 .contact-list, .social-media-list {
@@ -339,12 +354,12 @@ body.layout-post .page-content {
 }
 
 .contact-list li {
-    margin-bottom: 15px;
+    margin-bottom: 18px; /* 加大间距 */
     font-size: 1.05em;
 }
 
 .social-media-list li {
-    margin-bottom: 18px !important;
+    margin-bottom: 20px !important; /* 加大间距 */
     font-size: 1.15em !important;
     line-height: 1.8 !important;
 }
@@ -356,12 +371,12 @@ body.layout-post .page-content {
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
-    padding: 5px 0 !important;
+    padding: 8px 0 !important; /* 加大点击区域 */
 }
 
 .social-icon {
-    width: 1.4em !important;
-    height: 1.4em !important;
+    width: 1.5em !important; /* 加大图标 */
+    height: 1.5em !important;
     margin-right: 8px !important;
     vertical-align: middle !important;
     display: inline-block !important;
@@ -370,6 +385,7 @@ body.layout-post .page-content {
 
 .contact-list a:hover, .social-media-list a:hover {
     color: #3498db !important;
+    transform: translateX(5px); /* 轻微悬浮效果 */
 }
 
 .social-media-list a:hover .social-icon {
@@ -380,21 +396,73 @@ body.layout-post .page-content {
     content: none !important;
 }
 
-/* 分类/标签页样式 - 移动端适配 */
+/* 页脚底部额外信息样式 */
+.footer-bottom {
+    max-width: 950px;
+    width: 90%;
+    margin: 0 auto 20px auto;
+    padding: 15px 0;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 0.9em;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* 页脚版权/备案号样式 */
+.copyright, .beian {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+.beian a {
+    color: #7f8c8d !important;
+    transition: color 0.3s ease;
+}
+
+.beian a:hover {
+    color: #3498db !important;
+}
+
+/* 移动端页脚优化 */
+@media (max-width: 768px) {
+    .footer-bottom {
+        width: 98%;
+        font-size: 0.85em;
+        padding: 10px 0;
+    }
+    
+    .copyright, .beian {
+        font-size: 0.85em;
+    }
+}
+/* 分类/标签页样式 - 统一风格 */
 .category-list, .tag-list {
-    background-color: rgba(255, 255, 255, 0.98);
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    padding: 35px 30px; /* 加大内边距 */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin: 0 auto 20px auto !important;
-    max-width: 800px;
+    margin: 0 auto 30px auto !important;
+    max-width: 950px; /* 全局统一宽度 */
+    width: 90%;
 }
 
 .category-list h3, .tag-list h3 {
     color: #2c3e50;
-    font-size: 1.4em;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
+    font-size: 1.6em; /* 加大标题字号 */
+    margin-bottom: 20px; /* 加大间距 */
+    padding-bottom: 10px;
     border-bottom: 2px solid #3498db;
     text-align: center;
 }
@@ -405,54 +473,60 @@ body.layout-post .page-content {
 }
 
 .category-list li, .tag-list li {
-    padding: 8px 0;
+    padding: 12px 0; /* 加大行高 */
     border-bottom: 1px dashed #eee;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.05em;
 }
 
 .post-date {
     color: #7f8c8d;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
-/* 标签云样式 - 移动端适配 */
+/* 标签云样式 - 优化视觉 */
 .tag-cloud {
-    background-color: rgba(255, 255, 255, 0.98);
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    padding: 35px 30px; /* 加大内边距 */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin: 0 auto 20px auto !important;
-    max-width: 800px;
+    margin: 0 auto 30px auto !important;
+    max-width: 950px; /* 全局统一宽度 */
+    width: 90%;
 }
 
 .tag-cloud a {
     display: inline-block;
-    padding: 5px 12px;
+    padding: 8px 15px; /* 加大点击区域 */
     margin: 0 8px 8px 0;
     background: #f0f8ff;
     color: #3498db;
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.3s ease;
+    font-size: 1.05em;
 }
 
 .tag-cloud a:hover {
     background-color: #3498db;
     color: white !important;
+    transform: translateY(-3px); /* 轻微悬浮效果 */
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
 }
 
 .category-nav {
     margin-top: 30px;
-    padding: 15px;
+    padding: 20px; /* 加大内边距 */
     background: #f5f5f5;
     border-radius: 8px;
 }
 
 .category-nav h4 {
     color: #2c3e50;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* 加大间距 */
+    font-size: 1.15em;
 }
 
 .category-nav ul {
@@ -460,38 +534,111 @@ body.layout-post .page-content {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px; /* 加大间距 */
 }
 
 .category-nav ul li a {
     color: #3498db;
     text-decoration: none;
+    font-size: 1.05em;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
 .category-nav ul li a:hover {
     text-decoration: underline;
+    background-color: rgba(52, 152, 219, 0.1);
 }
 
-/* 🔥 移动端核心适配（768px以下）- 重点优化 🔥 */
+/* 搜索框样式 - 统一全站风格（需和你的搜索HTML配合） */
+#search-toggle-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    color: #2c3e50;
+    cursor: pointer;
+    min-width: 90px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#search-toggle-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+#search-box-container {
+    gap: 15px;
+}
+
+#search-input {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1em;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.95);
+    transition: border-color 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+#search-box-container button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #2c3e50;
+    cursor: pointer;
+    min-width: 90px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#search-box-container button:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+#search-results {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* 移动端核心适配（768px以下）- 全维度优化 */
 @media (max-width: 768px) {
-    /* 导航栏：全屏宽度+居中+更大点击区域 */
+    /* 导航栏移动端 */
     .site-header {
-        padding: 12px 15px;    /* 减少内边距，适配小屏幕 */
+        padding: 12px 15px;
         margin: 15px auto 20px auto;
-        max-width: 100%;       /* 占满手机屏幕宽度 */
-        border-radius: 8px;    /* 减小圆角，更适配手机 */
+        max-width: 100%;
+        width: 98%; /* 留2%边距，避免贴边 */
+        border-radius: 8px;
     }
 
     .site-title {
-        font-size: 1.4em;      /* 缩小标题，避免换行 */
+        font-size: 1.5em; /* 稍大字号，提升可读性 */
         margin-bottom: 8px;
     }
 
-    /* 移动端菜单：优化交互 */
+    /* 移动端菜单优化 */
     .menu-icon {
         display: inline-block;
-        cursor: pointer;
-        padding: 5px;          /* 增大点击区域，方便触摸 */
     }
 
     .nav-trigger:not(:checked) ~ .trigger {
@@ -501,84 +648,86 @@ body.layout-post .page-content {
     .nav-trigger:checked ~ .trigger {
         display: flex;
         flex-direction: column;
-        margin-top: 10px;
-        gap: 10px;             /* 增大菜单间距，避免误触 */
+        margin-top: 15px;
+        gap: 12px; /* 加大间距，避免误触 */
     }
 
     .site-nav .page-link {
-        font-size: 1em;        /* 增大移动端菜单文字，方便阅读 */
-        padding: 8px 12px;     /* 增大点击区域 */
-        width: 100%;           /* 菜单占满宽度，更易点击 */
+        font-size: 1.05em; /* 加大字号 */
+        padding: 10px 15px; /* 加大点击区域 */
+        width: 100%;
         text-align: center;
-    }
-
-    /* 首页移动端：全屏宽度+居中 */
-    body.layout-home .page-content {
-        margin: 0 auto 20px auto;
-        max-width: 100%;       /* 占满手机屏幕 */
-        padding: 20px 15px;    /* 优化内边距，避免内容贴边 */
         border-radius: 8px;
     }
 
-    /* 文章详情页移动端：适配调大后的尺寸 */
+    /* 首页移动端 */
+    body.layout-home .page-content {
+        margin: 0 auto 20px auto;
+        max-width: 100%;
+        width: 98%;
+        padding: 30px 20px;
+        border-radius: 8px;
+    }
+
+    /* 文章详情页移动端 */
     .post-container {
         margin: 1rem auto 20px auto !important;
-        max-width: 100% !important; /* 占满手机屏幕 */
-        width: 98% !important;      /* 留2%边距，避免贴边 */
-        padding: 2rem 15px !important; /* 调大上下内边距，适配整体尺寸 */
-        background-color: rgba(255, 255, 255, 0.7) !important; /* 移动端提高透明度，兼顾文字可读性和背景显示 */
+        max-width: 100% !important;
+        width: 98% !important;
+        padding: 2rem 15px !important;
+        background-color: rgba(255, 255, 255, 0.9) !important; /* 移动端稍提高透明度，兼顾可读性 */
     }
 
     .post-container .post-title {
-        font-size: 1.6em;      /* 缩小标题，避免换行 */
+        font-size: 1.8em;
         line-height: 1.4;
     }
 
     .post-container .post-meta {
-        font-size: 0.85em;     /* 缩小元信息，节省空间 */
-        margin-bottom: 1.5rem;
+        font-size: 0.9em;
+        margin-bottom: 2rem;
     }
 
     .post-container .post-content {
-        font-size: 1em;        /* 适配手机阅读的字体大小 */
-        line-height: 1.7;      /* 优化行高，减少阅读疲劳 */
+        font-size: 1.1em;
+        line-height: 1.7;
         padding: 0 8px;
     }
 
-    /* 文章列表移动端：适配调大后的尺寸 */
+    /* 文章列表移动端 */
     .post {
-        padding: 30px 20px;    /* 调大移动端内边距，适配PC端修改 */
+        padding: 30px 20px;
         margin: 0 auto 20px auto;
         max-width: 100%;
-        width: 98%;            /* 留2%边距，避免贴边 */
+        width: 98%;
     }
 
     .post-link {
-        font-size: 1.2em;
+        font-size: 1.4em;
     }
 
-    /* ========== 移动端阅读量样式适配 ========== */
+    /* 阅读量移动端 */
     .post-views {
-        font-size: 0.85em; /* 移动端缩小阅读量文字 */
+        font-size: 0.9em;
     }
 
     .post-views i {
-        font-size: 0.9em; /* 移动端缩小图标 */
+        font-size: 0.95em;
     }
-    /* ========== 移动端阅读量样式结束 ========== */
 
-    /* 页脚移动端：全屏宽度+优化布局 */
+    /* 页脚移动端 */
     .site-footer {
         margin: 20px auto 15px auto;
-        max-width: 100%;       /* 占满手机屏幕 */
-        padding: 20px 15px 30px;
-        min-height: auto;      /* 取消最小高度，自适应内容 */
+        max-width: 100%;
+        width: 98%;
+        padding: 30px 20px;
+        min-height: auto;
         border-radius: 8px;
     }
 
     .footer-col-wrapper {
         flex-direction: column;
-        gap: 20px;
+        gap: 25px;
     }
 
     .footer-col {
@@ -586,40 +735,53 @@ body.layout-post .page-content {
     }
 
     .footer-heading {
-        font-size: 1em;
+        font-size: 1.15em;
         margin-bottom: 15px;
     }
 
     .contact-list li, .social-media-list li {
-        font-size: 0.95em;
+        font-size: 1em;
     }
 
     .social-icon {
-        width: 1.3em !important; /* 适配手机的图标大小 */
+        width: 1.4em !important;
     }
 
     /* 分类/标签页移动端 */
     .category-list, .tag-list {
         max-width: 100%;
-        padding: 15px;
+        width: 98%;
+        padding: 25px 20px;
     }
 
     .category-list li, .tag-list li {
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
-        font-size: 0.95em;
+        gap: 8px;
+        font-size: 1em;
     }
 
     /* 标签云移动端 */
     .tag-cloud {
         max-width: 100%;
-        padding: 15px;
+        width: 98%;
+        padding: 25px 20px;
     }
 
     .tag-cloud a {
-        padding: 4px 10px;
-        font-size: 0.9em;
+        padding: 6px 12px;
+        font-size: 1em;
         margin: 0 5px 5px 0;
+    }
+
+    /* 搜索框移动端 */
+    #search-input {
+        width: 75%;
+        padding: 10px 15px;
+    }
+
+    #search-toggle-btn, #search-box-container button {
+        padding: 10px 15px;
+        min-width: 80px;
     }
 }

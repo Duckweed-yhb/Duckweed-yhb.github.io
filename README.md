@@ -18,7 +18,7 @@
 |---------------|------|
 | 2026-02-23 | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/概率论与数理统计笔记/) |
 | 2026-02-23 | [大学物理整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/大学物理(热学光学量子物理)笔记/) |
-| 2026-02-21 | [Welcome to Duckweed's Space](https://duckweed-yhb.github.io/2026/02/21/Welcome to Duckweed's Space/) |
+| 2026-02-21 | [欢迎来到我的博客](https://duckweed-yhb.github.io/2026/02/21/Welcome to Duckweed's Space/) |
 | 2026-02-10 | [C语言知识总结](https://duckweed-yhb.github.io/c-language-notes/) |
 
 ---
