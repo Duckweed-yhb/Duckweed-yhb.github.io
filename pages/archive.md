@@ -4,7 +4,7 @@ title: 档案
 permalink: /archive/
 ---
 
-# 档案
+<!-- 移除重复的 # 档案 标题 -->
 所有已发布帖子的汇总与分类索引
 
 <!-- 切换按钮样式 -->
@@ -154,4 +154,4 @@ function switchTab(tabName, element) {
   document.getElementById(tabName).classList.add('active');
   element.classList.add('active');
 }
-</script>
+</script> 
