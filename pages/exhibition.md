@@ -1,6 +1,6 @@
 ---
-layout: default  # 改用你自定义的default布局，匹配全站样式
-title: 展览
+layout: default
+title: 展览  # 核心：必须保留该title，否则导航栏不显示链接
 permalink: /exhibition/
 ---
 
@@ -14,6 +14,7 @@ permalink: /exhibition/
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    box-sizing: border-box;
   }
 
   .exhibition-container {
@@ -22,18 +23,19 @@ permalink: /exhibition/
     gap: 30px;
     margin: 40px 0;
     justify-content: center;
+    width: 100%;
   }
 
   .exhibition-card {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 300px;
     max-width: 450px;
     background: rgba(255, 255, 255, 0.88);
     padding: 35px 25px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    backdrop-filter: blur(8px); /* 新增：毛玻璃效果，匹配全站风格 */
+    backdrop-filter: blur(8px);
+    box-sizing: border-box;
   }
 
   .exhibition-card:hover {
@@ -47,7 +49,7 @@ permalink: /exhibition/
     color: #3498db;
     transition: all 0.3s ease;
     display: block;
-    text-align: center; /* 新增：图标居中 */
+    text-align: center;
     cursor: pointer;
   }
 
@@ -61,11 +63,11 @@ permalink: /exhibition/
     margin: 0 0 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-align: center; /* 新增：标题居中 */
+    text-align: center;
   }
 
   .card-title:hover {
-    color: #3498db; /* 新增：标题hover变色 */
+    color: #3498db;
   }
 
   .card-desc {
@@ -73,7 +75,7 @@ permalink: /exhibition/
     margin-bottom: 25px;
     font-size: 1em;
     line-height: 1.6;
-    text-align: center; /* 新增：描述居中 */
+    text-align: center;
   }
 
   .card-divider {
@@ -98,15 +100,17 @@ permalink: /exhibition/
     padding: 0;
     line-height: 1.8;
     color: #555;
+    margin: 0;
   }
 
   .card-list li {
     padding-left: 8px;
     transition: all 0.2s ease;
     position: relative;
+    margin-bottom: 8px;
   }
 
-  /* 新增：列表项前小圆点 */
+  /* 列表项前小圆点 */
   .card-list li::before {
     content: "•";
     color: #3498db;
@@ -128,9 +132,9 @@ permalink: /exhibition/
 
   /* 展开/收起样式 */
   .card-content {
-    max-height: none;
+    max-height: 2000px;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card-content.active {
@@ -141,17 +145,37 @@ permalink: /exhibition/
   @media (max-width: 768px) {
     .exhibition-container {
       gap: 20px;
+      margin: 20px 0;
     }
     .exhibition-card {
-      min-width: 90%;
+      flex: 1 1 90%;
       padding: 25px 20px;
     }
     .page-content .wrapper {
       padding: 10px;
     }
+    .card-icon {
+      font-size: 38px;
+    }
+    .card-title {
+      font-size: 1.3em;
+    }
   }
 
-  /* 暗黑模式适配（新增） */
+  /* 小屏设备适配 */
+  @media (max-width: 480px) {
+    .exhibition-card {
+      flex: 1 1 100%;
+    }
+    .sub-category {
+      font-size: 1.05em;
+    }
+    .card-list {
+      font-size: 0.95em;
+    }
+  }
+
+  /* 暗黑模式适配 */
   @media (prefers-color-scheme: dark) {
     .exhibition-card {
       background: rgba(30, 30, 40, 0.88);
@@ -167,6 +191,9 @@ permalink: /exhibition/
     }
     .card-list {
       color: #ddd;
+    }
+    .card-title:hover {
+      color: #3498db;
     }
   }
 </style>
@@ -297,17 +324,15 @@ permalink: /exhibition/
 
 <!-- 核心交互脚本 -->
 <script>
-// 展开/收起卡片逻辑（修复交互bug）
+// 展开/收起卡片逻辑
 function toggleCard(cardId) {
-  event && event.stopPropagation();
+  if (event) event.stopPropagation();
   const content = document.getElementById(cardId);
   const title = content.closest('.exhibition-card').querySelector('.card-title');
   
-  // 切换激活状态
   content.classList.toggle('active');
   title.classList.toggle('active');
   
-  // 展开时滚动到可视区域
   if (!content.classList.contains('active')) {
     setTimeout(() => {
       content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -315,20 +340,36 @@ function toggleCard(cardId) {
   }
 }
 
-// 图标点击也可展开
+// 图标点击触发展开/收起
 document.querySelectorAll('.card-icon').forEach(icon => {
-  icon.onclick = function(e) {
+  icon.addEventListener('click', function(e) {
     e.stopPropagation();
     const title = this.nextElementSibling;
     const cardId = title.getAttribute('onclick').match(/'(\w+)'/)[1];
     toggleCard(cardId);
-  };
+  });
 });
 
 // 页面加载完成后初始化（所有卡片默认展开）
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.card-content').forEach(content => {
-    content.classList.remove('active'); // 默认展开
+  const allContents = document.querySelectorAll('.card-content');
+  allContents.forEach(content => content.classList.remove('active'));
+  
+  // 优化动画体验
+  setTimeout(() => {
+    allContents.forEach(content => {
+      content.style.transition = 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+  }, 100);
+});
+
+// 适配窗口大小变化
+window.addEventListener('resize', function() {
+  const allContents = document.querySelectorAll('.card-content');
+  allContents.forEach(content => {
+    if (!content.classList.contains('active')) {
+      content.style.maxHeight = '2000px';
+    }
   });
 });
 </script>

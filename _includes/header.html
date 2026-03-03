@@ -25,7 +25,12 @@
           {%- for path in page_paths -%}
             {%- assign my_page = site.pages | where: "path", path | first -%}
             {%- if my_page.title -%}
-              {%- assign nav_title = my_page.title == "About" ? "关于" : my_page.title -%}
+              <!-- 修复Liquid三元运算符语法错误 -->
+              {%- if my_page.title == "About" -%}
+                {%- assign nav_title = "关于" -%}
+              {%- else -%}
+                {%- assign nav_title = my_page.title -%}
+              {%- endif -%}
               <a 
                 class="page-link {% if page.url == my_page.url %}active{% endif %}" 
                 href="{{ my_page.url | relative_url }}"
@@ -35,7 +40,6 @@
               </a>
             {%- endif -%}
           {%- endfor -%}
-          <!-- 移除硬编码的友链，避免重复 -->
         </div>
       </nav>
     {%- endif -%}
@@ -76,6 +80,7 @@
   align-items: center;
 }
 
+/* 核心：强制所有链接显示白色小框 */
 .page-link {
   color: #2c3e50;
   text-decoration: none;
@@ -84,11 +89,14 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   white-space: nowrap;
+  background-color: rgba(255, 255, 255, 0.9); /* 白色背景框 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); /* 轻微阴影强化框体 */
 }
 
 .page-link:hover, .page-link.active {
   color: #3498db;
   background-color: rgba(52, 152, 219, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 移动端适配 */
@@ -153,6 +161,7 @@
 
   .page-link {
     color: #ecf0f1;
+    background-color: rgba(30, 30, 40, 0.9); /* 暗黑模式深色框 */
   }
 
   .page-link:hover, .page-link.active {

@@ -41,10 +41,10 @@ defaults:
 paginate: 5
 paginate_path: "/page/:num/"
 
-# 导航栏配置（添加展览页面，顺序：档案 → 展览 → 友链，无重复）
+# 导航栏配置（顺序：档案 → 展览 → 友链，无重复）
 header_pages:
   - pages/archive.md
-  - pages/exhibition.md  # 新增：展览页面，显示「展览」导航项
+  - pages/exhibition.md  # 展览页面，确保路径和文件一致
   - pages/friends.md
 
 # ===================== 排除文件 =====================
