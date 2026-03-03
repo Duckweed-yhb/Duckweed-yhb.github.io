@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default  # 改用你自定义的default布局，匹配全站样式
 title: 展览
 permalink: /exhibition/
 ---
@@ -9,6 +9,13 @@ permalink: /exhibition/
 
 <!-- 统一样式 + 全站视觉统一 -->
 <style>
+  /* 页面容器适配 */
+  .page-content .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
   .exhibition-container {
     display: flex;
     flex-wrap: wrap;
@@ -26,6 +33,7 @@ permalink: /exhibition/
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    backdrop-filter: blur(8px); /* 新增：毛玻璃效果，匹配全站风格 */
   }
 
   .exhibition-card:hover {
@@ -38,6 +46,9 @@ permalink: /exhibition/
     margin-bottom: 20px;
     color: #3498db;
     transition: all 0.3s ease;
+    display: block;
+    text-align: center; /* 新增：图标居中 */
+    cursor: pointer;
   }
 
   .exhibition-card:hover .card-icon {
@@ -50,6 +61,11 @@ permalink: /exhibition/
     margin: 0 0 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-align: center; /* 新增：标题居中 */
+  }
+
+  .card-title:hover {
+    color: #3498db; /* 新增：标题hover变色 */
   }
 
   .card-desc {
@@ -57,6 +73,7 @@ permalink: /exhibition/
     margin-bottom: 25px;
     font-size: 1em;
     line-height: 1.6;
+    text-align: center; /* 新增：描述居中 */
   }
 
   .card-divider {
@@ -80,16 +97,44 @@ permalink: /exhibition/
     list-style: none;
     padding: 0;
     line-height: 1.8;
+    color: #555;
   }
 
   .card-list li {
     padding-left: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  /* 新增：列表项前小圆点 */
+  .card-list li::before {
+    content: "•";
+    color: #3498db;
+    position: absolute;
+    left: -8px;
+    opacity: 0;
     transition: all 0.2s ease;
   }
 
   .card-list li:hover {
     color: #3498db;
     padding-left: 12px;
+  }
+
+  .card-list li:hover::before {
+    opacity: 1;
+    left: 0;
+  }
+
+  /* 展开/收起样式 */
+  .card-content {
+    max-height: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .card-content.active {
+    max-height: 0;
   }
 
   /* 移动端适配 */
@@ -101,11 +146,33 @@ permalink: /exhibition/
       min-width: 90%;
       padding: 25px 20px;
     }
+    .page-content .wrapper {
+      padding: 10px;
+    }
+  }
+
+  /* 暗黑模式适配（新增） */
+  @media (prefers-color-scheme: dark) {
+    .exhibition-card {
+      background: rgba(30, 30, 40, 0.88);
+    }
+    .card-title {
+      color: #ecf0f1;
+    }
+    .card-desc {
+      color: #bdc3c7;
+    }
+    .sub-category {
+      color: #ecf0f1;
+    }
+    .card-list {
+      color: #ddd;
+    }
   }
 </style>
 
 <div class="exhibition-container">
-  <!-- 项目卡片（核心更新：按真实开发状态） -->
+  <!-- 项目卡片 -->
   <div class="exhibition-card">
     <div class="card-icon">📂</div>
     <h3 class="card-title" onclick="toggleCard('project')">项目</h3>
@@ -134,7 +201,7 @@ permalink: /exhibition/
     </div>
   </div>
 
-  <!-- 技能卡片（按你的要求最终版） -->
+  <!-- 技能卡片 -->
   <div class="exhibition-card">
     <div class="card-icon">⚡</div>
     <h3 class="card-title" onclick="toggleCard('skill')">技能</h3>
@@ -163,7 +230,7 @@ permalink: /exhibition/
     </div>
   </div>
 
-  <!-- 书籍卡片（按截图清单精准整理） -->
+  <!-- 书籍卡片 -->
   <div class="exhibition-card">
     <div class="card-icon">📚</div>
     <h3 class="card-title" onclick="toggleCard('book')">书籍</h3>
@@ -230,24 +297,38 @@ permalink: /exhibition/
 
 <!-- 核心交互脚本 -->
 <script>
+// 展开/收起卡片逻辑（修复交互bug）
 function toggleCard(cardId) {
   event && event.stopPropagation();
   const content = document.getElementById(cardId);
   const title = content.closest('.exhibition-card').querySelector('.card-title');
   
+  // 切换激活状态
   content.classList.toggle('active');
   title.classList.toggle('active');
   
-  if (content.classList.contains('active')) {
-    setTimeout(() => content.scrollIntoView({ behavior: 'smooth' }), 100);
+  // 展开时滚动到可视区域
+  if (!content.classList.contains('active')) {
+    setTimeout(() => {
+      content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
   }
 }
 
 // 图标点击也可展开
 document.querySelectorAll('.card-icon').forEach(icon => {
-  icon.onclick = function() {
-    const cardId = this.nextElementSibling.getAttribute('onclick').match(/'(\w+)'/)[1];
+  icon.onclick = function(e) {
+    e.stopPropagation();
+    const title = this.nextElementSibling;
+    const cardId = title.getAttribute('onclick').match(/'(\w+)'/)[1];
     toggleCard(cardId);
   };
+});
+
+// 页面加载完成后初始化（所有卡片默认展开）
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.card-content').forEach(content => {
+    content.classList.remove('active'); // 默认展开
+  });
 });
 </script>

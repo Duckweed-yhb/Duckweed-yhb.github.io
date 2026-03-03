@@ -6,7 +6,7 @@ description: >-
 baseurl: ""
 url: "https://Duckweed-yhb.github.io"
 timezone: Asia/Shanghai
-lang: zh-CN  # 新增：匹配你的页面语言，避免默认英文
+lang: zh-CN  # 匹配你的页面语言，避免默认英文
 
 # ===================== 主题与插件配置 =====================
 theme: minima
@@ -22,7 +22,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      math: true  # 新增：所有文章默认加载MathJax
+      math: true  # 所有文章默认加载MathJax
   # pages 目录下的页面默认使用 default 布局（你的自定义布局）
   - scope:
       path: "pages"
@@ -41,9 +41,10 @@ defaults:
 paginate: 5
 paginate_path: "/page/:num/"
 
-# 导航栏配置（绝对无重复，彻底解决白色小框）
+# 导航栏配置（添加展览页面，顺序：档案 → 展览 → 友链，无重复）
 header_pages:
   - pages/archive.md
+  - pages/exhibition.md  # 新增：展览页面，显示「展览」导航项
   - pages/friends.md
 
 # ===================== 排除文件 =====================

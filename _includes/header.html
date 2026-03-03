@@ -35,15 +35,7 @@
               </a>
             {%- endif -%}
           {%- endfor -%}
-          
-          <!-- 友链导航入口 -->
-          <a 
-            class="page-link {% if page.url contains '/friends/' %}active{% endif %}" 
-            href="{{ "/friends/" | relative_url }}"
-            aria-current="{% if page.url contains '/friends/' %}page{% else %}false{% endif %}"
-          >
-            友链
-          </a>
+          <!-- 移除硬编码的友链，避免重复 -->
         </div>
       </nav>
     {%- endif -%}
