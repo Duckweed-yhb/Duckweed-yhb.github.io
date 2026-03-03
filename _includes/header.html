@@ -10,8 +10,8 @@
         <i class="fas fa-search"></i> 搜索
       </button>
 
-      <!-- 搜索框容器（默认隐藏） -->
-      <div id="search-box-container" class="search-box-container">
+      <!-- 搜索框容器（默认隐藏，新增内联样式双重保障） -->
+      <div id="search-box-container" class="search-box-container" style="display: none !important;">
         <input type="text" id="search-input" class="search-input" placeholder="搜索博客内容...支持标题/标签/分类/全文" autocomplete="off">
         <button onclick="searchPosts()" class="search-btn">
           <i class="fas fa-magnifying-glass"></i> 搜索
@@ -21,8 +21,8 @@
         </button>
       </div>
 
-      <!-- 搜索结果容器 -->
-      <div id="search-results" class="search-results">
+      <!-- 搜索结果容器（新增内联样式默认隐藏） -->
+      <div id="search-results" class="search-results" style="display: none !important;">
         <!-- 加载中提示 -->
         <div id="search-loading" class="search-loading" style="display: none; text-align: center; padding: 20px; color: #666;">
           <i class="fas fa-spinner fa-spin"></i> 正在搜索...
@@ -121,9 +121,9 @@
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
 }
 
-/* 搜索框容器 */
+/* 搜索框容器 - 强制隐藏，双重保障 */
 .search-box-container {
-  display: none;
+  display: none !important;
   position: absolute;
   top: 100%;
   right: 0;
@@ -184,9 +184,9 @@
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
 }
 
-/* 搜索结果容器 */
+/* 搜索结果容器 - 强制隐藏，双重保障 */
 .search-results {
-  display: none;
+  display: none !important;
   position: absolute;
   top: calc(100% + 70px);
   right: 0;
@@ -433,7 +433,7 @@
 }
 </style>
 
-<!-- 全文搜索核心脚本（完善版） -->
+<!-- 全文搜索核心脚本（完善版 + 初始化优化） -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // ========== 1. 全局变量定义 ==========
@@ -447,6 +447,13 @@ document.addEventListener('DOMContentLoaded', function() {
   let isSearchBoxOpen = false; // 搜索框展开状态
   let searchTimer = null; // 防抖定时器
   let isDataLoaded = false; // 数据加载状态标记
+
+  // ========== 初始化强制隐藏（核心修复） ==========
+  // 页面加载完成后立即强制隐藏，杜绝小白框出现
+  searchBoxContainer.style.display = 'none';
+  resultsContainer.style.display = 'none';
+  searchLoading.style.display = 'none';
+  isSearchBoxOpen = false;
 
   // ========== 2. 工具函数 ==========
   /**
