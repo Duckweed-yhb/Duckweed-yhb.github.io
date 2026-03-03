@@ -11,7 +11,7 @@
 ## 🛠️ 技术栈
 - 博客框架：Jekyll + GitHub Pages
 - 常用语言：Java / Vue / Python / C / LaTeX
-- 专业工具：MATLAB（电力系统仿真）、PSCAD / EMTDC（暂态仿真）
+- 专业工具：MATLAB（电力系统仿真）
 
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
