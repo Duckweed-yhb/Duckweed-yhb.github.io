@@ -12,6 +12,7 @@ on:
       - '_config.yml'
       - 'assets/**'
       - 'pages/**'
+      - 'index.md'  # 新增：确保首页修改触发构建
       # 排除 README 和脚本相关文件，避免被自动提交触发
       - '!README.md'
       - '!scripts/**'
@@ -30,7 +31,7 @@ jobs:
     permissions:
       contents: read
       pages: write
-      id-token: write
+      id-token: write  # 构建阶段需要的身份令牌权限
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,6 +59,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:  # 核心修复：给部署阶段添加必要权限
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
