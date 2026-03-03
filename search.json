@@ -3,27 +3,26 @@ layout: none
 permalink: /search.json
 ---
 [
+  {% assign items = "" | split: "" %}
+  {% comment %} 1. 收集所有文章 {% endcomment %}
   {% for post in site.posts %}
-  {
-    "title"    : {{ post.title | strip | jsonify }},
-    "category" : {{ post.category | strip | jsonify }},
-    "tags"     : {{ post.tags | join: ', ' | strip | jsonify }},
-    "content"  : {{ post.content | strip_html | strip_newlines | strip | jsonify }},
-    "url"      : {{ post.url | relative_url | jsonify }},
-    "date"     : {{ post.date | date: "%Y-%m-%d" | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
+    {% assign items = items | push: post %}
   {% endfor %}
-  {% if site.pages.size > 0 %},{% endif %}
+  {% comment %} 2. 收集所有有效页面 {% endcomment %}
   {% for page in site.pages %}
-  {% if page.title and page.url != "/404.html" and page.url != "/search.json" %}
+    {% if page.title and page.url != "/404.html" and page.url != "/search.json" %}
+      {% assign items = items | push: page %}
+    {% endif %}
+  {% endfor %}
+  {% comment %} 3. 遍历输出，自动处理逗号 {% endcomment %}
+  {% for item in items %}
   {
-    "title"    : {{ page.title | strip | jsonify }},
-    "category" : {{ page.category | strip | jsonify }},
-    "tags"     : {{ page.tags | join: ', ' | strip | jsonify }},
-    "content"  : {{ page.content | strip_html | strip_newlines | strip | jsonify }},
-    "url"      : {{ page.url | relative_url | jsonify }},
-    "date"     : {{ page.date | date: "%Y-%m-%d" | default: "" | jsonify }}
+    "title"    : {{ item.title | strip | jsonify }},
+    "category" : {{ item.category | strip | jsonify }},
+    "tags"     : {{ item.tags | join: ', ' | strip | jsonify }},
+    "content"  : {{ item.content | strip_html | strip_newlines | strip | jsonify }},
+    "url"      : {{ item.url | relative_url | jsonify }},
+    "date"     : {{ item.date | date: "%Y-%m-%d" | default: "" | jsonify }}
   }{% unless forloop.last %},{% endunless %}
-  {% endif %}
   {% endfor %}
 ]
