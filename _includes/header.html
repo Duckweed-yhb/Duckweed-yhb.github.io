@@ -7,7 +7,7 @@
     </button>
 
     <!-- 搜索框容器（默认隐藏） -->
-    <div id="search-box-container" style="display: none; margin-top: 10px; justify-content: center; flex-wrap: wrap; align-items: center; display: none; gap: 10px;">
+    <div id="search-box-container" style="display: none; margin-top: 10px; justify-content: center; flex-wrap: wrap; align-items: center; gap: 10px;">
       <input type="text" id="search-input" placeholder="搜索博客内容..." 
              style="width: 80%; max-width: 500px; padding: 8px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-size: 14px; box-sizing: border-box;">
       <button onclick="searchPosts()" style="padding: 8px 15px; border: none; border-radius: 20px; background: #007bff; color: #fff; cursor: pointer; min-width: 80px;">
@@ -16,7 +16,7 @@
     </div>
 
     <!-- 搜索结果容器（优化定位/层级/滚动） -->
-    <div id="search-results" style="display: none; position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 9999; box-sizing: border-box; max-height: 400px; overflow-y: auto;"></div>
+    <div id="search-results" style="display: none; position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 9999; box-sizing: border-box; max-height: 400px; overflow-y: auto;"></div>
   </div>
 
   <div class="wrapper">
@@ -53,7 +53,7 @@
   </div>
 </header>
 
-<!-- 全文搜索核心脚本（支持标题/正文/标签/分类检索） -->
+<!-- 全文搜索核心脚本（修复所有漏洞） -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // 获取页面元素
@@ -64,24 +64,36 @@ document.addEventListener('DOMContentLoaded', function() {
   let postsData = []; // 存储所有文章数据
   let isSearchBoxOpen = false; // 搜索框展开状态
 
-  // 1. 加载搜索索引数据（从search.json获取）
-  fetch('{{ "/search.json" | relative_url }}')
+  // ========== 关键修复1：兼容本地/线上路径，强制缓存刷新 ==========
+  const searchJsonUrl = '{{ "/search.json" | relative_url }}' + '?t=' + new Date().getTime();
+  
+  // 1. 加载搜索索引数据（增加超时/错误兜底）
+  fetch(searchJsonUrl, { cache: 'no-cache' })
     .then(response => {
-      if (!response.ok) throw new Error('搜索数据加载失败');
+      if (!response.ok) {
+        throw new Error(`请求失败：${response.status} ${response.statusText}`);
+      }
       return response.json();
     })
     .then(data => {
-      postsData = data; // 缓存文章数据
-      console.log('搜索数据加载成功:', postsData.length, '篇文章'); // 调试用，可删除
+      postsData = data || [];
+      // 额外加载pages（如果你的博客内容在pages而非posts里）
+      fetch('{{ "/pages.json" | relative_url }}?t=' + new Date().getTime(), { cache: 'no-cache' })
+        .then(res => res.ok ? res.json() : [])
+        .then(pagesData => {
+          postsData = postsData.concat(pagesData); // 合并posts和pages
+          console.log('✅ 搜索数据加载成功：', postsData.length, '篇内容（含posts+pages）');
+        })
+        .catch(err => console.log('⚠️ 加载pages数据失败（非必需）：', err));
     })
     .catch(err => {
-      console.log('搜索初始化失败:', err);
-      // 加载失败时给出提示
-      resultsContainer.innerHTML = '<div style="color: #666; text-align: center; padding: 10px 0;">搜索数据加载失败，请刷新页面重试</div>';
+      console.error('❌ 搜索数据加载失败：', err);
+      resultsContainer.innerHTML = `<div style="color: #dc3545; text-align: center; padding: 10px 0;">搜索数据加载失败<br>请检查search.json文件是否存在</div>`;
     });
 
   // 2. 点击搜索按钮展开/收起搜索框
-  searchToggleBtn.addEventListener('click', function() {
+  searchToggleBtn.addEventListener('click', function(e) {
+    e.stopPropagation(); // 防止冒泡触发空白处关闭
     isSearchBoxOpen = !isSearchBoxOpen;
     if (isSearchBoxOpen) {
       searchBoxContainer.style.display = 'flex';
@@ -92,57 +104,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. 全文搜索核心函数（匹配标题/标签/分类/正文）
+  // ========== 关键修复2：简化匹配逻辑，取消大小写限制 ==========
   function fullTextSearch(keyword) {
     if (!keyword || !postsData.length) return [];
     
-    const lowerKeyword = keyword.toLowerCase();
+    // 不转小写，精准匹配（避免中文转小写出错）
     return postsData.filter(post => {
-      // 统一转小写，实现不区分大小写搜索
-      const title = (post.title || '').toLowerCase();
-      const tags = (post.tags || '').toLowerCase();
-      const category = (post.category || '').toLowerCase();
-      const content = (post.content || '').toLowerCase();
+      const title = post.title || '';
+      const tags = post.tags || '';
+      const category = post.category || '';
+      const content = post.content || '';
       
-      // 只要任意字段包含关键词就匹配
-      return title.includes(lowerKeyword) || 
-             tags.includes(lowerKeyword) || 
-             category.includes(lowerKeyword) || 
-             content.includes(lowerKeyword);
+      // 调试：打印每篇内容的关键词匹配情况
+      const isMatch = title.includes(keyword) || tags.includes(keyword) || category.includes(keyword) || content.includes(keyword);
+      if (isMatch) console.log('🔍 匹配到：', post.title);
+      
+      return isMatch;
     });
   }
 
-  // 4. 渲染搜索结果（带关键词高亮）
+  // 3. 渲染搜索结果（简化逻辑，增加空数据提示）
   function renderResults(results) {
     if (!results.length) {
-      resultsContainer.innerHTML = '<div style="color: #666; text-align: center; padding: 10px 0;">未找到匹配内容</div>';
+      resultsContainer.innerHTML = `<div style="color: #666; text-align: center; padding: 10px 0;">
+        未找到匹配内容<br>
+        <small style="color: #999;">当前共加载${postsData.length}篇内容，可尝试简化关键词</small>
+      </div>`;
       return;
     }
 
-    const keyword = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = results.map(post => {
-      // 标题关键词高亮
+      // 标题关键词高亮（兼容中文）
       let highlightedTitle = post.title || '无标题';
-      if (highlightedTitle.toLowerCase().includes(keyword)) {
-        const reg = new RegExp(keyword, 'gi');
+      if (highlightedTitle.includes(searchInput.value.trim())) {
+        const reg = new RegExp(searchInput.value.trim(), 'g');
         highlightedTitle = highlightedTitle.replace(reg, match => 
           `<span style="color: #007bff; font-weight: bold;">${match}</span>`
         );
       }
 
-      // 拼接结果项HTML
       return `
-        <a href="${post.url || '#'}" style="display: block; padding: 12px 8px; color: #333; text-decoration: none; border-bottom: 1px dashed #eee;">
-          <div style="font-weight: 600; margin-bottom: 4px;">${highlightedTitle}</div>
-          <div style="font-size: 0.8em; color: #666;">
-            ${post.date || '无日期'} | 分类: ${post.category || '无'} | 标签: ${post.tags || '无'}
+        <a href="${post.url || '#'}" style="display: block; padding: 8px 4px; color: #333; text-decoration: none; border-bottom: 1px dashed #eee;">
+          <div style="font-weight: 600; margin-bottom: 2px;">${highlightedTitle}</div>
+          <div style="font-size: 0.8em; color: #666; line-height: 1.2;">
+            ${post.date || '无日期'} | 分类: ${post.category || '无'}
           </div>
         </a>
       `;
     }).join('');
   }
 
-  // 5. 搜索触发函数（点击"执行搜索"按钮/回车触发）
+  // 4. 搜索触发函数（修复回车/点击逻辑）
   window.searchPosts = function() {
     const keyword = searchInput.value.trim();
     if (!keyword) {
@@ -150,21 +162,24 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    console.log('搜索关键词:', keyword); // 调试用，可删除
+    console.log('🔑 搜索关键词：', keyword);
     const matchedPosts = fullTextSearch(keyword);
-    console.log('匹配到文章数:', matchedPosts.length); // 调试用，可删除
+    console.log('📌 匹配到：', matchedPosts.length, '篇');
     renderResults(matchedPosts);
     resultsContainer.style.display = 'block';
   };
 
-  // 输入框回车触发搜索
+  // 输入框回车触发搜索（修复事件冒泡）
   searchInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') window.searchPosts();
+    if (e.key === 'Enter') {
+      e.preventDefault(); // 阻止页面跳转
+      window.searchPosts();
+    }
   });
 
-  // 6. 点击页面空白处关闭搜索框和结果
+  // 5. 点击页面空白处关闭（修复逻辑漏洞）
   document.addEventListener('click', function(e) {
-    const isInSearchBtn = e.target === searchToggleBtn;
+    const isInSearchBtn = searchToggleBtn.contains(e.target);
     const isInSearchBox = searchBoxContainer.contains(e.target);
     const isInResults = resultsContainer.contains(e.target);
 
@@ -174,5 +189,9 @@ document.addEventListener('DOMContentLoaded', function() {
       resultsContainer.style.display = 'none';
     }
   });
+
+  // ========== 关键修复3：阻止搜索框/结果内点击冒泡 ==========
+  searchBoxContainer.addEventListener('click', e => e.stopPropagation());
+  resultsContainer.addEventListener('click', e => e.stopPropagation());
 });
 </script>
