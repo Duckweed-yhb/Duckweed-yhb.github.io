@@ -1,6 +1,9 @@
 <header class="site-header" role="banner">
   <div class="wrapper">
-    <!-- 搜索功能区域 - 整合到wrapper中，保持结构统一 -->
+    <!-- 站点标题（调整位置，优化视觉层级） -->
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+
+    <!-- 搜索功能区域 - 优化定位和层级 -->
     <div class="search-container">
       <!-- 搜索触发按钮 -->
       <button id="search-toggle-btn" class="search-toggle-btn">
@@ -28,10 +31,7 @@
       </div>
     </div>
 
-    <!-- 站点标题 -->
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-
-    <!-- 导航菜单 -->
+    <!-- 导航菜单 - 核心优化：添加友链入口 + 优化布局 -->
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     {%- if page_paths -%}
@@ -57,19 +57,42 @@
               <a class="page-link" href="{{ my_page.url | relative_url }}">{{ nav_title | escape }}</a>
             {%- endif -%}
           {%- endfor -%}
+          
+          <!-- 新增：友链导航入口（核心优化） -->
+          <a class="page-link" href="{{ "/friends/" | relative_url }}">友链</a>
         </div>
       </nav>
     {%- endif -%}
   </div>
 </header>
 
-<!-- 搜索功能样式（全面优化） -->
+<!-- 搜索功能样式（全面优化 + 导航样式兼容） -->
 <style>
-/* 搜索容器核心样式 */
+/* 基础布局重置 */
+.site-header .wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+/* 站点标题样式优化 */
+.site-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #2c3e50;
+  text-decoration: none;
+  margin-right: 20px;
+  white-space: nowrap;
+}
+
+/* 搜索容器核心样式 - 优化定位 */
 .search-container {
-  position: absolute;
-  top: 15px;
-  right: 30px;
+  position: relative;
+  margin-left: auto;
+  margin-right: 10px;
   z-index: 9999;
   width: auto;
 }
@@ -101,6 +124,9 @@
 /* 搜索框容器 */
 .search-box-container {
   display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
   margin-top: 10px;
   justify-content: center;
   flex-wrap: wrap;
@@ -110,6 +136,9 @@
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  min-width: 300px;
+  z-index: 9999;
 }
 
 /* 搜索输入框 */
@@ -159,9 +188,8 @@
 .search-results {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(100% + 70px);
+  right: 0;
   width: 100%;
   max-width: 600px;
   background: #fff;
@@ -229,14 +257,52 @@
   line-height: 1.6;
 }
 
+/* 导航菜单样式优化 */
+.site-nav {
+  margin-left: 10px;
+}
+
+.trigger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.page-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.page-link:hover {
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.05);
+}
+
 /* 移动端适配（增强版） */
 @media (max-width: 768px) {
-  .search-container {
-    position: relative;
-    top: 0;
-    right: 0;
-    margin: 10px auto 0;
+  .site-header .wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 10px 15px;
+  }
+
+  .site-title {
+    margin: 0 auto;
+    display: block;
     text-align: center;
+  }
+
+  .search-container {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
   }
 
   .search-toggle-btn {
@@ -246,8 +312,12 @@
   }
 
   .search-box-container {
+    position: relative;
+    top: 0;
+    right: 0;
     padding: 12px;
     gap: 8px;
+    min-width: 100%;
   }
 
   .search-input {
@@ -264,21 +334,40 @@
   }
 
   .search-results {
-    max-width: 95%;
+    position: relative;
+    top: 0;
+    right: 0;
+    max-width: 100%;
     padding: 10px;
     max-height: 300px;
-    left: 0;
-    transform: translateX(0);
-    margin-left: 2.5%;
+    margin-top: 10px;
   }
 
   .search-results a {
     padding: 10px 12px;
   }
+
+  .site-nav {
+    margin: 0;
+  }
+
+  .trigger {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .page-link {
+    font-size: 0.95em;
+    padding: 6px 10px;
+  }
 }
 
 /* 暗黑模式适配（可选，预留） */
 @media (prefers-color-scheme: dark) {
+  .site-title {
+    color: #ecf0f1;
+  }
+
   .search-toggle-btn, .search-box-container, .search-btn, .clear-btn {
     background: rgba(44, 62, 80, 0.88);
     color: #ecf0f1;
@@ -309,6 +398,37 @@
   
   .search-results a div:last-child {
     color: #bdc3c7;
+  }
+
+  .page-link {
+    color: #ecf0f1;
+  }
+
+  .page-link:hover {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.15);
+  }
+}
+
+/* 适配小屏设备（480px以下） */
+@media (max-width: 480px) {
+  .trigger {
+    gap: 8px;
+  }
+
+  .page-link {
+    font-size: 0.9em;
+    padding: 5px 8px;
+  }
+
+  .search-box-container {
+    gap: 5px;
+    padding: 10px;
+  }
+
+  .search-input {
+    width: 60%;
+    padding: 8px 12px;
   }
 }
 </style>
@@ -618,11 +738,13 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   window.addEventListener('resize', function() {
     if (resultsContainer.style.display === 'block' && window.innerWidth <= 768) {
-      resultsContainer.style.left = '0';
-      resultsContainer.style.transform = 'translateX(0)';
+      resultsContainer.style.position = 'relative';
+      resultsContainer.style.top = '0';
+      resultsContainer.style.right = '0';
     } else if (resultsContainer.style.display === 'block') {
-      resultsContainer.style.left = '50%';
-      resultsContainer.style.transform = 'translateX(-50%)';
+      resultsContainer.style.position = 'absolute';
+      resultsContainer.style.top = 'calc(100% + 70px)';
+      resultsContainer.style.right = '0';
     }
   });
 
