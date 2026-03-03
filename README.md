@@ -14,12 +14,53 @@
 - 专业工具：MATLAB（电力系统仿真）、PSCAD / EMTDC（暂态仿真）
 
 ## 📝 最新博客（自动同步）
-|    发布日期    | 标题 |
-|---------------|------|
-| 2026-02-23 | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/概率论与数理统计笔记/) |
-| 2026-02-23 | [大学物理整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/大学物理(热学光学量子物理)笔记/) |
-| 2026-02-21 | [欢迎来到我的博客](https://duckweed-yhb.github.io/2026/02/21/Welcome to Duckweed's Space/) |
-| 2026-02-10 | [C语言知识总结](https://duckweed-yhb.github.io/c-language-notes/) |
+|       发布日期       | 标题 |
+|----------------------|------|
+|   2026-02-23    | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/) |
+|   2026-02-23    | [大学物理整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%28%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%29%E7%AC%94%E8%AE%B0/) |
+|   2026-02-21    | [Welcome to Duckweed's Space](https://duckweed-yhb.github.io/2026/02/21/Welcome%20to%20Duckweed%27s%20Space/) |
+|   2026-02-10    | [C语言知识总结](https://duckweed-yhb.github.io/c-language-notes/) |
+
+## 📂 项目结构（自动生成）
+```
+├── 404.html
+├── Gemfile
+├── README.md
+├── _includes
+│   ├── head.html
+│   ├── header.html
+│   ├── search.html
+├── _layouts
+│   ├── default.html
+├── _posts
+│   ├── 2026-02-23-大学物理(热学光学量子物理)笔记.md
+│   └── 2026-02-23-概率论与数理统计笔记.md
+├── assets
+│   ├── css
+│   │   ├── header.css
+│   │   └── main.css
+│   ├── images
+│   │   ├── bg.jpg
+│   │   ├── bilibili.svg
+│   │   ├── github.svg
+│   │   └── zhihu.svg
+│   ├── pdf
+│   └── videos
+├── data
+│   ├── friends.yml
+├── pages
+│   ├── archive.md
+│   ├── friends.md
+├── requirements.txt
+├── scripts
+│   └── generate_readme.py
+└── templates
+    └── README.template.md
+```
 
 ---
-> 最后更新：2026-03-03 03:22:25 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-03-03 12:48:50 | 由 GitHub Actions 自动同步 Jekyll 博客
+
+
+
+
