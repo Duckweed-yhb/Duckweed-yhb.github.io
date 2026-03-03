@@ -83,3 +83,12 @@ minima:
 encoding: utf-8
 # 日期格式
 date_format: "%Y-%m-%d %H:%M"
+# ===================== 友链配置 =====================
+# 友链列表：名称 | 链接 | 描述（可选）
+friends:
+  - name: 组织博客
+    url: https://nebulacommune.github.io/
+    desc: 优质技术博客（可选）
+  - name: GitHub开源库
+    url: https://github.com/Duckweed-yhb
+    desc: 代码仓库
