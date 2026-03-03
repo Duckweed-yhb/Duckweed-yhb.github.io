@@ -19,7 +19,7 @@
 | 2026-02-23 | [概率论与数理统计核心公式整理笔记](https://duckweed-yhb.github.io/2026/02/23/概率论与数理统计笔记/) |
 | 2026-02-23 | [大学物理核心公式整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/大学物理(热学光学量子物理)笔记/) |
 | 2026-02-21 | [Welcome to Duckweed's Space](https://duckweed-yhb.github.io/2026/02/21/Welcome to Duckweed's Space/) |
-| 2026-02-10 | [C语言核心知识总结（共8章 · 含代码示例+详细解释）](https://duckweed-yhb.github.io/2026/02/10/c语言笔记汇总/) |
+| 2026-02-10 | [C语言核心知识总结（共8章 · 含代码示例+详细解释）](https://duckweed-yhb.github.io/c-language-notes/) |
 
 ---
-> 最后更新：2026-03-03 02:26:24 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-03-03 02:28:43 | 由 GitHub Actions 自动同步 Jekyll 博客
