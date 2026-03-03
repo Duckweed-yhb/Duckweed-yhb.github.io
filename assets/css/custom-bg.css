@@ -129,7 +129,7 @@ body.layout-post .page-content {
     z-index: 10;
 }
 
-/* 文章列表样式 */
+/* 文章列表样式 - 调大尺寸核心修改 */
 .post-list {
     list-style: none;
     padding: 0;
@@ -137,10 +137,12 @@ body.layout-post .page-content {
 
 .post {
     background-color: rgba(255, 255, 255, 0.98) !important;
-    padding: 25px;
+    padding: 35px 30px;       /* 调大内边距：原25px → 35px(上下)/30px(左右) */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 25px;
+    margin: 0 auto 25px auto; /* 改为居中显示，视觉更平衡 */
+    max-width: 900px;         /* 调大最大宽度：原无 → 900px */
+    width: 90%;               /* 适配屏幕宽度，占90% */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -206,11 +208,12 @@ body.layout-post .page-content {
 
 /* ========== 阅读量样式结束 ========== */
 
-/* 文章详情页核心样式 - 移动端适配强化 */
+/* 文章详情页核心样式 - 调大尺寸核心修改 + 移动端适配强化 */
 .post-container {
-    max-width: 800px !important;
+    max-width: 950px !important;   /* 调大最大宽度：原800px → 950px */
+    width: 95%;                    /* 适配屏幕宽度，占95% */
     margin: 2rem auto 30px auto !important;
-    padding: 2rem;
+    padding: 2.5rem 2rem;          /* 调大内边距：原2rem → 2.5rem(上下)/2rem(左右) */
     background-color: rgba(255, 255, 255, 0.6) !important;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -517,11 +520,12 @@ body.layout-post .page-content {
         border-radius: 8px;
     }
 
-    /* 文章详情页移动端：全屏宽度+优化内边距 */
+    /* 文章详情页移动端：适配调大后的尺寸 */
     .post-container {
         margin: 1rem auto 20px auto !important;
         max-width: 100% !important; /* 占满手机屏幕 */
-        padding: 1.2rem 15px !important; /* 减少上下内边距，增大左右内边距 */
+        width: 98% !important;      /* 留2%边距，避免贴边 */
+        padding: 2rem 15px !important; /* 调大上下内边距，适配整体尺寸 */
         background-color: rgba(255, 255, 255, 0.7) !important; /* 移动端提高透明度，兼顾文字可读性和背景显示 */
     }
 
@@ -541,10 +545,12 @@ body.layout-post .page-content {
         padding: 0 8px;
     }
 
-    /* 文章列表移动端 */
+    /* 文章列表移动端：适配调大后的尺寸 */
     .post {
-        padding: 20px 15px;
-        margin-bottom: 20px;
+        padding: 30px 20px;    /* 调大移动端内边距，适配PC端修改 */
+        margin: 0 auto 20px auto;
+        max-width: 100%;
+        width: 98%;            /* 留2%边距，避免贴边 */
     }
 
     .post-link {
