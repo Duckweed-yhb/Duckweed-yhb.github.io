@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: deafult
 title: 档案
 permalink: /archive/
 ---
