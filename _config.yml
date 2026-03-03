@@ -24,9 +24,10 @@ bilibili_url: "https://space.bilibili.com/3546703303019495?spm_id_from=333.337.0
 # ===================== 主题与插件配置 =====================
 # 使用minima主题
 theme: minima
-# 启用的插件（仅保留必要的feed插件，移除分页插件）
+# 启用的插件（恢复分页插件，保证首页显示博客列表）
 plugins:
   - jekyll-feed
+  - jekyll-paginate # 新增分页插件，核心！
 
 # ===================== 内容配置 =====================
 # 文章默认布局
@@ -42,12 +43,12 @@ defaults:
     values:
       layout: "page"
 
-# 注释掉分页配置，避免依赖jekyll-paginate插件
-# paginate: 5 # 首页显示5篇文章
-# paginate_path: "/page/:num/"
+# 恢复分页配置，让首页显示最新博客
+paginate: 5 # 首页显示5篇最新文章
+paginate_path: "/page/:num/" # 分页路径（第二页为 /page/2/）
 
 # ===================== 排除文件 =====================
-# Jekyll编译时忽略的文件/目录
+# Jekyll编译时忽略的文件/目录（新增templates/scripts，解决README显示问题）
 exclude:
   - .sass-cache/
   - .jekyll-cache/
@@ -58,6 +59,9 @@ exclude:
   - vendor/
   - README.md
   - LICENSE
+  - templates/ # 忽略README模板目录，避免被Jekyll解析
+  - scripts/    # 忽略Python脚本目录，避免被Jekyll解析
+  - .github/    # 忽略GitHub Actions配置，避免被Jekyll解析
 
 # ===================== Minima主题自定义 =====================
 # 关闭主题内置的社交链接（避免和我们的本地SVG冲突）
