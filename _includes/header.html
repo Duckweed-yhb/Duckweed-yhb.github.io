@@ -1,13 +1,13 @@
 <header class="site-header" role="banner">
-  <!-- 新增搜索框容器（优化样式兼容性） -->
+  <!-- 搜索框容器（优化样式兼容性） -->
   <div style="max-width: 1200px; margin: 0 auto; padding: 10px 20px; position: relative;">
     <div style="display: flex; justify-content: center; margin-bottom: 10px; flex-wrap: wrap;">
       <input type="text" id="search-input" placeholder="搜索博客内容..." 
              style="width: 80%; max-width: 600px; padding: 8px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-size: 14px; box-sizing: border-box;">
       <button onclick="searchPosts()" style="margin-left: 10px; padding: 8px 15px; border: none; border-radius: 20px; background: #007bff; color: #fff; cursor: pointer; min-width: 80px;">搜索</button>
     </div>
-    <!-- 搜索结果容器（优化定位和层级） -->
-    <div id="search-results" style="display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 9999; box-sizing: border-box;"></div>
+    <!-- 搜索结果容器（优化定位/层级/滚动） -->
+    <div id="search-results" style="display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 9999; box-sizing: border-box; max-height: 400px; overflow-y: auto;"></div>
   </div>
 
   <div class="wrapper">
@@ -44,53 +44,105 @@
   </div>
 </header>
 
-<!-- 搜索功能脚本（优化鲁棒性，避免未定义报错） -->
-<script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.9.2/dest/simple-jekyll-search.min.js"></script>
+<!-- 全文搜索核心脚本（支持标题/正文/标签/分类检索） -->
 <script>
-// 等待页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
-  // 检查元素是否存在，避免报错
+  // 获取页面元素
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('search-results');
-  
-  if (!searchInput || !resultsContainer) return;
+  let postsData = []; // 存储所有文章数据
 
-  // 初始化搜索
-  const sjs = new SimpleJekyllSearch({
-    searchInput: searchInput,
-    resultsContainer: resultsContainer,
-    json: '{{ "/search.json" | relative_url }}', // 搜索索引文件路径
-    searchResultTemplate: '<a href="{url}" style="display: block; padding: 8px 0; color: #333; text-decoration: none; border-bottom: 1px dashed #eee;">{title}</a>',
-    noResultsText: '未找到匹配内容',
-    limit: 10,
-    fuzzy: true, // 模糊搜索
-    exclude: ['About', '档案', '展览'] // 排除非文章页面
-  });
+  // 1. 加载搜索索引数据（从search.json获取）
+  fetch('{{ "/search.json" | relative_url }}')
+    .then(response => {
+      if (!response.ok) throw new Error('搜索数据加载失败');
+      return response.json();
+    })
+    .then(data => {
+      postsData = data; // 缓存文章数据
+    })
+    .catch(err => console.log('搜索初始化失败:', err));
 
-  // 搜索按钮点击事件
-  window.searchPosts = function() {
-    if (searchInput.value.trim()) {
-      resultsContainer.style.display = 'block';
-      sjs.search(searchInput.value.trim());
-    } else {
-      resultsContainer.style.display = 'none';
+  // 2. 全文搜索核心函数（匹配标题/标签/分类/正文）
+  function fullTextSearch(keyword) {
+    if (!keyword || !postsData.length) return [];
+    
+    const lowerKeyword = keyword.toLowerCase();
+    return postsData.filter(post => {
+      // 统一转小写，实现不区分大小写搜索
+      const title = (post.title || '').toLowerCase();
+      const tags = (post.tags || '').toLowerCase();
+      const category = (post.category || '').toLowerCase();
+      const content = (post.content || '').toLowerCase();
+      
+      // 只要任意字段包含关键词就匹配
+      return title.includes(lowerKeyword) || 
+             tags.includes(lowerKeyword) || 
+             category.includes(lowerKeyword) || 
+             content.includes(lowerKeyword);
+    });
+  }
+
+  // 3. 渲染搜索结果（带关键词高亮）
+  function renderResults(results) {
+    if (!results.length) {
+      resultsContainer.innerHTML = '<div style="color: #666; text-align: center; padding: 10px 0;">未找到匹配内容</div>';
+      return;
     }
+
+    const keyword = searchInput.value.trim().toLowerCase();
+    resultsContainer.innerHTML = results.map(post => {
+      // 标题关键词高亮
+      let highlightedTitle = post.title || '无标题';
+      if (highlightedTitle.toLowerCase().includes(keyword)) {
+        const reg = new RegExp(keyword, 'gi');
+        highlightedTitle = highlightedTitle.replace(reg, match => 
+          `<span style="color: #007bff; font-weight: bold;">${match}</span>`
+        );
+      }
+
+      // 拼接结果项HTML
+      return `
+        <a href="${post.url || '#'}" style="display: block; padding: 12px 8px; color: #333; text-decoration: none; border-bottom: 1px dashed #eee;">
+          <div style="font-weight: 600; margin-bottom: 4px;">${highlightedTitle}</div>
+          <div style="font-size: 0.8em; color: #666;">
+            ${post.date || '无日期'} | 分类: ${post.category || '无'} | 标签: ${post.tags || '无'}
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+
+  // 4. 搜索触发函数（点击按钮/回车/输入实时触发）
+  window.searchPosts = function() {
+    const keyword = searchInput.value.trim();
+    if (!keyword) {
+      resultsContainer.style.display = 'none';
+      return;
+    }
+
+    const matchedPosts = fullTextSearch(keyword);
+    renderResults(matchedPosts);
+    resultsContainer.style.display = 'block';
   };
 
   // 输入框回车触发搜索
   searchInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      window.searchPosts();
-    }
+    if (e.key === 'Enter') window.searchPosts();
   });
 
-  // 点击页面空白处关闭搜索结果（优化判断逻辑）
-  document.addEventListener('click', function(e) {
-    const isClickInResults = resultsContainer.contains(e.target);
-    const isClickInInput = e.target === searchInput;
-    const isClickInButton = e.target.tagName === 'BUTTON' && e.target.onclick === window.searchPosts;
+  // 输入实时搜索（输入内容时自动更新结果）
+  searchInput.addEventListener('input', function() {
+    window.searchPosts();
+  });
 
-    if (!isClickInResults && !isClickInInput && !isClickInButton) {
+  // 点击页面空白处关闭搜索结果
+  document.addEventListener('click', function(e) {
+    const isInResults = resultsContainer.contains(e.target);
+    const isInInput = e.target === searchInput;
+    const isInButton = e.target.tagName === 'BUTTON' && e.target.onclick === window.searchPosts;
+
+    if (!isInResults && !isInInput && !isInButton) {
       resultsContainer.style.display = 'none';
     }
   });
