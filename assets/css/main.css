@@ -42,6 +42,42 @@ body.layout-post .page-content {
     z-index: 10;
 }
 
+/* ========== 新增：通用页面卡片样式（所有页面复用） ========== */
+/* 给档案/友链/关于页面添加和文章页一致的卡片样式 */
+body.layout-default .page-content .wrapper > .page-card {
+    max-width: 950px;
+    width: 90%;
+    margin: 2rem auto 30px auto;
+    padding: 3rem 2.5rem;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 10;
+}
+
+/* 移动端适配通用卡片 */
+@media (max-width: 768px) {
+    body.layout-default .page-content .wrapper > .page-card {
+        margin: 1rem auto 20px auto;
+        max-width: 100%;
+        width: 98%;
+        padding: 2rem 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* 修复首页样式冲突（保持原有样式，新增通用卡片兼容） */
+body.layout-home .page-content .wrapper > .page-card {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
 /* 文章列表样式 - 统一风格+优化间距 */
 .post-list {
     list-style: none;
