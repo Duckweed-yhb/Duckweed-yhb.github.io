@@ -4,7 +4,8 @@ title: 展览  # 核心：必须保留该title，否则导航栏不显示链接
 permalink: /exhibition/
 ---
 
-<div class="page-card" markdown="1">  <!-- 核心修复1：添加外层卡片 + markdown="1" -->
+<!-- Markdown 内容容器（开启 Markdown 解析） -->
+<div class="page-card" markdown="1">  
   # 展览
   是个人项目、技能与阅读清单的聚合展示。
 
@@ -90,7 +91,7 @@ permalink: /exhibition/
     .sub-category {
       text-align: left;
       font-size: 1.15em;
-      color: #34495e;
+      color: #3498db;
       margin: 25px 0 12px;
       padding-left: 10px;
       border-left: 3px solid #3498db;
@@ -199,7 +200,8 @@ permalink: /exhibition/
     }
   </style>
 
-  <div class="exhibition-container" markdown="0">  <!-- 核心修复2：关闭该标签的Markdown解析 -->
+  <!-- 卡片容器（关闭 Markdown 解析） -->
+  <div class="exhibition-container" markdown="0">  
     <!-- 项目卡片 -->
     <div class="exhibition-card">
       <div class="card-icon">📂</div>
@@ -322,9 +324,10 @@ permalink: /exhibition/
       </div>
     </div>
   </div>
+</div>  <!-- 闭合 Markdown 容器 -->
 
-  <!-- 核心交互脚本 -->
-  <script markdown="0">  <!-- 补充：关闭脚本标签的Markdown解析 -->
+<!-- 核心交互脚本（移到 Markdown 容器外，避免解析冲突） -->
+<script>
   // 展开/收起卡片逻辑
   function toggleCard(cardId) {
     if (event) event.stopPropagation();
@@ -373,5 +376,4 @@ permalink: /exhibition/
       }
     });
   });
-  </script>
-</div>  <!-- 闭合外层卡片 -->
+</script>
