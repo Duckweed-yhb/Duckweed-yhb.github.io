@@ -10,11 +10,13 @@ permalink: /
 
   <h2>最新笔记</h2>
   <ul>
-    {% for post in site.posts limit:5 %}
-      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d" }}</li>
-    {% empty %}
+    {% if site.posts.size > 0 %}
+      {% for post in site.posts limit:5 %}
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d" }}</li>
+      {% endfor %}
+    {% else %}
       <li>暂无发布的笔记</li>
-    {% endfor %}
+    {% endif %}
   </ul>
 
   <h2>快速导航</h2>
