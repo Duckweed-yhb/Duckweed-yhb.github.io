@@ -4,8 +4,9 @@ title: 关于
 permalink: /about/
 ---
 
-<!-- 添加统一的白框容器，和档案/展览页样式一致 -->
+<!-- 统一的白框容器（和档案/展览页样式一致） -->
 <div class="page-card">
+  <!-- 标题与内容（Markdown 正常解析） -->
   # 关于我
 
   你好，我是 **Duckweed**，一名就读于哈尔滨工业大学（深圳）的电气工程及其自动化专业本科生，目前的研究方向是电力系统。
@@ -78,97 +79,99 @@ permalink: /about/
   ---
 
   > 持续学习，持续分享，持续成长。
-
-  <!-- 样式优化：整合白框样式 + 原有排版优化 -->
-  <style>
-    /* 核心：统一的白框容器（和档案/展览页一致） */
-    .page-card {
-      background: rgba(255, 255, 255, 0.88);
-      padding: 35px 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      backdrop-filter: blur(8px);
-      max-width: 900px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      line-height: 1.8;
-    }
-
-    /* 原有排版优化 */
-    h1, h2, h3 {
-      color: #2c3e50;
-      margin-top: 2em;
-      margin-bottom: 1em;
-    }
-    h1 {
-      font-size: 2em;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 0.5em;
-      margin-top: 0 !important; /* 去掉h1顶部多余间距 */
-    }
-    h2 {
-      font-size: 1.5em;
-      border-left: 4px solid #3498db;
-      padding-left: 0.5em;
-    }
-    h3 {
-      font-size: 1.2em;
-      color: #3498db;
-    }
-    blockquote {
-      border-left: 4px solid #eee;
-      padding-left: 1em;
-      color: #7f8c8d;
-      margin: 1em 0;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    ul {
-      padding-left: 1.5em;
-    }
-    hr {
-      border: none;
-      border-top: 1px dashed #eee;
-      margin: 2em 0;
-    }
-
-    /* 移动端适配 */
-    @media (max-width: 768px) {
-      .page-card {
-        padding: 25px 15px;
-        margin: 0 10px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-      h2 {
-        font-size: 1.3em;
-      }
-    }
-
-    /* 暗黑模式适配 */
-    @media (prefers-color-scheme: dark) {
-      .page-card {
-        background: rgba(30, 30, 40, 0.88);
-      }
-      h1, h2 {
-        color: #ecf0f1;
-      }
-      blockquote {
-        color: #bdc3c7;
-        border-left-color: #34495e;
-      }
-      hr {
-        border-top-color: #34495e;
-      }
-      a {
-        color: #3498db;
-      }
-    }
-  </style>
 </div>
+
+<!-- 样式单独放在容器外，避免Markdown解析干扰 -->
+<style>
+  /* 核心：统一的白框容器（和档案/展览页一致） */
+  .page-card {
+    background: rgba(255, 255, 255, 0.88);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(8px);
+    max-width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    line-height: 1.8;
+  }
+
+  /* 标题与文本样式优化 */
+  .page-card h1 {
+    font-size: 2em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5em;
+    color: #2c3e50;
+    margin-top: 0 !important;
+    margin-bottom: 0.5em;
+  }
+  .page-card h2 {
+    font-size: 1.5em;
+    border-left: 4px solid #3498db;
+    padding-left: 0.5em;
+    color: #2c3e50;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+  .page-card h3 {
+    font-size: 1.2em;
+    color: #3498db;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+  .page-card blockquote {
+    border-left: 4px solid #eee;
+    padding-left: 1em;
+    color: #7f8c8d;
+    margin: 1em 0;
+  }
+  .page-card a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  .page-card a:hover {
+    text-decoration: underline;
+  }
+  .page-card ul {
+    padding-left: 1.5em;
+  }
+  .page-card hr {
+    border: none;
+    border-top: 1px dashed #eee;
+    margin: 2em 0;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .page-card {
+      padding: 25px 15px;
+      margin: 0 10px;
+    }
+    .page-card h1 {
+      font-size: 1.8em;
+    }
+    .page-card h2 {
+      font-size: 1.3em;
+    }
+  }
+
+  /* 暗黑模式适配 */
+  @media (prefers-color-scheme: dark) {
+    .page-card {
+      background: rgba(30, 30, 40, 0.88);
+    }
+    .page-card h1, .page-card h2 {
+      color: #ecf0f1;
+    }
+    .page-card blockquote {
+      color: #bdc3c7;
+      border-left-color: #34495e;
+    }
+    .page-card hr {
+      border-top-color: #34495e;
+    }
+    .page-card a {
+      color: #3498db;
+    }
+  }
+</style>

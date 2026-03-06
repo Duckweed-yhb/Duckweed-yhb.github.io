@@ -98,13 +98,14 @@ minima:
 encoding: utf-8
 date_format: "%Y-%m-%d %H:%M" # 日期显示格式
 
-# ===================== Markdown解析配置 =====================
+# ===================== Markdown解析配置（核心修复） =====================
 highlighter: rouge # 代码高亮
 markdown: kramdown
 kramdown:
   input: GFM # 支持GitHub风格Markdown
-  parse_block_html: true # 解析HTML块级标签内的Markdown（核心）
-  parse_span_html: true # 解析HTML行内标签内的Markdown（核心）
+  parse_block_html: true # 解析HTML块级标签内的Markdown
+  parse_span_html: true # 解析HTML行内标签内的Markdown
+  escape_html: false # 关键：禁止转义HTML标签（解决style/script显示异常）
   auto_ids: true # 自动为标题生成ID
   footnote_nr: 1 # 脚注编号起始值
   syntax_highlighter_opts:

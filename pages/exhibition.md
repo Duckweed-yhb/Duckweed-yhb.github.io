@@ -4,15 +4,16 @@ title: 展览
 permalink: /exhibition/
 ---
 
-<!-- 添加统一的白框容器包裹标题 -->
+<!-- 标题白框容器（纯 HTML 替代 Markdown，避免解析冲突） -->
 <div class="page-header-card">
-  # 展览
-  是个人项目、技能与阅读清单的聚合展示。
+  <h1>展览</h1>
+  <p>是个人项目、技能与阅读清单的聚合展示。</p>
 </div>
 
-<!-- 统一样式 + 全站视觉统一 -->
+<!-- 样式单独封装，作用域隔离 -->
 <style>
-  /* 核心：标题白框容器（和其他页面统一） */
+  /* ========== 全局通用样式 ========== */
+  /* 标题白框容器 */
   .page-header-card {
     background: rgba(255, 255, 255, 0.88);
     padding: 35px 25px;
@@ -20,7 +21,7 @@ permalink: /exhibition/
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(8px);
     max-width: 1200px;
-    margin: 0 auto 40px; /* 标题框和卡片容器间距 */
+    margin: 0 auto 40px;
     box-sizing: border-box;
     line-height: 1.8;
   }
@@ -37,14 +38,7 @@ permalink: /exhibition/
     margin: 0;
   }
 
-  /* 页面容器适配 */
-  .page-content .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
+  /* 卡片容器 */
   .exhibition-container {
     display: flex;
     flex-wrap: wrap;
@@ -52,9 +46,10 @@ permalink: /exhibition/
     margin: 0 auto;
     justify-content: center;
     width: 100%;
-    max-width: 1200px; /* 和标题框宽度一致 */
+    max-width: 1200px;
   }
 
+  /* ========== 卡片样式 ========== */
   .exhibition-card {
     flex: 1 1 300px;
     max-width: 450px;
@@ -66,12 +61,12 @@ permalink: /exhibition/
     backdrop-filter: blur(8px);
     box-sizing: border-box;
   }
-
   .exhibition-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
 
+  /* 卡片图标 */
   .card-icon {
     font-size: 45px;
     margin-bottom: 20px;
@@ -81,11 +76,11 @@ permalink: /exhibition/
     text-align: center;
     cursor: pointer;
   }
-
   .exhibition-card:hover .card-icon {
     transform: scale(1.1);
   }
 
+  /* 卡片标题 */
   .card-title {
     font-size: 1.5em;
     color: #2c3e50;
@@ -94,11 +89,11 @@ permalink: /exhibition/
     transition: all 0.3s ease;
     text-align: center;
   }
-
   .card-title:hover {
     color: #3498db;
   }
 
+  /* 卡片描述 */
   .card-desc {
     color: #7f8c8d;
     margin-bottom: 25px;
@@ -107,6 +102,7 @@ permalink: /exhibition/
     text-align: center;
   }
 
+  /* 卡片分隔线 */
   .card-divider {
     width: 80px;
     height: 2px;
@@ -115,6 +111,7 @@ permalink: /exhibition/
     border: none;
   }
 
+  /* 子分类标题 */
   .sub-category {
     text-align: left;
     font-size: 1.15em;
@@ -124,6 +121,7 @@ permalink: /exhibition/
     border-left: 3px solid #3498db;
   }
 
+  /* 卡片列表 */
   .card-list {
     list-style: none;
     padding: 0;
@@ -131,15 +129,13 @@ permalink: /exhibition/
     color: #555;
     margin: 0;
   }
-
   .card-list li {
     padding-left: 8px;
     transition: all 0.2s ease;
     position: relative;
     margin-bottom: 8px;
   }
-
-  /* 列表项前小圆点 */
+  /* 列表项小圆点（hover显示） */
   .card-list li::before {
     content: "•";
     color: #3498db;
@@ -148,29 +144,27 @@ permalink: /exhibition/
     opacity: 0;
     transition: all 0.2s ease;
   }
-
   .card-list li:hover {
     color: #3498db;
     padding-left: 12px;
   }
-
   .card-list li:hover::before {
     opacity: 1;
     left: 0;
   }
 
-  /* 展开/收起样式 - 默认折叠 */
+  /* 展开/收起（默认折叠） */
   .card-content {
-    max-height: 0; /* 默认折叠 */
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
   .card-content.active {
-    max-height: 2000px; /* 展开 */
+    max-height: 2000px;
   }
 
-  /* 移动端适配 */
+  /* ========== 响应式适配 ========== */
+  /* 平板 */
   @media (max-width: 768px) {
     .page-header-card {
       padding: 25px 15px;
@@ -187,9 +181,6 @@ permalink: /exhibition/
       flex: 1 1 90%;
       padding: 25px 20px;
     }
-    .page-content .wrapper {
-      padding: 10px;
-    }
     .card-icon {
       font-size: 38px;
     }
@@ -198,7 +189,7 @@ permalink: /exhibition/
     }
   }
 
-  /* 小屏设备适配 */
+  /* 手机 */
   @media (max-width: 480px) {
     .exhibition-card {
       flex: 1 1 100%;
@@ -211,7 +202,7 @@ permalink: /exhibition/
     }
   }
 
-  /* 暗黑模式适配 */
+  /* ========== 暗黑模式 ========== */
   @media (prefers-color-scheme: dark) {
     .page-header-card {
       background: rgba(30, 30, 40, 0.88);
@@ -258,12 +249,10 @@ permalink: /exhibition/
         <li>HIT-CampusAI（校园AI生活助手）</li>
         <li>Duckweed-yhb.github.io（个人博客）</li>
       </ul>
-
       <div class="sub-category">停止开发</div>
       <ul class="card-list">
         <li>Smart-Energy-Monitoring-Automatic-Control-System</li>
       </ul>
-
       <div class="sub-category">待开发</div>
       <ul class="card-list">
         <li>电力系统故障分析小程序</li>
@@ -285,21 +274,19 @@ permalink: /exhibition/
       <div class="sub-category">核心技术栈</div>
       <ul class="card-list">
         <li>Python（数据分析/自动化）</li>
-        <li>Java（面向对象/后端基础）</li>
+        <li>Java（面向对象编程/后端基础）</li>
         <li>前端（HTML/CSS/JavaScript）</li>
       </ul>
-
       <div class="sub-category">入门级别</div>
       <ul class="card-list">
         <li>嵌入式软件（底层开发基础）</li>
         <li>嵌入式硬件（电路+外设入门）</li>
       </ul>
-
       <div class="sub-category">工具链</div>
       <ul class="card-list">
-        <li>MATLAB（电力系统仿真）</li>
-        <li>Jekyll / GitHub Pages</li>
-        <li>LaTeX（专业文档排版）</li>
+        <li>MATLAB（电力系统仿真/数值计算）</li>
+        <li>Jekyll / GitHub Pages（博客搭建）</li>
+        <li>LaTeX（专业文档/考研笔记排版）</li>
       </ul>
     </div>
   </div>
@@ -315,7 +302,7 @@ permalink: /exhibition/
       <ul class="card-list">
         <li>《巴黎圣母院》（维克多·雨果）</li>
         <li>《白鸟与蝙蝠》《恶意》《放学后》《谁杀了她》《圣女的救济》（东野圭吾）</li>
-        <li>《被讨厌的勇气》（岸见一郎、古贺史健）</li>
+        <li>《被讨厌的勇气》（岸见一郎/古贺史健）</li>
         <li>《传习录》（王阳明）</li>
         <li>《飞鸟集》（泰戈尔）</li>
         <li>《伽利略的苦恼》《假面饭店》《假面前夜》《假面山庄》《解忧杂货店》《虚无的十字架》（东野圭吾）</li>
@@ -338,12 +325,10 @@ permalink: /exhibition/
         <li>《毛泽东选集》（毛泽东）</li>
         <li>《刘少奇纪事》（佚名/编者）</li>
       </ul>
-
       <div class="sub-category">在读</div>
       <ul class="card-list">
         <li>《刻意练习》（安德斯·艾利克森）</li>
       </ul>
-
       <div class="sub-category">搁置</div>
       <ul class="card-list">
         <li>《沉思录》（马可·奥勒留）</li>
@@ -352,7 +337,6 @@ permalink: /exhibition/
         <li>《资本论》（卡尔·马克思）</li>
         <li>《自卑与超越》（阿尔弗雷德·阿德勒）</li>
       </ul>
-
       <div class="sub-category">想看</div>
       <ul class="card-list">
         <li>《经济学原理》（N. 格里高利·曼昆）</li>
@@ -369,18 +353,20 @@ permalink: /exhibition/
   </div>
 </div>
 
-<!-- 核心交互脚本 -->
+<!-- 交互脚本（封装为纯函数，避免全局污染） -->
 <script>
-  // 展开/收起卡片逻辑
+  // 展开/收起核心函数
   function toggleCard(cardId) {
-    if (event) event.stopPropagation();
+    if (!event) return;
+    event.stopPropagation();
+    
     const content = document.getElementById(cardId);
-    const title = content.closest('.exhibition-card').querySelector('.card-title');
+    if (!content) return;
     
+    const title = content.closest('.exhibition-card')?.querySelector('.card-title');
     content.classList.toggle('active');
-    title.classList.toggle('active');
     
-    // 展开后滚动到卡片位置（可选）
+    // 展开后滚动到卡片（平滑动画）
     if (content.classList.contains('active')) {
       setTimeout(() => {
         content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -388,20 +374,20 @@ permalink: /exhibition/
     }
   }
 
-  // 图标点击触发展开/收起
-  document.querySelectorAll('.card-icon').forEach(icon => {
-    icon.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const title = this.nextElementSibling;
-      const cardId = title.getAttribute('onclick').match(/'(\w+)'/)[1];
-      toggleCard(cardId);
-    });
-  });
-
-  // 页面加载完成后初始化（默认折叠）
+  // 页面加载完成初始化
   document.addEventListener('DOMContentLoaded', function() {
+    // 图标点击绑定（兼容所有卡片）
+    document.querySelectorAll('.card-icon').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const title = this.nextElementSibling;
+        const cardId = title?.getAttribute('onclick')?.match(/'(\w+)'/)[1];
+        if (cardId) toggleCard(cardId);
+      });
+    });
+
+    // 初始化过渡动画
     const allContents = document.querySelectorAll('.card-content');
-    // 无需主动设置，CSS 中 max-height: 0 已默认折叠
     setTimeout(() => {
       allContents.forEach(content => {
         content.style.transition = 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -409,13 +395,10 @@ permalink: /exhibition/
     }, 100);
   });
 
-  // 适配窗口大小变化
+  // 窗口大小变化适配
   window.addEventListener('resize', function() {
-    const allContents = document.querySelectorAll('.card-content');
-    allContents.forEach(content => {
-      if (content.classList.contains('active')) {
-        content.style.maxHeight = '2000px';
-      }
+    document.querySelectorAll('.card-content.active').forEach(content => {
+      content.style.maxHeight = '2000px';
     });
   });
 </script>
