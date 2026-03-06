@@ -65,7 +65,7 @@ header_pages:
   - pages/archive.md # 档案
   - pages/friends.md # 友链
   - pages/about.md # 关于
-  - exhibition.md # 展览（根目录）| 若在pages目录则写 pages/exhibition.md
+  - pages/exhibition.md # 展览（根目录）| 若在pages目录则写 pages/exhibition.md
 
 # ===================== 排除文件/目录 =====================
 exclude:
