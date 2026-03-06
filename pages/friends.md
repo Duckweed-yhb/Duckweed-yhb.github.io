@@ -4,9 +4,11 @@ title: 友链
 permalink: /friends/
 ---
 
+# 友链
+与志同道合者同行，共赴成长之路
+
 <div class="page-card" markdown="1">  <!-- 添加 markdown="1" 解析内部 Markdown -->
-  # 友链
-  与志同道合者同行，共赴成长之路。
+。
 
   <style>
     /* 和展览页卡片样式统一 */
