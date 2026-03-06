@@ -4,20 +4,32 @@ title: 友链
 permalink: /friends/
 ---
 
-<!-- 标题白框容器（纯 HTML，无任何 Markdown/模板语法混写） -->
+<!-- 标题白框容器（纯 HTML，无任何混写） -->
 <div class="page-header-card">
   <h1>友链</h1>
   <p>与志同道合者同行，共赴成长之路</p>
 </div>
 
-<!-- 样式单独抽离，完全隔离 -->
+<!-- 样式完全抽离，对齐全站规范 -->
 <style>
-  /* ========== 标题白框样式（全站统一） ========== */
+  /* ========== 全局基础样式（全站统一） ========== */
+  :root {
+    --primary-color: #3498db; /* 全站主色调 */
+    --bg-light: rgba(255, 255, 255, 0.88);
+    --bg-dark: rgba(30, 30, 40, 0.88);
+    --text-main: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-light: #ecf0f1;
+    --shadow-normal: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* 标题白框容器（和展览页完全一致） */
   .page-header-card {
-    background: rgba(255, 255, 255, 0.88);
+    background: var(--bg-light);
     padding: 35px 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-normal);
     backdrop-filter: blur(8px);
     max-width: 1200px;
     margin: 0 auto 40px;
@@ -26,68 +38,76 @@ permalink: /friends/
   }
   .page-header-card h1 {
     font-size: 2em;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5em;
-    color: #2c3e50;
+    color: var(--text-main);
     margin-top: 0;
     margin-bottom: 0.5em;
   }
   .page-header-card p {
-    color: #7f8c8d;
+    color: var(--text-secondary);
     margin: 0;
   }
 
-  /* ========== 内容白框样式（全站统一） ========== */
+  /* 内容白框容器（和档案/关于页统一） */
   .page-card {
-    background: rgba(255, 255, 255, 0.88);
+    background: var(--bg-light);
     padding: 35px 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-normal);
     backdrop-filter: blur(8px);
     max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
   }
 
-  /* ========== 友链卡片样式（和展览页统一） ========== */
+  /* ========== 友链卡片样式（和展览页卡片统一） ========== */
   .friends-container {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     margin: 0;
     justify-content: center;
+    padding: 0 10px; /* 增加左右内边距，适配移动端 */
   }
   
   .friend-card {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 300px; /* 和展览页卡片布局统一 */
     max-width: 450px;
-    background: rgba(255, 255, 255, 0.88);
+    background: var(--bg-light);
     padding: 35px 25px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-normal);
     transition: all 0.3s ease;
+    backdrop-filter: blur(8px); /* 增加毛玻璃效果，和展览页统一 */
+    box-sizing: border-box;
   }
   
   .friend-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-hover);
   }
   
   .friend-card h3 {
-    color: #2c3e50;
+    color: var(--text-main);
     margin: 0 0 15px;
     font-size: 1.5em;
+    transition: all 0.3s ease;
+  }
+  
+  .friend-card:hover h3 {
+    color: var(--primary-color); /* 增加标题hover效果，对齐全站 */
   }
   
   .friend-card a {
-    color: #3498db;
+    color: var(--primary-color);
     text-decoration: none;
     font-size: 1em;
     line-height: 1.6;
     display: block;
     margin-bottom: 10px;
+    word-break: break-all; /* 处理长链接换行 */
   }
   
   .friend-card a:hover {
@@ -96,41 +116,47 @@ permalink: /friends/
   }
   
   .friend-card p {
-    color: #7f8c8d;
+    color: var(--text-secondary);
     font-size: 1em;
     margin: 0;
+    line-height: 1.8;
   }
 
-  /* ========== 空状态样式优化 ========== */
+  /* ========== 空状态样式（优化，对齐全站） ========== */
   .friends-empty {
-    color: #7f8c8d;
+    color: var(--text-secondary);
     text-align: center;
-    padding: 40px 0;
+    padding: 60px 20px; /* 增加上下内边距，提升视觉效果 */
     width: 100%;
+    font-size: 1.1em;
   }
   .friends-empty small {
     font-size: 0.9em;
     display: block;
-    margin-top: 8px;
+    margin-top: 12px;
+    opacity: 0.8;
   }
 
-  /* ========== 暗黑模式适配 ========== */
+  /* ========== 暗黑模式（完全对齐全站规范） ========== */
   @media (prefers-color-scheme: dark) {
     .page-header-card, .page-card {
-      background: rgba(30, 30, 40, 0.88);
+      background: var(--bg-dark);
     }
     .page-header-card h1 {
-      color: #ecf0f1;
-      border-bottom-color: #3498db;
+      color: var(--text-light);
+      border-bottom-color: var(--primary-color);
     }
     .page-header-card p {
       color: #bdc3c7;
     }
     .friend-card {
-      background: rgba(30, 30, 40, 0.88);
+      background: var(--bg-dark);
     }
     .friend-card h3 {
-      color: #ecf0f1;
+      color: var(--text-light);
+    }
+    .friend-card:hover h3 {
+      color: var(--primary-color);
     }
     .friend-card p {
       color: #bdc3c7;
@@ -140,37 +166,50 @@ permalink: /friends/
     }
   }
   
-  /* ========== 移动端适配 ========== */
+  /* ========== 移动端适配（精细化，对齐全站） ========== */
   @media (max-width: 768px) {
-    .page-header-card, .page-card {
+    .page-header-card {
       padding: 25px 15px;
       margin: 0 10px 30px;
+    }
+    .page-card {
+      padding: 25px 15px;
+      margin: 0 10px;
     }
     .page-header-card h1 {
       font-size: 1.8em;
     }
     .friends-container {
       gap: 20px;
-      margin: 0;
     }
     .friend-card {
-      min-width: 90%;
+      flex: 1 1 90%; /* 和展览页移动端布局统一 */
       padding: 25px 20px;
       max-width: 100%;
+    }
+    .friends-empty {
+      padding: 40px 10px;
+      font-size: 1em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .friend-card {
+      flex: 1 1 100%;
     }
   }
 </style>
 
-<!-- 友链内容容器（Liquid 模板语法仅用于数据渲染，与 HTML 结构分离） -->
+<!-- 友链内容容器（Liquid 语法规范，HTML 结构纯净化） -->
 <div class="page-card">
   <div class="friends-container">
-    {% comment %} 纯 Liquid 注释，与 HTML 分离 {% endcomment %}
+    {% comment %} Liquid 逻辑与 HTML 完全分离 {% endcomment %}
     {% if site.data.friends and site.data.friends.size > 0 %}
       {% for friend in site.data.friends %}
-        <!-- 纯 HTML 卡片结构，仅用 {{ }} 渲染数据 -->
+        <!-- 纯 HTML 卡片，仅用变量渲染数据 -->
         <div class="friend-card">
           <h3>{{ friend.name }}</h3>
-          <a href="{{ friend.url | relative_url }}" target="_blank">{{ friend.url }}</a>
+          <a href="{{ friend.url | relative_url }}" target="_blank" rel="noopener noreferrer">{{ friend.url }}</a>
           <p>{{ friend.desc }}</p>
         </div>
       {% endfor %}
@@ -183,3 +222,42 @@ permalink: /friends/
     {% endif %}
   </div>
 </div>
+
+<!-- 补充脚本（提升交互体验，对齐全站） -->
+<script>
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 为所有友链链接添加安全属性（noopener noreferrer）
+    document.querySelectorAll('.friend-card a').forEach(link => {
+      if (!link.hasAttribute('rel')) {
+        link.setAttribute('rel', 'noopener noreferrer');
+      }
+      // 增加链接点击反馈
+      link.addEventListener('click', function(e) {
+        this.style.opacity = '0.8';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 200);
+      });
+    });
+
+    // 空状态自适应
+    const emptyContainer = document.querySelector('.friends-empty');
+    if (emptyContainer) {
+      // 确保空状态高度适配
+      emptyContainer.style.minHeight = '200px';
+    }
+
+    // 窗口大小变化适配（防抖）
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // 重置卡片布局
+        document.querySelectorAll('.friend-card').forEach(card => {
+          card.style.flex = '';
+        });
+      }, 100);
+    });
+  });
+</script>

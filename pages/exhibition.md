@@ -4,16 +4,16 @@ title: 展览
 permalink: /exhibition/
 ---
 
-<!-- 标题白框容器（纯 HTML 替代 Markdown，避免解析冲突） -->
+<!-- 标题白框容器（纯 HTML，Liquid/Markdown 完全分离） -->
 <div class="page-header-card">
   <h1>展览</h1>
   <p>是个人项目、技能与阅读清单的聚合展示。</p>
 </div>
 
-<!-- 样式单独封装，作用域隔离 -->
+<!-- 样式单独抽离，作用域隔离且对齐全站规范 -->
 <style>
-  /* ========== 全局通用样式 ========== */
-  /* 标题白框容器 */
+  /* ========== 全局通用样式（全站统一） ========== */
+  /* 标题白框容器（和友链页完全一致） */
   .page-header-card {
     background: rgba(255, 255, 255, 0.88);
     padding: 35px 25px;
@@ -38,7 +38,7 @@ permalink: /exhibition/
     margin: 0;
   }
 
-  /* 卡片容器 */
+  /* 卡片容器（优化布局，适配全站） */
   .exhibition-container {
     display: flex;
     flex-wrap: wrap;
@@ -47,9 +47,10 @@ permalink: /exhibition/
     justify-content: center;
     width: 100%;
     max-width: 1200px;
+    padding: 0 10px; /* 增加左右内边距，适配移动端 */
   }
 
-  /* ========== 卡片样式 ========== */
+  /* ========== 卡片样式（优化细节，对齐全站） ========== */
   .exhibition-card {
     flex: 1 1 300px;
     max-width: 450px;
@@ -66,7 +67,7 @@ permalink: /exhibition/
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
 
-  /* 卡片图标 */
+  /* 卡片图标（优化交互，增加容错） */
   .card-icon {
     font-size: 45px;
     margin-bottom: 20px;
@@ -80,7 +81,7 @@ permalink: /exhibition/
     transform: scale(1.1);
   }
 
-  /* 卡片标题 */
+  /* 卡片标题（优化 hover 效果，对齐全站主色调） */
   .card-title {
     font-size: 1.5em;
     color: #2c3e50;
@@ -93,7 +94,7 @@ permalink: /exhibition/
     color: #3498db;
   }
 
-  /* 卡片描述 */
+  /* 卡片描述（统一样式） */
   .card-desc {
     color: #7f8c8d;
     margin-bottom: 25px;
@@ -102,7 +103,7 @@ permalink: /exhibition/
     text-align: center;
   }
 
-  /* 卡片分隔线 */
+  /* 卡片分隔线（对齐全站主色调） */
   .card-divider {
     width: 80px;
     height: 2px;
@@ -111,7 +112,7 @@ permalink: /exhibition/
     border: none;
   }
 
-  /* 子分类标题 */
+  /* 子分类标题（优化样式，统一规范） */
   .sub-category {
     text-align: left;
     font-size: 1.15em;
@@ -121,7 +122,7 @@ permalink: /exhibition/
     border-left: 3px solid #3498db;
   }
 
-  /* 卡片列表 */
+  /* 卡片列表（优化 hover 效果，提升可读性） */
   .card-list {
     list-style: none;
     padding: 0;
@@ -135,7 +136,7 @@ permalink: /exhibition/
     position: relative;
     margin-bottom: 8px;
   }
-  /* 列表项小圆点（hover显示） */
+  /* 列表项小圆点（hover显示，优化动画） */
   .card-list li::before {
     content: "•";
     color: #3498db;
@@ -153,17 +154,17 @@ permalink: /exhibition/
     left: 0;
   }
 
-  /* 展开/收起（默认折叠） */
+  /* 展开/收起（优化过渡动画，增加最大高度容错） */
   .card-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .card-content.active {
-    max-height: 2000px;
+    max-height: 5000px; /* 增大最大高度，适配长列表 */
   }
 
-  /* ========== 响应式适配 ========== */
+  /* ========== 响应式适配（精细化优化） ========== */
   /* 平板 */
   @media (max-width: 768px) {
     .page-header-card {
@@ -175,7 +176,7 @@ permalink: /exhibition/
     }
     .exhibition-container {
       gap: 20px;
-      margin: 0 10px;
+      margin: 0;
     }
     .exhibition-card {
       flex: 1 1 90%;
@@ -202,7 +203,7 @@ permalink: /exhibition/
     }
   }
 
-  /* ========== 暗黑模式 ========== */
+  /* ========== 暗黑模式（完全对齐全站规范） ========== */
   @media (prefers-color-scheme: dark) {
     .page-header-card {
       background: rgba(30, 30, 40, 0.88);
@@ -235,12 +236,12 @@ permalink: /exhibition/
   }
 </style>
 
-<!-- 卡片容器 -->
+<!-- 卡片容器（纯 HTML 结构，无任何模板/Markdown 混写） -->
 <div class="exhibition-container">
   <!-- 项目卡片 -->
   <div class="exhibition-card">
-    <div class="card-icon">📂</div>
-    <h3 class="card-title" onclick="toggleCard('project', event)">项目</h3>
+    <div class="card-icon" data-card="project">📂</div>
+    <h3 class="card-title" data-card="project">项目</h3>
     <p class="card-desc">我的开发项目（按开发状态分类）</p>
     <hr class="card-divider">
     <div id="project" class="card-content">
@@ -266,8 +267,8 @@ permalink: /exhibition/
 
   <!-- 技能卡片 -->
   <div class="exhibition-card">
-    <div class="card-icon">⚡</div>
-    <h3 class="card-title" onclick="toggleCard('skill', event)">技能</h3>
+    <div class="card-icon" data-card="skill">⚡</div>
+    <h3 class="card-title" data-card="skill">技能</h3>
     <p class="card-desc">我的技术栈（含入门级嵌入式）</p>
     <hr class="card-divider">
     <div id="skill" class="card-content">
@@ -293,8 +294,8 @@ permalink: /exhibition/
 
   <!-- 书籍卡片 -->
   <div class="exhibition-card">
-    <div class="card-icon">📚</div>
-    <h3 class="card-title" onclick="toggleCard('book', event)">书籍</h3>
+    <div class="card-icon" data-card="book">📚</div>
+    <h3 class="card-title" data-card="book">书籍</h3>
     <p class="card-desc">我的阅读清单（按阅读状态分类）</p>
     <hr class="card-divider">
     <div id="book" class="card-content">
@@ -353,73 +354,88 @@ permalink: /exhibition/
   </div>
 </div>
 
-<!-- 交互脚本（封装为纯函数，避免全局污染） -->
+<!-- 交互脚本（重构逻辑，移除内联事件，提升健壮性） -->
 <script>
-  // 展开/收起核心函数（优化参数传递，避免依赖全局event）
-  function toggleCard(cardId, event) {
-    // 阻止事件冒泡
-    if (event) event.stopPropagation();
-    
-    // 获取内容容器，增加容错
-    const content = document.getElementById(cardId);
-    if (!content) {
-      console.warn('未找到卡片内容:', cardId);
-      return;
-    }
-    
-    // 切换展开/收起状态
-    content.classList.toggle('active');
-    
-    // 展开后滚动到卡片（平滑动画）
-    if (content.classList.contains('active')) {
-      setTimeout(() => {
-        content.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'nearest',
-          inline: 'nearest'
-        });
-      }, 100);
-    }
-  }
-
-  // 页面加载完成初始化
+  // 页面加载完成后初始化
   document.addEventListener('DOMContentLoaded', function() {
-    // 图标点击绑定（兼容所有卡片，优化选择器）
-    document.querySelectorAll('.card-icon').forEach(icon => {
-      icon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // 从标题的onclick属性中提取cardId
-        const titleEl = this.nextElementSibling;
-        if (!titleEl || !titleEl.hasAttribute('onclick')) return;
-        
-        const onclickStr = titleEl.getAttribute('onclick');
-        const match = onclickStr.match(/toggleCard\('(\w+)',/);
-        if (match && match[1]) {
-          toggleCard(match[1], e);
-        }
+    // 存储卡片状态，避免重复操作
+    const cardStates = {};
+
+    // 展开/收起核心函数（纯函数，无全局依赖）
+    const toggleCard = function(cardId) {
+      // 容错：检查卡片是否存在
+      const content = document.getElementById(cardId);
+      if (!content) {
+        console.warn(`卡片 ${cardId} 不存在`);
+        return;
+      }
+
+      // 切换状态
+      content.classList.toggle('active');
+      cardStates[cardId] = content.classList.contains('active');
+
+      // 展开后滚动到卡片（优化滚动逻辑）
+      if (cardStates[cardId]) {
+        setTimeout(() => {
+          content.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'center'
+          });
+        }, 100);
+      }
+    };
+
+    // 绑定所有卡片元素的点击事件（移除内联 onclick）
+    const bindCardEvents = function() {
+      // 绑定图标点击
+      document.querySelectorAll('.card-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+          const cardId = this.getAttribute('data-card');
+          toggleCard(cardId);
+        });
       });
-    });
+
+      // 绑定标题点击
+      document.querySelectorAll('.card-title').forEach(title => {
+        title.addEventListener('click', function() {
+          const cardId = this.getAttribute('data-card');
+          toggleCard(cardId);
+        });
+      });
+    };
 
     // 初始化过渡动画（确保样式生效）
-    setTimeout(() => {
+    const initCardTransitions = function() {
       document.querySelectorAll('.card-content').forEach(content => {
         content.style.transition = 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
       });
-    }, 100);
-  });
+    };
 
-  // 窗口大小变化适配（优化性能）
-  window.addEventListener('resize', function() {
-    // 只处理已展开的卡片
-    document.querySelectorAll('.card-content.active').forEach(content => {
-      content.style.maxHeight = '2000px';
+    // 窗口大小变化适配（防抖优化）
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // 重置已展开卡片的高度，适配新窗口大小
+        Object.keys(cardStates).forEach(cardId => {
+          if (cardStates[cardId]) {
+            const content = document.getElementById(cardId);
+            if (content) content.style.maxHeight = '5000px';
+          }
+        });
+      }, 100);
     });
-  });
 
-  // 增加页面卸载时的清理，避免内存泄漏
-  window.addEventListener('beforeunload', function() {
-    document.querySelectorAll('.card-icon').forEach(icon => {
-      icon.removeEventListener('click', null);
+    // 初始化执行
+    bindCardEvents();
+    initCardTransitions();
+
+    // 清理事件监听，避免内存泄漏
+    window.addEventListener('beforeunload', function() {
+      document.querySelectorAll('.card-icon, .card-title').forEach(el => {
+        el.removeEventListener('click', null);
+      });
     });
   });
 </script>
