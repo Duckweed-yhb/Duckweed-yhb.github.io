@@ -4,11 +4,39 @@ title: 展览
 permalink: /exhibition/
 ---
 
-# 展览
-是个人项目、技能与阅读清单的聚合展示。
+<!-- 添加统一的白框容器包裹标题 -->
+<div class="page-header-card">
+  # 展览
+  是个人项目、技能与阅读清单的聚合展示。
+</div>
 
 <!-- 统一样式 + 全站视觉统一 -->
 <style>
+  /* 核心：标题白框容器（和其他页面统一） */
+  .page-header-card {
+    background: rgba(255, 255, 255, 0.88);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(8px);
+    max-width: 1200px;
+    margin: 0 auto 40px; /* 标题框和卡片容器间距 */
+    box-sizing: border-box;
+    line-height: 1.8;
+  }
+  .page-header-card h1 {
+    font-size: 2em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5em;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+  .page-header-card p {
+    color: #7f8c8d;
+    margin: 0;
+  }
+
   /* 页面容器适配 */
   .page-content .wrapper {
     max-width: 1200px;
@@ -21,9 +49,10 @@ permalink: /exhibition/
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    margin: 40px 0;
+    margin: 0 auto;
     justify-content: center;
     width: 100%;
+    max-width: 1200px; /* 和标题框宽度一致 */
   }
 
   .exhibition-card {
@@ -143,9 +172,16 @@ permalink: /exhibition/
 
   /* 移动端适配 */
   @media (max-width: 768px) {
+    .page-header-card {
+      padding: 25px 15px;
+      margin: 0 10px 30px;
+    }
+    .page-header-card h1 {
+      font-size: 1.8em;
+    }
     .exhibition-container {
       gap: 20px;
-      margin: 20px 0;
+      margin: 0 10px;
     }
     .exhibition-card {
       flex: 1 1 90%;
@@ -177,6 +213,16 @@ permalink: /exhibition/
 
   /* 暗黑模式适配 */
   @media (prefers-color-scheme: dark) {
+    .page-header-card {
+      background: rgba(30, 30, 40, 0.88);
+    }
+    .page-header-card h1 {
+      color: #ecf0f1;
+      border-bottom-color: #3498db;
+    }
+    .page-header-card p {
+      color: #bdc3c7;
+    }
     .exhibition-card {
       background: rgba(30, 30, 40, 0.88);
     }

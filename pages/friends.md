@@ -4,19 +4,58 @@ title: 友链
 permalink: /friends/
 ---
 
-# 友链
-与志同道合者同行，共赴成长之路
+<!-- 统一的标题白框容器 -->
+<div class="page-header-card">
+  # 友链
+  与志同道合者同行，共赴成长之路
+</div>
 
-<div class="page-card" markdown="1">  <!-- 添加 markdown="1" 解析内部 Markdown -->
-。
-
+<!-- 友链内容容器（统一白框样式） -->
+<div class="page-card">
   <style>
-    /* 和展览页卡片样式统一 */
+    /* 核心：标题白框样式（和其他页面统一） */
+    .page-header-card {
+      background: rgba(255, 255, 255, 0.88);
+      padding: 35px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(8px);
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      box-sizing: border-box;
+      line-height: 1.8;
+    }
+    .page-header-card h1 {
+      font-size: 2em;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.5em;
+      color: #2c3e50;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .page-header-card p {
+      color: #7f8c8d;
+      margin: 0;
+    }
+
+    /* 内容白框样式 */
+    .page-card {
+      background: rgba(255, 255, 255, 0.88);
+      padding: 35px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(8px);
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    /* 友链卡片样式（和展览页统一） */
     .friends-container {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
-      margin: 40px 0;
+      margin: 0;
       justify-content: center;
     }
     
@@ -62,12 +101,42 @@ permalink: /friends/
       font-size: 1em;
       margin: 0;
     }
+
+    /* 暗黑模式适配 */
+    @media (prefers-color-scheme: dark) {
+      .page-header-card, .page-card {
+        background: rgba(30, 30, 40, 0.88);
+      }
+      .page-header-card h1 {
+        color: #ecf0f1;
+        border-bottom-color: #3498db;
+      }
+      .page-header-card p {
+        color: #bdc3c7;
+      }
+      .friend-card {
+        background: rgba(30, 30, 40, 0.88);
+      }
+      .friend-card h3 {
+        color: #ecf0f1;
+      }
+      .friend-card p {
+        color: #bdc3c7;
+      }
+    }
     
     /* 移动端适配 */
     @media (max-width: 768px) {
+      .page-header-card, .page-card {
+        padding: 25px 15px;
+        margin: 0 10px 30px;
+      }
+      .page-header-card h1 {
+        font-size: 1.8em;
+      }
       .friends-container {
         gap: 20px;
-        margin: 20px 0;
+        margin: 0;
       }
       .friend-card {
         min-width: 90%;
@@ -77,7 +146,7 @@ permalink: /friends/
     }
   </style>
 
-  <div class="friends-container" markdown="0">  <!-- 关闭该标签的 Markdown 解析（避免干扰 Liquid） -->
+  <div class="friends-container">
     {% if site.data.friends and site.data.friends.size > 0 %}
       {% for friend in site.data.friends %}
         <div class="friend-card">
@@ -93,4 +162,4 @@ permalink: /friends/
       </div>
     {% endif %}
   </div>
-</div>  <!-- 闭合通用卡片 -->
+</div>

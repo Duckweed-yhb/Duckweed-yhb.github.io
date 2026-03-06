@@ -1,17 +1,45 @@
 ---
-layout: default  # 修复拼写错误：deafult → default
+layout: default
 title: 档案
 permalink: /archive/
 ---
 
-# 档案
-  所有已发布帖子的汇总与分类索引
-  
-<div class="page-card" markdown="1">  <!-- 核心修复：添加 markdown="1" 解析内部 Markdown -->
-  
+<!-- 保留HTML容器（让内容在白框内） + 用CSS模拟Markdown标题样式 -->
+<div class="page-card">  
+  <!-- 用div模拟Markdown的h1标题，样式和# 档案完全一致 -->
+  <div class="markdown-h1">档案</div>
+  <p class="subtitle">所有已发布帖子的汇总与分类索引</p>
 
   <!-- 切换按钮样式 -->
   <style>
+    /* 核心：模拟Markdown的h1标题样式（和# 标题渲染效果一致） */
+    .markdown-h1 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 1em 0 0.5em;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.5em;
+    }
+    .subtitle {
+      font-size: 1em;
+      color: #7f8c8d;
+      margin-bottom: 2em;
+      line-height: 1.6;
+    }
+
+    /* 页面容器（白框样式，和其他页面统一） */
+    .page-card {
+      background: rgba(255, 255, 255, 0.88);
+      padding: 35px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(8px);
+      max-width: 1000px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
     .archive-tabs {
       margin: 20px 0;
       display: flex;
@@ -66,17 +94,70 @@ permalink: /archive/
       color: #fff;
       transition: all 0.3s ease;
     }
+    /* 暗黑模式适配 */
+    @media (prefers-color-scheme: dark) {
+      .page-card {
+        background: rgba(30, 30, 40, 0.88);
+      }
+      .markdown-h1 {
+        color: #ecf0f1;
+        border-bottom-color: #3498db;
+      }
+      .subtitle {
+        color: #bdc3c7;
+      }
+      .archive-tab {
+        background: #2c3e50;
+        border-color: #34495e;
+        color: #ecf0f1;
+      }
+      .archive-tab.active {
+        background: #007bff;
+        border-color: #007bff;
+      }
+      .cat-tag-btn {
+        background: #34495e;
+        color: #ecf0f1;
+      }
+      .cat-tag-btn:hover {
+        background: #007bff;
+      }
+      .post-item {
+        border-color: #34495e;
+      }
+      .post-tag {
+        color: #bdc3c7;
+      }
+    }
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .page-card {
+        padding: 25px 15px;
+        margin: 0 10px;
+      }
+      .markdown-h1 {
+        font-size: 1.8em;
+      }
+      .archive-tabs {
+        flex-wrap: wrap;
+      }
+      .archive-tab {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 8px 10px;
+      }
+    }
   </style>
 
   <!-- 切换按钮 -->
-  <div class="archive-tabs" markdown="0">  <!-- 关闭该标签的 Markdown 解析，避免干扰 HTML/JS -->
+  <div class="archive-tabs">
     <div class="archive-tab active" onclick="switchTab('time', this)">按时间排序</div>
     <div class="archive-tab" onclick="switchTab('category', this)">按分类浏览</div>
     <div class="archive-tab" onclick="switchTab('tag', this)">按标签浏览</div>
   </div>
 
   <!-- 1. 时间排序内容（默认显示） -->
-  <div id="time" class="archive-content active" markdown="0">
+  <div id="time" class="archive-content active">
     <h3>📅 所有帖子（按发布时间倒序）</h3>
     <ul class="post-list">
       {% for post in site.posts %}
@@ -94,7 +175,7 @@ permalink: /archive/
   </div>
 
   <!-- 2. 分类浏览内容 -->
-  <div id="category" class="archive-content" markdown="0">
+  <div id="category" class="archive-content">
     <h3>📁 分类索引</h3>
     <div style="margin: 15px 0;">
       {% assign categories = site.categories | sort %}
@@ -120,7 +201,7 @@ permalink: /archive/
   </div>
 
   <!-- 3. 标签浏览内容 -->
-  <div id="tag" class="archive-content" markdown="0">
+  <div id="tag" class="archive-content">
     <h3>🏷️ 标签索引</h3>
     <div style="margin: 15px 0;">
       {% assign tags = site.tags | sort %}
@@ -145,8 +226,8 @@ permalink: /archive/
     {% endfor %}
   </div>
 
-  <!-- 切换逻辑脚本（修复 event 兼容性问题） -->
-  <script markdown="0">  <!-- 关闭脚本标签的 Markdown 解析 -->
+  <!-- 切换逻辑脚本 -->
+  <script>
   function switchTab(tabName, element) {
     // 隐藏所有内容
     const contents = document.querySelectorAll('.archive-content');
@@ -163,4 +244,4 @@ permalink: /archive/
     element.classList.add('active');
   }
   </script>
-</div>  <!-- 闭合通用卡片 -->
+</div>
