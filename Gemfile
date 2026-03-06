@@ -1,7 +1,5 @@
-# source "https://rubygems.org"
-
-# 注释掉这一行，让 Bundler 自动适配环境 Ruby 版本
-# ruby "3.1.4"
+# 必须保留这一行，否则 Bundler 不知道从哪里下载 gem
+source "https://rubygems.org"
 
 # 适配 GitHub Pages，使用官方推荐的版本
 gem "github-pages", "~> 231", group: :jekyll_plugins

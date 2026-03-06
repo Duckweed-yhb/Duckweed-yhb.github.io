@@ -85,7 +85,7 @@ permalink: /friends/
     {% else %}
     <div style="color: #7f8c8d; text-align: center; padding: 40px 0; width: 100%;">
       暂无友链，欢迎交换！<br>
-      <small style="font-size: 0.9em;">可私信我添加你的博客链接～</small>
+      <small style="font-size: 0.9em;">可私信我或者发送到我的邮箱添加你的博客链接～</small>
     </div>
     {% endfor %}
   </div>
