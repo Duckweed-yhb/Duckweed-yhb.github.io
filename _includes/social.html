@@ -1,22 +1,57 @@
 <!-- _includes/social.html - 社交媒体链接组件 -->
 <ul class="social-media-list">
+  <!-- 社交图标通用样式（内嵌，避免样式依赖） -->
+  <style>
+    .social-media-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .social-media-list li {
+      margin: 0;
+    }
+    .social-media-list a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34495e;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .social-media-list a:hover {
+      color: #3498db;
+      transform: translateX(5px);
+    }
+    .social-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain; /* 保证SVG/icon比例正常 */
+    }
+    .username {
+      font-size: 1em;
+    }
+  </style>
+
   <!-- GitHub 图标 -->
   {%- if site.github_username -%}
   <li>
     <a 
-      href="https://github.com/{{ site.github_username| cgi_escape | escape }}" 
+      href="https://github.com/{{ site.github_username | cgi_escape | escape }}" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="访问我的GitHub主页"
     >
-      <!-- 本地 SVG + 容错处理 -->
+      <!-- 本地 SVG + 容错处理（路径适配你的目录结构） -->
       <img 
-        src="{{ '/assets/images/github.svg' | relative_url }}" 
+        src="{{ '/images/github.svg' | relative_url }}"  <!-- 修正：你的SVG在images/而非assets/images/ -->
         alt="GitHub" 
         class="social-icon"
         onerror="this.src='https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/svg/brands/github.svg'; this.alt='GitHub图标'"
       >
-      <span class="username">{{ site.github_username| escape }}</span>
+      <span class="username">{{ site.github_username | escape }}</span>
     </a>
   </li>
   {%- endif -%}
@@ -25,14 +60,14 @@
   {%- if site.zhihu_url -%}
   <li>
     <a 
-      href="{{ site.zhihu_url }}" 
+      href="{{ site.zhihu_url | escape }}"  <!-- 新增escape，避免URL特殊字符报错 -->
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="访问我的知乎主页"
     >
       <!-- 本地 SVG + 容错处理 -->
       <img 
-        src="{{ '/assets/images/zhihu.svg' | relative_url }}" 
+        src="{{ '/images/zhihu.svg' | relative_url }}"  <!-- 修正路径 -->
         alt="知乎" 
         class="social-icon"
         onerror="this.src='https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/svg/solid/comment-dots.svg'; this.alt='知乎图标'"
@@ -46,14 +81,14 @@
   {%- if site.bilibili_url -%}
   <li>
     <a 
-      href="{{ site.bilibili_url }}" 
+      href="{{ site.bilibili_url | escape }}"  <!-- 新增escape -->
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="访问我的B站主页"
     >
       <!-- 本地 SVG + 容错处理 -->
       <img 
-        src="{{ '/assets/images/bilibili.svg' | relative_url }}" 
+        src="{{ '/images/bilibili.svg' | relative_url }}"  <!-- 修正路径 -->
         alt="哔哩哔哩" 
         class="social-icon"
         onerror="this.src='https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/svg/solid/video.svg'; this.alt='B站图标'"

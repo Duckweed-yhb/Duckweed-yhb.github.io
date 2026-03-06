@@ -2,6 +2,135 @@
 <footer class="site-footer h-card" role="contentinfo">
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
+  <!-- 页脚样式优化（内嵌，避免样式文件依赖） -->
+  <style>
+    .site-footer {
+      background-color: rgba(255, 255, 255, 0.88); /* 和页面卡片统一透明度 */
+      padding: 40px 35px;
+      border-radius: 12px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+      margin: 30px auto 20px auto;
+      max-width: 950px;
+      width: 90%;
+      position: relative;
+      z-index: 10;
+    }
+    .footer-col-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
+    .footer-heading {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #3498db;
+    }
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .contact-list li {
+      margin-bottom: 12px;
+      font-size: 1em;
+    }
+    .contact-list a {
+      color: #34495e;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .contact-list a:hover {
+      color: #3498db;
+      transform: translateX(5px);
+    }
+    /* 社交图标样式 */
+    .social-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .social-links li {
+      margin: 0;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34495e;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #3498db;
+      transform: translateX(5px);
+    }
+    .social-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor; /* 继承文字颜色，hover时同步变色 */
+    }
+    .site-desc {
+      color: #7f8c8d;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .copyright, .beian {
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin: 5px 0;
+    }
+    .copyright a, .beian a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .copyright a:hover, .beian a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    .footer-bottom a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .footer-col-wrapper {
+        flex-direction: column;
+        gap: 25px;
+      }
+      .footer-col {
+        min-width: 100%;
+      }
+      .site-footer {
+        padding: 30px 20px;
+        width: 98%;
+      }
+    }
+  </style>
+
   <!-- 页脚内容容器 -->
   <div class="footer-col-wrapper">
     <!-- 第一列：站点信息 + 联系方式 -->

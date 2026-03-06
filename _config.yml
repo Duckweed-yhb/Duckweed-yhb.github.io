@@ -7,32 +7,38 @@ baseurl: ""
 url: "https://Duckweed-yhb.github.io"
 timezone: Asia/Shanghai
 lang: zh-CN  # 匹配你的页面语言，避免默认英文
+github_username: Duckweed-yhb  # 补充GitHub用户名，便于主题调用
 
 # ===================== 主题与插件配置 =====================
 theme: minima
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-seo-tag  # 新增SEO插件，优化站点元信息
 
 # ===================== 内容配置 =====================
 defaults:
-  # 文章默认使用 post 布局（继承你的default布局）
+  # 文章默认使用 post 布局
   - scope:
-      path: ""
+      path: "_posts"  # 修正：限定posts目录，避免全局匹配
       type: "posts"
     values:
       layout: "post"
       math: true  # 所有文章默认加载MathJax
-  # pages 目录下的页面默认使用 default 布局（你的自定义布局）
+      permalink: /posts/:title/  # 统一文章链接格式
+
+  # pages 目录下的页面默认使用 default 布局
   - scope:
       path: "pages"
       type: "pages"
     values:
       layout: "default"
-  # 根目录 index.md 强制使用 default 布局（你的自定义布局）
+
+  # 根目录 index.md 强制使用 default 布局
   - scope:
-      path: "index.md"
+      path: ""
       type: "pages"
+      file: "index.md"  # 精准匹配根目录index.md
     values:
       layout: "default"
       permalink: "/"
@@ -41,11 +47,13 @@ defaults:
 paginate: 5
 paginate_path: "/page/:num/"
 
-# 导航栏配置（顺序：档案 → 展览 → 友链，无重复）
+# 导航栏配置（顺序：档案 → 友链 → 关于，移除不存在的exhibition.md）
+# 注：若后续创建exhibition.md，可取消注释添加
 header_pages:
   - pages/archive.md
-  - pages/exhibition.md  # 展览页面，确保路径和文件一致
   - pages/friends.md
+  - pages/about.md
+  # - pages/exhibition.md  # 展览页面（暂未创建，注释保留）
 
 # ===================== 排除文件 =====================
 exclude:
@@ -64,9 +72,23 @@ exclude:
 
 # ===================== Minima主题自定义 =====================
 minima:
-  social_links: [] # 清空内置社交链接，用你的自定义
-  skin: auto
+  social_links:  # 补充常用社交链接，适配minima主题
+    - { platform: github,  user_url: "https://github.com/Duckweed-yhb" }
+    - { platform: email,   user_url: "mailto:3071974740@qq.com" }
+    - { platform: zhihu,   user_url: "https://www.zhihu.com/people/54-62-1-34-68" }
+  skin: auto  # 自动适配浅色/深色模式
 
 # ===================== 编码与格式 =====================
 encoding: utf-8
 date_format: "%Y-%m-%d %H:%M"
+
+# ===================== 额外优化配置 =====================
+# 开启语法高亮
+highlighter: rouge
+# 支持Markdown扩展语法
+markdown: kramdown
+kramdown:
+  input: GFM  # 支持GitHub Flavored Markdown
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true  # 代码块显示行号
