@@ -26,6 +26,8 @@
 ├── 404.html
 ├── Gemfile
 ├── README.md
+├── _data
+│   ├── friends.yml
 ├── _includes
 │   ├── head.html
 │   ├── header.html
@@ -46,12 +48,10 @@
 │   │   └── zhihu.svg
 │   ├── pdf
 │   └── videos
-├── data
-│   ├── friends.yml
 ├── index.md
 ├── pages
-│   ├── archive.md
-│   └── friends.md
+│   ├── archive.html
+│   └── friends.html
 ├── requirements.txt
 ├── scripts
 │   └── generate_readme.py
@@ -60,7 +60,7 @@
 ```
 
 ---
-> 最后更新：2026-03-06 03:36:10 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-03-07 01:13:20 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
