@@ -2,19 +2,8 @@ name: Build and deploy Jekyll site to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
-    paths:
-      - '_posts/**'
-      - '_includes/**'
-      - '_layouts/**'
-      - '_config.yml'
-      - 'assets/**'
-      - 'pages/**'
-      - 'index.md'
-      - '!README.md'
-      - '!scripts/**'
-      - '!.github/workflows/update-readme.yml'
-  workflow_dispatch:
+    branches: [ main, master ]  # 去掉 paths 限制，所有 push 都触发
+  workflow_dispatch:  # 保留手动触发
 
 concurrency:
   group: pages-jekyll-${{ github.ref }}
@@ -40,17 +29,18 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
-          bundler-cache: false  # 关键：关闭缓存，强制重新安装依赖
+          bundler-cache: true  # 恢复缓存（关闭缓存易导致依赖问题）
 
-      - name: 清理旧依赖并安装
+      - name: 清理旧构建产物和依赖
         run: |
-          rm -rf Gemfile.lock vendor
+          rm -rf _site .jekyll-cache Gemfile.lock vendor
           bundle install --full-index --path vendor/bundle
 
       - name: Build Jekyll site（带详细日志）
         run: bundle exec jekyll build --trace --baseurl ""
         env:
           JEKYLL_ENV: production
+          LC_ALL: C.UTF-8  # 关键：强制UTF8编码，解决中文解析问题
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
