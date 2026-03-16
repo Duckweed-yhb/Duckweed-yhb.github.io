@@ -25,42 +25,42 @@ plugins:
   # - jekyll-paginate  # 分页插件（后续需要时取消注释）
 
 # ===================== 内容配置 =====================
-# 全局默认布局与属性
+# 全局默认布局与属性（核心修复区）
 defaults:
-  # 文章默认配置
+  # 文章默认配置：强制开启Liquid解析，确保Jekyll识别文章
   - scope:
       path: "_posts"
       type: "posts"
     values:
       layout: "post"
-      math: false  # 修复1：先关闭MathJax，避免加载失败阻塞构建
-      # 注释掉全局permalink，允许文章手动自定义
-      # permalink: /posts/:title/ 
-      author: "Duckweed" # 新增：默认作者
+      math: false  # 先关闭MathJax，避免加载失败阻塞构建
+      author: "Duckweed" # 默认作者
+      render_with_liquid: true  # ✅ 关键修复：开启文章的Liquid解析
 
-  # 根目录下所有页面默认配置（关键修复：覆盖pages目录和根目录）
+  # 非文章页面配置：仅给纯页面关闭Liquid解析（不影响文章）
   - scope:
       path: ""
       type: "pages"
+      exclude: "_posts"  # ✅ 关键修复：排除文章目录，避免覆盖
     values:
       layout: "default"
-      render_with_liquid: false  # 修复2：关闭Liquid解析，避免LaTeX代码被误解析
+      render_with_liquid: false  # 仅关闭纯页面的Liquid解析（避免LaTeX误解析）
       permalink: /:basename/ # 页面链接格式（archive.html → /archive/）
 
-  # 根目录index.md配置
+  # 根目录index.md配置：开启Liquid解析，确保能渲染文章列表
   - scope:
       path: "index.md"
       type: "pages"
     values:
       layout: "default"
       permalink: "/"
-      render_with_liquid: false  # 同步修复：关闭Liquid解析
+      render_with_liquid: true  # ✅ 关键修复：开启首页Liquid解析（显示文章列表）
 
 # 分页配置（后续启用分页插件时取消注释）
 # paginate: 5
 # paginate_path: "/page/:num/"
 
-# 导航栏配置（修复3：注释掉，先保证文章显示，后续再加）
+# 导航栏配置（注释掉，先保证文章显示，后续再加）
 # header_pages:
 #   - archive.html # 档案（根目录.html文件）
 #   - friends.html # 友链（根目录.html文件）
@@ -80,7 +80,7 @@ exclude:
   - templates/
   - scripts/
   - requirements.txt
-  - README.md # 取消注释：排除根目录README.md（避免生成页面）
+  - README.md # 排除根目录README.md（避免生成页面）
 
 # ===================== Minima主题自定义 =====================
 minima:
