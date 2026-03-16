@@ -6,7 +6,7 @@ categories: [工具分享, LaTeX]
 tags: [LaTeX, 多文件模板, 课程笔记, 排版]
 author: Duckweed
 ---
-{% raw %}
+
 
 # LaTeX模板分享：多文件课程笔记/读书感悟/年度总结
 > 3 套可直接复制使用的 LaTeX 模板，支持中文、公式、表格、多文件结构化管理
@@ -172,5 +172,3 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 ## 四、反馈与交流
 若需定制模板/有使用疑问，可通过邮箱反馈：  
 📧 3071974740@qq.com
-
-{% endraw %}
