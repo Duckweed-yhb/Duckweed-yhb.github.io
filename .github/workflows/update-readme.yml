@@ -3,16 +3,13 @@ name: Auto Update README (Jekyll Blog)
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - '_posts/**/*.md'
-      - '_posts/**/*.markdown'
-      - 'templates/**'
-      - 'scripts/**'
-      - 'README.md'
-      # 移除 .github/workflows/**，避免修改工作流时无限触发
-      - '!_site/**'
-      - '!.jekyll-cache/**'
-      - '!vendor/**'
+    paths-ignore:
+      - '.github/**'
+      - '_site/**'
+      - '.jekyll-cache/**'
+      - 'vendor/**'
+      - 'Gemfile.lock'
+
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
@@ -27,57 +24,32 @@ jobs:
     if: github.repository_owner == github.actor || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
-      actions: read
+
     steps:
-      - name: 拉取仓库代码
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ github.token }}
 
-      - name: 设置 Python 环境
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: 安装依赖
+      - name: Install dependencies
         run: |
-          set -e
           python -m pip install --upgrade pip
-          pip install --retries 3 --timeout 30 pyyaml
+          pip install pyyaml
 
-      - name: 检查生成脚本是否存在
-        id: check_script
-        run: |
-          if [ -f "scripts/generate_readme.py" ]; then
-            echo "script_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "script_exists=false" >> $GITHUB_OUTPUT
-          fi
+      - name: Generate full README
+        run: python scripts/generate_readme.py
 
-      - name: 生成 README 内容
-        if: steps.check_script.outputs.script_exists == 'true'
-        run: |
-          set -e
-          python scripts/generate_readme.py
-          if [ ! -f "README.md" ]; then
-            echo "❌ 未生成 README.md 文件！"
-            exit 1
-          fi
-
-      - name: 提交更新
+      - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto update README from Jekyll posts [skip ci] [skip pages]"
-          file_pattern: "README.md"
+          commit_message: "chore: auto-update README with full blog content [skip ci]"
+          file_pattern: README.md
           branch: ${{ github.ref_name }}
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          skip_fetch: true
-          skip_checkout: true
-
-      - name: 脚本缺失容错处理
-        if: steps.check_script.outputs.script_exists == 'false'
-        run: |
-          echo "❌ 工作流终止：核心脚本 scripts/generate_readme.py 不存在！"
-          exit 1
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com

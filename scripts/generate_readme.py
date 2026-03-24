@@ -31,7 +31,7 @@ def parse_jekyll_post(post_path):
         fm_content = content[fm_start+3:fm_end].strip()
         try:
             fm = yaml.safe_load(fm_content) or {}
-        except yaml.YAMLError as e:
+        except yaml.YAMLError as e :
             print(f"⚠️ {post_path} Front Matter 解析失败：{str(e)}")
             return None
         
@@ -82,7 +82,7 @@ def parse_jekyll_post(post_path):
         print(f"❌ 解析 {post_path} 失败：{str(e)}")
         return None
 
-def generate_latest_posts(posts_dir='_posts', limit=5):
+def generate_latest_posts(posts_dir='_posts', limit=8):
     """读取 Jekyll _posts 目录，生成最新博客列表（优化表格格式）"""
     posts = []
     
@@ -111,8 +111,7 @@ def generate_latest_posts(posts_dir='_posts', limit=5):
     
     table_rows = []
     for post in posts_sorted:
-        date_formatted = f"{post['date']:^15}"
-        table_rows.append(f"| {date_formatted} | [{post['title']}]({post['url']}) |")
+        table_rows.append(f"| {post['date']} | [{post['title']}]({post['url']}) |")
     
     return '\n'.join(table_rows)
 
@@ -182,7 +181,6 @@ def main():
     posts_dir = os.path.join(project_root, '_posts')
     latest_posts = generate_latest_posts(posts_dir)
     
-    # 新增：生成仓库结构
     repo_tree = generate_repo_tree(project_root)
     
     update_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
