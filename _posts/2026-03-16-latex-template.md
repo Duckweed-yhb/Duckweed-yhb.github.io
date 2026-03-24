@@ -3,7 +3,7 @@ layout: post
 title:  "LaTeX模板分享：多文件课程笔记/读书感悟/年度总结"
 date:   2026-03-16 21:00:00 +0800
 categories: [工具分享, LaTeX]
-tags: [LaTeX, 多文件模板, 课程笔记, 排版]
+tags: [LaTeX, 多文件模板,LaTex模板 ]
 author: Duckweed
 ---
 
