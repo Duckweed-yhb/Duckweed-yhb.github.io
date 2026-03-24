@@ -7,7 +7,6 @@ tags: [LaTeX, 多文件模板, 课程笔记, 排版]
 author: Duckweed
 ---
 
-
 # LaTeX模板分享：多文件课程笔记/读书感悟/年度总结
 > 3 套可直接复制使用的 LaTeX 模板，支持中文、公式、表格、多文件结构化管理
 
@@ -26,7 +25,7 @@ author: Duckweed
 ### 1. 多文件课程笔记模板（重点）
 #### 1.1 主文件：1.main.tex
 ```latex
-\documentclass[oneside, UTF8]{ctexbook}
+\documentclass[UTF8]{ctexbook}
 \usepackage{amsmath,amssymb,amsfonts,geometry}
 \usepackage{graphicx,enumitem,booktabs}
 \geometry{a4paper, margin=2.5cm}
@@ -36,13 +35,9 @@ author: Duckweed
 \setcounter{secnumdepth}{3}
 
 \usepackage{titlesec}
-\titleformat{\chapter}{\bfseries\Large}{\thechapter}{1em}{}
-\titleformat{\section}{\bfseries\large}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalsize}{\thesubsection}{1em}{}
-
-\title{课程笔记总标题}
-\author{}
-\date{}
+\titleformat{\chapter}{\bfseries\Huge}{\thechapter}{1em}{}
+\titleformat{\section}{\bfseries\Large}{\thesection}{1em}{}
+\titleformat{\subsection}{\bfseries\large}{\thesubsection}{1em}{}
 
 \begin{document}
 
@@ -56,7 +51,7 @@ author: Duckweed
 \setcounter{page}{1}
 
 \input{3.复数与复变函数.tex}
-\input{3.解析函数.tex}
+\input{4.解析函数.tex}
 
 \end{document}
 ```
@@ -66,6 +61,7 @@ author: Duckweed
 \newcommand{\makeCover}
 {
   \begin{titlepage}
+    \restoregeometry
     \newgeometry{left=2cm, right=2cm, top=2cm, bottom=2cm}
     
     \centering
@@ -87,8 +83,6 @@ author: Duckweed
     {\large \textbf{联系邮箱：}\href{mailto:3071974740@qq.com}{3071974740@qq.com}}\\[6pt]
     {\large \textbf{GitHub：}\url{https://github.com/Duckweed-yhb}}\\[6pt]
     {\Large 整理日期：\today}\\[1cm]
-    
-    \rule{0.6\textwidth}{0.5pt}\\[1cm]
     
     {\large \textbf{版本：} v1.0 简洁版}\\[6pt]
     {\small \itshape Copyright © \the\year\ 浮萍 · 禁止商用 · 欢迎交流}\\[0.5cm]
@@ -125,13 +119,17 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 \usepackage{geometry}
 \geometry{a4paper, margin=2.5cm}
 \begin{document}
+
 \title{《书名》读书感悟}
+\maketitle
+
 \section{核心收获}
 - 要点1：xxx
 - 要点2：xxx
 
 \section{个人思考}
 引用格式：\textit{原文内容} —— 作者
+
 \end{document}
 ```
 
@@ -143,7 +141,10 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 \usepackage{geometry,booktabs}
 \geometry{a4paper, margin=2.5cm}
 \begin{document}
+
 \title{202X年度总结}
+\maketitle
+
 \section{年度完成}
 \begin{tabular}{@{}ll@{}}
 \toprule
@@ -157,6 +158,7 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 \section{下年计划}
 - 计划1：xxx
 - 计划2：xxx
+
 \end{document}
 ```
 
@@ -164,11 +166,5 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 
 ## 三、使用说明
 1. 课程笔记模板：将 `1.main.tex` / `2.cover.tex` / `3.章节名.tex` 放在同一目录，编译主文件即可生成完整笔记；
-2. 章节命名规则：按 `3.章节的名字.tex` 格式，在主文件中用 `\input{}` 引入；
-3. 适配编译器：推荐 **XeLaTeX** 编译，支持中文无乱码。
-
----
-
-## 四、反馈与交流
-若需定制模板/有使用疑问，可通过邮箱反馈：  
-📧 3071974740@qq.com
+2. 章节命名规则：按 `3.章节的名字.tex`、`4.章节的名字.tex` 递增命名；
+3. 推荐编译器：**XeLaTeX**，支持中文无乱码。
