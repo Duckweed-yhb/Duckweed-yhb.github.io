@@ -1,0 +1,221 @@
+<!-- _includes/header.html - 页面头部导航组件（修复版） -->
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <!-- 站点标题 -->
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}" aria-label="返回首页">
+      {{ site.title | escape }}
+    </a>
+
+    <!-- 引入搜索功能组件（若不存在search.html，先注释） -->
+    {%- if site.has_search != false and site.pages contains "search.html" -%}
+      {%- include search.html -%}
+    {%- endif -%}
+
+    <!-- 导航菜单（核心修复：简化Liquid逻辑，确保能识别所有页面） -->
+    {%- assign sorted_pages = site.pages | sort: "title" -%}
+    <nav class="site-nav" role="navigation" aria-label="主导航">
+      <!-- 移动端菜单开关样式（修复层级和显示问题） -->
+      <style>
+        /* 基础重置：确保导航不被隐藏 */
+        .site-nav {
+          display: block !important;
+          visibility: visible !important;
+          z-index: 9999 !important; /* 高于背景视频 */
+        }
+        
+        .nav-trigger {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+          opacity: 0;
+        }
+        
+        .menu-icon {
+          display: none;
+          cursor: pointer;
+          padding: 15px;
+          color: #2c3e50;
+          z-index: 10000;
+        }
+
+        /* 暗黑模式菜单图标颜色 */
+        @media (prefers-color-scheme: dark) {
+          .menu-icon {
+            color: #ecf0f1;
+          }
+        }
+
+        /* 移动端适配（768px以下显示汉堡菜单） */
+        @media (max-width: 768px) {
+          .menu-icon {
+            display: block;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+          }
+          
+          .trigger {
+            display: none !important;
+          }
+          
+          .nav-trigger:checked ~ .trigger {
+            display: flex !important;
+            flex-direction: column;
+            margin-top: 20px;
+            gap: 12px;
+          }
+        }
+      </style>
+
+      <!-- 移动端菜单开关 -->
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" aria-label="展开/收起导航菜单" />
+      <label for="nav-trigger" class="menu-icon" aria-hidden="true">
+        <svg viewBox="0 0 18 15" width="18px" height="15px" fill="currentColor">
+          <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.484,1.484,1.484h15.032c0.817,0,1.484,0.665,1.484,1.484L18,13.516z"/>
+        </svg>
+      </label>
+
+      <!-- 导航链接（核心修复：遍历所有有效页面，排除首页和无标题页面） -->
+      <div class="trigger">
+        {%- for my_page in sorted_pages -%}
+          {%- if my_page.title and my_page.url != "/" and my_page.layout == "default" -%}
+            {%- assign nav_title = my_page.title == "About" ? "关于" : my_page.title -%}
+            <a 
+              class="page-link {% if page.url == my_page.url %}active{% endif %}" 
+              href="{{ my_page.url | relative_url }}"
+              aria-current="{% if page.url == my_page.url %}page{% else %}false{% endif %}"
+            >
+              {{ nav_title | escape }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- 导航样式优化（修复显示和交互问题） -->
+<style>
+/* 基础布局重置 */
+.site-header {
+  position: relative;
+  z-index: 9999; /* 确保导航在最上层，不被背景视频遮挡 */
+  padding: 10px 0;
+}
+
+.site-header .wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 站点标题样式优化 */
+.site-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #2c3e50;
+  text-decoration: none;
+  margin-right: 20px;
+  white-space: nowrap;
+  z-index: 10000;
+}
+
+/* 导航菜单样式优化 */
+.site-nav {
+  margin-left: 10px;
+}
+
+.trigger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 核心：导航链接样式（强制显示白色小框） */
+.page-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  background-color: rgba(255, 255, 255, 0.9); /* 白色背景框 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); /* 轻微阴影强化框体 */
+}
+
+.page-link:hover, .page-link.active {
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 移动端适配（768px以下） */
+@media (max-width: 768px) {
+  .site-header .wrapper {
+    flex-direction: row; /* 修复移动端布局错乱 */
+    align-items: center;
+    gap: 0;
+    padding: 10px 15px;
+  }
+
+  .site-title {
+    margin: 0;
+    font-size: 1.2em;
+  }
+
+  .site-nav {
+    margin: 0;
+    width: 100%;
+  }
+
+  .trigger {
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .page-link {
+    font-size: 0.95em;
+    padding: 6px 10px;
+  }
+}
+
+/* 小屏设备适配（480px以下） */
+@media (max-width: 480px) {
+  .trigger {
+    gap: 8px;
+  }
+
+  .page-link {
+    font-size: 0.9em;
+    padding: 5px 8px;
+  }
+}
+
+/* 暗黑模式适配 */
+@media (prefers-color-scheme: dark) {
+  .site-title {
+    color: #ecf0f1;
+  }
+
+  .page-link {
+    color: #ecf0f1;
+    background-color: rgba(30, 30, 40, 0.9); /* 暗黑模式深色框 */
+  }
+
+  .page-link:hover, .page-link.active {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.15);
+  }
+}
+</style>

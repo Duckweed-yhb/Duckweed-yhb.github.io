@@ -1,0 +1,9 @@
+# 导航菜单配置（顺序即为显示顺序）
+- title: 关于
+  url: /about/
+- title: 档案
+  url: /archive/
+- title: 展览
+  url: /exhibition/
+- title: 友链
+  url: /friends/

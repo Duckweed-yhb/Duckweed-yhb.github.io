@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "zh-CN" }}">
+  <head>
+    {%- include head.html -%} <!-- 保留原有head内容（标题、meta等） -->
+    
+    <!-- 引入Font Awesome图标库（B站图标需要） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <!-- 引入自定义样式（按优先级排序） -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/custom-bg.css' | relative_url }}">
+    
+    <!-- 新增：确保页面内联样式优先级 + 强制恢复HTML标签样式（核心修复） -->
+    <style>
+      /* 1. 全局重置：清除默认转义样式，确保内联样式生效 */
+      .page-content .wrapper {
+        all: unset;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.8;
+        color: #2c3e50;
+      }
+
+      /* 2. 恢复常用HTML标签样式（解决标签显示为纯文本的问题） */
+      .page-content .wrapper h1 {
+        font-size: 2em;
+        font-weight: bold;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5em;
+        margin: 0 0 0.5em;
+      }
+      .page-content .wrapper h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+        border-left: 4px solid #3498db;
+        padding-left: 0.5em;
+        margin: 2em 0 1em;
+      }
+      .page-content .wrapper h3 {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #3498db;
+        margin: 2em 0 1em;
+      }
+      .page-content .wrapper p {
+        margin: 1em 0;
+      }
+      .page-content .wrapper a {
+        color: #3498db;
+        text-decoration: underline;
+      }
+      .page-content .wrapper ul {
+        list-style: disc;
+        padding-left: 1.5em;
+        margin: 1em 0;
+      }
+      .page-content .wrapper li {
+        margin: 0.5em 0;
+      }
+      .page-content .wrapper blockquote {
+        border-left: 4px solid #eee;
+        padding-left: 1em;
+        color: #7f8c8d;
+        margin: 1em 0;
+      }
+      .page-content .wrapper hr {
+        border: none;
+        border-top: 1px dashed #eee;
+        margin: 2em 0;
+      }
+
+      /* 3. 恢复自定义类样式（archive/友链/展览页需要） */
+      .page-content .wrapper .page-card {
+        background: rgba(255, 255, 255, 0.88);
+        padding: 35px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(8px);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .page-content .wrapper .archive-tabs {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .page-content .wrapper .archive-tab {
+        padding: 8px 20px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .page-content .wrapper .archive-tab.active {
+        background: #3498db;
+        color: #fff;
+        border-color: #3498db;
+      }
+      .page-content .wrapper .archive-content {
+        display: none;
+        margin-top: 20px;
+      }
+      .page-content .wrapper .archive-content.active {
+        display: block;
+      }
+      .page-content .wrapper .friends-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 0;
+        justify-content: center;
+        padding: 0 10px;
+      }
+      .page-content .wrapper .friend-card {
+        flex: 1 1 300px;
+        max-width: 450px;
+        background: rgba(255, 255, 255, 0.88);
+        padding: 35px 25px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        box-sizing: border-box;
+      }
+      .page-content .wrapper .friend-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      /* 4. 修复背景视频层级问题，避免遮挡内容 */
+      .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1; /* 放到内容下方 */
+        opacity: 0.7; /* 可选：降低透明度，提升文字可读性 */
+      }
+      /* 确保main内容层级高于背景 */
+      main.page-content {
+        position: relative;
+        z-index: 1;
+        padding: 40px 0;
+        min-height: calc(100vh - 120px); /* 适配页脚高度 */
+      }
+
+      /* 5. 移动端适配 */
+      @media (max-width: 768px) {
+        .page-content .wrapper .page-card {
+          padding: 25px 15px;
+          margin: 0 10px;
+        }
+        .page-content .wrapper .archive-tab {
+          flex: 1 1 auto;
+          text-align: center;
+          padding: 8px 10px;
+        }
+        .page-content .wrapper .friend-card {
+          flex: 1 1 90%;
+          padding: 25px 20px;
+          max-width: 100%;
+        }
+      }
+
+      /* 6. 暗黑模式适配 */
+      @media (prefers-color-scheme: dark) {
+        .page-content .wrapper {
+          color: #ecf0f1;
+        }
+        .page-content .wrapper .page-card,
+        .page-content .wrapper .friend-card {
+          background: rgba(30, 30, 40, 0.88);
+        }
+        .page-content .wrapper .archive-tab {
+          background: #2c3e50;
+          border-color: #34495e;
+          color: #ecf0f1;
+        }
+        .page-content .wrapper blockquote {
+          color: #bdc3c7;
+          border-left-color: #34495e;
+        }
+        .page-content .wrapper hr {
+          border-top-color: #34495e;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="layout-{{ page.layout }}">
+    <!-- 背景视频标签（核心） -->
+    <video class="bg-video" autoplay loop muted playsinline preload="auto">
+      <!-- 替换为你的视频文件路径，建议用 mp4 格式 -->
+      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+      <!-- 视频加载失败时的兜底背景 -->
+      <div style="width:100vw;height:100vh;background:#f5f5f5;"></div>
+    </video>
+
+    {%- include header.html -%}
+
+    <!-- 修复：移除多余嵌套，确保content直接渲染为HTML -->
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }} <!-- 这里会正常解析HTML代码，而非纯文本 -->
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+    <!-- 脚本仍放在 body 末尾，避免阻塞渲染 -->
+    <!-- MathJax公式渲染（仅在需要的文章页加载） -->
+    {% if page.math %}
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式用 $...$
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],  // 块公式用 $$...$$
+            processEscapes: true,  // 允许转义$符号（\$表示普通$）
+            autoNumber: "AMS"  // 可选：自动给公式编号，不需要可删除
+          },
+          svg: {
+            fontCache: "global"
+          },
+          startup: {
+            pageReady: function() {
+              return MathJax.startup.defaultPageReady().then(function() {
+                // 避免公式渲染闪烁
+                document.querySelectorAll('.MathJax').forEach(el => {
+                  el.style.opacity = 1;
+                });
+              });
+            }
+          }
+        };
+      </script>
+    {% endif %}
+    <!-- 不蒜子统计脚本 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </body>
+</html>

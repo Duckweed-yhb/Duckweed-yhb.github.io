@@ -1,0 +1,32 @@
+/* custom-bg.css - 仅负责背景视频/全局背景色样式 */
+
+/* 背景视频核心样式 - 区分PC/移动端适配 */
+.bg-video {
+    position: fixed;          
+    top: 0;
+    left: 0;
+    width: 100vw;             
+    height: 100vh;            
+    z-index: -1;              
+    background: #0a1a3a;      
+}
+
+/* PC端视频：完整展示（无裁剪） */
+@media (min-width: 769px) {
+    .bg-video {
+        object-fit: contain;
+    }
+}
+
+/* 移动端视频：填充屏幕（避免黑边/留白） */
+@media (max-width: 768px) {
+    .bg-video {
+        object-fit: cover;    
+        object-position: center;
+    }
+}
+
+/* 全局背景色（和视频背景呼应） */
+body {
+    background-color: #0a1a3a;
+}

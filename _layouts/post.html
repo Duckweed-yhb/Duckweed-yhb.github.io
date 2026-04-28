@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<div class="page-content">
+  <article class="post-container">
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title | escape }}</h1>
+      <p class="post-meta">
+        {{ page.date | date: "%Y-%m-%d" }} • {{ page.author | default: site.author }}
+        {%- if page.categories.size > 0 -%}
+          • <span class="post-category"><a href="{{ '/categories/' | relative_url }}{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
+        {%- endif -%}
+        {%- if page.tags.size > 0 -%}
+          • <span class="post-tags">
+            {%- for tag in page.tags -%}
+              <a href="{{ '/tags/' | relative_url }}{{ tag | slugify }}">{{ tag }}</a>{%- unless forloop.last %}, {% endunless -%}
+            {%- endfor -%}
+          </span>
+        {%- endif -%}
+        <!-- 新增：文章阅读量统计 -->
+        • <span class="post-views">
+          <i class="fas fa-eye"></i> <!-- 可选：眼睛图标，需引入Font Awesome -->
+          <span id="busuanzi_value_page_pv"></span> 次阅读
+        </span>
+      </p>
+
+      <!-- 封面图代码（之前加的） -->
+      {% if page.image %}
+        <div class="post-cover" style="margin: 20px 0; text-align: center;">
+          <img src="{{ page.image | relative_url }}" 
+               width="80%" 
+               style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+               alt="{{ page.title }}封面">
+        </div>
+      {% endif %}
+    </header>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+</div>

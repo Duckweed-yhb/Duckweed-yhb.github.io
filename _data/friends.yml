@@ -1,0 +1,7 @@
+# 友链列表：名称 | 链接 | 描述
+- name: 组织博客
+  url: https://nebulacommune.github.io/
+  desc: 优质技术博客
+- name: GitHub开源库
+  url: https://github.com/Duckweed-yhb
+  desc: 个人代码仓库

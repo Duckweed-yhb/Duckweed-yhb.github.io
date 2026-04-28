@@ -1,0 +1,191 @@
+/* header.css - 导航栏 + 搜索框专属样式 */
+
+/* 导航栏核心样式 */
+.site-header {
+    background-color: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px auto 30px auto; /* 统一居中 */
+    max-width: 950px; /* 和文章框宽度统一 */
+    width: 90%; /* 适配屏幕 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+
+.site-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+/* 导航链接样式 */
+.site-nav {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.site-nav .trigger {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.site-nav .page-link {
+    margin: 0 !important;
+    color: #34495e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease; /* 统一过渡效果 */
+    padding: 8px 12px; /* 增大点击区域 */
+    border-radius: 6px;
+}
+
+.site-nav .page-link:hover {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* 响应式菜单样式 - 移动端导航 */
+.nav-trigger {
+    display: none;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 1.6em; /* 增大图标，更易点击 */
+    color: #2c3e50;
+    padding: 8px; /* 扩大点击区域 */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-icon:hover {
+    color: #3498db;
+}
+
+/* 搜索框样式 - 头部专属 */
+#search-toggle-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.88); /* 统一透明度 */
+    color: #2c3e50;
+    cursor: pointer;
+    min-width: 90px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#search-toggle-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+#search-box-container {
+    gap: 15px;
+}
+
+#search-input {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1em;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.95);
+    transition: border-color 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+#search-box-container button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #2c3e50;
+    cursor: pointer;
+    min-width: 90px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#search-box-container button:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+#search-results {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* 导航栏移动端适配 */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 12px 15px;
+        margin: 15px auto 20px auto;
+        max-width: 100%;
+        width: 98%; /* 留2%边距，避免贴边 */
+        border-radius: 8px;
+    }
+
+    .site-title {
+        font-size: 1.5em; /* 稍大字号，提升可读性 */
+        margin-bottom: 8px;
+    }
+
+    /* 移动端菜单展开/收起 */
+    .menu-icon {
+        display: inline-block;
+    }
+
+    .nav-trigger:not(:checked) ~ .trigger {
+        display: none;
+    }
+
+    .nav-trigger:checked ~ .trigger {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 12px; /* 加大间距，避免误触 */
+    }
+
+    .site-nav .page-link {
+        font-size: 1.05em; /* 加大字号 */
+        padding: 10px 15px; /* 加大点击区域 */
+        width: 100%;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    /* 搜索框移动端适配 */
+    #search-input {
+        width: 75%;
+        padding: 10px 15px;
+    }
+
+    #search-toggle-btn, #search-box-container button {
+        padding: 10px 15px;
+        min-width: 80px;
+    }
+}
