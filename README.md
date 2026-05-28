@@ -19,8 +19,8 @@
 | 2026-04-04 | [如何用 LaTeX 优雅地写笔记荐](https://duckweed-yhb.github.io/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/) |
 | 2026-04-04 | [给高中生的学习建议：用AI做好规划，让努力更有方向](https://duckweed-yhb.github.io/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/) |
 | 2026-04-03 | [通识教育](https://duckweed-yhb.github.io/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/) |
-| 2026-03-30 | [VS Code 配置文件管理](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/) |
 | 2026-03-30 | [VS Code 插件推荐](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/) |
+| 2026-03-30 | [VS Code 配置文件管理](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/) |
 | 2026-03-16 | [LaTeX模板分享：多文件课程笔记/读书感悟/年度总结](https://duckweed-yhb.github.io/2026/03/16/latex-template/) |
 | 2026-02-23 | [大学物理整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%28%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%29%E7%AC%94%E8%AE%B0/) |
 | 2026-02-23 | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/) |
@@ -80,7 +80,7 @@
 ```
 
 ---
-> 最后更新：2026-05-27 02:37:40 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-05-28 02:14:22 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
