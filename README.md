@@ -22,8 +22,8 @@
 | 2026-03-30 | [VS Code 插件推荐](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/) |
 | 2026-03-30 | [VS Code 配置文件管理](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/) |
 | 2026-03-16 | [LaTeX模板分享：多文件课程笔记/读书感悟/年度总结](https://duckweed-yhb.github.io/2026/03/16/latex-template/) |
+| 2026-02-24 | [电磁场与电磁波笔记](https://duckweed-yhb.github.io/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/) |
 | 2026-02-23 | [大学物理整理笔记（热学+光学+量子物理）](https://duckweed-yhb.github.io/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%28%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%29%E7%AC%94%E8%AE%B0/) |
-| 2026-02-23 | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -46,7 +46,8 @@
 │   ├── 2026-04-03-通识教育.md
 │   ├── 2026-04-04-如何用LaTex优雅地写笔记.md
 │   ├── 2026-04-04-对高中生学习的一些建议.md
-│   └── 2026-04-28-高考志愿填报的看法.md
+│   ├── 2026-04-28-高考志愿填报的看法.md
+│   └── 2026-06-03-电磁场课程笔记.md
 ├── assets
 │   ├── css
 │   │   ├── header.css
@@ -80,7 +81,7 @@
 ```
 
 ---
-> 最后更新：2026-06-04 02:49:35 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-06-04 09:10:37 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
