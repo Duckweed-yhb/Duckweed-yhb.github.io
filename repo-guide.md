@@ -1,12 +1,16 @@
 ---
-layout: default  # 改为default布局，和其他页面保持一致
+layout: default
 title: 说明
 permalink: /instructions/
 render_with_liquid: true
 ---
-# 博客仓库完整文件结构说明
 
-> 用于快速查阅全量文件/文件夹用途，精准定位 Debug 位置，适配 Jekyll + GitHub Pages 博客架构
+<!-- 统一的白框容器（和关于/档案/展览/友链页样式一致） -->
+<div class="page-card">
+
+<h1>博客仓库完整文件结构说明</h1>
+
+<blockquote>用于快速查阅全量文件/文件夹用途，精准定位 Debug 位置，适配 Jekyll + GitHub Pages 博客架构</blockquote>
 
 ---
 
@@ -254,3 +258,173 @@ render_with_liquid: true
 - **本地测试优先**：所有修改先本地运行 `jekyll serve` 测试无误后，再提交到 GitHub，避免部署后出现异常
 - **文档同步更新**：后续新增目录/文件后，同步更新此文档，保持结构说明的准确性，方便后续维护
 - **核心文件备份**：`_config.yml`、`.github/workflows/` 等核心文件定期备份，避免误删导致博客瘫痪
+
+</div>
+
+<!-- 样式单独放在容器外，避免 Markdown 解析干扰（和关于/档案/展览/友链页完全一致） -->
+<style>
+  /* 核心：统一的白框容器 */
+  .page-card {
+    background: rgba(255, 255, 255, 0.88);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(8px);
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    line-height: 1.8;
+  }
+
+  /* 标题与文本样式 */
+  .page-card h1 {
+    font-size: 2em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5em;
+    color: #2c3e50;
+    margin-top: 0 !important;
+    margin-bottom: 0.5em;
+  }
+  .page-card h2 {
+    font-size: 1.5em;
+    border-left: 4px solid #3498db;
+    padding-left: 0.5em;
+    color: #2c3e50;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+  .page-card h3 {
+    font-size: 1.2em;
+    color: #3498db;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+  .page-card h4 {
+    font-size: 1.1em;
+    color: #2c3e50;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  .page-card blockquote {
+    border-left: 4px solid #eee;
+    padding-left: 1em;
+    color: #7f8c8d;
+    margin: 1em 0;
+  }
+  .page-card a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  .page-card a:hover {
+    text-decoration: underline;
+  }
+  .page-card ul {
+    padding-left: 1.5em;
+  }
+  .page-card li {
+    margin: 0.5em 0;
+  }
+  .page-card hr {
+    border: none;
+    border-top: 1px dashed #eee;
+    margin: 2em 0;
+  }
+
+  /* 表格样式 */
+  .page-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95em;
+  }
+  .page-card table th {
+    background: #f0f7ff;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 10px 15px;
+    border: 1px solid #dcdfe6;
+    text-align: left;
+  }
+  .page-card table td {
+    padding: 8px 15px;
+    border: 1px solid #ebeef5;
+  }
+  .page-card table tr:hover {
+    background: #f5f7fa;
+  }
+
+  /* 代码块样式 */
+  .page-card pre {
+    background: rgba(247, 250, 252, 0.95);
+    padding: 1.2rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+    line-height: 1.6;
+  }
+  .page-card code {
+    background: rgba(247, 250, 252, 0.95);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    font-size: 0.9em;
+  }
+  .page-card pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .page-card {
+      padding: 25px 15px;
+      margin: 0 10px;
+    }
+    .page-card h1 {
+      font-size: 1.8em;
+    }
+    .page-card h2 {
+      font-size: 1.3em;
+    }
+    .page-card table {
+      font-size: 0.85em;
+    }
+    .page-card table th,
+    .page-card table td {
+      padding: 6px 10px;
+    }
+  }
+
+  /* 暗黑模式适配 */
+  @media (prefers-color-scheme: dark) {
+    .page-card {
+      background: rgba(30, 30, 40, 0.88);
+    }
+    .page-card h1, .page-card h2, .page-card h4 {
+      color: #ecf0f1;
+    }
+    .page-card blockquote {
+      color: #bdc3c7;
+      border-left-color: #34495e;
+    }
+    .page-card hr {
+      border-top-color: #34495e;
+    }
+    .page-card a {
+      color: #3498db;
+    }
+    .page-card table th {
+      background: #2c3e50;
+      color: #ecf0f1;
+      border-color: #34495e;
+    }
+    .page-card table td {
+      border-color: #2c3e50;
+    }
+    .page-card table tr:hover {
+      background: rgba(44, 62, 80, 0.4);
+    }
+  }
+</style>
