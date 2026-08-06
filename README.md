@@ -23,7 +23,7 @@
 | 2026-03-30 | [VS Code 插件推荐](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/) |
 | 2026-03-30 | [VS Code 配置文件管理](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/) |
 | 2026-03-16 | [LaTeX模板分享：多文件课程笔记/读书感悟/年度总结](https://duckweed-yhb.github.io/2026/03/16/latex-template/) |
-| 2026-02-23 | [概率论与数理统计笔记](https://duckweed-yhb.github.io/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/) |
+| 2026-02-24 | [闲聊高考志愿填报：流程、个人经验与感想](https://duckweed-yhb.github.io/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -50,7 +50,8 @@
 │   ├── 2026-06-03-电磁场课程笔记.md
 │   ├── 2026-06-23-现代教育.md
 │   ├── 2026-06-29-贫困县城缺失的计算机教育.md
-│   └── 2026-07-16-GitHub仓库清理历史记录.md
+│   ├── 2026-07-16-GitHub仓库清理历史记录.md
+│   └── 2026-08-06-大学成长规划闲聊.md
 ├── assets
 │   ├── css
 │   │   ├── header.css
@@ -84,7 +85,7 @@
 ```
 
 ---
-> 最后更新：2026-08-06 01:46:35 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-06 04:58:50 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
