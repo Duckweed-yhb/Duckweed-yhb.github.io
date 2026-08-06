@@ -16,14 +16,14 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-08-06 | [GitHub私有仓库转公开注意事项：历史提交全部可见](https://duckweed-yhb.github.io/2026/07/16/GitHub%E4%BB%93%E5%BA%93%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/) |
+| 2026-08-06 | [大学成长规划闲聊：学业、实习、读研与就业避坑经验](https://duckweed-yhb.github.io/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/) |
 | 2026-06-03 | [电磁场笔记](https://duckweed-yhb.github.io/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/) |
 | 2026-04-04 | [如何用 LaTeX 优雅地写笔记荐](https://duckweed-yhb.github.io/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/) |
 | 2026-04-04 | [给高中生的学习建议：用AI做好规划，让努力更有方向](https://duckweed-yhb.github.io/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/) |
 | 2026-04-03 | [通识教育](https://duckweed-yhb.github.io/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/) |
 | 2026-03-30 | [VS Code 插件推荐](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/) |
 | 2026-03-30 | [VS Code 配置文件管理](https://duckweed-yhb.github.io/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/) |
-| 2026-03-16 | [LaTeX模板分享：多文件课程笔记/读书感悟/年度总结](https://duckweed-yhb.github.io/2026/03/16/latex-template/) |
-| 2026-02-24 | [闲聊高考志愿填报：流程、个人经验与感想](https://duckweed-yhb.github.io/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -85,7 +85,7 @@
 ```
 
 ---
-> 最后更新：2026-08-06 04:58:50 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-06 05:09:12 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
