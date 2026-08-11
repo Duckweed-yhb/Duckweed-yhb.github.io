@@ -180,13 +180,34 @@ render_with_liquid: true
       <li class="feature-item">
         <span class="feature-status done">✅</span>
         <div class="feature-body">
+          <div class="feature-name">新系列博文创建（6篇）</div>
+          <div class="feature-desc">已完成《电气自学之路》《计算机自学之路》《如何学习英语》《我的学习路线》《学习写简历》《工具环境的学习和使用》六篇博文，覆盖自学路线、英语方法、简历技能、工具配置等核心主题。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status done">✅</span>
+        <div class="feature-body">
+          <div class="feature-name">导航页两层级分类扩展</div>
+          <div class="feature-desc">导航页已重构为"角色→专业方向"两层级交互：高中生直接推荐，准大学生和大学生分别下设电气专业/计算机专业/其他专业/想转电气/想转计算机五个子分类，点击切换推荐列表，所有文章链接新标签页打开。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status done">✅</span>
+        <div class="feature-body">
           <div class="feature-name">Front Matter 修复（大学成长规划闲聊）</div>
           <div class="feature-desc">`2026-08-06-大学成长规划闲聊.md` 的 YAML 头部缺少首个 `---`，已修复并调整日期避免未来文章过滤问题。</div>
         </div>
       </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">《对高中生学习建议》博文后半部分补全</div>
+          <div class="feature-desc">`2026-04-04-对高中生学习的一些建议.md` 结尾处「高三上」部分未写完，需要补充高二下至高三全年的时间节点、各科复习节奏和AI辅助备考策略。</div>
+        </div>
+      </li>
     </ul>
     <div class="note-card">
-      🔴 第一阶段的核心是「把坑填上」。两个空文章占着索引却无内容，不仅影响读者体验，也让 Jekyll 构建的搜索索引包含了无效条目。优先补全它们，再推进新的功能开发。
+      🔴 第一阶段核心进展：六篇新博文已补全（电气/计算机自学路线、英语学习方法、学习路线总结、简历写作、工具环境配置），导航页两层级分类已完成，「说明」页已同步更新至最新仓库结构。剩余两个空文章（现代教育、贫困县城计算机教育）和高中生建议补全仍需后续推进。
     </div>
   </div>
 
@@ -198,11 +219,12 @@ render_with_liquid: true
     </div>
     <ul class="feature-list">
       <li class="feature-item">
-        <span class="feature-status wip">⏳</span>
+        <span class="feature-status done">✅</span>
         <div class="feature-body">
-          <div class="feature-name">导航页持续完善</div>
-          <div class="feature-desc">当前导航页已实现高中生 / 准大学生 / 大学生三重身份分流，大学生下含大学规划、技能学习、电气专业课、效率工具四个子标签。</div>
-          <div class="sub-task"><span class="st-icon">🔹</span> 后续方向：补充更多细分人群（如"考研党"、"转专业学生"）；为每篇推荐文章添加一句话推荐理由；增加「按阅读量/发布时间排序」切换按钮。</div>
+          <div class="feature-name">导航页两层级分类设计与实现</div>
+          <div class="feature-desc">已完成高中生/准大学生/大学生的身份分流 + 五大专业方向子分类（电气/计算机/其他/想转电气/想转计算机），共10个子分类区，每区含针对性推荐文章和指引卡片。</div>
+          <div class="sub-task"><span class="st-icon">✅</span> 已完成：两层级交互、新标签页打开、全部10个专业方向覆盖。</div>
+          <div class="sub-task"><span class="st-icon">🔹</span> 后续方向：补充更多细分人群（如"考研党"、"转专业学生"独立入口）；为每篇推荐文章添加一句话推荐理由。</div>
         </div>
       </li>
       <li class="feature-item">

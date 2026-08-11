@@ -5,481 +5,431 @@ permalink: /navigate/
 render_with_liquid: true
 ---
 
-<!-- 标题白框容器 -->
 <div class="page-header-card">
   <h1>导航</h1>
-  <p>按身份和需求快速定位｜不同人群，不同入口，精准找到你需要的内容</p>
+  <p>先选身份，再选方向，精准定位你需要的内容。点击卡片展开推荐列表。</p>
 </div>
 
-<!-- 样式 -->
 <style>
   :root {
-    --primary: #3498db;
-    --bg: rgba(255, 255, 255, 0.88);
-    --bg-dark: rgba(30, 30, 40, 0.88);
-    --text: #2c3e50;
-    --text-light: #ecf0f1;
-    --muted: #7f8c8d;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.12);
+    --primary: #3498db; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
+    --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08); --shadow-hover: 0 12px 24px rgba(0,0,0,0.12);
   }
   .page-header-card {
-    background: var(--bg);
-    padding: 35px 25px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(8px);
-    max-width: 1000px;
-    margin: 0 auto 40px;
-    box-sizing: border-box;
+    background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow);
+    backdrop-filter:blur(8px); max-width:1050px; margin:0 auto 30px; box-sizing:border-box;
   }
-  .page-header-card h1 {
-    font-size: 2em;
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 0.5em;
-    color: var(--text);
-    margin-top: 0;
-    margin-bottom: 0.5em;
-  }
-  .page-header-card p {
-    color: var(--muted);
-    margin: 0;
-  }
+  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
+  .page-header-card p { color:var(--muted); margin:0; font-size:1em; }
 
-  /* 身份选择区 */
-  .role-section {
-    max-width: 1000px;
-    margin: 0 auto 40px;
-  }
-  .role-section h2 {
-    font-size: 1.4em;
-    color: var(--text);
-    margin-bottom: 20px;
-    padding-left: 15px;
-    border-left: 4px solid var(--primary);
-    background: var(--bg);
-    padding: 15px 20px;
-    border-radius: 8px;
-    backdrop-filter: blur(8px);
-    box-shadow: var(--shadow);
-  }
-  .role-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+  .content-wrap { max-width:1050px; margin:0 auto; }
+
+  /* 角色卡片 */
+  .role-section { margin-bottom:25px; }
+  .role-cards { display:flex; flex-wrap:wrap; gap:16px; }
   .role-card {
-    flex: 1 1 200px;
-    min-width: 180px;
-    background: var(--bg);
-    padding: 25px 20px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(8px);
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    flex:1 1 180px; min-width:150px; background:var(--bg); padding:22px 15px;
+    border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px);
+    text-align:center; cursor:pointer; transition:all .3s; border:2px solid transparent;
   }
-  .role-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--primary);
-  }
-  .role-card.active {
-    border-color: var(--primary);
-    background: rgba(52, 152, 219, 0.08);
-  }
-  .role-card .role-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
-  }
-  .role-card .role-name {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .role-card .role-desc {
-    font-size: 0.85em;
-    color: var(--muted);
-    line-height: 1.5;
-  }
+  .role-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); border-color:var(--primary); }
+  .role-card.active { border-color:var(--primary); background:rgba(52,152,219,0.08); }
+  .role-card .role-icon { font-size:36px; margin-bottom:8px; }
+  .role-card .role-name { font-size:1.15em; font-weight:600; color:var(--text); }
+  .role-card .role-desc { font-size:.8em; color:var(--muted); margin-top:4px; }
 
   /* 子分类区 */
-  .sub-section {
-    display: none;
-    max-width: 1000px;
-    margin: 0 auto 40px;
-  }
-  .sub-section.active {
-    display: block;
-  }
-  .sub-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-  }
-  .sub-tab {
-    padding: 10px 22px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(8px);
-    cursor: pointer;
-    font-size: 0.95em;
-    color: var(--text);
-    transition: all 0.3s ease;
-  }
-  .sub-tab.active {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-  }
-  .sub-tab:hover:not(.active) {
-    border-color: var(--primary);
-    color: var(--primary);
-  }
+  .sub-section { display:none; }
+  .sub-section.active { display:block; }
 
-  /* 文章列表 */
+  /* 子分类标签（仅准大学生和大学生有） */
+  .sub-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .sub-tab {
+    padding:8px 16px; border:1px solid #ddd; border-radius:20px;
+    background:rgba(255,255,255,0.88); backdrop-filter:blur(8px);
+    cursor:pointer; font-size:.9em; color:var(--text); transition:all .3s;
+  }
+  .sub-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+  .sub-tab:hover:not(.active) { border-color:var(--primary); color:var(--primary); }
+
+  /* 推荐列表 */
   .guide-list {
-    background: var(--bg);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(8px);
+    background:var(--bg); padding:25px 30px; border-radius:12px;
+    box-shadow:var(--shadow); backdrop-filter:blur(8px);
   }
   .guide-list h3 {
-    font-size: 1.2em;
-    color: var(--primary);
-    margin: 0 0 15px;
-    padding-left: 10px;
-    border-left: 3px solid var(--primary);
+    font-size:1.1em; color:var(--primary); margin:0 0 15px;
+    padding-left:10px; border-left:3px solid var(--primary);
   }
+  .guide-sublist { display:none; }
+  .guide-sublist.active { display:block; }
+
   .guide-item {
-    display: flex;
-    align-items: center;
-    padding: 14px 20px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.5);
-    transition: all 0.25s ease;
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid transparent;
+    display:flex; align-items:center; padding:12px 18px; margin-bottom:8px;
+    border-radius:10px; background:rgba(255,255,255,0.5);
+    transition:all .25s; text-decoration:none; color:var(--text); border:1px solid transparent;
   }
   .guide-item:hover {
-    background: rgba(52, 152, 219, 0.06);
-    border-color: rgba(52, 152, 219, 0.2);
-    transform: translateX(5px);
+    background:rgba(52,152,219,0.06); border-color:rgba(52,152,219,0.2); transform:translateX(4px);
   }
-  .guide-item .item-icon {
-    font-size: 1.5em;
-    margin-right: 15px;
-    flex-shrink: 0;
-  }
-  .guide-item .item-info {
-    flex: 1;
-  }
-  .guide-item .item-title {
-    font-weight: 600;
-    font-size: 1.05em;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .guide-item .item-meta {
-    font-size: 0.85em;
-    color: var(--muted);
-  }
+  .guide-item .item-icon { font-size:1.3em; margin-right:12px; flex-shrink:0; }
+  .guide-item .item-info { flex:1; }
+  .guide-item .item-title { font-weight:600; font-size:1em; color:var(--text); }
+  .guide-item .item-meta { font-size:.82em; color:var(--muted); margin-top:2px; }
 
-  /* 说明卡片 */
   .tip-card {
-    background: rgba(52, 152, 219, 0.08);
-    border-left: 4px solid var(--primary);
-    padding: 15px 20px;
-    border-radius: 6px;
-    margin-top: 20px;
-    color: var(--muted);
-    font-size: 0.9em;
-    line-height: 1.7;
+    background:rgba(52,152,219,0.06); border-left:4px solid var(--primary);
+    padding:14px 20px; border-radius:6px; margin-top:18px;
+    color:var(--muted); font-size:.88em; line-height:1.7;
   }
 
-  /* 移动端 */
-  @media (max-width: 768px) {
-    .page-header-card { padding: 25px 15px; margin: 0 10px 30px; }
-    .page-header-card h1 { font-size: 1.8em; }
-    .role-cards { gap: 12px; }
-    .role-card { flex: 1 1 45%; min-width: 140px; padding: 20px 15px; }
-    .guide-list { padding: 20px 15px; }
-    .guide-item { padding: 12px 15px; }
+  @media (max-width:768px) {
+    .page-header-card { padding:25px 15px; margin:0 10px 25px; }
+    .page-header-card h1 { font-size:1.8em; }
+    .role-card { flex:1 1 45%; min-width:130px; padding:18px 12px; }
+    .guide-list { padding:18px 15px; }
+    .guide-item { padding:10px 12px; }
+    .sub-tab { padding:7px 12px; font-size:.85em; }
   }
-
-  /* 暗黑模式 */
-  @media (prefers-color-scheme: dark) {
-    .page-header-card, .role-card, .guide-list, .role-section h2 { background: var(--bg-dark); }
-    .page-header-card h1, .role-card .role-name, .guide-item .item-title, .role-section h2 { color: var(--text-light); }
-    .page-header-card p, .role-card .role-desc, .guide-item .item-meta, .tip-card { color: #bdc3c7; }
-    .sub-tab { background: rgba(44,62,80,0.88); border-color: #34495e; color: var(--text-light); }
-    .guide-item { background: rgba(30,30,40,0.5); }
-    .guide-item:hover { background: rgba(52,152,219,0.12); }
-    .tip-card { background: rgba(52,152,219,0.1); }
+  @media (prefers-color-scheme:dark) {
+    .page-header-card,.role-card,.guide-list { background:var(--bg-dark); }
+    .page-header-card h1,.role-card .role-name,.guide-item .item-title { color:var(--text-light); }
+    .page-header-card p,.role-card .role-desc,.guide-item .item-meta,.tip-card { color:#bdc3c7; }
+    .sub-tab { background:rgba(44,62,80,0.88); border-color:#34495e; color:var(--text-light); }
+    .guide-item { background:rgba(30,30,40,0.5); }
+    .guide-item:hover { background:rgba(52,152,219,0.12); }
+    .tip-card { background:rgba(52,152,219,0.1); }
   }
 </style>
 
-<!-- 身份选择 -->
-<div class="role-section">
-  <h2>👤 你是谁？</h2>
-  <div class="role-cards" id="roleCards">
-    <div class="role-card active" data-role="highschool">
-      <div class="role-icon">🎒</div>
-      <div class="role-name">高中生</div>
-      <div class="role-desc">高考备考 · 志愿填报 · 学习方法</div>
-    </div>
-    <div class="role-card" data-role="precollege">
-      <div class="role-icon">🎫</div>
-      <div class="role-name">准大学生</div>
-      <div class="role-desc">高考后过渡 · 专业认知 · 入学准备</div>
-    </div>
-    <div class="role-card" data-role="college">
-      <div class="role-icon">🎓</div>
-      <div class="role-name">大学生</div>
-      <div class="role-desc">考研就业 · 技能学习 · 大学规划</div>
+<div class="content-wrap">
+
+  <!-- 角色选择 -->
+  <div class="role-section">
+    <div class="role-cards" id="roleCards">
+      <div class="role-card active" data-role="highschool">
+        <div class="role-icon">🎒</div><div class="role-name">高中生</div>
+        <div class="role-desc">备考 · 志愿 · 方法</div>
+      </div>
+      <div class="role-card" data-role="precollege">
+        <div class="role-icon">🎫</div><div class="role-name">准大学生</div>
+        <div class="role-desc">过渡 · 专业认知 · 入学准备</div>
+      </div>
+      <div class="role-card" data-role="college">
+        <div class="role-icon">🎓</div><div class="role-name">大学生</div>
+        <div class="role-desc">考研就业 · 技能 · 规划</div>
+      </div>
     </div>
   </div>
+
+  <!-- ========== 高中生（直接展示） ========== -->
+  <div class="sub-section active" id="sub-highschool">
+    <div class="guide-list">
+      <h3>📌 推荐阅读</h3>
+      <div class="guide-sublist active" id="hs-default">
+        <a class="guide-item" href="/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/" target="_blank">
+          <span class="item-icon">📝</span><span class="item-info"><div class="item-title">给高中生的学习建议：用AI做好规划</div><div class="item-meta">学习方法 · AI工具 · 高中各学期时间节点</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/" target="_blank">
+          <span class="item-icon">🏫</span><span class="item-info"><div class="item-title">闲聊高考志愿填报：流程、个人经验与感想</div><div class="item-meta">完整填报流程 · 选专业vs选院校 · 转专业 · 生活因素</div></span>
+        </a>
+        <a class="guide-item" href="/2026-08-06-%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E5%A6%82%E4%BD%95%E5%9C%A8%E9%B2%81%E5%B1%B1%E4%B8%80%E9%AB%98%E5%BA%A6%E8%BF%87%E4%B8%89%E5%B9%B4/" target="_blank">
+          <span class="item-icon">🏫</span><span class="item-info"><div class="item-title">可供参考：如何在鲁山一高度过三年</div><div class="item-meta">高中三年节奏 · 学习策略 · 心态调整</div></span>
+        </a>
+      </div>
+      <div class="tip-card">💡 在备考阶段先看学习方法篇，高考结束后立刻切换到志愿填报篇。鲁山一高的三年指南是实操向的校内攻略。</div>
+    </div>
+  </div>
+
+  <!-- ========== 准大学生（两级：先选专业方向） ========== -->
+  <div class="sub-section" id="sub-precollege">
+    <div class="sub-tabs" id="precollegeTabs">
+      <div class="sub-tab active" data-sub="pc-electrical">电气专业</div>
+      <div class="sub-tab" data-sub="pc-cs">计算机专业</div>
+      <div class="sub-tab" data-sub="pc-other">其他专业</div>
+      <div class="sub-tab" data-sub="pc-toee">想转电气</div>
+      <div class="sub-tab" data-sub="pc-tocs">想转计算机</div>
+    </div>
+
+    <div class="guide-list">
+      <!-- 电气专业 -->
+      <div class="guide-sublist active" id="sublist-pc-electrical">
+        <h3>📌 准大学生 · 电气专业</h3>
+        <a class="guide-item" href="/2026/08/08/%E7%94%B5%E6%B0%94%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">⚡</span><span class="item-info"><div class="item-title">电气工程自学之路</div><div class="item-meta">四阶段完整路线 · 教材推荐 · 仿真工具清单</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">实习 · 科研 · 保研考研 · 就业赛道 · 差异化发展</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境的学习和使用</div><div class="item-meta">VS Code · Git · LaTeX · MATLAB · 终端</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">✨</span><span class="item-info"><div class="item-title">如何用 LaTeX 优雅地写笔记</div><div class="item-meta">5分钟快速入门 · 大学笔记神器</div></span>
+        </a>
+        <div class="tip-card">⚡ 电气工程的录取结果出来后，先把「电气自学之路」通读一遍建立全景认知，暑假从C语言和MATLAB入手为后续专业学习做足准备。</div>
+      </div>
+
+      <!-- 计算机专业 -->
+      <div class="guide-sublist" id="sublist-pc-cs">
+        <h3>📌 准大学生 · 计算机专业</h3>
+        <a class="guide-item" href="/2026/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">💻</span><span class="item-info"><div class="item-title">计算机自学之路</div><div class="item-meta">非科班视角 · C→Python/Java→数据结构→项目</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">实习 · 科研 · 保研考研 · 就业赛道</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境的学习和使用</div><div class="item-meta">VS Code Profile · Git版本控制 · 终端 · LaTeX</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：新生必备的底层能力</div><div class="item-meta">提问智慧 · 前端/后端/嵌入式学习路线</div></span>
+        </a>
+        <div class="tip-card">💻 计科录取后，暑假就开始「计算机自学之路」第一阶段——C语言打底。然后把VS Code+Git+LaTeX的工具链搭起来，入学即领先。</div>
+      </div>
+
+      <!-- 其他专业 -->
+      <div class="guide-sublist" id="sublist-pc-other">
+        <h3>📌 准大学生 · 其他专业</h3>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：大学新生必备的底层能力</div><div class="item-meta">提问的智慧 · 信息检索 · 工具思维</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">四年全景 · 分赛道规划 · 避坑经验</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/09/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E8%8B%B1%E8%AF%AD/" target="_blank">
+          <span class="item-icon">🌐</span><span class="item-info"><div class="item-title">如何学习英语：工科生的实用指南</div><div class="item-meta">阅读 · 听力 · 写作 · 口语 · 碎片时间</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">✨</span><span class="item-info"><div class="item-title">如何用 LaTeX 优雅地写笔记</div><div class="item-meta">任何专业都适用的笔记方法</div></span>
+        </a>
+        <div class="tip-card">🎯 不学电气也不学计算机？没关系。通识教育、英语能力和工具意识是任何专业的通用基础。暑假先掌握这些，入学后再根据本专业特点补齐其他技能。</div>
+      </div>
+
+      <!-- 想转电气 -->
+      <div class="guide-sublist" id="sublist-pc-toee">
+        <h3>📌 准大学生 · 想转电气</h3>
+        <a class="guide-item" href="/2026/08/08/%E7%94%B5%E6%B0%94%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">⚡</span><span class="item-info"><div class="item-title">电气工程自学之路</div><div class="item-meta">从数学基础到电力系统分析 · 完整自学路线</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">关注"转专业政策"相关内容 · 跨专业如何规划</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" target="_blank">
+          <span class="item-icon">🧭</span><span class="item-info"><div class="item-title">我的学习路线</div><div class="item-meta">电气工程学生的学习轨迹参考</div></span>
+        </a>
+        <a class="guide-item" href="/c-language-notes/" target="_blank">
+          <span class="item-icon">🔤</span><span class="item-info"><div class="item-title">C语言知识总结</div><div class="item-meta">8章核心语法 · 电气工程也需要编程基础</div></span>
+        </a>
+        <div class="tip-card">🔄 想转电气，第一步是了解目标学校的转专业政策（参考大学成长规划篇）。暑假建议从C语言和大学物理电磁学部分入手，提前建立工科基础。</div>
+      </div>
+
+      <!-- 想转计算机 -->
+      <div class="guide-sublist" id="sublist-pc-tocs">
+        <h3>📌 准大学生 · 想转计算机</h3>
+        <a class="guide-item" href="/2026/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">💻</span><span class="item-info"><div class="item-title">计算机自学之路</div><div class="item-meta">完整入门到项目路线 · 非科班友好</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：前端/后端/嵌入式学习路线</div><div class="item-meta">三大技术方向完整入门路径</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">关注转专业政策 · 跨专业准备</div></span>
+        </a>
+        <a class="guide-item" href="/c-language-notes/" target="_blank">
+          <span class="item-icon">🔤</span><span class="item-info"><div class="item-title">C语言知识总结</div><div class="item-meta">编程入门第一课 · 8章含代码示例</div></span>
+        </a>
+        <div class="tip-card">🔄 想转计算机，暑假就是你的黄金窗口期。先用C语言打底，再参考「通识教育」中的前端/后端/嵌入式路线选定一个方向深入。转专业政策务必提前了解。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 大学生（两级：先选专业方向） ========== -->
+  <div class="sub-section" id="sub-college">
+    <div class="sub-tabs" id="collegeTabs">
+      <div class="sub-tab active" data-sub="c-electrical">电气专业</div>
+      <div class="sub-tab" data-sub="c-cs">计算机专业</div>
+      <div class="sub-tab" data-sub="c-other">其他专业</div>
+      <div class="sub-tab" data-sub="c-toee">想学电气</div>
+      <div class="sub-tab" data-sub="c-tocs">想学计算机</div>
+    </div>
+
+    <div class="guide-list">
+      <!-- 电气专业 -->
+      <div class="guide-sublist active" id="sublist-c-electrical">
+        <h3>📌 大学生 · 电气专业</h3>
+        <a class="guide-item" href="/2026/08/08/%E7%94%B5%E6%B0%94%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">⚡</span><span class="item-info"><div class="item-title">电气工程自学之路</div><div class="item-meta">四阶段完整路线 · 教材推荐 · 仿真工具清单</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" target="_blank">
+          <span class="item-icon">🧭</span><span class="item-info"><div class="item-title">我的学习路线</div><div class="item-meta">大一至大三真实轨迹 · 能力版图自评</div></span>
+        </a>
+        <a class="guide-item" href="/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">📡</span><span class="item-info"><div class="item-title">电磁场与电磁波课程笔记</div><div class="item-meta">矢量分析 → 麦克斯韦方程 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86)%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">🔬</span><span class="item-info"><div class="item-title">大学物理笔记（热学+光学+量子物理）</div><div class="item-meta">核心公式 · 考点齐全 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">📊</span><span class="item-info"><div class="item-title">概率论与数理统计笔记</div><div class="item-meta">随机事件 → 参数估计 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/" target="_blank">
+          <span class="item-icon">📄</span><span class="item-info"><div class="item-title">学习写简历</div><div class="item-meta">STAR法则 · 工科生简历八模块 · 不同年级策略</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境的学习和使用</div><div class="item-meta">VS Code · Git · LaTeX · MATLAB · 终端命令</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">实习 · 科研 · 考研 · 就业 · 差异化策略</div></span>
+        </a>
+        <div class="tip-card">⚡ 电气专业学生建议阅读顺序：① 先看「电气自学之路」建立全景 → ② 「我的学习路线」对照自己的进度 → ③ 根据需要补专业课笔记 → ④ 大三关注「学习写简历」为求职/考研做准备。</div>
+      </div>
+
+      <!-- 计算机专业 -->
+      <div class="guide-sublist" id="sublist-c-cs">
+        <h3>📌 大学生 · 计算机专业</h3>
+        <a class="guide-item" href="/2026/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">💻</span><span class="item-info"><div class="item-title">计算机自学之路</div><div class="item-meta">C→Python/Java→数据结构→项目 · 避坑指南</div></span>
+        </a>
+        <a class="guide-item" href="/c-language-notes/" target="_blank">
+          <span class="item-icon">🔤</span><span class="item-info"><div class="item-title">C语言知识总结（8章）</div><div class="item-meta">含代码示例 · 指针/结构体重点突破</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：前端/后端/嵌入式路线</div><div class="item-meta">三大方向完整学习路径</div></span>
+        </a>
+        <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" target="_blank">
+          <span class="item-icon">🧩</span><span class="item-info"><div class="item-title">VS Code 插件推荐清单</div><div class="item-meta">LaTeX · Python · Java · Git 一站式清单</div></span>
+        </a>
+        <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank">
+          <span class="item-icon">⚙️</span><span class="item-info"><div class="item-title">VS Code 配置文件管理</div><div class="item-meta">Profile隔离 · 多语言开发环境互不干扰</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/" target="_blank">
+          <span class="item-icon">📄</span><span class="item-info"><div class="item-title">学习写简历</div><div class="item-meta">STAR法则 · 技术岗简历 · 项目怎么描述</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境的学习和使用</div><div class="item-meta">VS Code · Git · 终端 · LaTeX · 工科通用</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" target="_blank">
+          <span class="item-icon">🧭</span><span class="item-info"><div class="item-title">我的学习路线</div><div class="item-meta">从大一到现在的编程成长轨迹参考</div></span>
+        </a>
+        <div class="tip-card">💻 计科学生注重「项目驱动」：学完C语言做计算器 → 学完Python做数据分析 → 学完Java做课程管理系统。简历上没有项目比没有GPA更致命。</div>
+      </div>
+
+      <!-- 其他专业 -->
+      <div class="guide-sublist" id="sublist-c-other">
+        <h3>📌 大学生 · 其他专业</h3>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：提问的智慧与学习路线</div><div class="item-meta">信息检索 · 工具思维 · 前端/后端/嵌入式</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/09/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E8%8B%B1%E8%AF%AD/" target="_blank">
+          <span class="item-icon">🌐</span><span class="item-info"><div class="item-title">如何学习英语：工科生实用指南</div><div class="item-meta">阅读 · 听力 · 写作 · 口语 全面提升</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/" target="_blank">
+          <span class="item-icon">🗺️</span><span class="item-info"><div class="item-title">大学成长规划闲聊</div><div class="item-meta">四年全景 · 差异化发展 · 避免内卷</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" target="_blank">
+          <span class="item-icon">🧭</span><span class="item-info"><div class="item-title">我的学习路线</div><div class="item-meta">大学各阶段学习规划参考</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/" target="_blank">
+          <span class="item-icon">📄</span><span class="item-info"><div class="item-title">学习写简历</div><div class="item-meta">任何专业通用的简历方法论</div></span>
+        </a>
+        <div class="tip-card">🎯 不在于学什么专业，而在于你是否掌握了自学的底层能力。「通识教育」和「英语」是两根最重要的杠杆——前者让你知道学什么，后者让你接触最前沿的信息源。</div>
+      </div>
+
+      <!-- 想学电气 -->
+      <div class="guide-sublist" id="sublist-c-toee">
+        <h3>📌 大学生 · 想学电气</h3>
+        <a class="guide-item" href="/2026/08/08/%E7%94%B5%E6%B0%94%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">⚡</span><span class="item-info"><div class="item-title">电气工程自学之路（必读）</div><div class="item-meta">零基础到进阶的完整路线图</div></span>
+        </a>
+        <a class="guide-item" href="/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">📡</span><span class="item-info"><div class="item-title">电磁场与电磁波笔记</div><div class="item-meta">核心理论入门 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86)%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">🔬</span><span class="item-info"><div class="item-title">大学物理（电磁学基础）笔记</div><div class="item-meta">电学基础 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/" target="_blank">
+          <span class="item-icon">📊</span><span class="item-info"><div class="item-title">概率论与数理统计笔记</div><div class="item-meta">数学基础 · 附PDF下载</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境：MATLAB仿真入门</div><div class="item-meta">电气工程必备仿真工具</div></span>
+        </a>
+        <a class="guide-item" href="/c-language-notes/" target="_blank">
+          <span class="item-icon">🔤</span><span class="item-info"><div class="item-title">C语言知识总结</div><div class="item-meta">嵌入式方向基础</div></span>
+        </a>
+        <div class="tip-card">🔄 非电气专业想切入电气，核心挑战是数学基础（高数+线代+复变）和物理基础（电磁学）。建议先对照「电气自学之路」第一阶段补齐数学物理，再按课程顺序推进。</div>
+      </div>
+
+      <!-- 想学计算机 -->
+      <div class="guide-sublist" id="sublist-c-tocs">
+        <h3>📌 大学生 · 想学计算机</h3>
+        <a class="guide-item" href="/2026/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/" target="_blank">
+          <span class="item-icon">💻</span><span class="item-info"><div class="item-title">计算机自学之路（必读）</div><div class="item-meta">非科班友好的完整入门路线</div></span>
+        </a>
+        <a class="guide-item" href="/c-language-notes/" target="_blank">
+          <span class="item-icon">🔤</span><span class="item-info"><div class="item-title">C语言知识总结（8章）</div><div class="item-meta">编程第一课 · 含代码示例</div></span>
+        </a>
+        <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/" target="_blank">
+          <span class="item-icon">💡</span><span class="item-info"><div class="item-title">通识教育：前端/后端/嵌入式路线</div><div class="item-meta">选定一个方向深入</div></span>
+        </a>
+        <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" target="_blank">
+          <span class="item-icon">🧩</span><span class="item-info"><div class="item-title">VS Code 插件推荐</div><div class="item-meta">开发环境第一步</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_blank">
+          <span class="item-icon">🛠️</span><span class="item-info"><div class="item-title">工具环境的学习和使用</div><div class="item-meta">VS Code · Git · 终端 · 开发环境配置</div></span>
+        </a>
+        <a class="guide-item" href="/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" target="_blank">
+          <span class="item-icon">🧭</span><span class="item-info"><div class="item-title">我的学习路线</div><div class="item-meta">从零开始学编程的轨迹参考</div></span>
+        </a>
+        <div class="tip-card">🔄 非计算机专业想转码，最大的优势是「跨学科」。电气+编程=嵌入式方向，金融+编程=量化方向。先通过「计算机自学之路」把C语言基础打牢，再根据你自己的专业背景选择一个交叉方向。</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- 高中生子区 -->
-<div class="sub-section active" id="sub-highschool">
-  <div class="guide-list">
-    <h3>📌 推荐阅读</h3>
-    <a class="guide-item" href="/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/">
-      <span class="item-icon">📝</span>
-      <span class="item-info">
-        <div class="item-title">给高中生的学习建议：用AI做好规划，让努力更有方向</div>
-        <div class="item-meta">学习方法 · AI工具 · 高中时间节点</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/">
-      <span class="item-icon">🏫</span>
-      <span class="item-info">
-        <div class="item-title">闲聊高考志愿填报：流程、个人经验与感想</div>
-        <div class="item-meta">志愿填报 · 选专业vs选院校 · 避坑经验</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      💡 <strong>小提示：</strong>如果你刚高考完，建议先看志愿填报篇了解流程和避坑点；如果还在备考阶段，学习建议篇里的 AI 规划方法可以帮你少走很多弯路。
-    </div>
-  </div>
-</div>
-
-<!-- 准大学生子区 -->
-<div class="sub-section" id="sub-precollege">
-  <div class="guide-list">
-    <h3>📌 高考后 · 大学前的黄金假期</h3>
-    <a class="guide-item" href="/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/">
-      <span class="item-icon">🏫</span>
-      <span class="item-info">
-        <div class="item-title">闲聊高考志愿填报：流程、个人经验与感想</div>
-        <div class="item-meta">完整填报流程 · 选专业 vs 选院校 · 转专业政策 · 生活因素考量</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/">
-      <span class="item-icon">🗺️</span>
-      <span class="item-info">
-        <div class="item-title">大学成长规划闲聊：学业、实习、读研与就业避坑经验</div>
-        <div class="item-meta">提前了解大学四年全景 · 差异化发展 · 分赛道规划</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
-      <span class="item-icon">💡</span>
-      <span class="item-info">
-        <div class="item-title">通识教育：大学新生必备的底层能力</div>
-        <div class="item-meta">提问的智慧 · 信息检索 · 工具思维 · 入学前即可开始训练</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/">
-      <span class="item-icon">✨</span>
-      <span class="item-info">
-        <div class="item-title">如何用 LaTeX 优雅地写笔记</div>
-        <div class="item-meta">5分钟快速入门 · 大学笔记神器 · 提前掌握受益四年</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/c-language-notes/">
-      <span class="item-icon">🔤</span>
-      <span class="item-info">
-        <div class="item-title">C语言知识总结（8章·含代码示例）</div>
-        <div class="item-meta">零基础编程入门 · 理工科必备 · 暑假即可开始自学</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      🎫 <strong>准大学生专属建议：</strong>高考后的暑假是人生最自由的两个月，与其焦虑等待录取结果，不如提前做三件事——① 认真读完志愿填报篇，把志愿填好；② 通读大学成长规划篇，建立大学四年全景认知；③ 从 C 语言或 LaTeX 中选一个，每天投入 1 小时自学，入学后你会感谢现在的自己。
-    </div>
-  </div>
-</div>
-
-<!-- 大学生子区 -->
-<div class="sub-section" id="sub-college">
-  <div class="sub-tabs" id="collegeTabs">
-    <div class="sub-tab active" data-sub="plan">大学规划</div>
-    <div class="sub-tab" data-sub="skill">技能学习</div>
-    <div class="sub-tab" data-sub="major">电气专业课</div>
-    <div class="sub-tab" data-sub="tool">效率工具</div>
-  </div>
-
-  <!-- 大学规划 -->
-  <div class="guide-list sub-content active" id="sub-plan">
-    <h3>📌 大学规划与成长</h3>
-    <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/">
-      <span class="item-icon">🗺️</span>
-      <span class="item-info">
-        <div class="item-title">大学成长规划闲聊：学业、实习、读研与就业避坑经验</div>
-        <div class="item-meta">大学规划 · 实习科研 · 保研考研 · 就业赛道 · 能力培养</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
-      <span class="item-icon">💡</span>
-      <span class="item-info">
-        <div class="item-title">通识教育：提问的智慧与学习路线</div>
-        <div class="item-meta">通识能力 · 前端/后端/嵌入式学习路线 · 提问技巧</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/">
-      <span class="item-icon">🎯</span>
-      <span class="item-info">
-        <div class="item-title">给高中生的学习建议（大学同样适用）</div>
-        <div class="item-meta">AI辅助规划 · 目标拆解 · 正向反馈循环</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      📌 <strong>建议路径：</strong>大一大二迷茫期 → 先读「大学成长规划」建立全景认知 → 再根据「通识教育」找到学习方法 → 最后按下方「技能学习」模块补足技术栈。
-    </div>
-  </div>
-
-  <!-- 技能学习 -->
-  <div class="guide-list sub-content" id="sub-skill">
-    <h3>📌 编程与技能学习</h3>
-    <a class="guide-item" href="/c-language-notes/">
-      <span class="item-icon">🔤</span>
-      <span class="item-info">
-        <div class="item-title">C语言知识总结（8章·含代码示例）</div>
-        <div class="item-meta">编程入门 · 数据类型到指针与结构体 · 适合零基础</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
-      <span class="item-icon">🧭</span>
-      <span class="item-info">
-        <div class="item-title">前端 / 后端 / 嵌入式 学习路线</div>
-        <div class="item-meta">通识教育篇 · 各方向完整学习路径 · 资源推荐</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/03/16/latex-template/">
-      <span class="item-icon">📐</span>
-      <span class="item-info">
-        <div class="item-title">LaTeX 模板分享：多文件课程笔记</div>
-        <div class="item-meta">3套可复制模板 · 课程笔记 / 读书感悟 / 年度总结</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/">
-      <span class="item-icon">✨</span>
-      <span class="item-info">
-        <div class="item-title">如何用 LaTeX 优雅地写笔记</div>
-        <div class="item-meta">5分钟快速入门 · 公式渲染 · 学生笔记工作流</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      🚀 <strong>零基础入门路径：</strong>C语言（打底）→ 选择方向（前端/后端/嵌入式，参考通识教育篇的学习路线）→ 用LaTeX整理学习笔记 → 形成知识闭环。
-    </div>
-  </div>
-
-  <!-- 电气专业课 -->
-  <div class="guide-list sub-content" id="sub-major">
-    <h3>📌 电气工程专业课笔记</h3>
-    <a class="guide-item" href="/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">
-      <span class="item-icon">⚡</span>
-      <span class="item-info">
-        <div class="item-title">电磁场与电磁波课程笔记</div>
-        <div class="item-meta">矢量分析 · 静电场 · 恒定场 · 麦克斯韦方程 · 附PDF下载</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86)%E7%AC%94%E8%AE%B0/">
-      <span class="item-icon">🔬</span>
-      <span class="item-info">
-        <div class="item-title">大学物理笔记（热学+光学+量子物理）</div>
-        <div class="item-meta">核心公式 · 考点齐全 · 附PDF下载</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/">
-      <span class="item-icon">📊</span>
-      <span class="item-info">
-        <div class="item-title">概率论与数理统计笔记</div>
-        <div class="item-meta">随机事件 · 分布函数 · 参数估计 · 附PDF下载</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      🔌 <strong>电气工程学习建议：</strong>大物和概率论是基础课，电磁场是专业核心课。建议先吃透大学物理的电磁学部分，再切入电磁场课程会轻松很多。所有笔记均提供 PDF 下载，可直接打印复习。
-    </div>
-  </div>
-
-  <!-- 效率工具 -->
-  <div class="guide-list sub-content" id="sub-tool">
-    <h3>📌 效率工具</h3>
-    <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">
-      <span class="item-icon">🧩</span>
-      <span class="item-info">
-        <div class="item-title">VS Code 插件推荐清单</div>
-        <div class="item-meta">LaTeX · Python · Java · Git · 全场景适配</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/">
-      <span class="item-icon">⚙️</span>
-      <span class="item-info">
-        <div class="item-title">VS Code 配置文件（Profile）管理</div>
-        <div class="item-meta">插件隔离 · 按场景切换 · 告别冲突与卡顿</div>
-      </span>
-    </a>
-    <a class="guide-item" href="/2026/07/16/GitHub%E4%BB%93%E5%BA%93%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/">
-      <span class="item-icon">🔒</span>
-      <span class="item-info">
-        <div class="item-title">GitHub 仓库清理历史记录</div>
-        <div class="item-meta">私有转公开注意事项 · 敏感信息保护</div>
-      </span>
-    </a>
-    <div class="tip-card">
-      🛠️ <strong>工具链建议：</strong>写代码用 VS Code（按插件推荐篇配置好环境 + 用 Profile 隔离不同语言），写文档/笔记用 LaTeX（配合模板篇快速上手），代码管理和博客部署用 Git + GitHub。
-    </div>
-  </div>
-</div>
-
-<!-- 交互脚本 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 身份切换
-  const roleCards = document.querySelectorAll('#roleCards .role-card');
-  const subSections = document.querySelectorAll('.sub-section');
 
-  roleCards.forEach(card => {
+  // ===== 角色切换 =====
+  var roleCards = document.querySelectorAll('#roleCards .role-card');
+  var subSections = document.querySelectorAll('.sub-section');
+
+  roleCards.forEach(function(card) {
     card.addEventListener('click', function() {
-      roleCards.forEach(c => c.classList.remove('active'));
+      roleCards.forEach(function(c) { c.classList.remove('active'); });
       this.classList.add('active');
-      const role = this.getAttribute('data-role');
-      subSections.forEach(s => s.classList.remove('active'));
-      document.getElementById('sub-' + role).classList.add('active');
+      var role = this.getAttribute('data-role');
+      subSections.forEach(function(s) { s.classList.remove('active'); });
+      var target = document.getElementById('sub-' + role);
+      if (target) target.classList.add('active');
     });
   });
 
-  // 大学生子标签切换
-  const collegeTabs = document.querySelectorAll('#collegeTabs .sub-tab');
-  const subContents = document.querySelectorAll('#sub-college .sub-content');
+  // ===== 子分类切换（通用函数） =====
+  function setupSubTabs(tabsContainerId, prefix) {
+    var tabsContainer = document.getElementById(tabsContainerId);
+    if (!tabsContainer) return;
+    var tabs = tabsContainer.querySelectorAll('.sub-tab');
 
-  collegeTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      collegeTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      const sub = this.getAttribute('data-sub');
-      subContents.forEach(c => c.classList.remove('active'));
-      document.getElementById('sub-' + sub).classList.add('active');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        var sub = this.getAttribute('data-sub');
+        // 隐藏当前父级下所有 guide-sublist
+        var parent = tabsContainer.parentElement;
+        var sublists = parent.querySelectorAll('.guide-sublist');
+        sublists.forEach(function(sl) { sl.classList.remove('active'); });
+        var target = document.getElementById('sublist-' + sub);
+        if (target) target.classList.add('active');
+      });
     });
-  });
+  }
+
+  setupSubTabs('precollegeTabs', 'pc');
+  setupSubTabs('collegeTabs', 'c');
+
 });
 </script>
