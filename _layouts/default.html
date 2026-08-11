@@ -193,6 +193,27 @@
           border-top-color: #34495e;
         }
       }
+
+      /* 7. 手动强制暗黑模式（优先级高于 prefers-color-scheme） */
+      html.force-dark { --bg-override: rgba(30,30,40,0.88); --text-override: #ecf0f1; }
+      html.force-dark .page-card,html.force-dark .phase-card,html.force-dark .guide-list,html.force-dark .map-card,
+      html.force-dark .rel-graph,html.force-dark .about-page,html.force-dark .site-header,html.force-dark .site-footer,
+      html.force-dark .post-container,html.force-dark .page-header-card,html.force-dark .role-card,html.force-dark .friend-card,
+      html.force-dark .blog-map-card,html.force-dark .exhibition-card { background:rgba(30,30,40,0.88) !important; }
+      html.force-dark .page-header-card h1,html.force-dark .map-card h2,html.force-dark .phase-title,html.force-dark .feature-name,
+      html.force-dark .card-title,html.force-dark .friend-card h3,html.force-dark .post-title,html.force-dark .archive-h1,
+      html.force-dark .role-card .role-name,html.force-dark .guide-item .item-title,html.force-dark .about-page strong,
+      html.force-dark .site-title { color:#ecf0f1 !important; }
+      html.force-dark .page-header-card p,html.force-dark .feature-desc,html.force-dark .map-card .map-desc,html.force-dark .about-page,
+      html.force-dark .card-desc,html.force-dark .friend-card p,html.force-dark .sub-task,html.force-dark .summary-box,
+      html.force-dark .tip-card,html.force-dark .note-card,html.force-dark .guide-item .item-meta,html.force-dark .legend-item,
+      html.force-dark .archive-subtitle,html.force-dark .post-meta,html.force-dark .page-content .wrapper { color:#bdc3c7 !important; }
+      html.force-dark body { background-color:#0a0a12 !important; }
+      html.force-dark .page-link { background:rgba(30,30,40,0.9) !important; color:#ecf0f1 !important; }
+      html.force-dark .post-link,html.force-dark .page-card a { color:#5dade2 !important; }
+      html.force-dark .post-related { background:rgba(30,30,40,0.88) !important; }
+      html.force-dark .post-related a { color:#bdc3c7 !important; }
+      html.force-dark .post-related a:hover { background:rgba(52,152,219,0.15) !important; color:#5dade2 !important; }
     </style>
   </head>
 

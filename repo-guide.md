@@ -72,6 +72,7 @@ render_with_liquid: true
 ├── pages/
 │   ├── about.html
 │   ├── archive.html
+│   ├── blog-map.html
 │   ├── course-map.html
 │   ├── exhibition.html
 │   ├── friends.html
@@ -205,6 +206,7 @@ render_with_liquid: true
 | `future.html` | 「未研」页面，展示博客间关系建设与功能迭代方向 |
 | `navigate.html` | 「导航」页面，按访客身份（高中生/准大学生/大学生）+ 专业细分提供针对性引导 |
 | `course-map.html` | 「课程地图」页面，参考 UC Berkeley EECS 设计，SVG 可视化课程先修依赖关系 |
+| `blog-map.html` | 「博客地图」页面，SVG 网络图展示全部文章按五大主题分组的归属与关联 |
 
 #### 8. `scripts/`（自动化脚本）
 

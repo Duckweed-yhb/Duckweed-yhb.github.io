@@ -6,6 +6,9 @@
       {{ site.title | escape }}
     </a>
 
+    <!-- 暗黑模式切换按钮 -->
+    <button id="dark-toggle" onclick="toggleDark()" style="background:none;border:none;cursor:pointer;font-size:1.2em;padding:4px 8px;border-radius:6px;transition:all .3s;margin-left:auto;" title="切换暗黑模式">🌓</button>
+
     <!-- 引入搜索功能组件（若不存在search.html，先注释） -->
     {%- if site.has_search != false and site.pages contains "search.html" -%}
       {%- include search.html -%}
@@ -217,3 +220,17 @@
   }
 }
 </style>
+
+<!-- 暗黑模式切换脚本 -->
+<script>
+(function(){
+  var saved=localStorage.getItem('dark-mode');
+  if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+    document.documentElement.classList.add('force-dark');
+  }
+})();
+function toggleDark(){
+  var isDark=document.documentElement.classList.toggle('force-dark');
+  localStorage.setItem('dark-mode',isDark?'dark':'light');
+}
+</script>
