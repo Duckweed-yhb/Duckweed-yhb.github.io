@@ -32,6 +32,7 @@
 ├── README.md
 ├── _data
 │   ├── friends.yml
+│   ├── series.yml
 ├── _includes
 │   ├── head.html
 │   ├── header.html
@@ -96,7 +97,7 @@
 ```
 
 ---
-> 最后更新：2026-08-11 13:07:38 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-11 13:23:40 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
