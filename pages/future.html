@@ -1,0 +1,383 @@
+---
+layout: default
+title: 未研
+permalink: /future/
+render_with_liquid: true
+---
+
+<!-- 标题白框容器 -->
+<div class="page-header-card">
+  <h1>未研</h1>
+  <p>尚未完成的研究与开发 · 博客迭代路线图</p>
+</div>
+
+<!-- 样式 -->
+<style>
+  :root {
+    --primary: #3498db;
+    --bg: rgba(255, 255, 255, 0.88);
+    --bg-dark: rgba(30, 30, 40, 0.88);
+    --text: #2c3e50;
+    --text-light: #ecf0f1;
+    --muted: #7f8c8d;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  .page-header-card {
+    background: var(--bg);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    box-sizing: border-box;
+  }
+  .page-header-card h1 {
+    font-size: 2em;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.5em;
+    color: var(--text);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+  .page-header-card p { color: var(--muted); margin: 0; }
+
+  .content-wrap { max-width: 1000px; margin: 0 auto; }
+
+  .phase-card {
+    background: var(--bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 5px; height: 100%;
+    border-radius: 3px 0 0 3px;
+  }
+  .phase-card.p1::before { background: #e74c3c; }
+  .phase-card.p2::before { background: #27ae60; }
+  .phase-card.p3::before { background: #f39c12; }
+  .phase-card.p4::before { background: #3498db; }
+  .phase-card.p5::before { background: #9b59b6; }
+
+  .phase-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+  .phase-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 20px;
+    font-size: 0.8em; font-weight: 600; color: #fff;
+  }
+  .phase-badge.red    { background: #e74c3c; }
+  .phase-badge.green  { background: #27ae60; }
+  .phase-badge.orange { background: #f39c12; }
+  .phase-badge.blue   { background: #3498db; }
+  .phase-badge.purple { background: #9b59b6; }
+
+  .phase-title { font-size: 1.3em; font-weight: 600; color: var(--text); }
+
+  .feature-list { list-style: none; padding: 0; }
+  .feature-item {
+    display: flex; align-items: flex-start; padding: 14px 0;
+    border-bottom: 1px dashed #eee; gap: 12px;
+  }
+  .feature-item:last-child { border-bottom: none; }
+
+  .feature-status {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85em; margin-top: 2px;
+  }
+  .feature-status.done { background: #e8f5e9; color: #27ae60; }
+  .feature-status.wip  { background: #fff3e0; color: #f39c12; }
+  .feature-status.todo { background: #e3f2fd; color: #3498db; }
+  .feature-status.idea { background: #f3e5f5; color: #9b59b6; }
+
+  .feature-body { flex: 1; }
+  .feature-name { font-weight: 600; color: var(--text); margin-bottom: 4px; font-size: 1em; }
+  .feature-desc { color: var(--muted); font-size: 0.9em; line-height: 1.7; }
+
+  .note-card {
+    background: rgba(52,152,219,0.06); border-left: 4px solid var(--primary);
+    padding: 18px 22px; border-radius: 6px; margin-top: 15px;
+    color: var(--muted); font-size: 0.92em; line-height: 1.8;
+  }
+
+  .about-page {
+    background: var(--bg); padding: 25px 30px; border-radius: 12px;
+    box-shadow: var(--shadow); backdrop-filter: blur(8px);
+    margin-bottom: 30px; color: var(--muted); line-height: 1.9; font-size: 1em;
+  }
+  .about-page strong { color: var(--text); }
+
+  /* 子任务表 */
+  .sub-task {
+    margin-left: 42px;
+    padding: 8px 12px; margin-top: 6px; margin-bottom: 2px;
+    border-radius: 6px; font-size: 0.88em;
+    background: rgba(0,0,0,0.02);
+    color: var(--muted);
+  }
+  .sub-task .st-icon { margin-right: 6px; }
+
+  @media (max-width: 768px) {
+    .page-header-card { padding: 25px 15px; margin: 0 10px 30px; }
+    .page-header-card h1 { font-size: 1.8em; }
+    .phase-card { padding: 22px 18px; }
+    .feature-item { padding: 12px 0; }
+    .sub-task { margin-left: 0; }
+  }
+  @media (prefers-color-scheme: dark) {
+    .page-header-card, .phase-card, .about-page { background: var(--bg-dark); }
+    .page-header-card h1, .phase-title, .feature-name, .about-page strong { color: var(--text-light); }
+    .page-header-card p, .feature-desc, .about-page, .note-card, .sub-task { color: #bdc3c7; }
+    .feature-item { border-bottom-color: #34495e; }
+    .feature-status.done { background: rgba(39,174,96,0.2); }
+    .feature-status.wip  { background: rgba(243,156,18,0.2); }
+    .feature-status.todo { background: rgba(52,152,219,0.2); }
+    .feature-status.idea { background: rgba(155,89,182,0.2); }
+    .sub-task { background: rgba(255,255,255,0.03); }
+  }
+</style>
+
+<div class="content-wrap">
+
+  <div class="about-page">
+    <strong>「未研」</strong>意为 <strong>尚未完成的研究与开发</strong>。这里记录了 Duckweed's Space 博客当前存在的待完善项、功能规划与长期迭代方向。每一项都基于实际使用中的痛点或灵感，按优先级分阶段推进。如果你有好的建议，欢迎通过页脚社交链接联系 ✨
+  </div>
+
+  <!-- ========== 第一阶段：内容补全 ========== -->
+  <div class="phase-card p1">
+    <div class="phase-header">
+      <span class="phase-badge red">第一阶段</span>
+      <span class="phase-title">内容补全 · 填坑优先</span>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <span class="feature-status wip">⏳</span>
+        <div class="feature-body">
+          <div class="feature-name">补全《现代教育》博文</div>
+          <div class="feature-desc">文章 `2026-06-23-现代教育.md` 当前为空文件，需要撰写正文内容。初步设想围绕现代教育体系反思、大学教育与学生自主成长的关系展开。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status wip">⏳</span>
+        <div class="feature-body">
+          <div class="feature-name">补全《贫困县城缺失的计算机教育》博文</div>
+          <div class="feature-desc">文章 `2026-06-29-贫困县城缺失的计算机教育.md` 当前为空文件。计划从个人观察出发，探讨教育资源不均衡对计算机基础教育的影响，以及可行的改善思路。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">《对高中生学习建议》博文后半部分补全</div>
+          <div class="feature-desc">`2026-04-04-对高中生学习的一些建议.md` 结尾处「高三上」部分未写完，需要补充高二下至高三全年的时间节点、各科复习节奏和AI辅助备考策略。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status done">✅</span>
+        <div class="feature-body">
+          <div class="feature-name">Front Matter 修复（大学成长规划闲聊）</div>
+          <div class="feature-desc">`2026-08-06-大学成长规划闲聊.md` 的 YAML 头部缺少首个 `---`，已修复并调整日期避免未来文章过滤问题。</div>
+        </div>
+      </li>
+    </ul>
+    <div class="note-card">
+      🔴 第一阶段的核心是「把坑填上」。两个空文章占着索引却无内容，不仅影响读者体验，也让 Jekyll 构建的搜索索引包含了无效条目。优先补全它们，再推进新的功能开发。
+    </div>
+  </div>
+
+  <!-- ========== 第二阶段：页面完善 ========== -->
+  <div class="phase-card p2">
+    <div class="phase-header">
+      <span class="phase-badge green">第二阶段</span>
+      <span class="phase-title">页面完善 · 打磨细节</span>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <span class="feature-status wip">⏳</span>
+        <div class="feature-body">
+          <div class="feature-name">导航页持续完善</div>
+          <div class="feature-desc">当前导航页已实现高中生 / 准大学生 / 大学生三重身份分流，大学生下含大学规划、技能学习、电气专业课、效率工具四个子标签。</div>
+          <div class="sub-task"><span class="st-icon">🔹</span> 后续方向：补充更多细分人群（如"考研党"、"转专业学生"）；为每篇推荐文章添加一句话推荐理由；增加「按阅读量/发布时间排序」切换按钮。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status wip">⏳</span>
+        <div class="feature-body">
+          <div class="feature-name">展览页内容更新</div>
+          <div class="feature-desc">当前展览页展示了项目、技能、书籍三个卡片。需要修改的地方：</div>
+          <div class="sub-task"><span class="st-icon">🔹</span> 项目卡片：更新「正在开发」项目的进展状态，HIT-CampusAI 和博客本身都有新的里程碑；「待开发」列表中部分项目可能需要调整优先级或移除。</div>
+          <div class="sub-task"><span class="st-icon">🔹</span> 技能卡片：入门级嵌入式技能已有提升，需更新熟练度描述；可考虑加入 Git/GitHub Actions 等新掌握的 DevOps 工具。</div>
+          <div class="sub-task"><span class="st-icon">🔹</span> 书籍卡片：在读/已读清单需要同步最新阅读进展；搁置和想看列表可重新整理。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">说明页内容维护</div>
+          <div class="feature-desc">`repo-guide.md` 的目录树和文件描述需随仓库变化同步更新（新增页面、新增 PDF 资源等）。当前已更新至最新状态，后续新增文件后需同步维护。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">首页展示优化</div>
+          <div class="feature-desc">当前首页仅展示最新 5 篇文章列表和快速导航。可考虑添加：精选文章推荐区、热门标签入口、一句话个人简介卡片，让新访客更快了解博客定位。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ========== 第三阶段：功能增强 ========== -->
+  <div class="phase-card p3">
+    <div class="phase-header">
+      <span class="phase-badge orange">第三阶段</span>
+      <span class="phase-title">功能增强 · 体验升级</span>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">博客地图（站点导览）</div>
+          <div class="feature-desc">新增一个可视化站点地图页面，以思维导图或分类树的形式展示所有文章、页面的层级结构和关联关系，帮助读者快速理解博客的知识体系全貌。可作为独立页面或嵌入导航页。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">文章评论系统</div>
+          <div class="feature-desc">接入 Giscus（基于 GitHub Discussions）或 Waline，读者可在文章下方留言互动，无需第三方账号体系。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">长文章悬浮目录（TOC）</div>
+          <div class="feature-desc">C语言笔记、大学成长规划等长文章右侧自动生成悬浮目录，点击可快速跳转对应章节。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">暗黑模式手动切换</div>
+          <div class="feature-desc">当前仅支持跟随系统自动切换，增加手动切换按钮，满足不同阅读偏好。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">首页性能优化</div>
+          <div class="feature-desc">背景视频压缩 + 懒加载，CSS/JS 合并压缩，减少首屏加载时间，提升 PageSpeed 评分。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">文章标签云 & 阅读进度条</div>
+          <div class="feature-desc">首页展示动态标签云（按文章数量映射字号）；文章页顶部添加细线进度条随滚动实时显示阅读进度。</div>
+        </div>
+      </li>
+    </ul>
+    <div class="note-card">
+      🧭 <strong>关于「博客地图」：</strong>这是导航页的升级版——导航页解决「谁该看什么」，博客地图解决「这里都有什么」。可设计为树状结构（按主题分类 → 文章 → 文章间关联），让读者一眼看清博客的知识版图。
+    </div>
+  </div>
+
+  <!-- ========== 第四阶段：内容拓展 ========== -->
+  <div class="phase-card p4">
+    <div class="phase-header">
+      <span class="phase-badge blue">第四阶段</span>
+      <span class="phase-title">内容拓展 · 体系化沉淀</span>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">电力系统专业系列</div>
+          <div class="feature-desc">系统化整理电力系统分析、继电保护、高电压技术等核心课程笔记，形成完整的电气工程学习资料库。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">考研备考专区</div>
+          <div class="feature-desc">开辟考研专栏：数学一/英语一/政治备考笔记、专业课复习资料、时间规划与经验总结。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">编程项目实战记录</div>
+          <div class="feature-desc">记录 HIT-CampusAI、智能能源监控系统等个人项目的完整开发过程、踩坑经验和技术选型思路。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">读书笔记专栏</div>
+          <div class="feature-desc">将展览页中的已读书籍沉淀为独立读书笔记，包含核心观点提炼、个人思考与行动清单。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status todo">📋</span>
+        <div class="feature-body">
+          <div class="feature-name">实习 & 求职经验系列</div>
+          <div class="feature-desc">记录实习经历、面试复盘、简历优化心得，帮助电气/计算机方向同学少走弯路。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ========== 远期设想 ========== -->
+  <div class="phase-card p5">
+    <div class="phase-header">
+      <span class="phase-badge purple">远期设想</span>
+      <span class="phase-title">探索可能 · 不设边界</span>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <span class="feature-status idea">💡</span>
+        <div class="feature-body">
+          <div class="feature-name">自定义主题系统</div>
+          <div class="feature-desc">脱离 minima 主题限制，从零搭建专属 Jekyll 主题，更精细地控制每个像素的呈现效果。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status idea">💡</span>
+        <div class="feature-body">
+          <div class="feature-name">电气工程在线工具集</div>
+          <div class="feature-desc">嵌入潮流计算、短路电流估算等常用计算器，从纯内容博客升级为「内容 + 工具」平台。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status idea">💡</span>
+        <div class="feature-body">
+          <div class="feature-name">邮件订阅 & RSS 完善</div>
+          <div class="feature-desc">接入邮件推送服务，读者可订阅更新通知；完善 RSS 全文输出，方便离线阅读。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status idea">💡</span>
+        <div class="feature-body">
+          <div class="feature-name">多语言支持</div>
+          <div class="feature-desc">中英文双语切换，将优质内容翻译为英文版本，拓展读者群体。</div>
+        </div>
+      </li>
+      <li class="feature-item">
+        <span class="feature-status idea">💡</span>
+        <div class="feature-body">
+          <div class="feature-name">社区共建</div>
+          <div class="feature-desc">开放投稿/协作编辑通道，邀请同学一起维护课程笔记，打造哈工大（深圳）电气工程学习资源共享站。</div>
+        </div>
+      </li>
+    </ul>
+    <div class="note-card">
+      🌌 各阶段的优先级会随着个人学业阶段、技术能力和读者反馈动态调整。如果你对某个方向特别感兴趣或有自己的想法，欢迎随时通过页脚联系方式交流。
+    </div>
+  </div>
+
+</div>

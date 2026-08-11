@@ -11,8 +11,7 @@
       {%- include search.html -%}
     {%- endif -%}
 
-    <!-- 导航菜单（核心修复：简化Liquid逻辑，确保能识别所有页面） -->
-    {%- assign sorted_pages = site.pages | sort: "title" -%}
+    <!-- 导航菜单（使用 _data/navigation.yml 控制顺序） -->
     <nav class="site-nav" role="navigation" aria-label="主导航">
       <!-- 移动端菜单开关样式（修复层级和显示问题） -->
       <style>
@@ -75,19 +74,18 @@
         </svg>
       </label>
 
-      <!-- 导航链接（核心修复：遍历所有有效页面，排除首页和无标题页面） -->
+      <!-- 导航链接（按 _data/navigation.yml 顺序渲染） -->
       <div class="trigger">
-        {%- for my_page in sorted_pages -%}
-          {%- if my_page.title and my_page.url != "/" and my_page.layout == "default" -%}
-            {%- assign nav_title = my_page.title == "About" ? "关于" : my_page.title -%}
-            <a 
-              class="page-link {% if page.url == my_page.url %}active{% endif %}" 
-              href="{{ my_page.url | relative_url }}"
-              aria-current="{% if page.url == my_page.url %}page{% else %}false{% endif %}"
-            >
-              {{ nav_title | escape }}
-            </a>
-          {%- endif -%}
+        {%- for nav_item in site.data.navigation -%}
+          {%- assign nav_url = nav_item.url | relative_url -%}
+          {%- assign current_url = page.url | relative_url -%}
+          <a 
+            class="page-link {% if current_url == nav_url %}active{% endif %}" 
+            href="{{ nav_item.url | relative_url }}"
+            aria-current="{% if current_url == nav_url %}page{% else %}false{% endif %}"
+          >
+            {{ nav_item.title | escape }}
+          </a>
         {%- endfor -%}
       </div>
     </nav>

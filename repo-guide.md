@@ -64,6 +64,7 @@ render_with_liquid: true
 │   │   └── zhihu.svg
 │   ├── js/
 │   ├── pdf/
+│   │   ├── electromagnetic-field-notes.pdf
 │   │   ├── probability-and-statistics-notes.pdf
 │   │   └── university-physics(thermal-optics-quantum).pdf
 │   └── videos/
@@ -72,7 +73,9 @@ render_with_liquid: true
 │   ├── about.html
 │   ├── archive.html
 │   ├── exhibition.html
-│   └── friends.html
+│   ├── friends.html
+│   ├── future.html
+│   └── navigate.html
 ├── scripts/
 │   └── generate_readme.py
 ├── templates/
@@ -178,6 +181,7 @@ render_with_liquid: true
 | :--- | :--- |
 | `probability-and-statistics-notes.pdf` | 概率论与数理统计笔记 PDF 源文件 |
 | `university-physics(thermal-optics-quantum).pdf` | 大学物理笔记 PDF 源文件 |
+| `electromagnetic-field-notes.pdf` | 电磁场与电磁波笔记 PDF 源文件 |
 
 ##### 6.5 `assets/videos/`（视频资源）
 
@@ -197,6 +201,8 @@ render_with_liquid: true
 | `archive.html` | 文章归档页，按时间/分类/标签聚合所有博客文章 |
 | `exhibition.html` | 作品集页面，展示项目、技能、书籍等个人成果 |
 | `friends.html` | 友链页面，渲染 `_data/friends.yml` 中的友链数据 |
+| `future.html` | 「未研」页面，展示博客未来开发规划与功能迭代方向 |
+| `navigate.html` | 「导航」页面，按访客身份（准大学生/高中生/大学生）提供针对性文章引导 |
 
 #### 8. `scripts/`（自动化脚本）
 

@@ -1,0 +1,485 @@
+---
+layout: default
+title: 导航
+permalink: /navigate/
+render_with_liquid: true
+---
+
+<!-- 标题白框容器 -->
+<div class="page-header-card">
+  <h1>导航</h1>
+  <p>按身份和需求快速定位｜不同人群，不同入口，精准找到你需要的内容</p>
+</div>
+
+<!-- 样式 -->
+<style>
+  :root {
+    --primary: #3498db;
+    --bg: rgba(255, 255, 255, 0.88);
+    --bg-dark: rgba(30, 30, 40, 0.88);
+    --text: #2c3e50;
+    --text-light: #ecf0f1;
+    --muted: #7f8c8d;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+  .page-header-card {
+    background: var(--bg);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    box-sizing: border-box;
+  }
+  .page-header-card h1 {
+    font-size: 2em;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.5em;
+    color: var(--text);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+  .page-header-card p {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* 身份选择区 */
+  .role-section {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+  }
+  .role-section h2 {
+    font-size: 1.4em;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 4px solid var(--primary);
+    background: var(--bg);
+    padding: 15px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow);
+  }
+  .role-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .role-card {
+    flex: 1 1 200px;
+    min-width: 180px;
+    background: var(--bg);
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary);
+  }
+  .role-card.active {
+    border-color: var(--primary);
+    background: rgba(52, 152, 219, 0.08);
+  }
+  .role-card .role-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .role-card .role-name {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .role-card .role-desc {
+    font-size: 0.85em;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* 子分类区 */
+  .sub-section {
+    display: none;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+  }
+  .sub-section.active {
+    display: block;
+  }
+  .sub-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  .sub-tab {
+    padding: 10px 22px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    font-size: 0.95em;
+    color: var(--text);
+    transition: all 0.3s ease;
+  }
+  .sub-tab.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .sub-tab:hover:not(.active) {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  /* 文章列表 */
+  .guide-list {
+    background: var(--bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+  }
+  .guide-list h3 {
+    font-size: 1.2em;
+    color: var(--primary);
+    margin: 0 0 15px;
+    padding-left: 10px;
+    border-left: 3px solid var(--primary);
+  }
+  .guide-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.5);
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid transparent;
+  }
+  .guide-item:hover {
+    background: rgba(52, 152, 219, 0.06);
+    border-color: rgba(52, 152, 219, 0.2);
+    transform: translateX(5px);
+  }
+  .guide-item .item-icon {
+    font-size: 1.5em;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  .guide-item .item-info {
+    flex: 1;
+  }
+  .guide-item .item-title {
+    font-weight: 600;
+    font-size: 1.05em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .guide-item .item-meta {
+    font-size: 0.85em;
+    color: var(--muted);
+  }
+
+  /* 说明卡片 */
+  .tip-card {
+    background: rgba(52, 152, 219, 0.08);
+    border-left: 4px solid var(--primary);
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 0.9em;
+    line-height: 1.7;
+  }
+
+  /* 移动端 */
+  @media (max-width: 768px) {
+    .page-header-card { padding: 25px 15px; margin: 0 10px 30px; }
+    .page-header-card h1 { font-size: 1.8em; }
+    .role-cards { gap: 12px; }
+    .role-card { flex: 1 1 45%; min-width: 140px; padding: 20px 15px; }
+    .guide-list { padding: 20px 15px; }
+    .guide-item { padding: 12px 15px; }
+  }
+
+  /* 暗黑模式 */
+  @media (prefers-color-scheme: dark) {
+    .page-header-card, .role-card, .guide-list, .role-section h2 { background: var(--bg-dark); }
+    .page-header-card h1, .role-card .role-name, .guide-item .item-title, .role-section h2 { color: var(--text-light); }
+    .page-header-card p, .role-card .role-desc, .guide-item .item-meta, .tip-card { color: #bdc3c7; }
+    .sub-tab { background: rgba(44,62,80,0.88); border-color: #34495e; color: var(--text-light); }
+    .guide-item { background: rgba(30,30,40,0.5); }
+    .guide-item:hover { background: rgba(52,152,219,0.12); }
+    .tip-card { background: rgba(52,152,219,0.1); }
+  }
+</style>
+
+<!-- 身份选择 -->
+<div class="role-section">
+  <h2>👤 你是谁？</h2>
+  <div class="role-cards" id="roleCards">
+    <div class="role-card active" data-role="highschool">
+      <div class="role-icon">🎒</div>
+      <div class="role-name">高中生</div>
+      <div class="role-desc">高考备考 · 志愿填报 · 学习方法</div>
+    </div>
+    <div class="role-card" data-role="precollege">
+      <div class="role-icon">🎫</div>
+      <div class="role-name">准大学生</div>
+      <div class="role-desc">高考后过渡 · 专业认知 · 入学准备</div>
+    </div>
+    <div class="role-card" data-role="college">
+      <div class="role-icon">🎓</div>
+      <div class="role-name">大学生</div>
+      <div class="role-desc">考研就业 · 技能学习 · 大学规划</div>
+    </div>
+  </div>
+</div>
+
+<!-- 高中生子区 -->
+<div class="sub-section active" id="sub-highschool">
+  <div class="guide-list">
+    <h3>📌 推荐阅读</h3>
+    <a class="guide-item" href="/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/">
+      <span class="item-icon">📝</span>
+      <span class="item-info">
+        <div class="item-title">给高中生的学习建议：用AI做好规划，让努力更有方向</div>
+        <div class="item-meta">学习方法 · AI工具 · 高中时间节点</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/">
+      <span class="item-icon">🏫</span>
+      <span class="item-info">
+        <div class="item-title">闲聊高考志愿填报：流程、个人经验与感想</div>
+        <div class="item-meta">志愿填报 · 选专业vs选院校 · 避坑经验</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      💡 <strong>小提示：</strong>如果你刚高考完，建议先看志愿填报篇了解流程和避坑点；如果还在备考阶段，学习建议篇里的 AI 规划方法可以帮你少走很多弯路。
+    </div>
+  </div>
+</div>
+
+<!-- 准大学生子区 -->
+<div class="sub-section" id="sub-precollege">
+  <div class="guide-list">
+    <h3>📌 高考后 · 大学前的黄金假期</h3>
+    <a class="guide-item" href="/2026/04/28/%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E5%A1%AB%E6%8A%A5%E7%9A%84%E7%9C%8B%E6%B3%95/">
+      <span class="item-icon">🏫</span>
+      <span class="item-info">
+        <div class="item-title">闲聊高考志愿填报：流程、个人经验与感想</div>
+        <div class="item-meta">完整填报流程 · 选专业 vs 选院校 · 转专业政策 · 生活因素考量</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/">
+      <span class="item-icon">🗺️</span>
+      <span class="item-info">
+        <div class="item-title">大学成长规划闲聊：学业、实习、读研与就业避坑经验</div>
+        <div class="item-meta">提前了解大学四年全景 · 差异化发展 · 分赛道规划</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
+      <span class="item-icon">💡</span>
+      <span class="item-info">
+        <div class="item-title">通识教育：大学新生必备的底层能力</div>
+        <div class="item-meta">提问的智慧 · 信息检索 · 工具思维 · 入学前即可开始训练</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/">
+      <span class="item-icon">✨</span>
+      <span class="item-info">
+        <div class="item-title">如何用 LaTeX 优雅地写笔记</div>
+        <div class="item-meta">5分钟快速入门 · 大学笔记神器 · 提前掌握受益四年</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/c-language-notes/">
+      <span class="item-icon">🔤</span>
+      <span class="item-info">
+        <div class="item-title">C语言知识总结（8章·含代码示例）</div>
+        <div class="item-meta">零基础编程入门 · 理工科必备 · 暑假即可开始自学</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      🎫 <strong>准大学生专属建议：</strong>高考后的暑假是人生最自由的两个月，与其焦虑等待录取结果，不如提前做三件事——① 认真读完志愿填报篇，把志愿填好；② 通读大学成长规划篇，建立大学四年全景认知；③ 从 C 语言或 LaTeX 中选一个，每天投入 1 小时自学，入学后你会感谢现在的自己。
+    </div>
+  </div>
+</div>
+
+<!-- 大学生子区 -->
+<div class="sub-section" id="sub-college">
+  <div class="sub-tabs" id="collegeTabs">
+    <div class="sub-tab active" data-sub="plan">大学规划</div>
+    <div class="sub-tab" data-sub="skill">技能学习</div>
+    <div class="sub-tab" data-sub="major">电气专业课</div>
+    <div class="sub-tab" data-sub="tool">效率工具</div>
+  </div>
+
+  <!-- 大学规划 -->
+  <div class="guide-list sub-content active" id="sub-plan">
+    <h3>📌 大学规划与成长</h3>
+    <a class="guide-item" href="/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/">
+      <span class="item-icon">🗺️</span>
+      <span class="item-info">
+        <div class="item-title">大学成长规划闲聊：学业、实习、读研与就业避坑经验</div>
+        <div class="item-meta">大学规划 · 实习科研 · 保研考研 · 就业赛道 · 能力培养</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
+      <span class="item-icon">💡</span>
+      <span class="item-info">
+        <div class="item-title">通识教育：提问的智慧与学习路线</div>
+        <div class="item-meta">通识能力 · 前端/后端/嵌入式学习路线 · 提问技巧</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/04/%E5%AF%B9%E9%AB%98%E4%B8%AD%E7%94%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/">
+      <span class="item-icon">🎯</span>
+      <span class="item-info">
+        <div class="item-title">给高中生的学习建议（大学同样适用）</div>
+        <div class="item-meta">AI辅助规划 · 目标拆解 · 正向反馈循环</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      📌 <strong>建议路径：</strong>大一大二迷茫期 → 先读「大学成长规划」建立全景认知 → 再根据「通识教育」找到学习方法 → 最后按下方「技能学习」模块补足技术栈。
+    </div>
+  </div>
+
+  <!-- 技能学习 -->
+  <div class="guide-list sub-content" id="sub-skill">
+    <h3>📌 编程与技能学习</h3>
+    <a class="guide-item" href="/c-language-notes/">
+      <span class="item-icon">🔤</span>
+      <span class="item-info">
+        <div class="item-title">C语言知识总结（8章·含代码示例）</div>
+        <div class="item-meta">编程入门 · 数据类型到指针与结构体 · 适合零基础</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/03/%E9%80%9A%E8%AF%86%E6%95%99%E8%82%B2/">
+      <span class="item-icon">🧭</span>
+      <span class="item-info">
+        <div class="item-title">前端 / 后端 / 嵌入式 学习路线</div>
+        <div class="item-meta">通识教育篇 · 各方向完整学习路径 · 资源推荐</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/03/16/latex-template/">
+      <span class="item-icon">📐</span>
+      <span class="item-info">
+        <div class="item-title">LaTeX 模板分享：多文件课程笔记</div>
+        <div class="item-meta">3套可复制模板 · 课程笔记 / 读书感悟 / 年度总结</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/04/04/%E5%A6%82%E4%BD%95%E7%94%A8LaTex%E4%BC%98%E9%9B%85%E5%9C%B0%E5%86%99%E7%AC%94%E8%AE%B0/">
+      <span class="item-icon">✨</span>
+      <span class="item-info">
+        <div class="item-title">如何用 LaTeX 优雅地写笔记</div>
+        <div class="item-meta">5分钟快速入门 · 公式渲染 · 学生笔记工作流</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      🚀 <strong>零基础入门路径：</strong>C语言（打底）→ 选择方向（前端/后端/嵌入式，参考通识教育篇的学习路线）→ 用LaTeX整理学习笔记 → 形成知识闭环。
+    </div>
+  </div>
+
+  <!-- 电气专业课 -->
+  <div class="guide-list sub-content" id="sub-major">
+    <h3>📌 电气工程专业课笔记</h3>
+    <a class="guide-item" href="/2026/06/03/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+      <span class="item-icon">⚡</span>
+      <span class="item-info">
+        <div class="item-title">电磁场与电磁波课程笔记</div>
+        <div class="item-meta">矢量分析 · 静电场 · 恒定场 · 麦克斯韦方程 · 附PDF下载</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/02/23/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E7%83%AD%E5%AD%A6%E5%85%89%E5%AD%A6%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86)%E7%AC%94%E8%AE%B0/">
+      <span class="item-icon">🔬</span>
+      <span class="item-info">
+        <div class="item-title">大学物理笔记（热学+光学+量子物理）</div>
+        <div class="item-meta">核心公式 · 考点齐全 · 附PDF下载</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/02/23/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B0/">
+      <span class="item-icon">📊</span>
+      <span class="item-info">
+        <div class="item-title">概率论与数理统计笔记</div>
+        <div class="item-meta">随机事件 · 分布函数 · 参数估计 · 附PDF下载</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      🔌 <strong>电气工程学习建议：</strong>大物和概率论是基础课，电磁场是专业核心课。建议先吃透大学物理的电磁学部分，再切入电磁场课程会轻松很多。所有笔记均提供 PDF 下载，可直接打印复习。
+    </div>
+  </div>
+
+  <!-- 效率工具 -->
+  <div class="guide-list sub-content" id="sub-tool">
+    <h3>📌 效率工具</h3>
+    <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">
+      <span class="item-icon">🧩</span>
+      <span class="item-info">
+        <div class="item-title">VS Code 插件推荐清单</div>
+        <div class="item-meta">LaTeX · Python · Java · Git · 全场景适配</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/03/30/VScode%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86/">
+      <span class="item-icon">⚙️</span>
+      <span class="item-info">
+        <div class="item-title">VS Code 配置文件（Profile）管理</div>
+        <div class="item-meta">插件隔离 · 按场景切换 · 告别冲突与卡顿</div>
+      </span>
+    </a>
+    <a class="guide-item" href="/2026/07/16/GitHub%E4%BB%93%E5%BA%93%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/">
+      <span class="item-icon">🔒</span>
+      <span class="item-info">
+        <div class="item-title">GitHub 仓库清理历史记录</div>
+        <div class="item-meta">私有转公开注意事项 · 敏感信息保护</div>
+      </span>
+    </a>
+    <div class="tip-card">
+      🛠️ <strong>工具链建议：</strong>写代码用 VS Code（按插件推荐篇配置好环境 + 用 Profile 隔离不同语言），写文档/笔记用 LaTeX（配合模板篇快速上手），代码管理和博客部署用 Git + GitHub。
+    </div>
+  </div>
+</div>
+
+<!-- 交互脚本 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 身份切换
+  const roleCards = document.querySelectorAll('#roleCards .role-card');
+  const subSections = document.querySelectorAll('.sub-section');
+
+  roleCards.forEach(card => {
+    card.addEventListener('click', function() {
+      roleCards.forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      const role = this.getAttribute('data-role');
+      subSections.forEach(s => s.classList.remove('active'));
+      document.getElementById('sub-' + role).classList.add('active');
+    });
+  });
+
+  // 大学生子标签切换
+  const collegeTabs = document.querySelectorAll('#collegeTabs .sub-tab');
+  const subContents = document.querySelectorAll('#sub-college .sub-content');
+
+  collegeTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      collegeTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const sub = this.getAttribute('data-sub');
+      subContents.forEach(c => c.classList.remove('active'));
+      document.getElementById('sub-' + sub).classList.add('active');
+    });
+  });
+});
+</script>
