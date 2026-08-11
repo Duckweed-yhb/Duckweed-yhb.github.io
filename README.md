@@ -85,7 +85,9 @@
 ├── index.md
 ├── pages
 │   ├── archive.html
-│   └── friends.html
+│   ├── friends.html
+│   ├── future.html
+│   └── navigate.html
 ├── requirements.txt
 ├── scripts
 │   └── generate_readme.py
@@ -94,7 +96,7 @@
 ```
 
 ---
-> 最后更新：2026-08-11 07:21:50 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-11 07:25:37 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
