@@ -2,7 +2,7 @@
 layout: post
 title:  "Welcome to Duckweed's Space"
 date:   2026-02-21 14:30:00 +0800
-categories: [公告, 个人空间]
+categories: [Blog, 公告]
 tags: [博客上线, 个人空间, 电气工程, 编程学习]  # 补充专业标签，删除多余空格
 author: Duckweed
 ---

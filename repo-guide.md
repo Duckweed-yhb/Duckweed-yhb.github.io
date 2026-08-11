@@ -72,6 +72,7 @@ render_with_liquid: true
 ├── pages/
 │   ├── about.html
 │   ├── archive.html
+│   ├── course-map.html
 │   ├── exhibition.html
 │   ├── friends.html
 │   ├── future.html
@@ -201,8 +202,9 @@ render_with_liquid: true
 | `archive.html` | 文章归档页，按时间/分类/标签聚合所有博客文章 |
 | `exhibition.html` | 作品集页面，展示项目、技能、书籍等个人成果 |
 | `friends.html` | 友链页面，渲染 `_data/friends.yml` 中的友链数据 |
-| `future.html` | 「未研」页面，展示博客未来开发规划与功能迭代方向 |
-| `navigate.html` | 「导航」页面，按访客身份（准大学生/高中生/大学生）提供针对性文章引导 |
+| `future.html` | 「未研」页面，展示博客间关系建设与功能迭代方向 |
+| `navigate.html` | 「导航」页面，按访客身份（高中生/准大学生/大学生）+ 专业细分提供针对性引导 |
+| `course-map.html` | 「课程地图」页面，参考 UC Berkeley EECS 设计，SVG 可视化课程先修依赖关系 |
 
 #### 8. `scripts/`（自动化脚本）
 
