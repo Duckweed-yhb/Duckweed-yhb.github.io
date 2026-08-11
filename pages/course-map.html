@@ -1,0 +1,316 @@
+---
+layout: default
+title: 课程地图
+permalink: /course-map/
+render_with_liquid: true
+---
+
+<div class="page-header-card">
+  <h1>课程地图</h1>
+  <p>参考 UC Berkeley EECS 课程指南设计，以课程地图方式呈现电气工程与计算机科学的核心课程类别与先修依赖关系。</p>
+</div>
+
+<style>
+  :root {
+    --primary: #3498db; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
+    --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .page-header-card {
+    background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow);
+    backdrop-filter:blur(8px); max-width:1050px; margin:0 auto 30px; box-sizing:border-box;
+  }
+  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
+  .page-header-card p { color:var(--muted); margin:0; }
+
+  .content-wrap { max-width:1050px; margin:0 auto; }
+  .map-card {
+    background:var(--bg); padding:30px; border-radius:12px;
+    box-shadow:var(--shadow); backdrop-filter:blur(8px); margin-bottom:30px;
+  }
+  .map-card h2 { color:var(--text); font-size:1.5em; margin:0 0 8px; padding-bottom:10px; border-bottom:2px solid var(--primary); }
+  .map-card .map-desc { color:var(--muted); font-size:.95em; margin-bottom:25px; line-height:1.7; }
+
+  /* 图例 */
+  .legend { display:flex; flex-wrap:wrap; gap:20px; margin-bottom:25px; font-size:.85em; }
+  .legend-item { display:flex; align-items:center; gap:6px; color:var(--muted); }
+  .legend-dot { width:14px; height:14px; border-radius:3px; flex-shrink:0; }
+
+  /* SVG 容器 */
+  .map-svg-wrap { overflow-x:auto; margin:0 -10px; padding:0 10px; }
+  .map-svg-wrap svg { min-width:900px; width:100%; }
+
+  /* 总结区 */
+  .summary-box {
+    background:rgba(52,152,219,0.06); border-left:4px solid var(--primary);
+    padding:18px 22px; border-radius:6px; margin-top:25px;
+    color:var(--muted); font-size:.92em; line-height:1.8;
+  }
+  .summary-box a { color:var(--primary); text-decoration:none; }
+  .summary-box a:hover { text-decoration:underline; }
+
+  @media (max-width:768px) {
+    .page-header-card { padding:25px 15px; margin:0 10px 25px; }
+    .map-card { padding:20px 15px; }
+  }
+  @media (prefers-color-scheme:dark) {
+    .page-header-card,.map-card { background:var(--bg-dark); }
+    .page-header-card h1,.map-card h2 { color:var(--text-light); }
+    .page-header-card p,.map-card .map-desc,.legend-item,.summary-box { color:#bdc3c7; }
+    .summary-box { background:rgba(52,152,219,0.1); }
+  }
+</style>
+
+<div class="content-wrap">
+
+  <!-- ==================== 电气工程课程地图 ==================== -->
+  <div class="map-card">
+    <h2>⚡ 电气工程课程地图</h2>
+    <p class="map-desc">课程按四个层级排列：基础层 → 专业基础层 → 专业核心层 → 实践工具层。箭头表示先修依赖关系（A→B 表示 A 是 B 的先修课程）。颜色区分课程类别。点击有博客笔记的课程可跳转阅读。</p>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> 数学基础</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> 物理基础</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#27ae60"></span> 专业基础</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#2980b9"></span> 专业核心</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#8e44ad"></span> 实践工具</span>
+    </div>
+    <div class="map-svg-wrap">
+      <svg viewBox="0 0 980 720" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#95a5a6"/></marker>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3498db"/></marker>
+        </defs>
+
+        <!-- ===== 第一层：基础（y=40） ===== -->
+        <text x="490" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第一层：数学与物理基础（大一）</text>
+
+        <rect x="30" y="50" width="160" height="48" rx="4" fill="#e74c3c" opacity="0.9"/>
+        <text x="110" y="79" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">高等数学</text>
+
+        <rect x="240" y="50" width="160" height="48" rx="4" fill="#e74c3c" opacity="0.9"/>
+        <text x="320" y="79" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">线性代数</text>
+
+        <rect x="450" y="50" width="160" height="48" rx="4" fill="#e74c3c" opacity="0.9"/>
+        <text x="530" y="79" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">概率论与数理统计</text>
+
+        <rect x="660" y="50" width="160" height="48" rx="4" fill="#f39c12" opacity="0.9"/>
+        <text x="740" y="79" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">大学物理（电磁学）</text>
+
+        <!-- 箭头：高数→大学物理 -->
+        <line x1="190" y1="74" x2="655" y2="74" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+
+        <!-- ===== 第二层：专业基础（y=140） ===== -->
+        <text x="490" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第二层：专业基础课（大二上）</text>
+
+        <rect x="30" y="145" width="170" height="48" rx="4" fill="#27ae60" opacity="0.9"/>
+        <text x="115" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电路分析（电路原理）</text>
+
+        <rect x="250" y="145" width="170" height="48" rx="4" fill="#27ae60" opacity="0.9"/>
+        <text x="335" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">模拟电子技术</text>
+
+        <rect x="470" y="145" width="170" height="48" rx="4" fill="#27ae60" opacity="0.9"/>
+        <text x="555" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">数字电子技术</text>
+
+        <rect x="690" y="145" width="170" height="48" rx="4" fill="#27ae60" opacity="0.9"/>
+        <text x="775" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电磁场与电磁波</text>
+
+        <!-- 箭头：大学物理→电磁场 -->
+        <line x1="740" y1="98" x2="775" y2="140" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 箭头：高数→电路 -->
+        <line x1="110" y1="98" x2="115" y2="140" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- ===== 第三层：专业核心（y=235 → 570） ===== -->
+        <text x="490" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第三层：专业核心课（大二下 — 大三）</text>
+
+        <!-- 信号与系统 -->
+        <rect x="30" y="245" width="170" height="48" rx="4" fill="#27ae60" opacity="0.85"/>
+        <text x="115" y="274" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">信号与系统</text>
+
+        <!-- 电机学 -->
+        <rect x="30" y="330" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="115" y="359" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电机学</text>
+
+        <!-- 电力系统分析（上） -->
+        <rect x="30" y="420" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="115" y="449" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电力系统分析（上）</text>
+
+        <!-- 电力系统分析（下） -->
+        <rect x="30" y="500" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="115" y="529" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电力系统分析（下）</text>
+
+        <!-- 继电保护 -->
+        <rect x="30" y="575" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="115" y="604" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">继电保护原理</text>
+
+        <!-- 自动控制原理 -->
+        <rect x="430" y="245" width="170" height="48" rx="4" fill="#2980b9" opacity="0.85"/>
+        <text x="515" y="274" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">自动控制原理</text>
+
+        <!-- 电力电子 -->
+        <rect x="430" y="330" width="170" height="48" rx="4" fill="#2980b9" opacity="0.85"/>
+        <text x="515" y="359" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">电力电子技术</text>
+
+        <!-- 高电压 -->
+        <rect x="430" y="420" width="170" height="48" rx="4" fill="#2980b9" opacity="0.85"/>
+        <text x="515" y="449" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">高电压技术</text>
+
+        <!-- 箭头：电路→电机 -->
+        <line x1="170" y1="169" x2="115" y2="325" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 箭头：电机→电力系统上 -->
+        <line x1="115" y1="378" x2="115" y2="415" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 箭头：电力系统上→电力系统下 -->
+        <line x1="115" y1="468" x2="115" y2="495" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 箭头：电力系统下→继保 -->
+        <line x1="115" y1="548" x2="115" y2="570" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 箭头：电路→电力系统上（跨） -->
+        <path d="M200,169 L210,169 L210,449 L205,449" stroke="#95a5a6" stroke-width="1" fill="none" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+        <!-- 箭头：电路→信号与系统 -->
+        <path d="M170,169 L200,169 L200,269 L195,269" stroke="#95a5a6" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- ===== 第四层：实践工具（右侧） ===== -->
+        <text x="880" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">实践<br/>工具</text>
+
+        <rect x="780" y="245" width="170" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="865" y="274" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">MATLAB / Simulink</text>
+
+        <rect x="780" y="320" width="170" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="865" y="349" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">PSCAD / EMTDC</text>
+
+        <rect x="780" y="395" width="170" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="865" y="424" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Multisim</text>
+
+        <!-- 标签：有笔记 -->
+        <g transform="translate(30,620)">
+          <text x="0" y="8" font-size="11" fill="#e74c3c">📝 博客中有对应笔记的课程：</text>
+          <a href="/2026/06/03/电磁场课程笔记/" target="_blank"><text x="260" y="8" font-size="11" fill="#3498db" text-decoration="underline">电磁场</text></a>
+        </g>
+      </svg>
+    </div>
+    <div class="summary-box">
+      📖 关于电气工程更完整的自学路径（含各阶段教材推荐和仿真工具清单），请查看博客文章：
+      <a href="/2026/08/08/电气自学之路/" target="_blank">《电气工程自学之路》</a>
+    </div>
+  </div>
+
+  <!-- ==================== 计算机科学课程地图 ==================== -->
+  <div class="map-card">
+    <h2>💻 计算机科学课程地图</h2>
+    <p class="map-desc">课程按五个层级排列：编程入门 → 数据结构与算法 → 核心系统 → 应用与方向 → 工程实践。箭头表示先修依赖关系，颜色区分课程类别。本图面向非科班自学场景，标注了优先级。</p>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> 编程入门</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> 数据结构/算法</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#27ae60"></span> 核心系统</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#2980b9"></span> 应用方向</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#8e44ad"></span> 工程实践</span>
+    </div>
+    <div class="map-svg-wrap">
+      <svg viewBox="0 0 980 660" xmlns="http://www.w3.org/2000/svg">
+        <!-- ===== 第一层：编程入门（y=40） ===== -->
+        <text x="490" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第一层：编程入门（大一 · ⭐最高优先级）</text>
+
+        <rect x="360" y="50" width="170" height="48" rx="4" fill="#e74c3c" opacity="0.9"/>
+        <text x="445" y="79" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">C语言（编程第一课）</text>
+
+        <!-- ===== 第二层（y=140） ===== -->
+        <text x="490" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第二层：数据结构与算法 + 主力语言（大二上）</text>
+
+        <rect x="60" y="145" width="170" height="48" rx="4" fill="#f39c12" opacity="0.9"/>
+        <text x="145" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">数据结构</text>
+
+        <rect x="280" y="145" width="170" height="48" rx="4" fill="#f39c12" opacity="0.85"/>
+        <text x="365" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">算法基础</text>
+
+        <rect x="520" y="145" width="170" height="48" rx="4" fill="#e74c3c" opacity="0.85"/>
+        <text x="605" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Python（主力语言A）</text>
+
+        <rect x="740" y="145" width="170" height="48" rx="4" fill="#e74c3c" opacity="0.85"/>
+        <text x="825" y="174" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Java（主力语言B）</text>
+
+        <!-- C→数据结构 -->
+        <line x1="445" y1="98" x2="200" y2="145" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- C→算法 -->
+        <line x1="445" y1="98" x2="390" y2="145" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- C→Python -->
+        <line x1="500" y1="98" x2="610" y2="145" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- C→Java -->
+        <line x1="500" y1="98" x2="800" y2="145" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- 数据结构→算法 -->
+        <line x1="230" y1="169" x2="275" y2="169" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- ===== 第三层：核心系统（y=230） ===== -->
+        <text x="490" y="218" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第三层：计算机核心系统（大二下 · ⭐⭐重要但非必修）</text>
+
+        <rect x="100" y="240" width="170" height="48" rx="4" fill="#27ae60" opacity="0.85"/>
+        <text x="185" y="269" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">计算机组成原理</text>
+
+        <rect x="310" y="240" width="170" height="48" rx="4" fill="#27ae60" opacity="0.85"/>
+        <text x="395" y="269" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">操作系统</text>
+
+        <rect x="520" y="240" width="170" height="48" rx="4" fill="#27ae60" opacity="0.85"/>
+        <text x="605" y="269" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">计算机网络</text>
+
+        <rect x="730" y="240" width="170" height="48" rx="4" fill="#27ae60" opacity="0.85"/>
+        <text x="815" y="269" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">数据库原理</text>
+
+        <!-- ===== 第四层：应用方向（y=350） ===== -->
+        <text x="490" y="328" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第四层：应用方向（大三 · 按需选择一至两个深耕）</text>
+
+        <!-- Web后端 -->
+        <rect x="20" y="350" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="105" y="379" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Web后端开发</text>
+        <text x="105" y="393" text-anchor="middle" fill="#ddd" font-size="10">Java Spring / Python Django</text>
+
+        <!-- 前端 -->
+        <rect x="220" y="350" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="305" y="379" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">前端开发</text>
+        <text x="305" y="393" text-anchor="middle" fill="#ddd" font-size="10">HTML/CSS/JS → Vue/React</text>
+
+        <!-- 嵌入式 -->
+        <rect x="420" y="350" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="505" y="379" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">嵌入式开发</text>
+        <text x="505" y="393" text-anchor="middle" fill="#ddd" font-size="10">C/C++ → ARM/STM32</text>
+
+        <!-- 数据科学 -->
+        <rect x="620" y="350" width="170" height="48" rx="4" fill="#2980b9" opacity="0.9"/>
+        <text x="705" y="379" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">数据科学</text>
+        <text x="705" y="393" text-anchor="middle" fill="#ddd" font-size="10">NumPy/Pandas → ML基础</text>
+
+        <!-- 箭头：算法→各组 -->
+        <line x1="365" y1="193" x2="150" y2="350" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+        <line x1="365" y1="193" x2="305" y2="345" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="445" y1="193" x2="505" y2="345" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="445" y1="193" x2="705" y2="345" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)"/>
+
+        <!-- ===== 第五层：工程实践（y=460） ===== -->
+        <text x="490" y="435" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f8c8d">▼ 第五层：工程实践与工具（贯穿全程）</text>
+
+        <rect x="230" y="455" width="160" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="310" y="484" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Git 版本控制</text>
+
+        <rect x="420" y="455" width="160" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="500" y="484" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">VS Code 开发环境</text>
+
+        <rect x="610" y="455" width="160" height="48" rx="4" fill="#8e44ad" opacity="0.85"/>
+        <text x="690" y="484" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Linux / 终端</text>
+
+        <!-- 箭头从各应用方向到实践工具 -->
+        <path d="M105,398 L105,430 L310,450" stroke="#95a5a6" stroke-width="1" fill="none" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+        <line x1="505" y1="398" x2="500" y2="450" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)"/>
+        <line x1="705" y1="398" x2="690" y2="450" stroke="#95a5a6" stroke-width="1" marker-end="url(#arrow)"/>
+
+        <!-- 标签 -->
+        <g transform="translate(60,540)">
+          <text x="0" y="8" font-size="11" fill="#e74c3c">📝 博客中有对应内容：</text>
+          <a href="/c-language-notes/" target="_blank"><text x="230" y="8" font-size="11" fill="#3498db" text-decoration="underline">C语言总结</text></a>
+          <a href="/2026/04/03/通识教育/" target="_blank"><text x="360" y="8" font-size="11" fill="#3498db" text-decoration="underline">前端/后端/嵌入式路线</text></a>
+          <a href="/2026/03/30/VScode插件推荐/" target="_blank"><text x="580" y="8" font-size="11" fill="#3498db" text-decoration="underline">VS Code插件</text></a>
+        </g>
+      </svg>
+    </div>
+    <div class="summary-box">
+      💻 关于计算机科学更完整的自学路线（含非科班视角的各阶段建议和避坑指南），请查看博客文章：
+      <a href="/2026/08/08/计算机自学之路/" target="_blank">《计算机自学之路》</a>
+    </div>
+  </div>
+
+</div>
