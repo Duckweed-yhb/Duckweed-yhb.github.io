@@ -18,12 +18,12 @@
 |----------------------|------|
 | 2026-08-15 | [Git 简明教程](https://duckweed-yhb.github.io/2026/08/15/Git%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
 | 2026-08-14 | [如何写好 Git 提交信息](https://duckweed-yhb.github.io/2026/08/14/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/) |
+| 2026-08-13 | [工具环境的学习和使用：工科生的效率利器配置指南](https://duckweed-yhb.github.io/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/) |
+| 2026-08-12 | [学习写简历：从空白到能投递的完整指南](https://duckweed-yhb.github.io/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/) |
 | 2026-08-11 | [Markdown 简明语法全教程及博客实战范例](https://duckweed-yhb.github.io/2026/08/11/Markdown%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
-| 2026-08-06 | [GitHub私有仓库转公开注意事项：历史提交全部可见](https://duckweed-yhb.github.io/2026/07/16/GitHub%E4%BB%93%E5%BA%93%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/) |
-| 2026-08-06 | [大学成长规划闲聊：学业、实习、读研与就业避坑经验](https://duckweed-yhb.github.io/2026/08/06/%E5%A4%A7%E5%AD%A6%E6%88%90%E9%95%BF%E8%A7%84%E5%88%92%E9%97%B2%E8%81%8A/) |
-| 2026-08-06 | [这样度过三年也算是一种坚强——如何在鲁山一高度过三年](https://duckweed-yhb.github.io/2026/08/06/%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E5%A6%82%E4%BD%95%E5%9C%A8%E9%B2%81%E5%B1%B1%E4%B8%80%E9%AB%98%E5%BA%A6%E8%BF%87%E4%B8%89%E5%B9%B4/) |
-| 2026-06-29 | [贫困县城缺失的计算机教育](https://duckweed-yhb.github.io/2026/06/29/%E8%B4%AB%E5%9B%B0%E5%8E%BF%E5%9F%8E%E7%BC%BA%E5%A4%B1%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%95%99%E8%82%B2/) |
-| 2026-06-23 | [现代教育：分数之外，我们还在教什么](https://duckweed-yhb.github.io/2026/06/23/%E7%8E%B0%E4%BB%A3%E6%95%99%E8%82%B2/) |
+| 2026-08-10 | [我的学习路线：从大一到现在的知识版图](https://duckweed-yhb.github.io/2026/08/10/%E6%88%91%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/) |
+| 2026-08-09 | [如何学习英语：工科生的实用英语提升指南](https://duckweed-yhb.github.io/2026/08/09/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E8%8B%B1%E8%AF%AD/) |
+| 2026-08-08 | [计算机自学之路：非科班生的编程进阶指南](https://duckweed-yhb.github.io/2026/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -96,7 +96,7 @@
 ```
 
 ---
-> 最后更新：2026-08-11 07:25:37 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-11 10:03:53 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
