@@ -1,264 +1,450 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "zh-CN" }}">
-  <head>
-    {%- include head.html -%} <!-- 保留原有head内容（标题、meta等） -->
-    
-    <!-- 新增：确保页面内联样式优先级 + 强制恢复HTML标签样式（核心修复） -->
-    <style>
-      /* 1. 全局重置：清除默认转义样式，确保内联样式生效 */
-      .page-content .wrapper {
-        all: unset;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        line-height: 1.8;
-        color: #2c3e50;
+<head>
+  {%- include head.html -%}
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
+  <style>
+    /* ===== 双栏布局基础 ===== */
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #0a1a3a;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* ===== 背景视频 ===== */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    /* ===== 通用卡片样式 ===== */
+    .page-card,
+    .post-container,
+    .page-header-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 35px 30px;
+      max-width: 1100px;
+      margin: 0 auto 25px;
+      box-sizing: border-box;
+    }
+
+    .post-container {
+      max-width: 1000px !important;
+    }
+
+    /* ===== 内容区文字样式 ===== */
+    .page-content h1 {
+      font-size: 2em;
+      font-weight: bold;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.5em;
+      margin: 0 0 0.5em;
+      color: #2c3e50;
+    }
+
+    .page-content h2 {
+      font-size: 1.5em;
+      font-weight: bold;
+      border-left: 4px solid #3498db;
+      padding-left: 0.5em;
+      margin: 2em 0 1em;
+      color: #2c3e50;
+    }
+
+    .page-content h3 {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #3498db;
+      margin: 2em 0 1em;
+    }
+
+    .page-content p {
+      margin: 1em 0;
+      color: #2c3e50;
+    }
+
+    .page-content a {
+      color: #3498db;
+      text-decoration: underline;
+    }
+
+    .page-content ul {
+      list-style: disc;
+      padding-left: 1.5em;
+      margin: 1em 0;
+    }
+
+    .page-content li {
+      margin: 0.5em 0;
+    }
+
+    .page-content blockquote {
+      border-left: 4px solid #eee;
+      padding-left: 1em;
+      color: #7f8c8d;
+      margin: 1em 0;
+    }
+
+    .page-content hr {
+      border: none;
+      border-top: 1px dashed #eee;
+      margin: 2em 0;
+    }
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 900px) {
+      .page-card,
+      .post-container,
+      .page-header-card {
+        padding: 25px 18px;
+        margin: 0 0 20px;
+      }
+    }
+
+    /* ===== 暗黑模式（系统偏好） ===== */
+    @media (prefers-color-scheme: dark) {
+      .page-card,
+      .post-container,
+      .page-header-card {
+        background: rgba(30, 30, 40, 0.88);
       }
 
-      /* 2. 恢复常用HTML标签样式（解决标签显示为纯文本的问题） */
-      .page-content .wrapper h1 {
-        font-size: 2em;
-        font-weight: bold;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 0.5em;
-        margin: 0 0 0.5em;
-      }
-      .page-content .wrapper h2 {
-        font-size: 1.5em;
-        font-weight: bold;
-        border-left: 4px solid #3498db;
-        padding-left: 0.5em;
-        margin: 2em 0 1em;
-      }
-      .page-content .wrapper h3 {
-        font-size: 1.2em;
-        font-weight: bold;
-        color: #3498db;
-        margin: 2em 0 1em;
-      }
-      .page-content .wrapper p {
-        margin: 1em 0;
-      }
-      .page-content .wrapper a {
-        color: #3498db;
-        text-decoration: underline;
-      }
-      .page-content .wrapper ul {
-        list-style: disc;
-        padding-left: 1.5em;
-        margin: 1em 0;
-      }
-      .page-content .wrapper li {
-        margin: 0.5em 0;
-      }
-      .page-content .wrapper blockquote {
-        border-left: 4px solid #eee;
-        padding-left: 1em;
-        color: #7f8c8d;
-        margin: 1em 0;
-      }
-      .page-content .wrapper hr {
-        border: none;
-        border-top: 1px dashed #eee;
-        margin: 2em 0;
+      .page-content h1,
+      .page-content h2,
+      .page-content h3,
+      .page-content p,
+      .page-content li {
+        color: #ecf0f1;
       }
 
-      /* 3. 恢复自定义类样式（archive/友链/展览页需要） */
-      .page-content .wrapper .page-card {
-        background: rgba(255, 255, 255, 0.88);
-        padding: 35px 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        backdrop-filter: blur(8px);
-        max-width: 900px;
-        margin: 0 auto;
-      }
-      .page-content .wrapper .archive-tabs {
-        margin: 20px 0;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .page-content .wrapper .archive-tab {
-        padding: 8px 20px;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        background: #fff;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      .page-content .wrapper .archive-tab.active {
-        background: #3498db;
-        color: #fff;
-        border-color: #3498db;
-      }
-      .page-content .wrapper .archive-content {
-        display: none;
-        margin-top: 20px;
-      }
-      .page-content .wrapper .archive-content.active {
-        display: block;
-      }
-      .page-content .wrapper .friends-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
-        margin: 0;
-        justify-content: center;
-        padding: 0 10px;
-      }
-      .page-content .wrapper .friend-card {
-        flex: 1 1 300px;
-        max-width: 450px;
-        background: rgba(255, 255, 255, 0.88);
-        padding: 35px 25px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        backdrop-filter: blur(8px);
-        box-sizing: border-box;
-      }
-      .page-content .wrapper .friend-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+      .page-content blockquote {
+        color: #bdc3c7;
+        border-left-color: #34495e;
       }
 
-      /* 4. 修复背景视频层级问题，避免遮挡内容 */
-      .bg-video {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        z-index: -1; /* 放到内容下方 */
-        opacity: 0.7; /* 可选：降低透明度，提升文字可读性 */
-      }
-      /* 确保main内容层级高于背景 */
-      main.page-content {
-        position: relative;
-        z-index: 1;
-        padding: 40px 0;
-        min-height: calc(100vh - 120px); /* 适配页脚高度 */
+      .page-content hr {
+        border-top-color: #34495e;
       }
 
-      /* 5. 移动端适配 */
-      @media (max-width: 768px) {
-        .page-content .wrapper .page-card {
-          padding: 25px 15px;
-          margin: 0 10px;
+      .page-content a {
+        color: #5dade2;
+      }
+    }
+
+    /* ===== 手动强制暗黑模式 ===== */
+    html.force-dark body {
+      background: #080810 !important;
+    }
+
+    html.force-dark .page-card,
+    html.force-dark .post-container,
+    html.force-dark .page-header-card,
+    html.force-dark .phase-card,
+    html.force-dark .guide-list,
+    html.force-dark .map-card,
+    html.force-dark .rel-graph,
+    html.force-dark .about-page,
+    html.force-dark .site-footer,
+    html.force-dark .role-card,
+    html.force-dark .friend-card,
+    html.force-dark .blog-map-card,
+    html.force-dark .exhibition-card,
+    html.force-dark .post-related {
+      background: rgba(30, 30, 40, 0.88) !important;
+    }
+
+    html.force-dark .page-card h1,
+    html.force-dark .page-card h2,
+    html.force-dark .page-card h3,
+    html.force-dark .page-header-card h1,
+    html.force-dark .page-header-card h2,
+    html.force-dark .map-card h2,
+    html.force-dark .phase-title,
+    html.force-dark .feature-name,
+    html.force-dark .card-title,
+    html.force-dark .friend-card h3,
+    html.force-dark .post-title,
+    html.force-dark .archive-h1,
+    html.force-dark .role-card .role-name,
+    html.force-dark .guide-item .item-title,
+    html.force-dark .about-page strong,
+    html.force-dark .site-title,
+    html.force-dark .page-content h1,
+    html.force-dark .page-content h2,
+    html.force-dark .page-content h3 {
+      color: #ecf0f1 !important;
+    }
+
+    html.force-dark .page-header-card p,
+    html.force-dark .page-card p,
+    html.force-dark .page-card li,
+    html.force-dark .feature-desc,
+    html.force-dark .map-card .map-desc,
+    html.force-dark .about-page,
+    html.force-dark .card-desc,
+    html.force-dark .friend-card p,
+    html.force-dark .sub-task,
+    html.force-dark .summary-box,
+    html.force-dark .tip-card,
+    html.force-dark .note-card,
+    html.force-dark .guide-item .item-meta,
+    html.force-dark .legend-item,
+    html.force-dark .archive-subtitle,
+    html.force-dark .post-meta,
+    html.force-dark .page-content p,
+    html.force-dark .page-content li,
+    html.force-dark .page-content,
+    html.force-dark .post-content {
+      color: #bdc3c7 !important;
+    }
+
+    html.force-dark .page-link {
+      background: rgba(30, 30, 40, 0.9) !important;
+      color: #ecf0f1 !important;
+    }
+
+    html.force-dark .post-link,
+    html.force-dark .page-card a,
+    html.force-dark .page-content a {
+      color: #5dade2 !important;
+    }
+
+    html.force-dark .post-related {
+      background: rgba(30, 30, 40, 0.88) !important;
+    }
+
+    html.force-dark .post-related a {
+      color: #bdc3c7 !important;
+    }
+
+    html.force-dark .post-related a:hover {
+      background: rgba(52, 152, 219, 0.15) !important;
+      color: #5dade2 !important;
+    }
+
+    html.force-dark .site-footer {
+      background: rgba(30, 30, 40, 0.88) !important;
+    }
+
+    /* ===== 侧边栏手动暗黑覆盖 ===== */
+    html.force-dark .site-sidebar {
+      background: rgba(16, 16, 24, 0.95) !important;
+    }
+
+    html.force-dark .sidebar-logo {
+      color: #e8e8ec !important;
+    }
+
+    html.force-dark .sidebar-link {
+      color: #c8c8d0 !important;
+    }
+
+    html.force-dark .sidebar-link:hover {
+      background: rgba(52, 152, 219, 0.15) !important;
+    }
+
+    html.force-dark .sidebar-link.active {
+      background: rgba(52, 152, 219, 0.18) !important;
+      color: #5dade2 !important;
+    }
+
+    html.force-dark .sidebar-search input {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border-color: #3a3a4a !important;
+      color: #e8e8ec !important;
+    }
+
+    html.force-dark #sidebar-search-results {
+      background: #1e1e2a !important;
+    }
+
+    html.force-dark #sidebar-search-results a {
+      color: #e8e8ec !important;
+      border-bottom-color: #2a2a3a !important;
+    }
+
+    html.force-dark #sidebar-search-results a:hover {
+      background: rgba(52, 152, 219, 0.1) !important;
+    }
+
+    html.force-dark .sidebar-tagline,
+    html.force-dark .sidebar-footer a,
+    html.force-dark .sidebar-footer button {
+      color: #888 !important;
+    }
+
+    html.force-dark .sidebar-footer a,
+    html.force-dark .sidebar-footer button {
+      border-color: #3a3a4a !important;
+    }
+
+    html.force-dark .sidebar-footer a:hover,
+    html.force-dark .sidebar-footer button:hover {
+      border-color: #3498db !important;
+      color: #3498db !important;
+    }
+
+    html.force-dark .sidebar-header {
+      border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+    }
+
+    html.force-dark .sidebar-footer {
+      border-top-color: rgba(255, 255, 255, 0.06) !important;
+    }
+
+    html.force-dark .sidebar-toggle {
+      background: rgba(30, 30, 40, 0.9) !important;
+      color: #e8e8ec !important;
+    }
+  </style>
+</head>
+
+<body class="layout-{{ page.layout }}">
+  {%- include sidebar.html -%}
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <video class="bg-video" autoplay loop muted playsinline preload="none">
+    <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+  </video>
+
+  <main class="page-content" aria-label="Content">
+    {{ content }}
+  </main>
+
+  <script>
+    // 移动端侧边栏切换
+    (function() {
+      var toggle = document.getElementById('sidebar-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebar-overlay');
+
+      if (toggle) {
+        toggle.addEventListener('click', function() {
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('active');
+        });
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+        });
+      }
+    })();
+
+    // 暗黑模式切换
+    (function() {
+      var saved = localStorage.getItem('dark-mode');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('force-dark');
+      }
+    })();
+
+    function toggleDarkSidebar() {
+      var isDark = document.documentElement.classList.toggle('force-dark');
+      localStorage.setItem('dark-mode', isDark ? 'dark' : 'light');
+    }
+
+    // 侧边栏搜索功能
+    (function() {
+      var searchData = null;
+      var input = document.getElementById('sidebar-search-input');
+      var results = document.getElementById('sidebar-search-results');
+      var timer = null;
+
+      function loadData() {
+        if (searchData) return Promise.resolve(searchData);
+        return fetch('{{ "/search.json" | relative_url }}')
+          .then(function(r) { return r.json(); })
+          .then(function(d) { searchData = d; return d; })
+          .catch(function() { return []; });
+      }
+
+      function doSearch(keyword) {
+        var kw = keyword.toLowerCase().trim();
+        if (!kw || !searchData) {
+          results.style.display = 'none';
+          return;
         }
-        .page-content .wrapper .archive-tab {
-          flex: 1 1 auto;
-          text-align: center;
-          padding: 8px 10px;
+        var matched = searchData.filter(function(p) {
+          var t = (p.title || '').toLowerCase();
+          return t.indexOf(kw) !== -1;
+        });
+        if (!matched.length) {
+          results.innerHTML = '<div class="no-results">未找到匹配内容</div>';
+          results.style.display = 'block';
+          return;
         }
-        .page-content .wrapper .friend-card {
-          flex: 1 1 90%;
-          padding: 25px 20px;
-          max-width: 100%;
-        }
+        results.innerHTML = matched.slice(0, 8).map(function(p) {
+          return '<a href="' + p.url + '"><div class="search-title">' + p.title + '</div><div class="search-meta">' + (p.date || '') + '</div></a>';
+        }).join('');
+        results.style.display = 'block';
       }
 
-      /* 6. 暗黑模式适配 */
-      @media (prefers-color-scheme: dark) {
-        .page-content .wrapper {
-          color: #ecf0f1;
-        }
-        .page-content .wrapper .page-card,
-        .page-content .wrapper .friend-card {
-          background: rgba(30, 30, 40, 0.88);
-        }
-        .page-content .wrapper .archive-tab {
-          background: #2c3e50;
-          border-color: #34495e;
-          color: #ecf0f1;
-        }
-        .page-content .wrapper blockquote {
-          color: #bdc3c7;
-          border-left-color: #34495e;
-        }
-        .page-content .wrapper hr {
-          border-top-color: #34495e;
-        }
-      }
+      loadData();
 
-      /* 7. 手动强制暗黑模式（优先级高于 prefers-color-scheme） */
-      html.force-dark { --bg-override: rgba(30,30,40,0.88); --text-override: #ecf0f1; }
-      html.force-dark .page-card,html.force-dark .phase-card,html.force-dark .guide-list,html.force-dark .map-card,
-      html.force-dark .rel-graph,html.force-dark .about-page,html.force-dark .site-header,html.force-dark .site-footer,
-      html.force-dark .post-container,html.force-dark .page-header-card,html.force-dark .role-card,html.force-dark .friend-card,
-      html.force-dark .blog-map-card,html.force-dark .exhibition-card { background:rgba(30,30,40,0.88) !important; }
-      html.force-dark .page-header-card h1,html.force-dark .map-card h2,html.force-dark .phase-title,html.force-dark .feature-name,
-      html.force-dark .card-title,html.force-dark .friend-card h3,html.force-dark .post-title,html.force-dark .archive-h1,
-      html.force-dark .role-card .role-name,html.force-dark .guide-item .item-title,html.force-dark .about-page strong,
-      html.force-dark .site-title { color:#ecf0f1 !important; }
-      html.force-dark .page-header-card p,html.force-dark .feature-desc,html.force-dark .map-card .map-desc,html.force-dark .about-page,
-      html.force-dark .card-desc,html.force-dark .friend-card p,html.force-dark .sub-task,html.force-dark .summary-box,
-      html.force-dark .tip-card,html.force-dark .note-card,html.force-dark .guide-item .item-meta,html.force-dark .legend-item,
-      html.force-dark .archive-subtitle,html.force-dark .post-meta,html.force-dark .page-content .wrapper { color:#bdc3c7 !important; }
-      html.force-dark body { background-color:#0a0a12 !important; }
-      html.force-dark .page-link { background:rgba(30,30,40,0.9) !important; color:#ecf0f1 !important; }
-      html.force-dark .post-link,html.force-dark .page-card a { color:#5dade2 !important; }
-      html.force-dark .post-related { background:rgba(30,30,40,0.88) !important; }
-      html.force-dark .post-related a { color:#bdc3c7 !important; }
-      html.force-dark .post-related a:hover { background:rgba(52,152,219,0.15) !important; color:#5dade2 !important; }
-    </style>
-  </head>
-
-  <body class="layout-{{ page.layout }}">
-    <!-- 背景视频标签（核心） -->
-    <video class="bg-video" autoplay loop muted playsinline preload="auto">
-      <!-- 替换为你的视频文件路径，建议用 mp4 格式 -->
-      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
-      <!-- 视频加载失败时的兜底背景 -->
-      <div style="width:100vw;height:100vh;background:#0a1a3a;"></div>
-    </video>
-
-    {%- include header.html -%}
-
-    <!-- 修复：移除多余嵌套，确保content直接渲染为HTML -->
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }} <!-- 这里会正常解析HTML代码，而非纯文本 -->
-      </div>
-    </main>
-
-    {%- include footer.html -%}
-
-    <!-- 脚本仍放在 body 末尾，避免阻塞渲染 -->
-    <!-- MathJax公式渲染（仅在需要的文章页加载） -->
-    {% if page.math %}
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-      <script>
-        MathJax = {
-          tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式用 $...$
-            displayMath: [['$$', '$$'], ['\\[', '\\]']],  // 块公式用 $$...$$
-            processEscapes: true,  // 允许转义$符号（\$表示普通$）
-            autoNumber: "AMS"  // 可选：自动给公式编号，不需要可删除
-          },
-          svg: {
-            fontCache: "global"
-          },
-          startup: {
-            pageReady: function() {
-              return MathJax.startup.defaultPageReady().then(function() {
-                // 避免公式渲染闪烁
-                document.querySelectorAll('.MathJax').forEach(el => {
-                  el.style.opacity = 1;
-                });
-              });
-            }
+      if (input) {
+        input.addEventListener('input', function() {
+          clearTimeout(timer);
+          var kw = this.value;
+          if (!kw.trim()) {
+            results.style.display = 'none';
+            return;
           }
-        };
-      </script>
-    {% endif %}
-    <!-- 不蒜子统计脚本 -->
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  </body>
+          loadData().then(function() { doSearch(kw); });
+        });
+
+        input.addEventListener('focus', function() {
+          if (this.value.trim() && searchData) doSearch(this.value);
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.sidebar-search')) {
+          if (results) results.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+
+  {% if page.math %}
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        autoNumber: "AMS"
+      },
+      svg: {
+        fontCache: "global"
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady().then(function() {
+            document.querySelectorAll('.MathJax').forEach(function(el) {
+              el.style.opacity = 1;
+            });
+          });
+        }
+      }
+    };
+  </script>
+  {% endif %}
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
 </html>

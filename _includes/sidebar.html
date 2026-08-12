@@ -1,0 +1,31 @@
+<aside class="site-sidebar" id="sidebar">
+  <!-- Logo 区域 -->
+  <div class="sidebar-header">
+    <a class="sidebar-logo" href="{{ '/' | relative_url }}">Duckweed's Space</a>
+    <p class="sidebar-tagline">电气工程 · 编程自学 · 大学成长</p>
+  </div>
+
+  <!-- 搜索区域（内嵌，不再是弹窗） -->
+  <div class="sidebar-search">
+    <input type="text" id="sidebar-search-input" placeholder="搜索文章..." autocomplete="off">
+    <div id="sidebar-search-results" style="display:none;"></div>
+  </div>
+
+  <!-- 导航区域 -->
+  <nav class="sidebar-nav">
+    {% for nav_item in site.data.navigation %}
+    <a href="{{ nav_item.url | relative_url }}" class="sidebar-link {% if page.url == nav_item.url %}active{% endif %}">
+      {{ nav_item.title }}
+    </a>
+    {% endfor %}
+  </nav>
+
+  <!-- 底部工具 -->
+  <div class="sidebar-footer">
+    <a href="{{ '/en/about/' | relative_url }}" class="sidebar-lang">EN</a>
+    <button id="dark-toggle-sidebar" onclick="toggleDarkSidebar()" title="切换暗黑模式">🌓</button>
+  </div>
+</aside>
+
+<!-- 移动端菜单按钮 -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="菜单">☰</button>

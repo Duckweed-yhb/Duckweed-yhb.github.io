@@ -4,19 +4,17 @@
 <!-- 视口设置：禁止缩放+适配刘海屏/全面屏 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<!-- 图标配置（移除不存在的图标文件引用，避免404） -->
-<!-- 如需使用favicon，先将文件放到根目录 -->
+<!-- 图标配置 -->
 <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}" sizes="64x64">
 
-<!-- 原有核心SEO功能（移除不存在的meta-seo.html） -->
+<!-- 原有核心SEO功能 -->
 {%- seo -%}
 
-<!-- 样式加载优化：简化preload，避免阻塞渲染 -->
+<!-- 样式加载优化 -->
 <link rel="stylesheet" href="{{ "/assets/css/custom-bg.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/assets/css/header.css" | relative_url }}">
+<!-- main.css 和 sidebar.css 已在 default.html 中按顺序加载 -->
 
-<!-- 引入Font Awesome图标库（仅保留CDN，移除本地降级，避免404） -->
+<!-- 引入Font Awesome图标库 -->
 <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- RSS订阅 -->

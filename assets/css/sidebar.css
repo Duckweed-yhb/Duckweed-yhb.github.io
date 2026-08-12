@@ -1,0 +1,323 @@
+/* sidebar.css - 侧边导航栏专属样式 */
+
+/* ===== 侧边栏核心布局 ===== */
+.site-sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0 20px;
+  overflow-y: auto;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+/* ===== Logo 区域 ===== */
+.sidebar-header {
+  padding: 0 25px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 15px;
+}
+
+.sidebar-logo {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #2c3e50;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sidebar-tagline {
+  font-size: 0.8em;
+  color: #95a5a6;
+  margin: 0;
+}
+
+/* ===== 搜索区域 ===== */
+.sidebar-search {
+  padding: 0 20px 15px;
+  position: relative;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  font-size: 0.9em;
+  outline: none;
+  background: rgba(0, 0, 0, 0.02);
+  transition: all 0.3s;
+  color: #2c3e50;
+  box-sizing: border-box;
+}
+
+.sidebar-search input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+#sidebar-search-results {
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  right: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 1001;
+  margin-top: 6px;
+}
+
+#sidebar-search-results a {
+  display: block;
+  padding: 10px 14px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 0.85em;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s;
+}
+
+#sidebar-search-results a:hover {
+  background: rgba(52, 152, 219, 0.05);
+  color: #3498db;
+}
+
+#sidebar-search-results a:last-child {
+  border-bottom: none;
+}
+
+#sidebar-search-results .search-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+#sidebar-search-results .search-meta {
+  font-size: 0.78em;
+  color: #95a5a6;
+}
+
+.sidebar-search .no-results {
+  padding: 15px;
+  color: #95a5a6;
+  font-size: 0.85em;
+  text-align: center;
+}
+
+/* ===== 导航区域 ===== */
+.sidebar-nav {
+  flex: 1;
+  padding: 5px 15px;
+  overflow-y: auto;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin: 2px 0;
+  border-radius: 8px;
+  color: #5a6a7a;
+  text-decoration: none;
+  font-size: 0.92em;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sidebar-link:hover {
+  background: rgba(52, 152, 219, 0.06);
+  color: #3498db;
+}
+
+.sidebar-link.active {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+  font-weight: 600;
+}
+
+/* ===== 底部工具区 ===== */
+.sidebar-footer {
+  padding: 15px 20px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sidebar-footer a,
+.sidebar-footer button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  border: 1px solid #e0e0e0;
+  background: transparent;
+  color: #7f8c8d;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sidebar-footer a:hover,
+.sidebar-footer button:hover {
+  border-color: #3498db;
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.05);
+}
+
+/* ===== 移动端菜单按钮 ===== */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+/* ===== 主要内容区域 ===== */
+main.page-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 40px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===== 桌面端视频背景 ===== */
+@media (min-width: 901px) {
+  .bg-video {
+    object-fit: contain;
+  }
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 900px) {
+  .site-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .site-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  main.page-content {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+}
+
+/* ===== 移动端视频背景 ===== */
+@media (max-width: 768px) {
+  .bg-video {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ===== 暗黑模式（系统偏好） ===== */
+@media (prefers-color-scheme: dark) {
+  .site-sidebar {
+    background: rgba(20, 20, 30, 0.95);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .sidebar-logo {
+    color: #e8e8ec;
+  }
+
+  .sidebar-link {
+    color: #e8e8ec;
+  }
+
+  .sidebar-link:hover {
+    background: rgba(52, 152, 219, 0.12);
+  }
+
+  .sidebar-link.active {
+    background: rgba(52, 152, 219, 0.15);
+    color: #5dade2;
+  }
+
+  .sidebar-search input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #3a3a4a;
+    color: #e8e8ec;
+  }
+
+  #sidebar-search-results {
+    background: #1e1e2a;
+  }
+
+  #sidebar-search-results a {
+    color: #e8e8ec;
+    border-bottom-color: #2a2a3a;
+  }
+
+  #sidebar-search-results a:hover {
+    background: rgba(52, 152, 219, 0.1);
+  }
+
+  .sidebar-tagline,
+  .sidebar-footer a,
+  .sidebar-footer button {
+    color: #888;
+  }
+
+  .sidebar-footer a,
+  .sidebar-footer button {
+    border-color: #3a3a4a;
+  }
+
+  .sidebar-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .sidebar-footer {
+    border-top-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .sidebar-toggle {
+    background: rgba(30, 30, 40, 0.9);
+    color: #e8e8ec;
+  }
+}
