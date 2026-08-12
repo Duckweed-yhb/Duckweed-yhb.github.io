@@ -37,6 +37,7 @@
 │   ├── head.html
 │   ├── header.html
 │   ├── search.html
+│   ├── sidebar.html
 ├── _layouts
 │   ├── default.html
 ├── _posts
@@ -67,8 +68,8 @@
 │   └── 2026-08-24-读书笔记模板与示例.md
 ├── assets
 │   ├── css
-│   │   ├── header.css
-│   │   └── main.css
+│   │   ├── main.css
+│   │   └── sidebar.css
 │   ├── images
 │   │   ├── 2026-03-30-1.png
 │   │   ├── 2026-03-30-2.png
@@ -100,7 +101,7 @@
 ```
 
 ---
-> 最后更新：2026-08-12 06:08:37 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-12 06:40:33 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
