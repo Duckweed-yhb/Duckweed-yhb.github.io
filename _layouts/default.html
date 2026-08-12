@@ -3,13 +3,6 @@
   <head>
     {%- include head.html -%} <!-- 保留原有head内容（标题、meta等） -->
     
-    <!-- 引入Font Awesome图标库（B站图标需要） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <!-- 引入自定义样式（按优先级排序） -->
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/custom-bg.css' | relative_url }}">
-    
     <!-- 新增：确保页面内联样式优先级 + 强制恢复HTML标签样式（核心修复） -->
     <style>
       /* 1. 全局重置：清除默认转义样式，确保内联样式生效 */
@@ -223,7 +216,7 @@
       <!-- 替换为你的视频文件路径，建议用 mp4 格式 -->
       <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
       <!-- 视频加载失败时的兜底背景 -->
-      <div style="width:100vw;height:100vh;background:#f5f5f5;"></div>
+      <div style="width:100vw;height:100vh;background:#0a1a3a;"></div>
     </video>
 
     {%- include header.html -%}

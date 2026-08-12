@@ -9,10 +9,8 @@
     <!-- 暗黑模式切换按钮 -->
     <button id="dark-toggle" onclick="toggleDark()" style="background:none;border:none;cursor:pointer;font-size:1.2em;padding:4px 8px;border-radius:6px;transition:all .3s;margin-left:auto;" title="切换暗黑模式">🌓</button>
 
-    <!-- 引入搜索功能组件（若不存在search.html，先注释） -->
-    {%- if site.has_search != false and site.pages contains "search.html" -%}
-      {%- include search.html -%}
-    {%- endif -%}
+    <!-- 引入搜索功能组件 -->
+    {%- if site.has_search != false -%}{%- include search.html -%}{%- endif -%}
 
     <!-- 导航菜单（使用 _data/navigation.yml 控制顺序） -->
     <nav class="site-nav" role="navigation" aria-label="主导航">

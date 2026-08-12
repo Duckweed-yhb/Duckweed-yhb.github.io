@@ -73,7 +73,9 @@ render_with_liquid: true
 │   ├── about.html
 │   ├── archive.html
 │   ├── blog-map.html
+│   ├── contribute.html
 │   ├── course-map.html
+│   ├── en-about.html
 │   ├── exhibition.html
 │   ├── friends.html
 │   ├── future.html
@@ -207,6 +209,8 @@ render_with_liquid: true
 | `navigate.html` | 「导航」页面，按访客身份（高中生/准大学生/大学生）+ 专业细分提供针对性引导 |
 | `course-map.html` | 「课程地图」页面，参考 UC Berkeley EECS 设计，SVG 可视化课程先修依赖关系 |
 | `blog-map.html` | 「博客地图」页面，SVG 网络图展示全部文章按五大主题分组的归属与关联 |
+| `contribute.html` | 「投稿/贡献指南」页面，说明投稿方式、格式要求和联系方式 |
+| `en-about.html` | 英文版「关于我」页面（`/en/about/`），多语言支持起步 |
 
 #### 8. `scripts/`（自动化脚本）
 

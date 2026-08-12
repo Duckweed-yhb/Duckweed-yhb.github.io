@@ -1,0 +1,100 @@
+---
+layout: default
+title: 投稿
+permalink: /contribute/
+render_with_liquid: true
+---
+
+<div class="page-header-card">
+  <h1>投稿 / 贡献指南</h1>
+  <p>欢迎一起建设这个学习资源共享空间 ✨</p>
+</div>
+
+<style>
+  :root {
+    --primary: #3498db; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
+    --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d; --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .page-header-card { background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px); max-width:900px; margin:0 auto 30px; box-sizing:border-box; }
+  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
+  .page-header-card p { color:var(--muted); margin:0; }
+  .content-wrap { max-width:900px; margin:0 auto; }
+  .card { background:var(--bg); padding:30px; border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px); margin-bottom:25px; }
+  .card h2 { color:var(--text); font-size:1.3em; margin:0 0 15px; padding-left:10px; border-left:4px solid var(--primary); }
+  .card h3 { color:var(--primary); font-size:1.1em; margin:20px 0 10px; }
+  .card p,.card li { color:var(--muted); line-height:1.9; font-size:.95em; margin-bottom:10px; }
+  .card a { color:var(--primary); text-decoration:none; }
+  .card a:hover { text-decoration:underline; }
+  .card code { background:rgba(52,152,219,0.08); padding:2px 6px; border-radius:4px; font-size:.9em; color:#e74c3c; }
+  .step-list { counter-reset:step; list-style:none; padding:0; }
+  .step-list li { counter-increment:step; padding:10px 0 10px 40px; position:relative; margin-bottom:8px; }
+  .step-list li::before { content:counter(step); position:absolute; left:0; top:10px; width:26px; height:26px; background:var(--primary); color:#fff; border-radius:50%; text-align:center; line-height:26px; font-size:.85em; font-weight:600; }
+  @media(max-width:768px){.page-header-card{padding:25px 15px;margin:0 10px 25px;}.card{padding:22px 18px;}}
+  @media(prefers-color-scheme:dark){
+    .page-header-card,.card{background:var(--bg-dark);}
+    .page-header-card h1,.card h2{color:var(--text-light);}
+    .page-header-card p,.card p,.card li{color:#bdc3c7;}
+  }
+</style>
+
+<div class="content-wrap">
+
+  <div class="card">
+    <h2>我可以贡献什么？</h2>
+    <p>这个博客的主题是 <strong>电气工程学习、编程入门、大学成长经验</strong>。如果你有以下内容，欢迎投稿：</p>
+    <ul>
+      <li>📝 课程笔记补充或纠错（尤其是电气工程专业课）</li>
+      <li>💡 学习经验分享（考研、实习、竞赛、科研）</li>
+      <li>🛠️ 工具使用教程（MATLAB、Simulink、PSCAD、LaTeX等）</li>
+      <li>📖 读书笔记（与学习、成长、技术相关的书籍）</li>
+      <li>🐛 发现博客中的错误或过时信息</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>投稿方式</h2>
+    <h3>方式一：GitHub Pull Request（推荐）</h3>
+    <ol class="step-list">
+      <li>Fork 本博客仓库：<a href="https://github.com/Duckweed-yhb/Duckweed-yhb.github.io" target="_blank">Duckweed-yhb.github.io</a></li>
+      <li>在 <code>_posts/</code> 目录下创建新文章，命名格式：<code>YYYY-MM-DD-标题.md</code></li>
+      <li>参考现有文章格式添加 Front Matter（layout, title, date, categories, tags, author）</li>
+      <li>提交 Pull Request，附上简要说明</li>
+    </ol>
+
+    <h3>方式二：邮件投稿</h3>
+    <p>将稿件发送至 <a href="mailto:3071974740@qq.com">3071974740@qq.com</a>，标题注明「博客投稿」。接受 Markdown 格式或纯文本。</p>
+
+    <h3>方式三：提 Issue</h3>
+    <p>如果只是发现错误或有改进建议，可以直接在 <a href="https://github.com/Duckweed-yhb/Duckweed-yhb.github.io/issues" target="_blank">GitHub Issues</a> 中提出。</p>
+  </div>
+
+  <div class="card">
+    <h2>文章格式要求</h2>
+    <ul>
+      <li>使用 Markdown 格式，参考现有博客文章的风格</li>
+      <li>Front Matter 必须包含 <code>layout: post</code>、<code>title</code>、<code>date</code>、<code>categories</code>、<code>tags</code>、<code>author</code></li>
+      <li>正文使用 <code>#</code>、<code>##</code> 做层级标题</li>
+      <li>代码块用三个反引号包裹，标注语言类型</li>
+      <li>如有图片，放在 <code>assets/images/</code> 目录，命名以日期开头</li>
+      <li>文末建议附上作者的简短签名或联系方式（可选）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>审核与署名</h2>
+    <ul>
+      <li>所有投稿将在一周内审核</li>
+      <li>通过后会保留你的署名（author 字段），并在文章末尾注明贡献者</li>
+      <li>内容可能需要小幅修改以统一风格，重大改动会提前沟通</li>
+      <li>发布后会在博客首页的「最新笔记」中出现</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>联系方式</h2>
+    <p>📧 邮箱：<a href="mailto:3071974740@qq.com">3071974740@qq.com</a></p>
+    <p>💬 QQ：1704792735</p>
+    <p>🐙 GitHub：<a href="https://github.com/Duckweed-yhb" target="_blank">Duckweed-yhb</a></p>
+  </div>
+
+</div>

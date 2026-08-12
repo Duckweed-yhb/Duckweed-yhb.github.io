@@ -109,4 +109,4 @@ kramdown:
       line_numbers: false # 关闭代码行号（避免样式混乱）
 
 # ===================== 新增：搜索功能开关（匹配header.html） =====================
-has_search: false # 若未实现search.html，设为false避免报错
+has_search: true # 搜索功能已启用
