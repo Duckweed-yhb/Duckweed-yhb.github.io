@@ -1,28 +1,24 @@
 ---
 layout: post
-title:  "LaTeX模板分享：多文件课程笔记/读书感悟/年度总结"
+title:  "LaTeX 模板分享"
 date:   2026-03-16 21:00:00 +0800
 categories: [Tools, LaTeX]
 tags: [LaTeX, 模板, 笔记]
 author: Duckweed
 ---
 
-# LaTeX模板分享：多文件课程笔记/读书感悟/年度总结
-> 3 套可直接复制使用的 LaTeX 模板，支持中文、公式、表格、多文件结构化管理
+# LaTeX 模板分享
+
+分享 3 套可直接复制使用的 LaTeX 模板：课程笔记（多文件结构）、读书感悟、年度总结，均使用 **XeLaTeX 编译**，支持中文。
 
 ## 一、模板说明
-分享多场景 LaTeX 模板，其中课程笔记为**多文件结构化模板**（主文件+封面+分章节），代码可直接复制使用：
 - 课程笔记：多文件拆分（主文件+封面+章节），适配公式/代码/列表排版
 - 读书感悟：简洁单文件，侧重文字+引用格式
 - 年度总结：分模块布局，适配数据/总结/计划
 
-所有模板均使用 **XeLaTeX 编译**，支持中文。
+## 二、模板示例
 
----
-
-## 二、核心模板示例
-
-### 1. 多文件课程笔记模板（重点）
+### 1. 多文件课程笔记模板
 #### 1.1 主文件：1.main.tex
 ```latex
 \documentclass[UTF8]{ctexbook}
@@ -111,8 +107,6 @@ $$ e^{i\theta} = \cos\theta + i\sin\theta $$
 $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 ```
 
----
-
 ### 2. 读书感悟模板（单文件）
 ```latex
 \documentclass[UTF8]{ctexart}
@@ -132,8 +126,6 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 
 \end{document}
 ```
-
----
 
 ### 3. 年度总结模板（单文件）
 ```latex
@@ -161,8 +153,6 @@ $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i \cdot f(z_0) $$
 
 \end{document}
 ```
-
----
 
 ## 三、使用说明
 1. 课程笔记模板：将 `1.main.tex` / `2.cover.tex` / `3.章节名.tex` 放在同一目录，编译主文件即可生成完整笔记；

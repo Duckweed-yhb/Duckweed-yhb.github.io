@@ -155,6 +155,29 @@
   align-items: center;
 }
 
+/* ===== 诗词点缀区 ===== */
+.sidebar-verse {
+  padding: 14px 20px 10px;
+  text-align: center;
+  margin-top: 8px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-verse .verse-line {
+  font-family: "STKaiti", "KaiTi", "Kaiti SC", "楷体", serif;
+  font-size: 0.88em;
+  color: #8a9aad;
+  margin: 2px 0;
+  letter-spacing: 2px;
+}
+
+.sidebar-verse .verse-author {
+  font-size: 0.72em;
+  color: #b0bcc8;
+  margin: 6px 0 0;
+  letter-spacing: 1px;
+}
+
 .sidebar-footer a,
 .sidebar-footer button {
   padding: 6px 12px;
@@ -301,6 +324,14 @@ main.page-content {
   .sidebar-footer a,
   .sidebar-footer button {
     color: #888;
+  }
+
+  .sidebar-verse .verse-line {
+    color: #6a7a8a;
+  }
+
+  .sidebar-verse .verse-author {
+    color: #5a6878;
   }
 
   .sidebar-footer a,

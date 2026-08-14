@@ -1,13 +1,13 @@
 <aside class="site-sidebar" id="sidebar">
   <!-- Logo 区域 -->
   <div class="sidebar-header">
-    <a class="sidebar-logo" href="{{ '/' | relative_url }}">Duckweed's Space</a>
-    <p class="sidebar-tagline">电气工程 · 编程自学 · 大学成长</p>
+    <a class="sidebar-logo" href="{{ '/' | relative_url }}">星隅共学社</a>
+    <p class="sidebar-tagline">于星隅之间，共赴一场学习</p>
   </div>
 
-  <!-- 搜索区域（内嵌，不再是弹窗） -->
+  <!-- 搜索区域 -->
   <div class="sidebar-search">
-    <input type="text" id="sidebar-search-input" placeholder="搜索文章..." autocomplete="off">
+    <input type="text" id="sidebar-search-input" placeholder="在星云中寻找..." autocomplete="off">
     <div id="sidebar-search-results" style="display:none;"></div>
   </div>
 
@@ -20,10 +20,17 @@
     {% endfor %}
   </nav>
 
+  <!-- 一句诗词点缀 -->
+  <div class="sidebar-verse">
+    <p class="verse-line">长风破浪会有时</p>
+    <p class="verse-line">直挂云帆济沧海</p>
+    <p class="verse-author">—— 李白《行路难》</p>
+  </div>
+
   <!-- 底部工具 -->
   <div class="sidebar-footer">
     <a href="{{ '/en/about/' | relative_url }}" class="sidebar-lang">EN</a>
-    <button id="dark-toggle-sidebar" onclick="toggleDarkSidebar()" title="切换暗黑模式">🌓</button>
+    <button id="dark-toggle-sidebar" onclick="toggleDarkSidebar()" title="切换明暗">🌓</button>
   </div>
 </aside>
 

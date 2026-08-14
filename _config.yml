@@ -1,8 +1,8 @@
 # ===================== 站点核心配置 =====================
-title: Duckweed's Space
+title: 星隅共学社
 email: 3071974740@qq.com
 description: >-
-  Duckweed的个人成长空间，记录编程学习、考研备考、读书思考的点滴
+  一群热爱探索的大学生，聚成一片「星云」共同体。钻研技术，也分享阅读与成长——开放、包容、面向未来。
 baseurl: "" # 根目录部署无需修改
 url: "https://Duckweed-yhb.github.io" # GitHub Pages 地址
 timezone: Asia/Shanghai # 时区：上海
@@ -12,9 +12,10 @@ zhihu_url: "https://www.zhihu.com/people/54-62-1-34-68"  # 根级配置（匹配
 zhihu_username: "待价而沽"
 bilibili_url: "https://space.bilibili.com/3546703303019495"  # 根级配置
 bilibili_username: "Duckweed"
-logo: "/assets/images/bg.jpg" # 新增：站点logo（可选）
-favicon: "/assets/images/bg.jpg" # 新增：浏览器标签页图标
-markdown_ext: "markdown,md" # 新增：关键！识别.markdown和.md后缀
+author: "Duckweed" # 站点作者（社区发起人）
+logo: "/assets/images/bg.jpg" # 站点logo（可选）
+favicon: "/assets/images/bg.jpg" # 浏览器标签页图标
+markdown_ext: "markdown,md" # 识别.markdown和.md后缀
 
 # ===================== 主题与插件配置 =====================
 theme: minima
