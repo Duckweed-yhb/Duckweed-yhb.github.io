@@ -7,7 +7,7 @@ render_with_liquid: true
 
 <div class="page-header-card">
   <h1>伯克利 UC Berkeley EECS 课程图谱逐课详解</h1>
-  <p>左侧为 HKN 原始课程先修地图，右侧为核心课程号对应的内容详解。涵盖 EE（电气工程）17门课 + CS（计算机科学）14门课。</p>
+  <p>左侧为 HKN 原始课程先修地图，右侧为核心课程号对应的内容详解。涵盖 EE（电气工程）18 门核心课 + 8 门补充课，CS（计算机科学）20 门核心课 + 2 门补充课。所有课程描述均译自 UC Berkeley 官方课程目录（Catalog Description），并标注官方学分（Units）。</p>
 </div>
 
 <style>
@@ -125,111 +125,155 @@ render_with_liquid: true
     <div class="course-grid">
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 16A</span><span class="cc-track cc-required">必修</span></div>
-        <div class="cc-name">Designing Information Devices and Systems I · 信息设备与系统设计 I</div>
-        <div class="cc-desc">EECS 专业基础序列第一门课。通过工程应用（层析成像、电路分析、GPS定位）来讲授<strong>线性代数</strong>。核心是让你理解矩阵运算、方程组求解在实际工程中的意义。</div>
+        <div class="cc-name">电路与器件导论（Introduction to Circuits &amp; Devices）· 4 学分</div>
+        <div class="cc-desc">官方目录对应课程为 EE 64。本课程讲授预测现实世界电子现象与应用行为所需的基础知识：通过数学模型与电路分析方法，将最初复杂的问题简化到可解、可理解的程度。涵盖主题包括时域与频域表示、复数运算、受微分方程支配系统的相量分析、基尔霍夫定律、电子元件与器件的物理实例、RLC 电路、基于运算放大器的信号处理器、反馈方法，以及电子领域之外的电路模型。课程以讲授、讨论与实验相结合的形式进行，帮助巩固所学概念。</div>
         <div class="cc-prereq">先修：Math 54（线性代数）</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 16B</span><span class="cc-track cc-required">必修</span></div>
-        <div class="cc-name">Designing Information Devices and Systems II · 信息设备与系统设计 II</div>
-        <div class="cc-desc">衔接 16A，引入<strong>微分方程、晶体管电路、稳定性与反馈控制、SVD/PCA</strong>。最终项目是 SIXT33N 声控小车实验，将整条课程线贯穿起来。是 16A 到高阶课程的桥梁。</div>
+        <div class="cc-name">信号、动力学与信息导论（Introduction to Signals, Dynamics, and Information）· 4 学分</div>
+        <div class="cc-desc">官方目录对应课程为 EE 66。本课程以线性代数方法为基础，介绍信号、系统、优化、控制与机器学习。在简要回顾线性代数之后，深入学习信号处理、线性系统、反馈控制、优化方法以及机器学习基础算法。课程强调实际应用，通过将数学概念与现实工程问题联系起来，为 EECS 专业学生的进阶学习做好准备。</div>
         <div class="cc-prereq">先修：EE 16A</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 105</span><span class="cc-track cc-circuits">电路</span></div>
-        <div class="cc-name">Microelectronic Devices and Circuits · 微电子器件与电路</div>
-        <div class="cc-desc">模拟集成电路的基础课。覆盖<strong>半导体物理基础、p-n结、MOS电容器、MOSFET大信号模型</strong>、单级与多级CMOS放大器、频率响应。是 EE 140/142 的先修课，模拟IC设计的入门。</div>
+        <div class="cc-name">微电子器件与电路（Microelectronic Devices and Circuits）· 4 学分</div>
+        <div class="cc-desc">本课程讲授理解模拟集成电路所需的电路与器件基本概念。在概述半导体的基本性质后，介绍 p-n 结与 MOS 电容器，并将 MOSFET 建模为大信号器件；随后讨论二端口小信号放大器及其基于单级与多级 CMOS 基本单元的实现。课程引入正弦稳态信号，建立相量分析技术，包括阻抗以及线性电路的幅频与相频响应；分析单级与多级放大器的频率响应，并引入差分放大器。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 120</span><span class="cc-track cc-signals">信号</span></div>
-        <div class="cc-name">Signals and Systems · 信号与系统</div>
-        <div class="cc-desc">连续时间和离散时间<strong>信号与系统的数学分析</strong>。核心内容：卷积、傅里叶级数、傅里叶变换、拉普拉斯变换、采样定理。是所有信号处理相关方向的必修基础课。</div>
+        <div class="cc-name">信号与系统（Signals and Systems）· 4 学分</div>
+        <div class="cc-desc">连续时间与离散时间的变换分析技术及其应用。涵盖线性时不变系统与传递函数；傅里叶级数、傅里叶变换、拉普拉斯变换与 Z 变换；采样与重建；用变换法求解微分方程与差分方程；频率响应、波特图与稳定性分析。课程以通信系统与反馈控制系统的分析为例加以说明。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 126</span><span class="cc-track cc-signals">信号</span></div>
-        <div class="cc-name">Probability and Random Processes · 概率与随机过程</div>
-        <div class="cc-desc">面向工程应用的<strong>概率论与随机过程</strong>。覆盖：随机变量、随机过程、马尔可夫链、估计理论。是通信、机器学习、控制方向的数学工具箱。</div>
+        <div class="cc-name">概率与随机过程（Probability and Random Processes）· 4 学分</div>
+        <div class="cc-desc">本课程讲授网络、通信、信号处理与控制等领域所需的概率论与随机过程基础。内容涵盖样本空间、事件、概率律、条件概率、独立性、随机变量、分布与密度函数、随机向量、大数定律、中心极限定理、估计与检测，以及马尔可夫链。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 130</span><span class="cc-track cc-devices">器件</span></div>
-        <div class="cc-name">Integrated-Circuit Devices · 集成电路器件</div>
-        <div class="cc-desc">深入<strong>半导体器件物理</strong>：能带理论、载流子输运、PN结、BJT、MOSFET的器件级建模与分析。相较于 EE 105 更偏器件层面，适合想走向芯片设计和半导体物理方向的学生。</div>
+        <div class="cc-name">集成电路器件（Integrated-Circuit Devices）· 4 学分</div>
+        <div class="cc-desc">半导体电子性质概述；金属-半导体接触、pn 结、双极型晶体管与 MOS 场效应晶体管；对集成电路器件工作具有重要意义的各项性质；以及硅器件制造工艺。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 134</span><span class="cc-track cc-optics">光学</span></div>
-        <div class="cc-name">Fundamentals of Photovoltaic Devices · 光伏器件基础</div>
-        <div class="cc-desc"><strong>光伏（太阳能电池）</strong>器件的入门课程。涵盖光伏效应、太阳能电池的工作原理、效率分析、新材料和新技术。偏向新能源方向和器件物理的交叉。</div>
+        <div class="cc-name">光伏器件基础（Fundamentals of Photovoltaic Devices）· 4 学分</div>
+        <div class="cc-desc">本课程介绍并概述光伏器件的基础知识。学生将学习太阳能电池的工作原理，理解太阳能电池器件物理的概念与模型，并建立和求解与光伏器件相关的物理问题。课程将讨论并分析单晶、薄膜与第三代太阳能电池，同时涵盖太阳能电池系统中的光管理与经济性考量。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 137A</span><span class="cc-track cc-power">电力</span></div>
-        <div class="cc-name">Introduction to Electric Power Systems · 电力系统导论</div>
-        <div class="cc-desc"><strong>电力系统的经典入门课</strong>。覆盖三相电路、变压器、输电线路模型、潮流计算、故障分析、电力系统经济调度。是电气工程电力方向的必修核心课程，与国内电气专业的电力系统分析内容高度重合。</div>
+        <div class="cc-name">电力系统导论（Introduction to Electric Power Systems）· 4 学分</div>
+        <div class="cc-desc">概述传统电力转换与输送，强调从系统层面理解电网，重点放在输电层面，旨在识别技术创新的需求与机会。主题包括交流系统设计的各个方面、发电机、输电与配电系统的组成、潮流分析、系统规划与运行、性能指标，以及传统技术的局限性。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 137B</span><span class="cc-track cc-power">电力</span></div>
-        <div class="cc-name">Introduction to Electric Power Systems II · 电力系统导论 II</div>
-        <div class="cc-desc">聚焦<strong>现代电力系统的新兴技术</strong>：电力电子在配电网的应用、光伏/风力发电并网、储能系统、微电网、需求侧响应。比 137A 更偏前沿和实际工程。</div>
+        <div class="cc-name">电力系统导论 II（Introduction to Electric Power Systems II）· 4 学分</div>
+        <div class="cc-desc">概述电力系统近期及未来可能的演进，重点关注配电网层面的新型电力转换与输送技术。主题包括电力电子应用、太阳能与风力发电、配电系统设计与运行、储能、信息管理与通信、需求响应，以及微电网。</div>
         <div class="cc-prereq">先修：EE 137A</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 140</span><span class="cc-track cc-circuits">电路</span></div>
-        <div class="cc-name">Linear Integrated Circuits · 线性集成电路（模拟IC设计）</div>
-        <div class="cc-desc"><strong>模拟集成电路设计</strong>的核心课程。在 EE 105 的基础上深入学习运算放大器、反馈放大器、频率补偿、噪声分析、版图设计。是模拟IC方向的核心实践课。</div>
+        <div class="cc-name">线性集成电路（Linear Integrated Circuits）· 4 学分</div>
+        <div class="cc-desc">单级与多级晶体管放大器；运算放大器；反馈放大器、二端口建模，以及源、负载与反馈网络的负载效应；级联放大器的频率响应、增益带宽权衡、补偿、主极点技术与根轨迹；与电源和温度无关的偏置与基准；模拟电路的若干应用，如模数转换器、开关电容滤波器与比较器。含硬件实验与设计项目。</div>
         <div class="cc-prereq">先修：EE 105</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 142</span><span class="cc-track cc-circuits">电路</span></div>
-        <div class="cc-name">Integrated Circuits for Communications · 通信集成电路</div>
-        <div class="cc-desc">射频和通信<strong>集成电路设计</strong>。覆盖低噪声放大器(LNA)、混频器、振荡器、锁相环（PLL）等射频前端模块的电路实现。适合通信+电路交叉方向。</div>
+        <div class="cc-name">通信集成电路（Integrated Circuits for Communications）· 4 学分</div>
+        <div class="cc-desc">通信系统电子电路的分析与设计，重点面向无线通信系统的集成电路。放大器噪声与失真分析及其在无线电接收机设计中的应用；功率放大器设计及其在无线发射机中的应用；射频混频器、振荡器、锁相环、调制器与解调器。</div>
         <div class="cc-prereq">先修：EE 105</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 143</span><span class="cc-track cc-devices">器件</span></div>
-        <div class="cc-name">Microfabrication Technology · 微纳加工技术</div>
-        <div class="cc-desc"><strong>半导体制造工艺</strong>的实践课程。在超净间（cleanroom）中进行光刻、刻蚀、沉积、氧化等工艺操作，亲手制作微型器件。是理解"芯片是怎么造出来的"最直观的课程。</div>
+        <div class="cc-name">微纳加工技术（Microfabrication Technology）· 4 学分</div>
+        <div class="cc-desc">集成电路器件制造与表面微加工技术：热氧化、离子注入、杂质扩散、薄膜沉积、外延、光刻、刻蚀、接触与互连，以及工艺集成问题。器件设计与版图布局，以及物理结构与电气/机械性能之间的关系。学生将在实验室中制作并评估 MOS 晶体管与多晶硅表面微结构。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 144</span><span class="cc-track cc-required">必修</span></div>
-        <div class="cc-name">Fundamental Algorithms for System Modeling, Analysis, and Optimization · 系统建模分析优化算法</div>
-        <div class="cc-desc">面向嵌入式系统和信息物理系统的<strong>算法设计</strong>。覆盖：实时调度、电源管理、模型检测、嵌入式软件设计方法。适合嵌入式/物联网方向。</div>
+        <div class="cc-name">系统建模、分析与优化基础算法（Fundamental Algorithms for Systems Modeling, Analysis, and Optimization）· 4 学分</div>
+        <div class="cc-desc">复杂系统的建模、分析与优化需要一系列算法与设计软件。本课程以集成电路设计为例，回顾复杂系统设计方法学所依赖的基本技术。主题包括设计流程、离散与连续模型与算法，以及在软件中高效且正确地实现算法的策略。实验作业与课程项目将让学生接触业界最先进的工具。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 145B</span><span class="cc-track cc-required">必修</span></div>
-        <div class="cc-name">Medical Imaging Signals and Systems · 医学成像信号与系统</div>
-        <div class="cc-desc"><strong>医学成像</strong>的物理原理和信号处理方法。覆盖 X 光、CT、MRI、超声、核医学成像的数学基础。是生物医学工程方向的交叉课。</div>
+        <div class="cc-name">医学成像信号与系统（Medical Imaging Signals and Systems）· 4 学分</div>
+        <div class="cc-desc">生物医学成像是工程、应用数学、物理与医学在临床上的一项重要应用。本课程运用线性系统理论与基础物理来分析 X 射线成像、计算机断层扫描（CT）、核医学与磁共振成像（MRI）。课程讲授表征医学图像的基本物理与仪器原理，即将图像视为理想完美分辨率图像被冲激响应模糊后的结果。本课程可为学生未来设计能可靠检测小肿瘤或小梗死灶的新型医学成像系统打下基础。</div>
         <div class="cc-prereq">先修：EE 120</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 145L</span><span class="cc-track cc-required">必修</span></div>
-        <div class="cc-name">Introductory Electronic Transducers Laboratory · 传感器实验</div>
-        <div class="cc-desc"><strong>传感器与换能器</strong>的动手实验课。设计和搭建用于测量物理量（温度、压力、光等）的电子传感系统，从电路设计到数据采集全流程。</div>
+        <div class="cc-name">电子传感器实验（Introductory Electronic Transducer Laboratory）· 3 学分</div>
+        <div class="cc-desc">通过实验探索用于测量温度、力、位移、声音、光、离子电位等物理量的各种电子传感器；学习用于低电平差分放大与模拟信号处理的电路，以及用于数字采样与显示的微计算机。讲授内容涵盖实验所涉及的基本原理、电子传感器与执行器的构造、响应与信噪比，以及用于传感与控制物理量的电路设计。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE 149</span><span class="cc-track cc-signals">信号</span></div>
-        <div class="cc-name">Introduction to Embedded Systems · 嵌入式系统导论</div>
-        <div class="cc-desc"><strong>嵌入式系统</strong>的软硬件协同设计。使用微控制器（ARM等），覆盖实时操作系统、中断处理、传感器接口、低功耗设计。是嵌入式/IoT方向的核心项目课。</div>
+        <div class="cc-name">嵌入式系统导论（Introduction to Embedded Systems）· 4 学分</div>
+        <div class="cc-desc">本课程介绍实时运行嵌入式系统的模型、分析工具与控制基础，学习如何将物理过程与计算相结合。主题包括计算模型、控制、分析与验证、与物理世界的接口、平台映射，以及分布式嵌入式系统。课程设有丰富的实验环节，强调贯穿整个学期的项目序列。</div>
         <div class="cc-prereq">先修：EE 16A, 16B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE C106A</span><span class="cc-track cc-robotics">机器人</span></div>
-        <div class="cc-name">Introduction to Robotics · 机器人学导论</div>
-        <div class="cc-desc">机器人学的入门课程，覆盖<strong>运动学、动力学、轨迹规划、控制</strong>。使用 ROS（机器人操作系统）进行编程实验。是机器人方向的必修基础课。</div>
+        <div class="cc-name">机器人学导论（Introduction to Robotics）· 4 学分</div>
+        <div class="cc-desc">机器人学导论，涵盖机械臂的运动学、动力学与控制，以及机器人视觉与传感。课程内容包括串联机械臂的正运动学与逆运动学、机械臂雅可比矩阵、力关系、动力学与控制；并介绍接近、触觉与力传感，视觉传感器、相机标定、立体视觉重建与运动检测的基本原理。课程最后介绍机器人在主动感知、医疗机器人等领域的当前应用。</div>
         <div class="cc-prereq">先修：EE 16A, 16B；推荐 EE 120</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">EE C106B</span><span class="cc-track cc-robotics">机器人</span></div>
-        <div class="cc-name">Robotic Manipulation and Interaction · 机器人操作与交互</div>
-        <div class="cc-desc">聚焦<strong>机器人抓取与操作</strong>：力控制、阻抗控制、抓取规划、视觉伺服。是 C106A 的进阶课，侧重机器人与物理世界的交互能力。</div>
+        <div class="cc-name">机器人操作与交互（Robotic Manipulation and Interaction）· 4 学分</div>
+        <div class="cc-desc">本课程是 EE C106A/BioE C125（讲授单个机器人的运动学、动力学与控制）的后续课程，涵盖多个机械臂相互协调并与环境交互时的动力学与控制。概念包括抓取与约束操作导论、与环境交互的接触与力控制；同时涵盖主动感知引导的操作以及非刚体对象的操作。课程始终强调设计与人与机器人的交互，并面向制造、服务机器人、远程手术与运动等应用。</div>
         <div class="cc-prereq">先修：EE C106A</div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--text); font-size:1.1em; margin:25px 0 15px;">📚 补充课程（官方目录重要课程）</h3>
+    <div class="course-grid">
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 108</span><span class="cc-track cc-power">电力</span></div>
+        <div class="cc-name">电力与可再生能源导论（Introduction to Electric Power and Renewable Energy）· 4 学分</div>
+        <div class="cc-desc">本课程介绍使用可再生能源进行电力转换、分配与发电的基础，引入复功率与无功功率、相量、阻抗、磁路与变压器、功率因数、电能质量、三相电力、交直流变换等电力领域基本概念，并对可再生能源及其并入电网进行概念性概述。课程通过现场演示讲解从接地故障断路器到住宅配电与太阳能光伏直流-交流逆变器等实际应用。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 113</span><span class="cc-track cc-power">电力</span></div>
+        <div class="cc-name">电力电子（Power Electronics）· 4 学分</div>
+        <div class="cc-desc">功率变换电路与技术；磁性器件（变压器、电抗器与电磁机械）的特性与设计；双极型与 MOS 功率半导体器件的特性；以及在电机控制、开关电源、照明、电力系统等领域的应用。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 117</span><span class="cc-track cc-signals">信号</span></div>
+        <div class="cc-name">电磁场与波（Electromagnetic Fields and Waves）· 4 学分</div>
+        <div class="cc-desc">静电场与静磁场及其应用回顾；麦克斯韦方程组；传输线；平面波的传播与反射；导波、微波网络、辐射与天线导论。含静电场、传输线与电磁波的小型实验，并解释手机天线、WiFi 通信等无线技术的工作原理。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 118</span><span class="cc-track cc-optics">光学</span></div>
+        <div class="cc-name">光学工程导论（Introduction to Optical Engineering）· 4 学分</div>
+        <div class="cc-desc">光学系统的基本原理：几何光学与像差理论；光阑与孔径、棱镜与反射镜；衍射与干涉；光学材料与镀膜；辐射度量学与光度学；基本光学器件与人眼；光学系统设计；激光、光纤与全息术。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 121</span><span class="cc-track cc-signals">信号</span></div>
+        <div class="cc-name">数字通信系统导论（Introduction to Digital Communication Systems）· 4 学分</div>
+        <div class="cc-desc">现代数字通信系统设计与分析基本原理导论。主题包括信源编码、信道编码、基带与通带调制技术、接收机设计与信道均衡；应用于数字电话调制解调器、光盘与数字无线通信系统的设计，并通过一系列 MATLAB 练习加以说明。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 122</span><span class="cc-track cc-signals">信号</span></div>
+        <div class="cc-name">通信网络导论（Introduction to Communication Networks）· 4 学分</div>
+        <div class="cc-desc">本课程聚焦有线与无线通信网络的基础，既涵盖使网络具备可扩展性与鲁棒性的体系结构原则，也涵盖分析与设计网络所必需的关键技术。主题包括图论、马尔可夫链、排队论、优化技术、物理层与链路层、交换、传输层、蜂窝网络与 Wi-Fi。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE 123</span><span class="cc-track cc-signals">信号</span></div>
+        <div class="cc-name">数字信号处理（Digital Signal Processing）· 4 学分</div>
+        <div class="cc-desc">离散时间信号与系统：傅里叶变换与 Z 变换、DFT 及其二维形式。数字信号处理主题：信号流图、实现结构、FFT、chirp-Z 算法、希尔伯特变换关系、量化效应、线性预测。数字滤波器设计方法：加窗法、频率采样法、S-to-Z 变换法、频率变换法、优化方法，以及二维滤波器设计。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">EE C128</span><span class="cc-track cc-signals">信号</span></div>
+        <div class="cc-name">反馈控制系统（Feedback Control Systems）· 4 学分</div>
+        <div class="cc-desc">线性反馈控制系统在变换域与时域中的分析与综合。基于根轨迹、频率响应与状态空间方法的控制系统设计，并应用于机电与机电一体化系统。</div>
       </div>
     </div>
   </div>
@@ -291,125 +335,138 @@ render_with_liquid: true
     <div class="course-grid">
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 61A</span><span class="cc-track cc-core">核心</span></div>
-        <div class="cc-name">Structure and Interpretation of Computer Programs · 计算机程序的结构与解释</div>
-        <div class="cc-desc">CS 专业的<strong>第一门编程课</strong>——但不是教你"用 Python 写 hello world"。这门课的核心是<strong>抽象思维</strong>：函数式编程、高阶函数、递归、数据抽象、面向对象编程、解释器设计。使用 Python + Scheme + SQL 三门语言，目标不是学会某门语言，而是理解编程的本质。</div>
+        <div class="cc-name">计算机程序的结构与解释（The Structure and Interpretation of Computer Programs）· 4 学分</div>
+        <div class="cc-desc">编程与计算机科学导论，聚焦于以抽象技术管理程序复杂度。技术包括：过程抽象；利用递归、高阶函数、生成器与流实现的控制抽象；利用接口、对象、类与泛型运算符实现的数据抽象；以及利用解释器与宏实现的语言抽象。课程让学生接触函数式、面向对象与声明式等编程范式，并介绍算法的渐近分析，包含若干个重要的编程项目。</div>
         <div class="cc-prereq">无正式先修（入门课）</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 61B</span><span class="cc-track cc-core">核心</span></div>
-        <div class="cc-name">Data Structures · 数据结构</div>
-        <div class="cc-desc"><strong>数据结构与算法</strong>的核心课。使用 Java，覆盖：链表、树、哈希表、堆、图、排序算法、搜索算法、算法复杂度分析。课程后半段有一个大型项目（通常是用 Java 做一个完整的应用）。这是面试刷题的前置课程。</div>
+        <div class="cc-name">数据结构（Data Structures）· 4 学分</div>
+        <div class="cc-desc">基本动态数据结构，包括线性表、队列、树及其他链式结构；数组、字符串与哈希表；存储管理；软件工程的基本原理；抽象数据类型；排序与搜索算法；以及 Java 编程语言入门。</div>
         <div class="cc-prereq">先修：CS 61A</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 61C</span><span class="cc-track cc-core">核心</span></div>
-        <div class="cc-name">Machine Structures · 计算机组成与体系结构</div>
-        <div class="cc-desc">从<strong>C语言到CPU</strong>：C 和汇编语言编程、程序到机器码的翻译、计算机组成（数据通路、流水线）、缓存、性能测量、并行计算、仓库级计算。让你理解"高级代码到底是怎么在硬件上跑的"。</div>
+        <div class="cc-name">计算机体系结构的重要思想（Great Ideas of Computer Architecture / Machine Structures）· 4 学分</div>
+        <div class="cc-desc">数字计算机的内部组织与运行：机器体系结构、对高级语言的支持（逻辑、算术、指令定序）与对操作系统的支持（I/O、中断、内存管理、进程切换）；计算机逻辑设计基础；以及基本体系结构设计决策中的权衡。</div>
         <div class="cc-prereq">先修：CS 61A, 61B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 70</span><span class="cc-track cc-core">核心</span></div>
-        <div class="cc-name">Discrete Mathematics and Probability Theory · 离散数学与概率论</div>
-        <div class="cc-desc">CS 专业的<strong>数学基础课</strong>。覆盖两大块：离散数学（逻辑、归纳、数论、图论）和概率论（随机变量、分布、期望、集中不等式）。这是整个 CS 理论体系的数学地基，170、172 等理论课的绝对先修。</div>
+        <div class="cc-name">离散数学与概率论（Discrete Mathematics and Probability Theory）· 4 学分</div>
+        <div class="cc-desc">逻辑、无穷与归纳，应用包括不可判定性与稳定婚姻问题；模运算与最大公约数，应用包括素性检验与密码学；多项式，示例包括纠错码与插值；概率论，包括样本空间、独立性、随机变量、大数定律，示例包括负载均衡、存在性论证与贝叶斯推断。</div>
         <div class="cc-prereq">无正式先修（推荐微积分基础）</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 152</span><span class="cc-track cc-hardware">硬件</span></div>
-        <div class="cc-name">Computer Architecture and Engineering · 计算机体系结构</div>
-        <div class="cc-desc">进阶<strong>处理器设计</strong>：超标量、乱序执行、分支预测、多核、内存一致性、GPU 架构。使用 Verilog/VHDL 进行 RTL 设计。是 CPU 设计方向的核心课。</div>
+        <div class="cc-name">计算机体系结构与工程（Computer Architecture and Engineering）· 4 学分</div>
+        <div class="cc-desc">指令集体系结构、微编码、流水线（简单与复杂）；存储层次与虚拟内存；处理器并行性：VLIW、向量、多线程；多处理器。</div>
         <div class="cc-prereq">先修：CS 61C</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 160</span><span class="cc-track cc-software">软件</span></div>
-        <div class="cc-name">User Interface Design and Development · 用户界面设计</div>
-        <div class="cc-desc"><strong>人机交互（HCI）</strong>入门。覆盖：用户研究、原型设计、可用性测试、移动端交互设计。包含一个贯穿全学期的 App 设计项目。</div>
+        <div class="cc-name">用户界面设计与开发（User Interface Design and Development）· 4 学分</div>
+        <div class="cc-desc">用户界面的设计、实现与评估：以用户为中心的设计与任务分析；概念模型与界面隐喻；可用性检查与评估方法；用户研究数据分析；输入方法（键盘、指点、触摸、实物）与输入模型；视觉设计原则；界面原型设计与实现方法及工具。学生将以团队形式为特定任务和目标用户群体开发一个用户界面。</div>
         <div class="cc-prereq">先修：CS 61B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 161</span><span class="cc-track cc-software">软件</span></div>
-        <div class="cc-name">Computer Security · 计算机安全</div>
-        <div class="cc-desc"><strong>信息安全</strong>核心课。覆盖：内存安全漏洞（缓冲区溢出）、密码学基础、网络安全、Web 安全、认证协议、隐私。以"攻防"视角理解安全，包含 Capture The Flag（CTF）练习。</div>
+        <div class="cc-name">计算机安全（Computer Security）· 4 学分</div>
+        <div class="cc-desc">计算机安全导论：密码学（加密、认证、哈希函数、密码协议及其应用）；操作系统安全与访问控制；网络安全、防火墙、病毒与蠕虫；软件安全、防御式编程与基于语言的安全；并分析来自真实系统的案例。</div>
         <div class="cc-prereq">先修：CS 61C</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 162</span><span class="cc-track cc-software">软件</span></div>
-        <div class="cc-name">Operating Systems and System Programming · 操作系统</div>
-        <div class="cc-desc">经典的<strong>操作系统课程</strong>。覆盖：进程与线程、同步、内存管理（虚拟内存、分页）、文件系统、I/O、分布式系统基础。包含一个完整的操作系统项目（PintOS 或 NachOS），需要大量 C 语言编程。</div>
+        <div class="cc-name">操作系统与系统编程（Operating Systems and System Programming）· 4 学分</div>
+        <div class="cc-desc">操作系统与系统编程的基本概念：实用程序、子系统、多程序系统；进程、进程间通信与同步；内存分配、分段、分页；装载与链接、库；资源分配、调度、性能评估；文件系统、存储设备、I/O 系统；保护、安全与隐私。</div>
         <div class="cc-prereq">先修：CS 61C</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 164</span><span class="cc-track cc-software">软件</span></div>
-        <div class="cc-name">Programming Languages and Compilers · 编程语言与编译器</div>
-        <div class="cc-desc"><strong>编译器设计</strong>全流程：词法分析、语法分析（LL/LR）、语义分析、中间代码生成、代码优化、目标代码生成。需要实现一个完整的编译器。理解这门课后，任何编程语言对你来说都不再是黑箱。</div>
+        <div class="cc-name">编程语言与编译器（Programming Languages and Compilers）· 4 学分</div>
+        <div class="cc-desc">编程语言概览；现代编程语言的设计；词法分析、语法分析、语义分析与代码生成的原理与技术；编译器、解释器与汇编器的实现；运行时组织与错误处理概述。</div>
         <div class="cc-prereq">先修：CS 61B, 61C</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 168</span><span class="cc-track cc-software">软件</span></div>
-        <div class="cc-name">Introduction to the Internet: Architecture and Protocols · 互联网架构与协议</div>
-        <div class="cc-desc"><strong>计算机网络</strong>核心课。覆盖：TCP/IP 协议栈、路由算法（BGP/OSPF）、拥塞控制、DNS、HTTP/2、软件定义网络（SDN）。与 Stanford 的 CS 144 对标。</div>
+        <div class="cc-name">互联网架构与协议（Introduction to the Internet: Architecture and Protocols）· 4 学分</div>
+        <div class="cc-desc">互联网体系结构导论。课程聚焦使互联网具备可扩展性与鲁棒性的概念与基本设计原则，并综述该体系结构中使用的各种协议与算法。主题包括分层、寻址、域内路由、域间路由、可靠传输、拥塞控制，以及核心协议（TCP、UDP、IP、DNS、HTTP）与网络技术（以太网、无线网络）。</div>
         <div class="cc-prereq">先修：CS 61B, 61C</div>
       </div>
 
-      <div class="course-card"><div class="cc-header"><span class="cc-code">CS 169</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Software Engineering · 软件工程</div>
-        <div class="cc-desc"><strong>SaaS（软件即服务）开发</strong>的全流程。使用 Ruby on Rails，覆盖：敏捷开发、TDD/BDD、RESTful API、云部署。以团队项目形式模拟真实公司开发流程。是"离找工作最近的一门课"。</div>
+      <div class="course-card"><div class="cc-header"><span class="cc-code">CS 169A</span><span class="cc-track cc-applications">应用</span></div>
+        <div class="cc-name">软件工程导论（Introduction to Software Engineering）· 4 学分</div>
+        <div class="cc-desc">设计与开发、修改大型软件系统的思想与技术：面向服务的架构、基于用户故事的行为驱动设计、云计算、测试驱动开发、自动化测试、可维护性与工作量估计的成本与质量度量、软件运维中的实用性能与安全、设计模式与重构、规格说明与文档、敏捷项目团队组织与管理。</div>
         <div class="cc-prereq">先修：CS 61B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 170</span><span class="cc-track cc-theory">理论</span></div>
-        <div class="cc-name">Efficient Algorithms and Intractable Problems · 高效算法与难解问题</div>
-        <div class="cc-desc"><strong>算法设计与分析</strong>的顶峰课。覆盖：分治、动态规划、贪心、网络流、线性规划、NP完全性、近似算法。这是面试算法题的终极源头，也是计算机科学理论的核心。</div>
+        <div class="cc-name">高效算法与难解问题（Efficient Algorithms and Intractable Problems）· 4 学分</div>
+        <div class="cc-desc">算法设计与分析的概念与基本技术；计算模型；下界；最优搜索树、平衡树与 UNION-FIND 算法；数值与代数算法；组合算法。图灵机、步数计算、确定性与非确定性图灵机、NP 完全性；不可解与难解问题。</div>
         <div class="cc-prereq">先修：CS 61B, CS 70</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 172</span><span class="cc-track cc-theory">理论</span></div>
-        <div class="cc-name">Computability and Complexity · 可计算性与复杂度</div>
-        <div class="cc-desc">计算机科学<strong>理论基石</strong>：图灵机、不可判定性（停机问题）、复杂度类（P/NP/PSPACE）、归约。回答了"什么是计算机能计算的、什么是永远也算不出来的"这个终极问题。</div>
+        <div class="cc-name">可计算性与复杂度（Computability and Complexity）· 4 学分</div>
+        <div class="cc-desc">有限自动机、图灵机与 RAM 模型；不可判定、指数时间与多项式时间问题；所有合理计算模型的多项式时间等价性；非确定性图灵机；NP 完全性理论：Cook 定理、基本问题的 NP 完全性；语言理论、复杂度与随机性中的若干专题。</div>
         <div class="cc-prereq">先修：CS 170</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 174</span><span class="cc-track cc-theory">理论</span></div>
-        <div class="cc-name">Combinatorics and Discrete Probability · 组合数学与离散概率</div>
-        <div class="cc-desc">进阶<strong>组合数学</strong>：计数原理、生成函数、图论进阶、随机算法分析。是随机算法、密码学方向的数学基础。</div>
+        <div class="cc-name">组合数学与离散概率（Combinatorics and Discrete Probability）· 4 学分</div>
+        <div class="cc-desc">排列、组合、容斥原理、生成函数、拉姆齐理论；期望与方差、切比雪夫不等式、切尔诺夫界；生日悖论、优惠券收集问题、马尔可夫链与熵计算、全域哈希、随机数生成、随机图与概率存在性界。</div>
         <div class="cc-prereq">先修：CS 70</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 176</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Algorithms for Computational Biology · 计算生物学算法</div>
-        <div class="cc-desc"><strong>生物信息学</strong>核心算法：序列比对（Smith-Waterman）、后缀树/后缀数组、系统发育树、隐马尔可夫模型、RNA二级结构预测。是 CS × Bio 的交叉方向。</div>
+        <div class="cc-name">计算生物学算法（Algorithms for Computational Biology）· 4 学分</div>
+        <div class="cc-desc">各种计算生物学应用中涉及的算法与概率模型：后缀树、后缀数组、模式匹配、重复序列发现、序列比对、系统发育学、基因组重排、隐马尔可夫模型、基因发现、基序发现、随机上下文无关文法、RNA 二级结构。本课程不要求生物学先修知识，但需要扎实的定量基础。</div>
         <div class="cc-prereq">先修：CS 61B, CS 70</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 184</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Foundations of Computer Graphics · 计算机图形学基础</div>
-        <div class="cc-desc"><strong>图形学四大模块</strong>：建模（mesh/spline）、渲染（光线追踪/光栅化）、动画（物理模拟/关键帧）、图像处理。课程包含多个编程项目，使用 OpenGL/C++。</div>
+        <div class="cc-name">计算机图形学基础（Foundations of Computer Graphics）· 4 学分</div>
+        <div class="cc-desc">计算机图形学基础的广泛介绍，主要领域包括建模、渲染、动画与成像。主题包括二维与三维变换、光栅显示绘制、采样、纹理、抗锯齿、几何建模、光线追踪与全局光照、动画、相机、图像处理与计算成像。课程强调图形学的数学与几何方面，以及编写完整三维图形程序的能力。</div>
         <div class="cc-prereq">先修：CS 61B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 186</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Introduction to Database Systems · 数据库系统导论</div>
-        <div class="cc-desc"><strong>数据库</strong>全栈：关系代数、SQL、查询优化、事务与并发控制、B+树索引、NoSQL。课程含一个用 Java 实现的简易数据库系统项目。</div>
+        <div class="cc-name">数据库系统导论（Introduction to Database Systems）· 4 学分</div>
+        <div class="cc-desc">用于数据访问的存取方法与文件系统；层次、网状、关系与面向对象数据模型；各模型的查询语言；在编程语言中嵌入查询语言；数据库服务（保护、完整性控制与数据的多视图）；应用生成器、浏览器与报表编写器等高层次接口；事务处理导论；并作为学期项目实现一个数据库系统。</div>
         <div class="cc-prereq">先修：CS 61B</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 188</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Introduction to Artificial Intelligence · 人工智能导论</div>
-        <div class="cc-desc">以<strong>吃豆人（Pacman）</strong>系列项目著称的 AI 入门课。覆盖：搜索、约束满足、博弈树、马尔可夫决策过程、强化学习、贝叶斯网络、隐马尔可夫模型。相比 CS 189（机器学习）更偏"经典 AI"。</div>
+        <div class="cc-name">人工智能导论（Introduction to Artificial Intelligence）· 4 学分</div>
+        <div class="cc-desc">智能计算机系统设计背后的思想与技术。主题包括搜索、博弈、知识表示、推理、规划、不确定性下的推理、机器学习、机器人学、感知与语言理解。</div>
         <div class="cc-prereq">先修：CS 61A, 61B；推荐 CS 70</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 189</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Introduction to Machine Learning · 机器学习导论</div>
-        <div class="cc-desc"><strong>机器学习理论</strong>的经典课程。覆盖：线性回归/分类、SVM、决策树、集成方法、神经网络、PCA、聚类、梯度下降优化。数学要求高（线性代数+概率论+优化），是 Berkeley 最具挑战性的本科课程之一。</div>
+        <div class="cc-name">机器学习导论（Introduction to Machine Learning）· 4 学分</div>
+        <div class="cc-desc">机器学习的理论基础、算法、方法与应用。主题可能包括回归与分类的监督方法（线性模型、决策树、神经网络、集成方法、基于实例的方法）；生成式与判别式概率模型；贝叶斯参数学习；密度估计与聚类；贝叶斯网络；时间序列模型；降维；并包含覆盖多种实际应用的编程项目。</div>
         <div class="cc-prereq">先修：CS 70；推荐 Math 53, 54</div>
       </div>
 
       <div class="course-card"><div class="cc-header"><span class="cc-code">CS 191</span><span class="cc-track cc-applications">应用</span></div>
-        <div class="cc-name">Quantum Information Science and Technology · 量子信息科学与技术</div>
-        <div class="cc-desc"><strong>量子计算</strong>入门：量子比特、量子门、量子算法（Shor/Grover）、量子纠错、量子通信。面向 CS 专业的量子计算课程，需要线性代数和概率论基础。</div>
+        <div class="cc-name">量子信息科学与技术（Introduction to Quantum Computing）· 4 学分</div>
+        <div class="cc-desc">这门跨学科课程从计算与信息论的视角介绍量子力学的基本概念，并介绍量子信息科学的物理实现与技术应用。课程涉及量子算法、复杂度与密码学的基础内容，以及纳米科学与工程中的相关物理实现。（官方编号为 CS C191，与 CHEM C191、PHYS C191 交叉开设。）</div>
         <div class="cc-prereq">先修：CS 70；推荐 Math 54</div>
       </div>
+    </div>
 
+    <h3 style="color:var(--text); font-size:1.1em; margin:25px 0 15px;">📚 补充课程（官方目录重要课程）</h3>
+    <div class="course-grid">
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">CS 150</span><span class="cc-track cc-hardware">硬件</span></div>
+        <div class="cc-name">数字系统组件与设计技术（Components and Design Techniques for Digital Systems）· 5 学分</div>
+        <div class="cc-desc">构建同步数字系统（如通用处理器、硬件加速器与专用处理器）的基本构件与设计方法。数字系统的表示与设计方法学；组合与时序电路逻辑设计；考虑硬件描述语言、计算机辅助设计工具、FPGA 架构以及 CMOS 逻辑门与状态元件的数字系统实现；外设、处理器硬件与软件之间的接口。含正式硬件实验与一个大型设计项目。</div>
+      </div>
+
+      <div class="course-card"><div class="cc-header"><span class="cc-code">CS 171</span><span class="cc-track cc-theory">理论</span></div>
+        <div class="cc-name">密码学（Cryptography）· 4 学分</div>
+        <div class="cc-desc">密码学是研究在不被信任的环境中使各方能够安全通信与计算的算法与协议的科学（如安全通信、数字签名等）。在过去四十年里，密码学已从一系列神秘技巧的拼凑，转变为一门建立在坚实计算复杂性理论基础之上的严谨科学。本课程聚焦这种现代复杂性理论视角下的密码学：例如在加密的语境下，先给出"安全加密方案"的精确数学定义，再在各种计算困难性假设（如因子分解）下给出实现该安全性的构造。</div>
+      </div>
     </div>
   </div>
 
