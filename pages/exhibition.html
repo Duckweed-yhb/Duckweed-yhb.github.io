@@ -46,6 +46,7 @@ render_with_liquid: true
     gap: 30px;
     margin: 0 auto;
     justify-content: center;
+    align-items: flex-start; /* 修复：卡片独立高度，避免展开时连带拉伸其他卡片 */
     width: 100%;
     max-width: 1200px;
     padding: 0 10px; /* 增加左右内边距，适配移动端 */
@@ -243,25 +244,11 @@ render_with_liquid: true
   <div class="exhibition-card">
     <div class="card-icon" data-card="project">📂</div>
     <h3 class="card-title" data-card="project">项目</h3>
-    <p class="card-desc">我的开发项目（按开发状态分类）</p>
+    <p class="card-desc">我的作品集</p>
     <hr class="card-divider">
     <div id="project" class="card-content">
-      <div class="sub-category">正在开发</div>
       <ul class="card-list">
-        <li>HIT-CampusAI（校园AI生活助手，持续维护中）</li>
-        <li>Duckweed-yhb.github.io（个人博客）</li>
-      </ul>
-      <div class="sub-category">停止开发</div>
-      <ul class="card-list">
-        <li>Smart-Energy-Monitoring-Automatic-Control-System</li>
-      </ul>
-      <div class="sub-category">待开发</div>
-      <ul class="card-list">
-        <li>电力系统故障分析小程序</li>
-        <li>Python 自动化办公脚本集</li>
-        <li>电力系统智能优化调度平台</li>
-        <li>银行金融科技管理系统</li>
-        <li>个人博客地图（可视化站点导览）</li>
+        <li><a href="https://github.com/Duckweed-yhb/Duckweed-yhb.github.io" target="_blank" style="color:#3498db; text-decoration:none;">星隅共学社（个人博客站）</a> — 本站，Jekyll + GitHub Pages 构建</li>
       </ul>
     </div>
   </div>
@@ -270,26 +257,32 @@ render_with_liquid: true
   <div class="exhibition-card">
     <div class="card-icon" data-card="skill">⚡</div>
     <h3 class="card-title" data-card="skill">技能</h3>
-    <p class="card-desc">我的技术栈（含入门级嵌入式）</p>
+    <p class="card-desc">我的技术境界</p>
     <hr class="card-divider">
     <div id="skill" class="card-content">
-      <div class="sub-category">核心技术栈</div>
+      <div class="sub-category">融会贯通 · 熟练应用</div>
       <ul class="card-list">
-        <li>Python（数据分析/NumPy/Pandas/Matplotlib）</li>
-        <li>Java（面向对象编程/后端基础）</li>
-        <li>前端（HTML/CSS/JavaScript）</li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="15" height="15" style="vertical-align:-2px; margin-right:4px;">
+            <path fill="#3776AB" d="M55.5 0C28 0 27.6 11.9 27.6 11.9l.03 12.3h28v3.7H17.3S0 26.4 0 55.1s15.1 28 15.1 28h9v-13.5s-.5-15.1 14.8-15.1h25.6s14.3.2 14.3-13.9V19.3S80.6 0 55.5 0zM41.3 8.4c2.4 0 4.4 2 4.4 4.4s-2 4.3-4.4 4.3-4.3-2-4.3-4.3 1.9-4.4 4.3-4.4z"/>
+            <path fill="#FFD43B" d="M56.5 112c27.5 0 27.9-11.9 27.9-11.9l-.03-12.3h-28v-3.7h38.3s17.3 1.5 17.3-27.2-15.1-28-15.1-28h-9v13.5s.5 15.1-14.8 15.1H47.1s-14.3-.2-14.3 13.9v21.4s-1.4 19.2 23.7 19.2zM70.7 103.6c-2.4 0-4.4-2-4.4-4.4s2-4.3 4.4-4.3 4.3 2 4.3 4.3-1.9 4.4-4.3 4.4z"/>
+          </svg>
+          <a href="https://www.python.org/" target="_blank" style="color:#3498db; text-decoration:none;">Python</a>（数据分析 / NumPy / Pandas / Matplotlib）
+        </li>
+        <li>MATLAB（电力系统仿真 / 数值计算）</li>
+        <li>LaTeX（专业文档 / 笔记排版）</li>
+        <li>Jekyll / GitHub Pages（博客搭建）</li>
       </ul>
-      <div class="sub-category">入门级别</div>
+      <div class="sub-category">略有所成 · 入门进阶</div>
+      <ul class="card-list">
+        <li>Java（面向对象 / 后端基础）</li>
+        <li>前端（HTML / CSS / JavaScript）</li>
+        <li>Git / GitHub Actions（版本控制 / 自动部署）</li>
+      </ul>
+      <div class="sub-category">初窥门径 · 零基础但感兴趣</div>
       <ul class="card-list">
         <li>嵌入式软件（底层开发基础）</li>
-        <li>嵌入式硬件（电路+外设入门）</li>
-      </ul>
-      <div class="sub-category">工具链</div>
-      <ul class="card-list">
-        <li>MATLAB（电力系统仿真/数值计算）</li>
-        <li>Jekyll / GitHub Pages（博客搭建）</li>
-        <li>LaTeX（专业文档/考研笔记排版）</li>
-        <li>Git/GitHub Actions（版本控制/自动部署）</li>
+        <li>嵌入式硬件（电路 + 外设入门）</li>
       </ul>
     </div>
   </div>
@@ -298,58 +291,11 @@ render_with_liquid: true
   <div class="exhibition-card">
     <div class="card-icon" data-card="book">📚</div>
     <h3 class="card-title" data-card="book">书籍</h3>
-    <p class="card-desc">我的阅读清单（按阅读状态分类）</p>
+    <p class="card-desc">我的一生阅读计划</p>
     <hr class="card-divider">
     <div id="book" class="card-content">
-      <div class="sub-category">已读</div>
       <ul class="card-list">
-        <li>《巴黎圣母院》（维克多·雨果）</li>
-        <li>《白鸟与蝙蝠》《恶意》《放学后》《谁杀了她》《圣女的救济》（东野圭吾）</li>
-        <li>《被讨厌的勇气》（岸见一郎/古贺史健）</li>
-        <li>《传习录》（王阳明）</li>
-        <li>《飞鸟集》（泰戈尔）</li>
-        <li>《伽利略的苦恼》《假面饭店》《假面前夜》《假面山庄》《解忧杂货店》《虚无的十字架》（东野圭吾）</li>
-        <li>《海子的诗》（海子）</li>
-        <li>《花开半季 情暖三生》《一卷大唐的风华》（白落梅）</li>
-        <li>《你当像李白长风破浪》（随园散人）</li>
-        <li>《你当像鸟飞往你的山》（塔拉·韦斯特弗）</li>
-        <li>《你的孤独 虽败犹荣》（刘同）</li>
-        <li>《人间词话》（王国维）</li>
-        <li>《人生如逆旅，幸好还有苏轼》（倾蓝紫）</li>
-        <li>《少年时鲜衣怒马》（佚名/编者）</li>
-        <li>《文化苦旅》（余秋雨）</li>
-        <li>《我们生活在巨大的差距里》（余华）</li>
-        <li>《嫌疑人x的献身》（东野圭吾）</li>
-        <li>《月亮与六便士》（毛姆）</li>
-        <li>《资治通鉴》（司马光）</li>
-        <li>《自卑与救赎》（斯蒂芬·金）</li>
-        <li>《纵马踏花向自由》（佚名/编者）</li>
-        <li>《悉达多》（赫尔曼·黑塞）</li>
-        <li>《刻意练习》（安德斯·艾利克森）</li>
-        <li>《毛泽东选集》（毛泽东）</li>
-        <li>《刘少奇纪事》（佚名/编者）</li>
-      </ul>
-      <div class="sub-category">在读</div>
-      <ul class="card-list">
-      </ul>
-      <div class="sub-category">搁置</div>
-      <ul class="card-list">
-        <li>《沉思录》（马可·奥勒留）</li>
-        <li>《理想国》（柏拉图）</li>
-        <li>《杀死一只知更鸟》（哈珀·李）</li>
-        <li>《资本论》（卡尔·马克思）</li>
-        <li>《自卑与救赎》（斯蒂芬·金）</li>
-      </ul>
-      <div class="sub-category">想看</div>
-      <ul class="card-list">
-        <li>《经济学原理》（N. 格里高利·曼昆）</li>
-        <li>《局外人》（阿尔贝·加缪）</li>
-        <li>《认知觉醒》（周岭）</li>
-        <li>《学习之道》（芭芭拉·奥克利）</li>
-        <li>《原则》（瑞·达利欧）</li>
-        <li>《蛤蟆先生去看心理医生》</li>
-        <li>《人类简史》（尤瓦尔·赫拉利）</li>
-        <li>《以诗之名》（席慕蓉）</li>
+        <li><a href="https://github.com/Duckweed-yhb/A-Lifetime-Reading-Plan" target="_blank" style="color:#3498db; text-decoration:none;">A-Lifetime-Reading-Plan</a> — 我的完整阅读清单，已迁移至 GitHub 仓库持续更新</li>
       </ul>
     </div>
   </div>
