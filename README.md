@@ -16,14 +16,14 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
-| 2026-08-24 | [读书笔记方法论：从读到写的完整流程](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
-| 2026-08-22 | [考研备考全攻略：电气工程的复习规划与避坑指南](https://duckweed-yhb.github.io/2026/08/22/%E8%80%83%E7%A0%94%E5%A4%87%E8%80%83%E5%85%A8%E6%94%BB%E7%95%A5/) |
-| 2026-08-20 | [电力系统分析核心笔记：从潮流计算到稳定性分析](https://duckweed-yhb.github.io/2026/08/20/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%A0%B8%E5%BF%83%E7%AC%94%E8%AE%B0/) |
-| 2026-08-15 | [Git 简明教程](https://duckweed-yhb.github.io/2026/08/15/Git%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
-| 2026-08-14 | [如何写好 Git 提交信息](https://duckweed-yhb.github.io/2026/08/14/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/) |
-| 2026-08-13 | [工具环境的学习和使用：工科生的效率利器配置指南](https://duckweed-yhb.github.io/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/) |
-| 2026-08-12 | [学习写简历：从空白到能投递的完整指南](https://duckweed-yhb.github.io/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/) |
-| 2026-08-11 | [Markdown 简明语法全教程及博客实战范例](https://duckweed-yhb.github.io/2026/08/11/Markdown%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
+| 2026-08-24 | [读书笔记方法](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
+| 2026-08-22 | [考研备考](https://duckweed-yhb.github.io/2026/08/22/%E8%80%83%E7%A0%94%E5%A4%87%E8%80%83%E5%85%A8%E6%94%BB%E7%95%A5/) |
+| 2026-08-20 | [电力系统笔记](https://duckweed-yhb.github.io/2026/08/20/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%A0%B8%E5%BF%83%E7%AC%94%E8%AE%B0/) |
+| 2026-08-15 | [Git 入门](https://duckweed-yhb.github.io/2026/08/15/Git%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
+| 2026-08-14 | [写好 Git 提交信息](https://duckweed-yhb.github.io/2026/08/14/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/) |
+| 2026-08-13 | [工具环境](https://duckweed-yhb.github.io/2026/08/13/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8/) |
+| 2026-08-12 | [写简历](https://duckweed-yhb.github.io/2026/08/12/%E5%AD%A6%E4%B9%A0%E5%86%99%E7%AE%80%E5%8E%86/) |
+| 2026-08-11 | [Markdown 入门](https://duckweed-yhb.github.io/2026/08/11/Markdown%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -101,7 +101,7 @@
 ```
 
 ---
-> 最后更新：2026-08-14 01:10:16 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-14 02:11:54 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
