@@ -1,0 +1,39 @@
+---
+layout: default
+title: Home (English)
+permalink: /en/
+render_with_liquid: true
+---
+
+<div class="page-card">
+  <h1>Hi, I'm Duckweed 🌌</h1>
+  <p class="community-intro">Welcome to my personal blog, where I document my journey in programming, graduate school preparation, and reading. I also founded a small community called <strong>Xingyu Study Club</strong> (星隅共学社) — a group of curious college students gathering as a "nebula" to explore technology, share reading notes, and grow together. Open, inclusive, and future-facing — that's our shared spirit.</p>
+
+  <div class="verse-banner">
+    <p class="verse-main">Ride the wind and break the waves,<br>hoist my cloud-like sail to cross the vast sea.</p>
+    <p class="verse-sub">— Li Bai, "The Hard Road"</p>
+  </div>
+
+  <h2>Latest Posts</h2>
+  <ul>
+    {% if site.posts.size > 0 %}
+      {% for post in site.posts limit:6 %}
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-date">· {{ post.date | date: "%Y-%m-%d" }}</span></li>
+      {% endfor %}
+    {% else %}
+      <li>No posts yet</li>
+    {% endif %}
+  </ul>
+
+  <h2>Explore</h2>
+  <ul>
+    <li><a href="{{ "/en/about/" | relative_url }}">About Me</a> (English) — learn more about me and the community</li>
+    <li><a href="{{ "/course-map/" | relative_url }}">Course Map</a> — EE & CS course prerequisites</li>
+    <li><a href="{{ "/navigate/" | relative_url }}">Navigate</a> — find content by your identity and direction</li>
+    <li><a href="{{ "/exhibition/" | relative_url }}">Exhibition</a> — my projects, skills, and books</li>
+    <li><a href="{{ "/" | relative_url }}">中文首页</a> — back to Chinese homepage</li>
+  </ul>
+
+  <hr>
+  <p style="color:#9aa8b8; font-size:0.9em;">📝 <em>Note: The full English version of all posts is under ongoing translation. For now, most articles are in Chinese, with key pages (home, about) available in English.</em></p>
+</div>

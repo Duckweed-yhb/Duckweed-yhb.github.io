@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "LaTeX 模板分享"
+title:  "LaTeX 笔记模板分享"
 date:   2026-03-16 21:00:00 +0800
 categories: [Tools, LaTeX]
 tags: [LaTeX, 模板, 笔记]
 author: Duckweed
 ---
 
-# LaTeX 模板分享
+# LaTeX 笔记模板分享
 
 分享 3 套可直接复制使用的 LaTeX 模板：课程笔记（多文件结构）、读书感悟、年度总结，均使用 **XeLaTeX 编译**，支持中文。
 

@@ -2,7 +2,7 @@
 title: 星隅共学社
 email: 3071974740@qq.com
 description: >-
-  一群热爱探索的大学生，聚成一片「星云」共同体。钻研技术，也分享阅读与成长——开放、包容、面向未来。
+  Duckweed 的个人博客：记录编程学习、考研备考与读书思考，也有一群热爱探索的大学生一起交流成长。
 baseurl: "" # 根目录部署无需修改
 url: "https://Duckweed-yhb.github.io" # GitHub Pages 地址
 timezone: Asia/Shanghai # 时区：上海
@@ -42,20 +42,10 @@ defaults:
   - scope:
       path: ""
       type: "pages"
-      exclude: "_posts"  # ✅ 关键修复：排除文章目录，避免覆盖
     values:
       layout: "default"
       render_with_liquid: false  # 仅关闭纯页面的Liquid解析（避免LaTeX误解析）
       permalink: /:basename/ # 页面链接格式（archive.html → /archive/）
-
-  # 根目录index.md配置：开启Liquid解析，确保能渲染文章列表
-  - scope:
-      path: "index.md"
-      type: "pages"
-    values:
-      layout: "default"
-      permalink: "/"
-      render_with_liquid: true  # ✅ 关键修复：开启首页Liquid解析（显示文章列表）
 
 # 分页配置（后续启用分页插件时取消注释）
 # paginate: 5
