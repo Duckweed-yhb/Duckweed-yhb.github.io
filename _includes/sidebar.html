@@ -29,7 +29,15 @@
 
   <!-- 底部工具 -->
   <div class="sidebar-footer">
-    <a href="{{ '/en/' | relative_url }}" class="sidebar-lang">EN</a>
+    <div class="lang-switch">
+      {% if page.url contains '/en/' %}
+        <a href="{{ '/' | relative_url }}" class="lang-btn">中文</a>
+        <span class="lang-btn active">EN</span>
+      {% else %}
+        <span class="lang-btn active">中文</span>
+        <a href="{{ '/en/' | relative_url }}" class="lang-btn">EN</a>
+      {% endif %}
+    </div>
     <button id="dark-toggle-sidebar" onclick="toggleDarkSidebar()" title="切换明暗">🌓</button>
   </div>
 </aside>

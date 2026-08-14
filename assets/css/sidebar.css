@@ -191,6 +191,38 @@
   transition: all 0.2s;
 }
 
+/* ===== 语言切换按钮 ===== */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.lang-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.82em;
+  border: 1px solid #e0e0e0;
+  color: #7f8c8d;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  line-height: 1.4;
+}
+
+.lang-btn:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.lang-btn.active {
+  background: #3498db;
+  color: #fff;
+  border-color: #3498db;
+  font-weight: 600;
+}
+
 .sidebar-footer a:hover,
 .sidebar-footer button:hover {
   border-color: #3498db;
@@ -324,6 +356,22 @@ main.page-content {
   .sidebar-footer a,
   .sidebar-footer button {
     color: #888;
+  }
+
+  .lang-btn {
+    border-color: #3a3a4a;
+    color: #888;
+  }
+
+  .lang-btn:hover {
+    border-color: #5dade2;
+    color: #5dade2;
+  }
+
+  .lang-btn.active {
+    background: #3498db;
+    color: #fff;
+    border-color: #3498db;
   }
 
   .sidebar-verse .verse-line {

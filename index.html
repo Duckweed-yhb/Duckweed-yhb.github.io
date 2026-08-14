@@ -16,13 +16,9 @@ render_with_liquid: true
 
   <h2>最新文章</h2>
   <ul>
-    {% if site.posts.size > 0 %}
-      {% for post in site.posts limit:6 %}
-        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-date">· {{ post.date | date: "%Y-%m-%d" }}</span></li>
-      {% endfor %}
-    {% else %}
-      <li>暂无发布的内容</li>
-    {% endif %}
+    {% for post in site.posts limit:6 %}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-date">· {{ post.date | date: "%Y-%m-%d" }}</span></li>
+    {% endfor %}
   </ul>
 
   <h2>探索本站</h2>
