@@ -1,8 +1,8 @@
 # ===================== 站点核心配置 =====================
-title: 星隅共学社
+title: 星隅
 email: 3071974740@qq.com
 description: >-
-  Duckweed 的个人博客：记录编程学习、考研备考与读书思考，也有一群热爱探索的大学生一起交流成长。
+  Duckweed 的个人博客，于星隅之间记录编程、考研与读书的点滴。这里也是「星隅共学社」的线上据点。
 baseurl: "" # 根目录部署无需修改
 url: "https://Duckweed-yhb.github.io" # GitHub Pages 地址
 timezone: Asia/Shanghai # 时区：上海
