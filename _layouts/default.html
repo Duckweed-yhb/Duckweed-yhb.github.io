@@ -14,16 +14,74 @@
       overflow-x: hidden;
     }
 
-    /* ===== 背景视频 ===== */
-    .bg-video {
+    /* ===== 星空背景 ===== */
+    .starfield {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: cover;
       z-index: -1;
-      opacity: 0.7;
+      background: linear-gradient(180deg,
+        #0a1e3d 0%,
+        #12325e 25%,
+        #1a4a7a 50%,
+        #2a5f96 72%,
+        #3a6fa8 88%,
+        #1a4a7a 100%);
+      overflow: hidden;
+    }
+
+    /* 星星 */
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: meteor-fall 1.4s linear forwards;
+      pointer-events: none;
+    }
+
+    .meteor::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 140px;
+      height: 2px;
+      background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+      transform: rotate(135deg);
+      transform-origin: right center;
+      border-radius: 1px;
+    }
+
+    @keyframes meteor-fall {
+      0% {
+        transform: translate(0, 0) rotate(135deg);
+        opacity: 1;
+      }
+      70% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-480px, 480px) rotate(135deg);
+        opacity: 0;
+      }
     }
 
     /* ===== 通用卡片样式 ===== */
@@ -364,9 +422,8 @@
   {%- include sidebar.html -%}
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <video class="bg-video" autoplay loop muted playsinline preload="none">
-    <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
-  </video>
+  <!-- 自制星空背景（海蓝/天蓝渐变 + 闪烁星星 + 流星划过） -->
+  <div class="starfield" id="starfield"></div>
 
   <main class="page-content" aria-label="Content">
     {{ content }}
@@ -466,6 +523,51 @@
           if (results) results.style.display = 'none';
         }
       });
+    })();
+
+    // 星空背景：生成星星 + 流星划过
+    (function() {
+      var field = document.getElementById('starfield');
+      if (!field) return;
+
+      // 生成闪烁的星星（150 颗，随机大小、位置、闪烁节奏）
+      var starCount = 150;
+      for (var i = 0; i < starCount; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        star.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+        field.appendChild(star);
+      }
+
+      // 流星划过（每 3.5~6 秒随机出现一颗）
+      function spawnMeteor() {
+        var meteor = document.createElement('div');
+        meteor.className = 'meteor';
+        meteor.style.left = (Math.random() * 55 + 15) + '%';
+        meteor.style.top = (Math.random() * 25 + 5) + '%';
+        field.appendChild(meteor);
+        setTimeout(function() {
+          if (meteor.parentNode) meteor.parentNode.removeChild(meteor);
+        }, 1500);
+      }
+
+      function scheduleMeteor() {
+        var delay = Math.random() * 2500 + 3500; // 3.5s ~ 6s
+        setTimeout(function() {
+          spawnMeteor();
+          scheduleMeteor();
+        }, delay);
+      }
+
+      // 首次稍后出现一颗，然后循环
+      setTimeout(spawnMeteor, 1200);
+      scheduleMeteor();
     })();
   </script>
 
