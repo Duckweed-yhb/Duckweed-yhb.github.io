@@ -101,12 +101,13 @@
 ├── requirements.txt
 ├── scripts
 │   └── generate_readme.py
+├── sw.js
 └── templates
     └── README.template.md
 ```
 
 ---
-> 最后更新：2026-08-19 12:41:51 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-19 12:49:57 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
