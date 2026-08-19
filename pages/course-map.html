@@ -55,6 +55,13 @@ render_with_liquid: true
     .page-header-card p,.map-section .map-desc,.course-card .cc-name,.course-card .cc-prereq{color:#bdc3c7;}
     .course-card{background:rgba(52,152,219,0.06);}
   }
+  .course-node { cursor: pointer; transition: opacity 0.3s, stroke-width 0.3s; }
+  .course-node.dimmed { opacity: 0.15; }
+  .course-node.highlighted { opacity: 1; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+  .course-edge { transition: opacity 0.3s; }
+  .course-edge.dimmed { opacity: 0.1; }
+  .course-edge.highlighted { opacity: 1; stroke: #e74c3c; stroke-width: 2.5; }
+  .course-tooltip { position: fixed; background: rgba(20,20,30,0.95); color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.82em; pointer-events: none; z-index: 10000; max-width: 260px; line-height: 1.6; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
 </style>
 
 <div class="content-wrap">
@@ -76,45 +83,45 @@ render_with_liquid: true
       <svg viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg">
         <defs><marker id="a1" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#95a5a6"/></marker></defs>
         <!-- 16A 16B 基础 -->
-        <rect x="30" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="90" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">16A</text>
-        <rect x="180" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="240" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">16B</text>
-        <line x1="150" y1="40" x2="175" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
+        <circle class="course-node" data-course="16A" data-prereq="" cx="90" cy="40" r="34" fill="#e74c3c"/><text x="90" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">16A</text>
+        <circle class="course-node" data-course="16B" data-prereq="16A" cx="240" cy="40" r="34" fill="#e74c3c"/><text x="240" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">16B</text>
+        <line class="course-edge" x1="150" y1="40" x2="175" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 信号处理 -->
-        <rect x="310" y="20" width="120" height="40" rx="4" fill="#3498db"/><text x="370" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">120</text>
-        <rect x="455" y="20" width="120" height="40" rx="4" fill="#3498db"/><text x="515" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">126</text>
-        <line x1="300" y1="40" x2="305" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
+        <circle class="course-node" data-course="120" data-prereq="16B" cx="370" cy="40" r="34" fill="#3498db"/><text x="370" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">120</text>
+        <circle class="course-node" data-course="126" data-prereq="16B" cx="515" cy="40" r="34" fill="#3498db"/><text x="515" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">126</text>
+        <line class="course-edge" x1="300" y1="40" x2="305" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 机器人 -->
-        <rect x="610" y="20" width="120" height="40" rx="4" fill="#9b59b6"/><text x="670" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">C106A</text>
-        <rect x="755" y="20" width="120" height="40" rx="4" fill="#9b59b6"/><text x="815" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">C106B</text>
+        <circle class="course-node" data-course="C106A" data-prereq="16B" cx="670" cy="40" r="34" fill="#9b59b6"/><text x="670" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">C106A</text>
+        <circle class="course-node" data-course="C106B" data-prereq="C106A" cx="815" cy="40" r="34" fill="#9b59b6"/><text x="815" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">C106B</text>
 
         <!-- 电路 -->
-        <rect x="30" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="90" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">105</text>
-        <rect x="180" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="240" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">140</text>
-        <rect x="330" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="390" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">142</text>
-        <line x1="90" y1="60" x2="90" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
-        <line x1="150" y1="70" x2="240" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
+        <circle class="course-node" data-course="105" data-prereq="16B" cx="90" cy="110" r="34" fill="#27ae60"/><text x="90" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">105</text>
+        <circle class="course-node" data-course="140" data-prereq="105" cx="240" cy="110" r="34" fill="#27ae60"/><text x="240" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">140</text>
+        <circle class="course-node" data-course="142" data-prereq="105" cx="390" cy="110" r="34" fill="#27ae60"/><text x="390" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">142</text>
+        <line class="course-edge" x1="90" y1="60" x2="90" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
+        <line class="course-edge" x1="150" y1="70" x2="240" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
 
         <!-- 器件 -->
-        <rect x="480" y="90" width="120" height="40" rx="4" fill="#e67e22"/><text x="540" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">130</text>
-        <rect x="630" y="90" width="120" height="40" rx="4" fill="#e67e22"/><text x="690" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">143</text>
+        <circle class="course-node" data-course="130" data-prereq="16B" cx="540" cy="110" r="34" fill="#e67e22"/><text x="540" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">130</text>
+        <circle class="course-node" data-course="143" data-prereq="16B" cx="690" cy="110" r="34" fill="#e67e22"/><text x="690" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">143</text>
 
         <!-- 光学 -->
-        <rect x="780" y="90" width="120" height="40" rx="4" fill="#1abc9c"/><text x="840" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">134</text>
+        <circle class="course-node" data-course="134" data-prereq="16B" cx="840" cy="110" r="34" fill="#1abc9c"/><text x="840" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">134</text>
 
         <!-- 电力 -->
-        <rect x="30" y="160" width="120" height="40" rx="4" fill="#f39c12"/><text x="90" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">137A</text>
-        <rect x="180" y="160" width="120" height="40" rx="4" fill="#f39c12"/><text x="240" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">137B</text>
-        <line x1="90" y1="130" x2="90" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
-        <line x1="90" y1="200" x2="240" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
+        <circle class="course-node" data-course="137A" data-prereq="16B" cx="90" cy="180" r="34" fill="#f39c12"/><text x="90" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">137A</text>
+        <circle class="course-node" data-course="137B" data-prereq="137A" cx="240" cy="180" r="34" fill="#f39c12"/><text x="240" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">137B</text>
+        <line class="course-edge" x1="90" y1="130" x2="90" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
+        <line class="course-edge" x1="90" y1="200" x2="240" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
 
         <!-- 更多 -->
-        <rect x="330" y="160" width="120" height="40" rx="4" fill="#e74c3c"/><text x="390" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">144</text>
-        <rect x="480" y="160" width="120" height="40" rx="4" fill="#e74c3c"/><text x="540" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">145B</text>
-        <rect x="630" y="160" width="120" height="40" rx="4" fill="#e74c3c"/><text x="690" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">145L</text>
+        <circle class="course-node" data-course="144" data-prereq="16B" cx="390" cy="180" r="34" fill="#e74c3c"/><text x="390" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">144</text>
+        <circle class="course-node" data-course="145B" data-prereq="120" cx="540" cy="180" r="34" fill="#e74c3c"/><text x="540" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">145B</text>
+        <circle class="course-node" data-course="145L" data-prereq="16B" cx="690" cy="180" r="34" fill="#e74c3c"/><text x="690" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">145L</text>
 
-        <rect x="780" y="160" width="120" height="40" rx="4" fill="#3498db"/><text x="840" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">149</text>
+        <circle class="course-node" data-course="149" data-prereq="16B" cx="840" cy="180" r="34" fill="#3498db"/><text x="840" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">149</text>
 
         <!-- 来源标注 -->
         <text x="490" y="240" text-anchor="middle" font-size="11" fill="#95a5a6">原图来源: hkn.eecs.berkeley.edu/courseguides</text>
@@ -292,40 +299,40 @@ render_with_liquid: true
     <div class="map-svg-wrap">
       <svg viewBox="0 0 980 500" xmlns="http://www.w3.org/2000/svg">
         <!-- 61A 61B 61C 70 核心 -->
-        <rect x="30" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="90" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">61A</text>
-        <rect x="180" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="240" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">61B</text>
-        <rect x="330" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="390" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">61C</text>
-        <rect x="480" y="20" width="120" height="40" rx="4" fill="#e74c3c"/><text x="540" y="45" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">70</text>
-        <line x1="150" y1="40" x2="175" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
-        <line x1="300" y1="40" x2="325" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
+        <circle class="course-node" data-course="61A" data-prereq="" cx="90" cy="40" r="34" fill="#e74c3c"/><text x="90" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">61A</text>
+        <circle class="course-node" data-course="61B" data-prereq="61A" cx="240" cy="40" r="34" fill="#e74c3c"/><text x="240" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">61B</text>
+        <circle class="course-node" data-course="61C" data-prereq="61B" cx="390" cy="40" r="34" fill="#e74c3c"/><text x="390" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">61C</text>
+        <circle class="course-node" data-course="70" data-prereq="" cx="540" cy="40" r="34" fill="#e74c3c"/><text x="540" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">70</text>
+        <line class="course-edge" x1="150" y1="40" x2="175" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
+        <line class="course-edge" x1="300" y1="40" x2="325" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 硬件 -->
-        <rect x="150" y="90" width="120" height="40" rx="4" fill="#3498db"/><text x="210" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">152</text>
-        <line x1="90" y1="60" x2="210" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
+        <circle class="course-node" data-course="152" data-prereq="61C" cx="210" cy="110" r="34" fill="#3498db"/><text x="210" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">152</text>
+        <line class="course-edge" x1="90" y1="60" x2="210" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
 
         <!-- 软件 -->
-        <rect x="330" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="390" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">161</text>
-        <rect x="480" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="540" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">162</text>
-        <rect x="630" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="690" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">164</text>
-        <rect x="780" y="90" width="120" height="40" rx="4" fill="#27ae60"/><text x="840" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">168</text>
-        <line x1="240" y1="60" x2="390" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
+        <circle class="course-node" data-course="161" data-prereq="61C" cx="390" cy="110" r="34" fill="#27ae60"/><text x="390" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">161</text>
+        <circle class="course-node" data-course="162" data-prereq="61C" cx="540" cy="110" r="34" fill="#27ae60"/><text x="540" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">162</text>
+        <circle class="course-node" data-course="164" data-prereq="61C" cx="690" cy="110" r="34" fill="#27ae60"/><text x="690" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">164</text>
+        <circle class="course-node" data-course="168" data-prereq="61C" cx="840" cy="110" r="34" fill="#27ae60"/><text x="840" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">168</text>
+        <line class="course-edge" x1="240" y1="60" x2="390" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
 
         <!-- 理论 -->
-        <rect x="150" y="160" width="120" height="40" rx="4" fill="#9b59b6"/><text x="210" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">170</text>
-        <rect x="330" y="160" width="120" height="40" rx="4" fill="#9b59b6"/><text x="390" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">172</text>
-        <rect x="480" y="160" width="120" height="40" rx="4" fill="#9b59b6"/><text x="540" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">174</text>
-        <line x1="540" y1="60" x2="210" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
+        <circle class="course-node" data-course="170" data-prereq="61B,70" cx="210" cy="180" r="34" fill="#9b59b6"/><text x="210" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">170</text>
+        <circle class="course-node" data-course="172" data-prereq="170" cx="390" cy="180" r="34" fill="#9b59b6"/><text x="390" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">172</text>
+        <circle class="course-node" data-course="174" data-prereq="70" cx="540" cy="180" r="34" fill="#9b59b6"/><text x="540" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">174</text>
+        <line class="course-edge" x1="540" y1="60" x2="210" y2="155" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)"/>
 
         <!-- 应用 -->
-        <rect x="660" y="160" width="120" height="40" rx="4" fill="#f39c12"/><text x="720" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">169</text>
-        <rect x="810" y="160" width="120" height="40" rx="4" fill="#f39c12"/><text x="870" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">176</text>
+        <circle class="course-node" data-course="169" data-prereq="61B" cx="720" cy="180" r="34" fill="#f39c12"/><text x="720" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">169</text>
+        <circle class="course-node" data-course="176" data-prereq="61B,70" cx="870" cy="180" r="34" fill="#f39c12"/><text x="870" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">176</text>
 
-        <rect x="660" y="230" width="120" height="40" rx="4" fill="#f39c12"/><text x="720" y="255" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">184</text>
-        <rect x="810" y="230" width="120" height="40" rx="4" fill="#f39c12"/><text x="870" y="255" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">186</text>
+        <circle class="course-node" data-course="184" data-prereq="61B" cx="720" cy="250" r="34" fill="#f39c12"/><text x="720" y="254" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">184</text>
+        <circle class="course-node" data-course="186" data-prereq="61B" cx="870" cy="250" r="34" fill="#f39c12"/><text x="870" y="254" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">186</text>
 
-        <rect x="660" y="300" width="120" height="40" rx="4" fill="#f39c12"/><text x="720" y="325" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">188</text>
-        <rect x="810" y="300" width="120" height="40" rx="4" fill="#f39c12"/><text x="870" y="325" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">189</text>
-        <rect x="420" y="300" width="120" height="40" rx="4" fill="#f39c12"/><text x="480" y="325" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">191</text>
+        <circle class="course-node" data-course="188" data-prereq="61B,70" cx="720" cy="320" r="34" fill="#f39c12"/><text x="720" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">188</text>
+        <circle class="course-node" data-course="189" data-prereq="70" cx="870" cy="320" r="34" fill="#f39c12"/><text x="870" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">189</text>
+        <circle class="course-node" data-course="191" data-prereq="70" cx="480" cy="320" r="34" fill="#f39c12"/><text x="480" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">191</text>
 
         <text x="490" y="380" text-anchor="middle" font-size="11" fill="#95a5a6">原图来源: hkn.eecs.berkeley.edu/courseguides</text>
       </svg>
@@ -470,4 +477,87 @@ render_with_liquid: true
     </div>
   </div>
 
+<script>
+(function() {
+  // 课程先修关系表（与 data-prereq 一致）
+  var prereqMap = {};
+  document.querySelectorAll('.course-node').forEach(function(node) {
+    var course = node.getAttribute('data-course');
+    var prereq = node.getAttribute('data-prereq') || '';
+    prereqMap[course] = prereq ? prereq.split(',') : [];
+  });
+
+  // 获取某课程的完整先修链（祖先）
+  function getAncestors(course) {
+    var ancestors = new Set([course]);
+    var queue = [course];
+    while (queue.length) {
+      var cur = queue.shift();
+      (prereqMap[cur] || []).forEach(function(parent) {
+        if (!ancestors.has(parent)) {
+          ancestors.add(parent);
+          queue.push(parent);
+        }
+      });
+    }
+    return ancestors;
+  }
+
+  // 创建 tooltip 元素
+  var tooltip = document.createElement('div');
+  tooltip.className = 'course-tooltip';
+  tooltip.style.display = 'none';
+  document.body.appendChild(tooltip);
+
+  var nodes = document.querySelectorAll('.course-node');
+  var edges = document.querySelectorAll('.course-edge');
+
+  nodes.forEach(function(node) {
+    node.addEventListener('mouseenter', function(e) {
+      var course = this.getAttribute('data-course');
+      var ancestors = getAncestors(course);
+
+      // 高亮祖先链，变暗其他
+      nodes.forEach(function(n) {
+        if (ancestors.has(n.getAttribute('data-course'))) {
+          n.classList.add('highlighted');
+          n.classList.remove('dimmed');
+        } else {
+          n.classList.add('dimmed');
+          n.classList.remove('highlighted');
+        }
+      });
+
+      // 连线处理（简单起见全部变暗，高亮节点本身已足够表达）
+      edges.forEach(function(edge) { edge.classList.add('dimmed'); });
+
+      // 显示 tooltip：该课程 + 先修链
+      var chain = Array.from(ancestors).reverse(); // 从最基础的先修开始
+      var html = '<strong>' + course + '</strong>';
+      if (chain.length > 1) {
+        html += '<br>学习顺序：' + chain.join(' → ');
+      } else {
+        html += '<br>无先修课程（入门课）';
+      }
+      tooltip.innerHTML = html;
+      tooltip.style.display = 'block';
+      tooltip.style.left = (e.clientX + 16) + 'px';
+      tooltip.style.top = (e.clientY + 16) + 'px';
+    });
+
+    node.addEventListener('mousemove', function(e) {
+      tooltip.style.left = (e.clientX + 16) + 'px';
+      tooltip.style.top = (e.clientY + 16) + 'px';
+    });
+
+    node.addEventListener('mouseleave', function() {
+      nodes.forEach(function(n) {
+        n.classList.remove('highlighted', 'dimmed');
+      });
+      edges.forEach(function(edge) { edge.classList.remove('dimmed'); });
+      tooltip.style.display = 'none';
+    });
+  });
+})();
+</script>
 </div>
