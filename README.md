@@ -20,10 +20,10 @@
 | 2026-08-24 | [如何写读书笔记](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
 | 2026-08-22 | [考研备考规划](https://duckweed-yhb.github.io/2026/08/22/%E8%80%83%E7%A0%94%E5%A4%87%E8%80%83%E5%85%A8%E6%94%BB%E7%95%A5/) |
 | 2026-08-20 | [电力系统分析笔记](https://duckweed-yhb.github.io/2026/08/20/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%A0%B8%E5%BF%83%E7%AC%94%E8%AE%B0/) |
+| 2026-08-19 | [CTF 学习之路](https://duckweed-yhb.github.io/2026/08/19/CTF%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/) |
 | 2026-08-18 | [学习工具与网站推荐](https://duckweed-yhb.github.io/2026/08/18/%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/) |
 | 2026-08-17 | [C 语言代码规范](https://duckweed-yhb.github.io/2026/08/17/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/) |
 | 2026-08-16 | [LaTeX 入门教程](https://duckweed-yhb.github.io/2026/08/16/LATEX%E6%95%99%E7%A8%8B/) |
-| 2026-08-15 | [Git 入门教程](https://duckweed-yhb.github.io/2026/08/15/Git%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -66,6 +66,7 @@
 │   ├── 2026-08-16-LATEX教程.md
 │   ├── 2026-08-17-C语言代码规范.md
 │   ├── 2026-08-18-工具和网站.md
+│   ├── 2026-08-19-CTF学习之路.md
 │   ├── 2026-08-20-电力系统分析核心笔记.md
 │   ├── 2026-08-22-考研备考全攻略.md
 │   ├── 2026-08-24-读书笔记模板与示例.md
@@ -105,7 +106,7 @@
 ```
 
 ---
-> 最后更新：2026-08-19 00:42:47 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-19 12:28:11 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
