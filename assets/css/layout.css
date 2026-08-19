@@ -1,0 +1,410 @@
+/* ===== 双栏布局基础 ===== */
+body {
+  display: flex;
+  min-height: 100vh;
+  background: #0a1a3a;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ===== 星空背景 ===== */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(180deg,
+    #0a1e3d 0%,
+    #12325e 25%,
+    #1a4a7a 50%,
+    #2a5f96 72%,
+    #3a6fa8 88%,
+    #1a4a7a 100%);
+  overflow: hidden;
+}
+
+/* 星星 */
+.star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 流星 */
+.meteor {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: meteor-fall 1.4s linear forwards;
+  pointer-events: none;
+}
+
+.meteor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  transform: rotate(135deg);
+  transform-origin: right center;
+  border-radius: 1px;
+}
+
+@keyframes meteor-fall {
+  0% {
+    transform: translate(0, 0) rotate(135deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-480px, 480px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+/* ===== 通用卡片样式 ===== */
+.page-card,
+.post-container,
+.page-header-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 35px 30px;
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  box-sizing: border-box;
+}
+
+.post-container {
+  max-width: 1000px !important;
+}
+
+/* ===== 首页社区介绍 & 诗词横幅 ===== */
+.community-intro {
+  font-size: 1.05em;
+  line-height: 1.9;
+  color: #4a5a6a;
+}
+
+.verse-banner {
+  margin: 1.5em 0;
+  padding: 1.2em 1.5em;
+  background: rgba(74, 111, 165, 0.06);
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid rgba(74, 111, 165, 0.15);
+}
+
+.verse-banner .verse-main {
+  font-family: "STKaiti", "KaiTi", "Kaiti SC", "楷体", serif;
+  font-size: 1.2em;
+  color: #4a6fa5;
+  margin: 0 0 0.4em;
+  letter-spacing: 2px;
+}
+
+.verse-banner .verse-sub {
+  font-size: 0.8em;
+  color: #9aa8b8;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.post-date {
+  color: #9aa8b8;
+  font-size: 0.85em;
+}
+
+/* ===== 内容区文字样式 ===== */
+.page-content h1 {
+  font-size: 2em;
+  font-weight: bold;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5em;
+  margin: 0 0 0.5em;
+  color: #2c3e50;
+}
+
+.page-content h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  border-left: 4px solid #3498db;
+  padding-left: 0.5em;
+  margin: 2em 0 1em;
+  color: #2c3e50;
+}
+
+.page-content h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #3498db;
+  margin: 2em 0 1em;
+}
+
+.page-content p {
+  margin: 1em 0;
+  color: #2c3e50;
+}
+
+.page-content a {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+.page-content ul {
+  list-style: disc;
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+.page-content li {
+  margin: 0.5em 0;
+}
+
+.page-content blockquote {
+  border-left: 4px solid #eee;
+  padding-left: 1em;
+  color: #7f8c8d;
+  margin: 1em 0;
+}
+
+.page-content hr {
+  border: none;
+  border-top: 1px dashed #eee;
+  margin: 2em 0;
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 900px) {
+  .page-card,
+  .post-container,
+  .page-header-card {
+    padding: 25px 18px;
+    margin: 0 0 20px;
+  }
+}
+
+/* ===== 暗黑模式（系统偏好） ===== */
+@media (prefers-color-scheme: dark) {
+  .page-card,
+  .post-container,
+  .page-header-card {
+    background: rgba(30, 30, 40, 0.88);
+  }
+
+  .page-content h1,
+  .page-content h2,
+  .page-content h3,
+  .page-content p,
+  .page-content li {
+    color: #ecf0f1;
+  }
+
+  .page-content blockquote {
+    color: #bdc3c7;
+    border-left-color: #34495e;
+  }
+
+  .page-content hr {
+    border-top-color: #34495e;
+  }
+
+  .page-content a {
+    color: #5dade2;
+  }
+
+  .verse-banner {
+    background: rgba(74, 111, 165, 0.15);
+    border-color: rgba(74, 111, 165, 0.25);
+  }
+
+  .verse-banner .verse-main {
+    color: #8aadcc;
+  }
+
+  .community-intro {
+    color: #b0b8c4;
+  }
+}
+
+/* ===== 手动强制暗黑模式 ===== */
+html.force-dark body {
+  background: #080810 !important;
+}
+
+html.force-dark .page-card,
+html.force-dark .post-container,
+html.force-dark .page-header-card,
+html.force-dark .phase-card,
+html.force-dark .guide-list,
+html.force-dark .map-card,
+html.force-dark .rel-graph,
+html.force-dark .about-page,
+html.force-dark .site-footer,
+html.force-dark .role-card,
+html.force-dark .friend-card,
+html.force-dark .blog-map-card,
+html.force-dark .exhibition-card,
+html.force-dark .post-related {
+  background: rgba(30, 30, 40, 0.88) !important;
+}
+
+html.force-dark .page-card h1,
+html.force-dark .page-card h2,
+html.force-dark .page-card h3,
+html.force-dark .page-header-card h1,
+html.force-dark .page-header-card h2,
+html.force-dark .map-card h2,
+html.force-dark .phase-title,
+html.force-dark .feature-name,
+html.force-dark .card-title,
+html.force-dark .friend-card h3,
+html.force-dark .post-title,
+html.force-dark .archive-h1,
+html.force-dark .role-card .role-name,
+html.force-dark .guide-item .item-title,
+html.force-dark .about-page strong,
+html.force-dark .site-title,
+html.force-dark .page-content h1,
+html.force-dark .page-content h2,
+html.force-dark .page-content h3 {
+  color: #ecf0f1 !important;
+}
+
+html.force-dark .page-header-card p,
+html.force-dark .page-card p,
+html.force-dark .page-card li,
+html.force-dark .feature-desc,
+html.force-dark .map-card .map-desc,
+html.force-dark .about-page,
+html.force-dark .card-desc,
+html.force-dark .friend-card p,
+html.force-dark .sub-task,
+html.force-dark .summary-box,
+html.force-dark .tip-card,
+html.force-dark .note-card,
+html.force-dark .guide-item .item-meta,
+html.force-dark .legend-item,
+html.force-dark .archive-subtitle,
+html.force-dark .post-meta,
+html.force-dark .page-content p,
+html.force-dark .page-content li,
+html.force-dark .page-content,
+html.force-dark .post-content {
+  color: #bdc3c7 !important;
+}
+
+html.force-dark .page-link {
+  background: rgba(30, 30, 40, 0.9) !important;
+  color: #ecf0f1 !important;
+}
+
+html.force-dark .post-link,
+html.force-dark .page-card a,
+html.force-dark .page-content a {
+  color: #5dade2 !important;
+}
+
+html.force-dark .post-related {
+  background: rgba(30, 30, 40, 0.88) !important;
+}
+
+html.force-dark .post-related a {
+  color: #bdc3c7 !important;
+}
+
+html.force-dark .post-related a:hover {
+  background: rgba(52, 152, 219, 0.15) !important;
+  color: #5dade2 !important;
+}
+
+html.force-dark .site-footer {
+  background: rgba(30, 30, 40, 0.88) !important;
+}
+
+/* ===== 侧边栏手动暗黑覆盖 ===== */
+html.force-dark .site-sidebar {
+  background: rgba(16, 16, 24, 0.95) !important;
+}
+
+html.force-dark .sidebar-logo {
+  color: #e8e8ec !important;
+}
+
+html.force-dark .sidebar-link {
+  color: #c8c8d0 !important;
+}
+
+html.force-dark .sidebar-link:hover {
+  background: rgba(52, 152, 219, 0.15) !important;
+}
+
+html.force-dark .sidebar-link.active {
+  background: rgba(52, 152, 219, 0.18) !important;
+  color: #5dade2 !important;
+}
+
+html.force-dark .sidebar-search input {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: #3a3a4a !important;
+  color: #e8e8ec !important;
+}
+
+html.force-dark #sidebar-search-results {
+  background: #1e1e2a !important;
+}
+
+html.force-dark #sidebar-search-results a {
+  color: #e8e8ec !important;
+  border-bottom-color: #2a2a3a !important;
+}
+
+html.force-dark #sidebar-search-results a:hover {
+  background: rgba(52, 152, 219, 0.1) !important;
+}
+
+html.force-dark .sidebar-tagline,
+html.force-dark .sidebar-footer a,
+html.force-dark .sidebar-footer button {
+  color: #888 !important;
+}
+
+html.force-dark .sidebar-footer a,
+html.force-dark .sidebar-footer button {
+  border-color: #3a3a4a !important;
+}
+
+html.force-dark .sidebar-footer a:hover,
+html.force-dark .sidebar-footer button:hover {
+  border-color: #3498db !important;
+  color: #3498db !important;
+}
+
+html.force-dark .sidebar-header {
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+html.force-dark .sidebar-footer {
+  border-top-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+html.force-dark .sidebar-toggle {
+  background: rgba(30, 30, 40, 0.9) !important;
+  color: #e8e8ec !important;
+}

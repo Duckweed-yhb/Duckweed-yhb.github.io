@@ -7,11 +7,15 @@
 <!-- 图标配置 -->
 <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}" sizes="64x64">
 
+<!-- 性能优化：预连接第三方资源 -->
+<link rel="preconnect" href="https://cdn.bootcdn.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
 <!-- 原有核心SEO功能 -->
 {%- seo -%}
 
 <!-- 样式加载优化 -->
-<!-- main.css 和 sidebar.css 已在 default.html 中按顺序加载，星空背景样式内联于 default.html -->
+<!-- main.css、sidebar.css 和 layout.css 已在 default.html 中按顺序加载，星空背景样式位于 layout.css -->
 
 <!-- 引入Font Awesome图标库 -->
 <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">

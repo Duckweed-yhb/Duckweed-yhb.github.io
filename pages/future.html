@@ -58,44 +58,7 @@ render_with_liquid: true
 <div class="content-wrap">
 
   <div class="about-page">
-    <strong>「未研」</strong>——"尚未完成的研究"。经过多轮迭代，博客的基础设施、内容体系、导览系统和功能增强已全面完善。以下是<strong>已完成的全部工作</strong>和<strong>未来探索方向</strong>。
-  </div>
-
-  <!-- ========== 已完成 ========== -->
-  <div class="phase-card p1">
-    <div class="phase-header">
-      <span class="phase-badge green">全部完成</span>
-      <span class="phase-title">博客建设成果总览（共 22 项）</span>
-    </div>
-
-    <div class="done-grid">
-      <div class="done-item"><strong>✅</strong> 两篇空文章补全（现代教育、贫困县城计算机教育）</div>
-      <div class="done-item"><strong>✅</strong> 6篇新博文：电气/计算机自学路线、英语、简历、工具环境、学习路线</div>
-      <div class="done-item"><strong>✅</strong> 3篇新博文：电力系统笔记、考研攻略、读书笔记方法论</div>
-      <div class="done-item"><strong>✅</strong> 高考志愿填报扩展（就业数据、分数线趋势）</div>
-      <div class="done-item"><strong>✅</strong> 通识教育链接更新（sslocal → Web URL）</div>
-      <div class="done-item"><strong>✅</strong> 展览页同步（技能/项目/书籍更新）</div>
-      <div class="done-item"><strong>✅</strong> 前台规范统一（13篇文章 categories/tags 标准化）</div>
-      <div class="done-item"><strong>✅</strong> 导航页两层级人群细分（3角色 × 5方向）</div>
-      <div class="done-item"><strong>✅</strong> 课程地图（EE + CS 先修依赖可视化）</div>
-      <div class="done-item"><strong>✅</strong> 博客地图（22篇文章分组归属网络图）</div>
-      <div class="done-item"><strong>✅</strong> 文章系列化系统（4大系列 + 底部导航条）</div>
-      <div class="done-item"><strong>✅</strong> 自动相关推荐（tags/categories权重算法）</div>
-      <div class="done-item"><strong>✅</strong> Giscus 评论系统</div>
-      <div class="done-item"><strong>✅</strong> TOC 悬浮目录 + 阅读进度条</div>
-      <div class="done-item"><strong>✅</strong> 暗黑模式手动切换（localStorage 持久化）</div>
-      <div class="done-item"><strong>✅</strong> 搜索功能启用（加权匹配 + 关键词高亮）</div>
-      <div class="done-item"><strong>✅</strong> 首页富化（统计、精选推荐、探索入口）</div>
-      <div class="done-item"><strong>✅</strong> 404页面中文化 + 导航按钮</div>
-      <div class="done-item"><strong>✅</strong> 12项基础设施修复（CSS去重、Favicon、robots.txt、.gitignore、viewport修复等）</div>
-      <div class="done-item"><strong>✅</strong> 投稿/贡献指南页</div>
-      <div class="done-item"><strong>✅</strong> 英文关于页（多语言起步）</div>
-      <div class="done-item"><strong>✅</strong> 说明页持续同步更新</div>
-    </div>
-
-    <div class="note-card">
-      🟢 博客已建立<strong>三层导览体系</strong>：课程地图（先修依赖）→ 博客地图（全局归属）→ 导航页（人群分流），配合系列化系统、相关推荐、搜索功能，形成完整的读者引导闭环。当前共有 <strong>29 篇文章</strong>、<strong>12 个独立页面</strong>、<strong>11 个导航入口</strong>。
-    </div>
+    <strong>「未研」</strong>——"尚未完成的研究"。记录博客尚未完成、计划探索的方向。
   </div>
 
   <!-- ========== 未来方向 ========== -->
@@ -105,13 +68,6 @@ render_with_liquid: true
       <span class="phase-title">博客持续改进方向</span>
     </div>
     <ul class="feature-list">
-      <li class="feature-item">
-        <span class="feature-status idea">💡</span>
-        <div class="feature-body">
-          <div class="feature-name">CSS 代码重构（内联提取 + 合并去重）</div>
-          <div class="feature-desc">当前约 1200+ 行内联 CSS 分布在多个文件中，导致 HTML 体积膨胀且无法缓存。下一步可抽取为独立 CSS 文件，按页面按需加载。</div>
-        </div>
-      </li>
       <li class="feature-item">
         <span class="feature-status idea">💡</span>
         <div class="feature-body">
@@ -129,13 +85,6 @@ render_with_liquid: true
       <li class="feature-item">
         <span class="feature-status idea">💡</span>
         <div class="feature-body">
-          <div class="feature-name">首页性能深度优化</div>
-          <div class="feature-desc">背景视频 preload="none" + 移动端用静态图替代；CSS/JS 压缩合并；关键 CSS 内联、非关键 CSS 延迟加载。</div>
-        </div>
-      </li>
-      <li class="feature-item">
-        <span class="feature-status idea">💡</span>
-        <div class="feature-body">
           <div class="feature-name">友链数据扩充</div>
           <div class="feature-desc">当前仅有 2 条友链，可主动联系同专业/同届同学的个人博客进行交换，丰富友链页内容。</div>
         </div>
@@ -145,13 +94,6 @@ render_with_liquid: true
         <div class="feature-body">
           <div class="feature-name">Google Analytics / 百度统计接入</div>
           <div class="feature-desc">head.html 预留了 GA 条件代码，配置 google_analytics ID 即可启用。可帮助了解读者来源、热门文章等数据。</div>
-        </div>
-      </li>
-      <li class="feature-item">
-        <span class="feature-status idea">💡</span>
-        <div class="feature-body">
-          <div class="feature-name">PWA 离线阅读支持</div>
-          <div class="feature-desc">添加 Service Worker + manifest.json，让读者可在离线状态下访问已缓存的博客文章。</div>
         </div>
       </li>
       <li class="feature-item">

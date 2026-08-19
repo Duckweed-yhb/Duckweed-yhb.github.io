@@ -1,0 +1,17 @@
+{
+  "name": "星隅 - Duckweed 的个人博客",
+  "short_name": "星隅",
+  "description": "Duckweed 的个人博客，于星隅之间记录编程、考研与读书的点滴。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1e3d",
+  "theme_color": "#3498db",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
