@@ -108,26 +108,14 @@ layout: default
     </div>
     {% endif %}
 
-    <!-- ========== Giscus 评论系统（暂未启用） ========== -->
-    <!--
-      ⚠️ Giscus 尚未启用，因为仓库还没有安装 Giscus GitHub App，
-      且 repo-id / category-id 仍是占位值，直接加载会报
-      "giscus is not installed on this repository" 错误。
-
-      如需启用评论，请按以下步骤操作：
-        1. 访问 https://github.com/apps/giscus 安装 Giscus App 到本仓库
-        2. 在仓库 Settings → General → Features 中开启 Discussions
-        3. 访问 https://giscus.app 填入仓库信息，获取真实的 repo-id 和 category-id
-        4. 将下面的占位值替换为真实值，并取消注释下面的生产环境判断块
-    -->
-    {% comment %}
+    <!-- ========== Giscus 评论系统 ========== -->
     {% if jekyll.environment == "production" %}
     <div id="giscus-container" style="margin-top:30px;"></div>
     <script src="https://giscus.app/client.js"
       data-repo="Duckweed-yhb/Duckweed-yhb.github.io"
-      data-repo-id="R_kgDOOOOOOO"
-      data-category="General"
-      data-category-id="DIC_kwDOOOOOOO"
+      data-repo-id="R_kgDOSNc7kA"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSNc7kM4DDua_"
       data-mapping="pathname"
       data-strict="0"
       data-reactions-enabled="1"
@@ -140,7 +128,6 @@ layout: default
       async>
     </script>
     {% endif %}
-    {% endcomment %}
 
     <!-- ========== TOC 章节目录 + 阅读进度条 样式和脚本 ========== -->
     <style>
