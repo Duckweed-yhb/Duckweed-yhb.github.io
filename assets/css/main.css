@@ -142,7 +142,7 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .post:hover .post-views i {
-    color: #3498db;
+    color: #4a6fa5;
 }
 
 .post-container .post-views {
@@ -227,11 +227,11 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .post-category a {
-    color: #3498db !important;
+    color: #4a6fa5 !important;
     text-decoration: none;
     padding: 4px 8px; /* 加大点击区域 */
     border-radius: 6px;
-    background: rgba(52, 152, 219, 0.1);
+    background: rgba(74, 111, 165, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -285,7 +285,7 @@ body.layout-home .page-content .wrapper > .page-card {
     margin-bottom: 20px;
     color: #2c3e50;
     padding-bottom: 8px;
-    border-bottom: 2px solid #3498db; /* 增加分隔线 */
+    border-bottom: 2px solid #4a6fa5; /* 增加分隔线 */
 }
 
 .contact-list, .social-media-list {
@@ -325,7 +325,7 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .contact-list a:hover, .social-media-list a:hover {
-    color: #3498db !important;
+    color: #4a6fa5 !important;
     transform: translateX(5px); /* 轻微悬浮效果 */
 }
 
@@ -350,7 +350,7 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .footer-bottom a {
-    color: #3498db;
+    color: #4a6fa5;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -373,7 +373,7 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .beian a:hover {
-    color: #3498db !important;
+    color: #4a6fa5 !important;
 }
 
 /* 分类/标签页样式 - 统一风格 */
@@ -392,7 +392,7 @@ body.layout-home .page-content .wrapper > .page-card {
     font-size: 1.6em; /* 加大标题字号 */
     margin-bottom: 20px; /* 加大间距 */
     padding-bottom: 10px;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid #4a6fa5;
     text-align: center;
 }
 
@@ -431,7 +431,7 @@ body.layout-home .page-content .wrapper > .page-card {
     padding: 8px 15px; /* 加大点击区域 */
     margin: 0 8px 8px 0;
     background: #f0f8ff;
-    color: #3498db;
+    color: #4a6fa5;
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -439,10 +439,10 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .tag-cloud a:hover {
-    background-color: #3498db;
+    background-color: #4a6fa5;
     color: white !important;
     transform: translateY(-3px); /* 轻微悬浮效果 */
-    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+    box-shadow: 0 4px 8px rgba(74, 111, 165, 0.2);
 }
 
 .category-nav {
@@ -467,7 +467,7 @@ body.layout-home .page-content .wrapper > .page-card {
 }
 
 .category-nav ul li a {
-    color: #3498db;
+    color: #4a6fa5;
     text-decoration: none;
     font-size: 1.05em;
     padding: 5px 8px;
@@ -477,7 +477,7 @@ body.layout-home .page-content .wrapper > .page-card {
 
 .category-nav ul li a:hover {
     text-decoration: underline;
-    background-color: rgba(52, 152, 219, 0.1);
+    background-color: rgba(74, 111, 165, 0.1);
 }
 
 /* 全局移动端适配（非背景/头部部分） */

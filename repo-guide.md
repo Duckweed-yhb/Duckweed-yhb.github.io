@@ -293,7 +293,7 @@ render_with_liquid: true
   /* 标题与文本样式 */
   .page-card h1 {
     font-size: 2em;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid #4a6fa5;
     padding-bottom: 0.5em;
     color: #2c3e50;
     margin-top: 0 !important;
@@ -301,7 +301,7 @@ render_with_liquid: true
   }
   .page-card h2 {
     font-size: 1.5em;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #4a6fa5;
     padding-left: 0.5em;
     color: #2c3e50;
     margin-top: 2em;
@@ -309,7 +309,7 @@ render_with_liquid: true
   }
   .page-card h3 {
     font-size: 1.2em;
-    color: #3498db;
+    color: #4a6fa5;
     margin-top: 2em;
     margin-bottom: 1em;
   }
@@ -326,7 +326,7 @@ render_with_liquid: true
     margin: 1em 0;
   }
   .page-card a {
-    color: #3498db;
+    color: #4a6fa5;
     text-decoration: none;
   }
   .page-card a:hover {
@@ -427,7 +427,7 @@ render_with_liquid: true
       border-top-color: #34495e;
     }
     .page-card a {
-      color: #3498db;
+      color: #4a6fa5;
     }
     .page-card table th {
       background: #2c3e50;

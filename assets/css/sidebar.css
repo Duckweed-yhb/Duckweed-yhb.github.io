@@ -61,8 +61,8 @@
 }
 
 .sidebar-search input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #4a6fa5;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
 }
 
 #sidebar-search-results {
@@ -90,8 +90,8 @@
 }
 
 #sidebar-search-results a:hover {
-  background: rgba(52, 152, 219, 0.05);
-  color: #3498db;
+  background: rgba(74, 111, 165, 0.05);
+  color: #4a6fa5;
 }
 
 #sidebar-search-results a:last-child {
@@ -136,13 +136,13 @@
 }
 
 .sidebar-link:hover {
-  background: rgba(52, 152, 219, 0.06);
-  color: #3498db;
+  background: rgba(74, 111, 165, 0.06);
+  color: #4a6fa5;
 }
 
 .sidebar-link.active {
-  background: rgba(52, 152, 219, 0.1);
-  color: #3498db;
+  background: rgba(74, 111, 165, 0.1);
+  color: #4a6fa5;
   font-weight: 600;
 }
 
@@ -212,22 +212,22 @@
 }
 
 .lang-btn:hover {
-  border-color: #3498db;
-  color: #3498db;
+  border-color: #4a6fa5;
+  color: #4a6fa5;
 }
 
 .lang-btn.active {
-  background: #3498db;
+  background: #4a6fa5;
   color: #fff;
-  border-color: #3498db;
+  border-color: #4a6fa5;
   font-weight: 600;
 }
 
 .sidebar-footer a:hover,
 .sidebar-footer button:hover {
-  border-color: #3498db;
-  color: #3498db;
-  background: rgba(52, 152, 219, 0.05);
+  border-color: #4a6fa5;
+  color: #4a6fa5;
+  background: rgba(74, 111, 165, 0.05);
 }
 
 /* ===== 移动端菜单按钮 ===== */
@@ -310,12 +310,12 @@ main.page-content {
   }
 
   .sidebar-link:hover {
-    background: rgba(52, 152, 219, 0.12);
+    background: rgba(74, 111, 165, 0.12);
   }
 
   .sidebar-link.active {
-    background: rgba(52, 152, 219, 0.15);
-    color: #5dade2;
+    background: rgba(74, 111, 165, 0.15);
+    color: #7fb3d5;
   }
 
   .sidebar-search input {
@@ -334,7 +334,7 @@ main.page-content {
   }
 
   #sidebar-search-results a:hover {
-    background: rgba(52, 152, 219, 0.1);
+    background: rgba(74, 111, 165, 0.1);
   }
 
   .sidebar-tagline,
@@ -349,14 +349,14 @@ main.page-content {
   }
 
   .lang-btn:hover {
-    border-color: #5dade2;
-    color: #5dade2;
+    border-color: #7fb3d5;
+    color: #7fb3d5;
   }
 
   .lang-btn.active {
-    background: #3498db;
+    background: #4a6fa5;
     color: #fff;
-    border-color: #3498db;
+    border-color: #4a6fa5;
   }
 
   .sidebar-verse .verse-line {

@@ -11,7 +11,7 @@ render_with_liquid: true
 </div>
 
 <style>
-  :root { --primary: #3498db; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88); --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d; --shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  :root { --primary: #4a6fa5; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88); --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d; --shadow: 0 4px 12px rgba(0,0,0,0.08); }
   .page-header-card { background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px); max-width:1200px; margin:0 auto 30px; box-sizing:border-box; }
   .page-header-card h1 { font-size:1.6em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin:0 0 .5em; }
   .page-header-card p { color:var(--muted); margin:0; }
@@ -28,7 +28,7 @@ render_with_liquid: true
 
   /* 课程详情 */
   .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:12px; }
-  .course-card { border-left:4px solid var(--primary); padding:12px 16px; border-radius:6px; background:rgba(52,152,219,0.03); }
+  .course-card { border-left:4px solid var(--primary); padding:12px 16px; border-radius:6px; background:rgba(74,111,165,0.03); }
   .course-card .cc-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:6px; }
   .course-card .cc-code { font-weight:700; font-size:1.05em; color:var(--text); }
   .course-card .cc-track { font-size:.75em; padding:2px 8px; border-radius:10px; color:#fff; font-weight:600; }
@@ -36,14 +36,14 @@ render_with_liquid: true
   .course-card .cc-desc { font-size:.85em; color:var(--text); line-height:1.65; }
   .course-card .cc-prereq { font-size:.78em; color:var(--muted); margin-top:4px; }
   .cc-required { background:#e74c3c; }
-  .cc-signals { background:#3498db; }
+  .cc-signals { background:#4a6fa5; }
   .cc-robotics { background:#9b59b6; }
   .cc-circuits { background:#27ae60; }
   .cc-power { background:#f39c12; }
   .cc-devices { background:#e67e22; }
   .cc-optics { background:#1abc9c; }
   .cc-core { background:#e74c3c; }
-  .cc-hardware { background:#3498db; }
+  .cc-hardware { background:#4a6fa5; }
   .cc-software { background:#27ae60; }
   .cc-theory { background:#9b59b6; }
   .cc-applications { background:#f39c12; }
@@ -53,7 +53,7 @@ render_with_liquid: true
     .page-header-card,.map-section{background:var(--bg-dark);}
     .page-header-card h1,.map-section h2,.course-card .cc-code,.course-card .cc-desc{color:var(--text-light);}
     .page-header-card p,.map-section .map-desc,.course-card .cc-name,.course-card .cc-prereq{color:#bdc3c7;}
-    .course-card{background:rgba(52,152,219,0.06);}
+    .course-card{background:rgba(74,111,165,0.06);}
   }
   .course-node { cursor: pointer; transition: opacity 0.3s, stroke-width 0.3s; }
   .course-node.dimmed { opacity: 0.15; }
@@ -72,7 +72,7 @@ render_with_liquid: true
     <p class="map-desc">HKN 官方先修依赖图。课程按方向用颜色区分：必修(红)、信号处理(蓝)、机器人(紫)、电路(绿)、电力(橙)、器件(棕)、光学(青)。点击原站节点可查看详细课程评测。</p>
     <div class="legend">
       <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span>required 必修基础</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#3498db"></span>signals 信号处理</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#4a6fa5"></span>signals 信号处理</span>
       <span class="legend-item"><span class="legend-dot" style="background:#9b59b6"></span>robotics 机器人</span>
       <span class="legend-item"><span class="legend-dot" style="background:#27ae60"></span>circuits 电路</span>
       <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span>power 电力</span>
@@ -88,8 +88,8 @@ render_with_liquid: true
         <line class="course-edge" x1="150" y1="40" x2="175" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 信号处理 -->
-        <circle class="course-node" data-course="120" data-prereq="16B" cx="370" cy="40" r="34" fill="#3498db"/><text x="370" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">120</text>
-        <circle class="course-node" data-course="126" data-prereq="16B" cx="515" cy="40" r="34" fill="#3498db"/><text x="515" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">126</text>
+        <circle class="course-node" data-course="120" data-prereq="16B" cx="370" cy="40" r="34" fill="#4a6fa5"/><text x="370" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">120</text>
+        <circle class="course-node" data-course="126" data-prereq="16B" cx="515" cy="40" r="34" fill="#4a6fa5"/><text x="515" y="44" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">126</text>
         <line class="course-edge" x1="300" y1="40" x2="305" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 机器人 -->
@@ -121,7 +121,7 @@ render_with_liquid: true
         <circle class="course-node" data-course="145B" data-prereq="120" cx="540" cy="180" r="34" fill="#e74c3c"/><text x="540" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">145B</text>
         <circle class="course-node" data-course="145L" data-prereq="16B" cx="690" cy="180" r="34" fill="#e74c3c"/><text x="690" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">145L</text>
 
-        <circle class="course-node" data-course="149" data-prereq="16B" cx="840" cy="180" r="34" fill="#3498db"/><text x="840" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">149</text>
+        <circle class="course-node" data-course="149" data-prereq="16B" cx="840" cy="180" r="34" fill="#4a6fa5"/><text x="840" y="184" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">149</text>
 
         <!-- 来源标注 -->
         <text x="490" y="240" text-anchor="middle" font-size="11" fill="#95a5a6">原图来源: hkn.eecs.berkeley.edu/courseguides</text>
@@ -291,7 +291,7 @@ render_with_liquid: true
     <p class="map-desc">HKN 官方先修依赖图。课程按方向用颜色区分：核心(红)、硬件(蓝)、软件(绿)、理论(紫)、应用(橙)。</p>
     <div class="legend">
       <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span>core 核心必修</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#3498db"></span>hardware 硬件</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#4a6fa5"></span>hardware 硬件</span>
       <span class="legend-item"><span class="legend-dot" style="background:#27ae60"></span>software 软件</span>
       <span class="legend-item"><span class="legend-dot" style="background:#9b59b6"></span>theory 理论</span>
       <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span>applications 应用</span>
@@ -307,7 +307,7 @@ render_with_liquid: true
         <line class="course-edge" x1="300" y1="40" x2="325" y2="40" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#a1)"/>
 
         <!-- 硬件 -->
-        <circle class="course-node" data-course="152" data-prereq="61C" cx="210" cy="110" r="34" fill="#3498db"/><text x="210" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">152</text>
+        <circle class="course-node" data-course="152" data-prereq="61C" cx="210" cy="110" r="34" fill="#4a6fa5"/><text x="210" y="114" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" pointer-events="none">152</text>
         <line class="course-edge" x1="90" y1="60" x2="210" y2="85" stroke="#95a5a6" stroke-width="1" marker-end="url(#a1)" stroke-dasharray="3,3"/>
 
         <!-- 软件 -->

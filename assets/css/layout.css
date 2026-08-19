@@ -135,7 +135,8 @@ body {
 .page-content h1 {
   font-size: 2em;
   font-weight: bold;
-  border-bottom: 2px solid #3498db;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
+  border-bottom: 2px solid #4a6fa5;
   padding-bottom: 0.5em;
   margin: 0 0 0.5em;
   color: #2c3e50;
@@ -144,7 +145,8 @@ body {
 .page-content h2 {
   font-size: 1.5em;
   font-weight: bold;
-  border-left: 4px solid #3498db;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
+  border-left: 4px solid #4a6fa5;
   padding-left: 0.5em;
   margin: 2em 0 1em;
   color: #2c3e50;
@@ -153,7 +155,7 @@ body {
 .page-content h3 {
   font-size: 1.2em;
   font-weight: bold;
-  color: #3498db;
+  color: #4a6fa5;
   margin: 2em 0 1em;
 }
 
@@ -163,7 +165,7 @@ body {
 }
 
 .page-content a {
-  color: #3498db;
+  color: #4a6fa5;
   text-decoration: underline;
 }
 
@@ -226,7 +228,7 @@ body {
   }
 
   .page-content a {
-    color: #5dade2;
+    color: #7fb3d5;
   }
 
   .verse-banner {
@@ -318,7 +320,7 @@ html.force-dark .page-link {
 html.force-dark .post-link,
 html.force-dark .page-card a,
 html.force-dark .page-content a {
-  color: #5dade2 !important;
+  color: #7fb3d5 !important;
 }
 
 html.force-dark .post-related {
@@ -330,8 +332,8 @@ html.force-dark .post-related a {
 }
 
 html.force-dark .post-related a:hover {
-  background: rgba(52, 152, 219, 0.15) !important;
-  color: #5dade2 !important;
+  background: rgba(74, 111, 165, 0.15) !important;
+  color: #7fb3d5 !important;
 }
 
 html.force-dark .site-footer {
@@ -352,12 +354,12 @@ html.force-dark .sidebar-link {
 }
 
 html.force-dark .sidebar-link:hover {
-  background: rgba(52, 152, 219, 0.15) !important;
+  background: rgba(74, 111, 165, 0.15) !important;
 }
 
 html.force-dark .sidebar-link.active {
-  background: rgba(52, 152, 219, 0.18) !important;
-  color: #5dade2 !important;
+  background: rgba(74, 111, 165, 0.18) !important;
+  color: #7fb3d5 !important;
 }
 
 html.force-dark .sidebar-search input {
@@ -376,7 +378,7 @@ html.force-dark #sidebar-search-results a {
 }
 
 html.force-dark #sidebar-search-results a:hover {
-  background: rgba(52, 152, 219, 0.1) !important;
+  background: rgba(74, 111, 165, 0.1) !important;
 }
 
 html.force-dark .sidebar-tagline,
@@ -392,8 +394,8 @@ html.force-dark .sidebar-footer button {
 
 html.force-dark .sidebar-footer a:hover,
 html.force-dark .sidebar-footer button:hover {
-  border-color: #3498db !important;
-  color: #3498db !important;
+  border-color: #4a6fa5 !important;
+  color: #4a6fa5 !important;
 }
 
 html.force-dark .sidebar-header {

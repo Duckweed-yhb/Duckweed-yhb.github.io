@@ -62,7 +62,7 @@ layout: default
     {% endfor %}
 
     {% if matched_series %}
-    <div class="post-series" style="margin-top:40px; padding:20px 25px; background:rgba(52,152,219,0.05); border-radius:12px; border-left:4px solid #3498db;">
+    <div class="post-series" style="margin-top:40px; padding:20px 25px; background:rgba(74,111,165,0.05); border-radius:12px; border-left:4px solid #4a6fa5;">
       <div style="font-size:.85em; color:#7f8c8d; margin-bottom:8px;">📚 本文属于「{{ matched_series.title }}」系列</div>
       <div style="font-size:.9em; color:#7f8c8d; margin-bottom:15px;">{{ matched_series.desc }}</div>
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
@@ -70,7 +70,7 @@ layout: default
         {% assign ns_normalized = post_url | remove: '/' %}
         {% assign pg_normalized = page.url | remove: '/' %}
         {% if ns_normalized == pg_normalized %}
-          <span style="padding:6px 14px; border-radius:20px; background:#3498db; color:#fff; font-size:.85em; font-weight:600;">{{ forloop.index }}. 当前</span>
+          <span style="padding:6px 14px; border-radius:20px; background:#4a6fa5; color:#fff; font-size:.85em; font-weight:600;">{{ forloop.index }}. 当前</span>
         {% else %}
           <a href="{{ post_url | relative_url }}" style="padding:6px 14px; border-radius:20px; border:1px solid #ddd; color:#2c3e50; text-decoration:none; font-size:.85em; transition:all .3s;">{{ forloop.index }}.&nbsp;</a>
         {% endif %}
@@ -99,7 +99,7 @@ layout: default
     {% assign sorted = related_posts | sort | reverse %}
     {% if sorted.size >= 1 %}
     <div class="post-related" style="margin-top:30px; padding:20px 25px; background:rgba(255,255,255,0.5); border-radius:12px;">
-      <h3 style="font-size:1.1em; color:#2c3e50; margin:0 0 15px; padding-left:10px; border-left:3px solid #3498db;">📖 相关阅读</h3>
+      <h3 style="font-size:1.1em; color:#2c3e50; margin:0 0 15px; padding-left:10px; border-left:3px solid #4a6fa5;">📖 相关阅读</h3>
       {% for item in sorted limit:4 %}{% assign parts = item | split: '|' %}
       <a href="{{ parts[2] | relative_url }}" style="display:flex; align-items:center; padding:10px 15px; margin-bottom:6px; border-radius:8px; text-decoration:none; color:#2c3e50; transition:all .25s; background:rgba(255,255,255,0.4);">
         <span style="font-weight:600; flex:1;">{{ parts[1] }}</span>
@@ -190,25 +190,38 @@ layout: default
       word-break: break-word;
     }
     .post-toc-nav a:hover, .post-toc-nav a.active {
-      color: #3498db;
-      border-left-color: #3498db;
-      background: rgba(52, 152, 219, 0.06);
+      color: #4a6fa5;
+      border-left-color: #4a6fa5;
+      background: rgba(74, 111, 165, 0.06);
     }
     .post-toc-nav a.toc-h2 { padding-left: 12px; }
     .post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
 
-    /* 窄屏（<=1200px）：目录折叠到正文上方 */
+    /* 窄屏（<=1200px）：目录按钮固定在右侧，点击滑出目录面板 */
     @media (max-width: 1200px) {
-      .post-body { flex-direction: column; }
+      .post-body { display: block; }
       .post-toc-container {
-        position: static;
-        width: 100%;
-        max-height: none;
-        order: -1; /* 目录移到内容前面 */
+        position: fixed;
+        right: 16px;
+        top: 90px;
+        width: auto;
+        z-index: 998;
       }
-      .post-toc-nav { display: none; }
+      .post-toc-toggle {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      }
+      .post-toc-nav {
+        display: none;
+        position: fixed;
+        right: 16px;
+        top: 132px;
+        width: 240px;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
       .post-toc-container.open .post-toc-nav { display: block; }
-      .post-toc-toggle { display: inline-block; margin-bottom: 10px; }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -244,7 +257,7 @@ layout: default
 
       /* 阅读进度条 */
       var bar=document.createElement('div');
-      bar.style.cssText='position:fixed;top:0;left:0;height:3px;background:#3498db;z-index:99999;transition:width .1s linear;border-radius:0 2px 2px 0;';
+      bar.style.cssText='position:fixed;top:0;left:0;height:3px;background:#4a6fa5;z-index:99999;transition:width .1s linear;border-radius:0 2px 2px 0;';
       document.body.appendChild(bar);
       window.addEventListener('scroll',function(){
         var scrollTop=window.scrollY||document.documentElement.scrollTop;
