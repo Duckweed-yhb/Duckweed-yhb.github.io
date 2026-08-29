@@ -92,7 +92,7 @@ body {
 }
 
 .post-container {
-  max-width: 1000px !important;
+  max-width: 1080px !important; /* 加宽：为右侧章节目录栏留出空间 */
 }
 
 /* ===== 首页社区介绍 & 诗词横幅 ===== */

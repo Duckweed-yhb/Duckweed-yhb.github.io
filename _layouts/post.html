@@ -131,18 +131,20 @@ layout: default
 
     <!-- ========== TOC 章节目录 + 阅读进度条 样式和脚本 ========== -->
     <style>
-    /* 正文 + 右侧目录：flex 三栏布局，左侧导航栏 + 中间内容 + 右侧目录互不重叠 */
+    /* 正文 + 右侧章节目录：双栏布局，目录栏与正文完全分开、永不重叠 */
     .post-body {
       display: flex;
-      gap: 30px;
+      gap: 40px;
       align-items: flex-start;
     }
     .post-body .post-content {
       flex: 1;
-      min-width: 0; /* 防止长代码块撑破布局 */
+      min-width: 0; /* 防止长代码块/表格撑破列宽 */
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .post-toc-container {
-      width: 220px;
+      width: 260px;
       flex-shrink: 0;
       position: sticky;
       top: 90px;
@@ -151,19 +153,22 @@ layout: default
     }
     .post-toc-toggle {
       display: none;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
+      padding: 10px 16px;
+      background: #fff;
+      border: 1px solid rgba(74, 111, 165, 0.15);
+      border-radius: 8px;
       cursor: pointer;
       font-size: 0.9em;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-weight: 600;
+      color: #4a6fa5;
+      user-select: none;
     }
     .post-toc-nav {
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.88);
+      padding: 16px 14px;
+      background: #fff; /* 不透明：正文滚动时不会透过目录卡片透出文字 */
+      border: 1px solid rgba(74, 111, 165, 0.12);
       border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
     }
     .post-toc-nav a {
       display: block;
@@ -179,42 +184,42 @@ layout: default
     .post-toc-nav a:hover, .post-toc-nav a.active {
       color: #4a6fa5;
       border-left-color: #4a6fa5;
-      background: rgba(74, 111, 165, 0.06);
+      background: rgba(74, 111, 165, 0.08);
     }
     .post-toc-nav a.toc-h2 { padding-left: 12px; }
     .post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
 
-    /* 窄屏（<=1200px）：目录按钮固定在右侧，点击滑出目录面板 */
-    @media (max-width: 1200px) {
-      .post-body { display: block; }
+    /* 窄屏（<=1280px）：横向空间不足（左侧导航已占 260px），目录收起为一行折叠块（不悬浮、不覆盖正文） */
+    @media (max-width: 1280px) {
+      .post-body { display: flex; flex-direction: column; }
       .post-toc-container {
-        position: fixed;
-        right: 16px;
-        top: 90px;
-        width: auto;
-        z-index: 998;
+        order: -1; /* 默认只占一行，位于正文上方，展开时向下推正文 */
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 24px;
       }
-      .post-toc-toggle {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-      }
-      .post-toc-nav {
-        display: none;
-        position: fixed;
-        right: 16px;
-        top: 132px;
-        width: 240px;
-        max-height: 60vh;
-        overflow-y: auto;
-      }
+      .post-toc-toggle { display: block; }
+      .post-toc-toggle::after { content: ' ▾'; }
+      .post-toc-nav { display: none; margin-top: 8px; }
+      .post-toc-container.open .post-toc-toggle::after { content: ' ▴'; }
       .post-toc-container.open .post-toc-nav { display: block; }
     }
 
+    /* 暗黑模式：目录卡片使用不透明深色背景 */
     @media (prefers-color-scheme: dark) {
-      .post-toc-nav, .post-toc-toggle { background: rgba(30, 30, 40, 0.88); }
+      .post-toc-nav, .post-toc-toggle {
+        background: #1c1c26;
+        border-color: rgba(255, 255, 255, 0.08);
+      }
       .post-toc-nav a { color: #bdc3c7; }
     }
+    html.force-dark .post-toc-nav,
+    html.force-dark .post-toc-toggle {
+      background: #1c1c26;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    html.force-dark .post-toc-nav a { color: #bdc3c7; }
     </style>
 
     <script>
