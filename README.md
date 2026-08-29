@@ -20,10 +20,10 @@
 | 2026-08-26 | [中文文案排版指北](https://duckweed-yhb.github.io/2026/08/26/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%88%E6%8E%92%E7%89%88%E6%8C%87%E5%8C%97/) |
 | 2026-08-25 | [嘉立创插件开发入门](https://duckweed-yhb.github.io/2026/08/25/%E5%98%89%E7%AB%8B%E5%88%9B%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/) |
 | 2026-08-24 | [如何写读书笔记](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
+| 2026-08-23 | [命令行的艺术](https://duckweed-yhb.github.io/2026/08/23/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E8%89%BA%E6%9C%AF/) |
 | 2026-08-22 | [考研备考规划](https://duckweed-yhb.github.io/2026/08/22/%E8%80%83%E7%A0%94%E5%A4%87%E8%80%83%E5%85%A8%E6%94%BB%E7%95%A5/) |
 | 2026-08-20 | [电力系统分析笔记](https://duckweed-yhb.github.io/2026/08/20/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%A0%B8%E5%BF%83%E7%AC%94%E8%AE%B0/) |
 | 2026-08-19 | [CTF 学习之路](https://duckweed-yhb.github.io/2026/08/19/CTF%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/) |
-| 2026-08-18 | [学习工具与网站推荐](https://duckweed-yhb.github.io/2026/08/18/%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -110,7 +110,7 @@
 ```
 
 ---
-> 最后更新：2026-08-29 13:19:25 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-29 14:03:01 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
