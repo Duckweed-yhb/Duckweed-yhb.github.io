@@ -16,6 +16,7 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-08-27 | [VSCode + GitHub 下的 LaTeX 多源文档协作](https://duckweed-yhb.github.io/2026/08/27/VSCode%2BGitHub%20%E4%B8%8B%E7%9A%84%20LaTeX%20%E5%A4%9A%E6%BA%90%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C/) |
 | 2026-08-26 | [中文文案排版指北](https://duckweed-yhb.github.io/2026/08/26/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%88%E6%8E%92%E7%89%88%E6%8C%87%E5%8C%97/) |
 | 2026-08-25 | [嘉立创插件开发入门](https://duckweed-yhb.github.io/2026/08/25/%E5%98%89%E7%AB%8B%E5%88%9B%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/) |
 | 2026-08-24 | [如何写读书笔记](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
@@ -23,7 +24,6 @@
 | 2026-08-20 | [电力系统分析笔记](https://duckweed-yhb.github.io/2026/08/20/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%A0%B8%E5%BF%83%E7%AC%94%E8%AE%B0/) |
 | 2026-08-19 | [CTF 学习之路](https://duckweed-yhb.github.io/2026/08/19/CTF%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/) |
 | 2026-08-18 | [学习工具与网站推荐](https://duckweed-yhb.github.io/2026/08/18/%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/) |
-| 2026-08-17 | [C 语言代码规范](https://duckweed-yhb.github.io/2026/08/17/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -73,7 +73,7 @@
 │   ├── 2026-08-23-命令行的艺术.md
 │   ├── 2026-08-24-读书笔记模板与示例.md
 │   ├── 2026-08-25-嘉立创插件开发入门.md
-│   └── 2026-08-26-中文文案排版指北.md
+│   ├── 2026-08-26-中文文案排版指北.md
 ├── assets
 │   ├── css
 │   │   ├── main.css
@@ -110,7 +110,7 @@
 ```
 
 ---
-> 最后更新：2026-08-29 04:53:51 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-08-29 13:19:25 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
