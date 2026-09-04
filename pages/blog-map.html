@@ -3,306 +3,136 @@ layout: default
 title: 博客地图
 permalink: /blog-map/
 render_with_liquid: true
+themes:
+  - name: 电气工程
+    desc: 电气专业基础数理课、电力系统与 EDA 硬件方向
+    posts:
+      - { t: "大学物理复习笔记（热学·光学·量子）", d: "热光量子核心公式笔记 PDF" }
+      - { t: "概率论与数理统计笔记", d: "概率统计公式笔记 PDF" }
+      - { t: "电磁场课程笔记", d: "电磁场核心公式笔记 PDF" }
+      - { t: "电气工程自学路线图", d: "电气专业分阶段自学路线与教材" }
+      - { t: "电力系统分析笔记", d: "潮流 · 短路 · 稳定性三大块" }
+      - { t: "嘉立创插件开发入门", d: "嘉立创 EDA 扩展插件从零入门" }
+  - name: 计算机科学
+    desc: 编程语言、CS 自学路线、安全与系统、从零造轮子
+    posts:
+      - { t: "C 语言学习笔记", d: "C 语言八章语法与易错点" }
+      - { t: "C 语言代码规范", d: "基于 CS50 的 C 代码风格" }
+      - { t: "计算机自学路线图", d: "非科班视角的 CS 自学路线" }
+      - { t: "CTF 学习之路", d: "CTF 五大方向与入门平台" }
+      - { t: "斯坦福大学计算机系课程目录（中文翻译）", d: "斯坦福 CS 全课程目录译注" }
+      - { t: "从零造轮子：build-your-own-x 指南", d: "500+ 造轮子教程全景与路线" }
+  - name: 大学成长
+    desc: 高中到大学的规划、升学与个人成长
+    posts:
+      - { t: "欢迎来到我的博客", d: "开博致辞与博客定位" }
+      - { t: "高考志愿填报指南", d: "志愿填报流程与选校选专业" }
+      - { t: "大学四年成长规划", d: "规划 · 实习 · 考研 · 就业" }
+      - { t: "在鲁山一高度过三年", d: "鲁山一高 24 届作息与封校纪实" }
+      - { t: "我的学习路线总结", d: "两年学习轨迹与能力版图" }
+      - { t: "如何学好英语", d: "工科生听说读写实用方法" }
+      - { t: "如何写一份好简历", d: "简历本质、八模块与排版" }
+      - { t: "考研备考规划", d: "四科分阶段复习规划" }
+  - name: 工具方法
+    desc: 软件教程、写作排版与效率技巧
+    posts:
+      - { t: "LaTeX 笔记模板分享", d: "三套可直接使用的模板" }
+      - { t: "如何用 LaTeX 写笔记", d: "LaTeX 记笔记快速上手" }
+      - { t: "LaTeX 入门教程", d: "环境 · 中文 · 公式 · 图表" }
+      - { t: "VSCode + GitHub 下的 LaTeX 多源文档协作", d: "多文件拆分与 Git 协作" }
+      - { t: "VS Code 配置文件管理", d: "用 Profile 隔离插件环境" }
+      - { t: "VS Code 实用插件推荐", d: "按语言场景的插件清单" }
+      - { t: "Markdown 入门教程", d: "语法对照表与博客实战" }
+      - { t: "Git 入门教程", d: "安装到分支合并的完整入门" }
+      - { t: "如何写好 Git 提交信息", d: "提交信息的七条黄金规则" }
+      - { t: "如何清理 Git 提交历史", d: "孤儿分支清空历史" }
+      - { t: "工科生的工具环境搭建", d: "VS Code/Git/LaTeX 工具链" }
+      - { t: "学习工具与网站推荐", d: "CS 自学资源分类清单" }
+      - { t: "命令行的艺术", d: "精选命令行技巧清单" }
+      - { t: "中文文案排版指北", d: "中英混排与标点规范" }
+  - name: 教育思考
+    desc: 学习理念、教育反思与读研思考
+    posts:
+      - { t: "通识教育：大学里缺失的课", d: "通识能力与多方向学习路线" }
+      - { t: "关于现代教育的思考", d: "课堂局限与自学能力" }
+      - { t: "县城里缺失的计算机课", d: "教育资源差距的亲历观察" }
+      - { t: "写给高中生的一些建议", d: "高中规划复习经验帖" }
+      - { t: "如何写读书笔记", d: "读书笔记四步法" }
+      - { t: "劝退还是劝进：读《给各位天命人的劝退信》", d: "读 jyy 劝退信，想清楚读研" }
 ---
 
 <div class="page-header-card">
-  <h1>博客地图</h1>
-  <p>以网络图形式展示全部 22 篇博客文章的主题归属关系，五大主题按颜色区分。</p>
+  <h1>星图</h1>
+  <p>全部 <strong>{{ site.posts | size }}</strong> 篇文章，按五大主题归档。每篇一行简介，方便速览定位；新文章按主题加入下方清单即可。</p>
+</div>
+
+<div class="content-wrap">
+  {% for theme in page.themes %}
+  <div class="theme-card">
+    <h2>{{ theme.name }} <span class="theme-count">{{ theme.posts | size }} 篇</span></h2>
+    <p class="theme-desc">{{ theme.desc }}</p>
+    <ul class="theme-list">
+      {% for item in theme.posts %}
+        {% assign p = site.posts | where: "title", item.t | first %}
+        <li>
+          {% if p %}
+          <a href="{{ p.url | relative_url }}" class="post-link">
+            <span class="post-name">{{ item.t }}</span>
+            <span class="post-desc">{{ item.d }}</span>
+          </a>
+          {% else %}
+          <span class="post-name">{{ item.t }}</span><span class="post-desc">（待发布）</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
 </div>
 
 <style>
   :root {
     --primary: #4a6fa5; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
     --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d;
-    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
   .page-header-card {
-    background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow);
-    backdrop-filter:blur(8px); max-width:1100px; margin:0 auto 30px; box-sizing:border-box;
+    background: var(--bg); padding: 35px 25px; border-radius: 12px; box-shadow: var(--shadow);
+    backdrop-filter: blur(8px); max-width: 1100px; margin: 0 auto 30px; box-sizing: border-box;
   }
-  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
-  .page-header-card p { color:var(--muted); margin:0; }
-
-  .content-wrap { max-width:1100px; margin:0 auto; }
-
-  .blog-map-card {
-    background:var(--bg); padding:30px; border-radius:12px;
-    box-shadow:var(--shadow); backdrop-filter:blur(8px); margin-bottom:30px;
+  .page-header-card h1 { font-size: 2em; border-bottom: 2px solid var(--primary); padding-bottom: .5em; color: var(--text); margin-top: 0; margin-bottom: .5em; }
+  .page-header-card p { color: var(--muted); margin: 0; }
+  .content-wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; }
+  .theme-card {
+    flex: 1 1 480px; background: var(--bg); padding: 24px 26px; border-radius: 12px;
+    box-shadow: var(--shadow); backdrop-filter: blur(8px); box-sizing: border-box;
   }
-  .blog-map-card h2 { color:var(--text); font-size:1.5em; margin:0 0 8px; padding-bottom:10px; border-bottom:2px solid var(--primary); }
-  .blog-map-card .map-desc { color:var(--muted); font-size:.95em; margin-bottom:25px; line-height:1.7; }
-
-  /* 图例 */
-  .legend { display:flex; flex-wrap:wrap; gap:20px; margin-bottom:20px; font-size:.85em; justify-content:center; }
-  .legend-item { display:flex; align-items:center; gap:6px; color:var(--muted); }
-  .legend-dot { width:16px; height:16px; border-radius:50%; flex-shrink:0; }
-
-  /* SVG 容器 */
-  .map-svg-wrap { overflow-x:auto; margin:0 -10px; padding:0 10px; }
-  .map-svg-wrap svg { min-width:960px; width:100%; }
-
-  /* 文章列表 */
-  .post-list-section { margin-top:20px; }
-  .theme-group { margin-bottom:28px; }
-  .theme-group h3 { font-size:1.15em; margin:0 0 12px; padding-left:14px; border-left:4px solid; }
-  .theme-group ul { list-style:none; padding:0; margin:0; }
-  .theme-group li { padding:8px 16px; margin:4px 0; border-radius:6px; transition:all .2s; }
-  .theme-group li:hover { background:rgba(74,111,165,0.06); }
-  .theme-group li a { color:var(--text); text-decoration:none; font-size:.95em; display:flex; align-items:center; gap:8px; }
-  .theme-group li a:hover { color:var(--primary); }
-  .theme-group li .post-date { color:var(--muted); font-size:.8em; margin-left:auto; }
-
-  @media (max-width:768px) {
-    .page-header-card { padding:25px 15px; margin:0 10px 25px; }
-    .blog-map-card { padding:20px 15px; }
-    .map-svg-wrap svg { min-width:700px; }
+  .theme-card h2 { font-size: 1.25em; color: var(--text); margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
+  .theme-count { font-size: .75em; color: var(--primary); font-weight: 600; }
+  .theme-desc { color: var(--muted); font-size: .88em; margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(74,111,165,.15); }
+  .theme-list { list-style: none; margin: 0; padding: 0; }
+  .theme-list li { padding: 7px 4px; border-bottom: 1px dashed rgba(0,0,0,.06); }
+  .theme-list li:last-child { border-bottom: none; }
+  .theme-list a { text-decoration: none; display: flex; align-items: baseline; gap: 12px; }
+  .post-name { color: var(--text); font-weight: 600; font-size: .95em; white-space: nowrap; }
+  .theme-list a:hover .post-name { color: var(--primary); }
+  .post-desc { color: var(--muted); font-size: .82em; }
+  @media (max-width: 768px) {
+    .page-header-card { padding: 25px 15px; margin: 0 10px 25px; }
+    .content-wrap { display: block; }
+    .theme-card { margin: 0 10px 20px; }
+    .theme-list a { flex-direction: column; gap: 2px; }
   }
-  @media (prefers-color-scheme:dark) {
-    .page-header-card,.blog-map-card { background:var(--bg-dark); }
-    .page-header-card h1,.blog-map-card h2,.theme-group li a { color:var(--text-light); }
-    .page-header-card p,.blog-map-card .map-desc,.legend-item { color:#bdc3c7; }
-    .theme-group li:hover { background:rgba(74,111,165,0.12); }
-    .theme-group li a:hover { color:#7fb3d5; }
+  @media (prefers-color-scheme: dark) {
+    .page-header-card, .theme-card { background: var(--bg-dark); }
+    .page-header-card h1, .theme-card h2 { color: var(--text-light); }
+    .page-header-card p, .theme-desc, .post-desc { color: #bdc3c7; }
+    .post-name { color: var(--text-light); }
+    .theme-list li { border-bottom-color: rgba(255,255,255,.06); }
   }
+  html.force-dark .page-header-card,
+  html.force-dark .theme-card { background: var(--bg-dark); }
+  html.force-dark .page-header-card h1,
+  html.force-dark .theme-card h2 { color: var(--text-light); }
+  html.force-dark .post-name { color: var(--text-light); }
 </style>
-
-<div class="content-wrap">
-
-  <!-- ==================== SVG 网络图 ==================== -->
-  <div class="blog-map-card">
-    <h2>📊 博客全貌网络图</h2>
-    <p class="map-desc">五大主题节点以不同颜色标识，每个主题下的子节点代表一篇文章，连线表示归属关系。主题节点之间以虚线连接，表示内容交叉与知识关联。</p>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#27ae60"></span> 电气工程</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#2980b9"></span> 计算机科学</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> 大学成长</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#8e44ad"></span> 工具方法</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> 教育思考</span>
-    </div>
-    <div class="map-svg-wrap">
-      <svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:rgba(74,111,165,0.03)"/>
-            <stop offset="100%" style="stop-color:rgba(142,68,173,0.03)"/>
-          </linearGradient>
-        </defs>
-
-        <!-- 背景 -->
-        <rect width="1000" height="560" fill="url(#bgGrad)" rx="8"/>
-
-        <!-- 主题间连线（虚线） -->
-        <line x1="180" y1="105" x2="380" y2="105" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>
-        <line x1="380" y1="105" x2="580" y2="105" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>
-        <line x1="580" y1="105" x2="780" y2="105" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>
-
-        <!-- ===== 列1：电气工程（绿 #27ae60）x=100 ===== -->
-        <circle cx="100" cy="100" r="30" fill="#27ae60" opacity="0.92"/>
-        <text x="100" y="96" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">电气</text>
-        <text x="100" y="110" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">工程</text>
-
-        <line x1="100" y1="130" x2="100" y2="175" stroke="#27ae60" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="100" cy="190" r="13" fill="#27ae60" opacity="0.45"/>
-        <text x="120" y="194" fill="#2c3e50" font-size="11">电气自学之路</text>
-
-        <line x1="100" y1="203" x2="100" y2="218" stroke="#27ae60" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="100" cy="233" r="13" fill="#27ae60" opacity="0.45"/>
-        <text x="120" y="237" fill="#2c3e50" font-size="11">电磁场笔记</text>
-
-        <line x1="100" y1="246" x2="100" y2="261" stroke="#27ae60" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="100" cy="276" r="13" fill="#27ae60" opacity="0.45"/>
-        <text x="120" y="280" fill="#2c3e50" font-size="11">大学物理笔记</text>
-
-        <line x1="100" y1="289" x2="100" y2="304" stroke="#27ae60" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="100" cy="319" r="13" fill="#27ae60" opacity="0.45"/>
-        <text x="120" y="323" fill="#2c3e50" font-size="11">概率论笔记</text>
-
-        <!-- ===== 列2：计算机科学（蓝 #2980b9）x=300 ===== -->
-        <circle cx="300" cy="100" r="30" fill="#2980b9" opacity="0.92"/>
-        <text x="300" y="96" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">计算机</text>
-        <text x="300" y="110" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">科学</text>
-
-        <line x1="300" y1="130" x2="300" y2="175" stroke="#2980b9" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="190" r="13" fill="#2980b9" opacity="0.45"/>
-        <text x="320" y="194" fill="#2c3e50" font-size="11">计算机自学之路</text>
-
-        <line x1="300" y1="203" x2="300" y2="218" stroke="#2980b9" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="233" r="13" fill="#2980b9" opacity="0.45"/>
-        <text x="320" y="237" fill="#2c3e50" font-size="11">C语言总结</text>
-
-        <line x1="300" y1="246" x2="300" y2="261" stroke="#2980b9" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="276" r="13" fill="#2980b9" opacity="0.45"/>
-        <text x="320" y="280" fill="#2c3e50" font-size="11">通识教育（学习路线部分）</text>
-
-        <line x1="300" y1="289" x2="300" y2="304" stroke="#2980b9" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="319" r="13" fill="#2980b9" opacity="0.45"/>
-        <text x="320" y="323" fill="#2c3e50" font-size="11">VS Code插件推荐</text>
-
-        <line x1="300" y1="332" x2="300" y2="347" stroke="#2980b9" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="362" r="13" fill="#2980b9" opacity="0.45"/>
-        <text x="320" y="366" fill="#2c3e50" font-size="11">VS Code插件管理</text>
-
-        <!-- ===== 列3：大学成长（橙 #f39c12）x=500 ===== -->
-        <circle cx="500" cy="100" r="30" fill="#f39c12" opacity="0.92"/>
-        <text x="500" y="96" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">大学</text>
-        <text x="500" y="110" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">成长</text>
-
-        <line x1="500" y1="130" x2="500" y2="175" stroke="#f39c12" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="500" cy="190" r="13" fill="#f39c12" opacity="0.45"/>
-        <text x="520" y="194" fill="#2c3e50" font-size="11">大学成长规划闲聊</text>
-
-        <line x1="500" y1="203" x2="500" y2="218" stroke="#f39c12" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="500" cy="233" r="13" fill="#f39c12" opacity="0.45"/>
-        <text x="520" y="237" fill="#2c3e50" font-size="11">我的学习路线</text>
-
-        <line x1="500" y1="246" x2="500" y2="261" stroke="#f39c12" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="500" cy="276" r="13" fill="#f39c12" opacity="0.45"/>
-        <text x="520" y="280" fill="#2c3e50" font-size="11">学习写简历</text>
-
-        <line x1="500" y1="289" x2="500" y2="304" stroke="#f39c12" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="500" cy="319" r="13" fill="#f39c12" opacity="0.45"/>
-        <text x="520" y="323" fill="#2c3e50" font-size="11">如何学习英语</text>
-
-        <line x1="500" y1="332" x2="500" y2="347" stroke="#f39c12" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="500" cy="362" r="13" fill="#f39c12" opacity="0.45"/>
-        <text x="520" y="366" fill="#2c3e50" font-size="11">现代教育</text>
-
-        <!-- ===== 列4：工具方法（紫 #8e44ad）x=700 ===== -->
-        <circle cx="700" cy="100" r="30" fill="#8e44ad" opacity="0.92"/>
-        <text x="700" y="96" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">工具</text>
-        <text x="700" y="110" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">方法</text>
-
-        <line x1="700" y1="130" x2="700" y2="175" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="190" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="194" fill="#2c3e50" font-size="11">LaTeX模板分享</text>
-
-        <line x1="700" y1="203" x2="700" y2="218" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="233" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="237" fill="#2c3e50" font-size="11">如何用LaTeX优雅写笔记</text>
-
-        <line x1="700" y1="246" x2="700" y2="261" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="276" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="280" fill="#2c3e50" font-size="11">工具环境的学习和使用</text>
-
-        <line x1="700" y1="289" x2="700" y2="304" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="319" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="323" fill="#2c3e50" font-size="11">GitHub仓库清理历史记录</text>
-
-        <line x1="700" y1="332" x2="700" y2="347" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="362" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="366" fill="#2c3e50" font-size="11">Markdown简明教程</text>
-
-        <line x1="700" y1="375" x2="700" y2="390" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="405" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="409" fill="#2c3e50" font-size="11">Git简明教程</text>
-
-        <line x1="700" y1="418" x2="700" y2="433" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="700" cy="448" r="13" fill="#8e44ad" opacity="0.45"/>
-        <text x="720" y="452" fill="#2c3e50" font-size="11">如何写好提交信息</text>
-
-        <!-- ===== 列5：教育思考（红 #e74c3c）x=900 ===== -->
-        <circle cx="900" cy="100" r="30" fill="#e74c3c" opacity="0.92"/>
-        <text x="900" y="96" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">教育</text>
-        <text x="900" y="110" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">思考</text>
-
-        <line x1="900" y1="130" x2="900" y2="175" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="900" cy="190" r="13" fill="#e74c3c" opacity="0.45"/>
-        <text x="920" y="194" fill="#2c3e50" font-size="11">给高中生学习建议</text>
-
-        <line x1="900" y1="203" x2="900" y2="218" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="900" cy="233" r="13" fill="#e74c3c" opacity="0.45"/>
-        <text x="920" y="237" fill="#2c3e50" font-size="11">高考志愿填报</text>
-
-        <line x1="900" y1="246" x2="900" y2="261" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="900" cy="276" r="13" fill="#e74c3c" opacity="0.45"/>
-        <text x="920" y="280" fill="#2c3e50" font-size="11">贫困县城计算机教育</text>
-
-        <line x1="900" y1="289" x2="900" y2="304" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="900" cy="319" r="13" fill="#e74c3c" opacity="0.45"/>
-        <text x="920" y="323" fill="#2c3e50" font-size="11">通识教育（非路线部分）</text>
-
-        <line x1="900" y1="332" x2="900" y2="347" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="900" cy="362" r="13" fill="#e74c3c" opacity="0.45"/>
-        <text x="920" y="366" fill="#2c3e50" font-size="11">鲁山一高三年</text>
-
-        <!-- 交叉连接示例 -->
-        <line x1="113" y1="190" x2="287" y2="190" stroke="#bdc3c7" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>
-        <line x1="513" y1="190" x2="687" y2="190" stroke="#bdc3c7" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>
-        <line x1="313" y1="233" x2="487" y2="319" stroke="#bdc3c7" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>
-        <line x1="713" y1="276" x2="887" y2="276" stroke="#bdc3c7" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- ==================== 文章按主题分组列表 ==================== -->
-  <div class="blog-map-card">
-    <h2>📋 文章按主题分组列表</h2>
-    <p class="map-desc">以下列出全部文章，按五大主题分类，点击标题可跳转阅读。</p>
-
-    <div class="post-list-section">
-
-      <!-- 电气工程 -->
-      <div class="theme-group">
-        <h3 style="border-left-color:#27ae60;">⚡ 电气工程</h3>
-        <ul>
-          <li><a href="{{ '/2026/08/08/电气自学之路/' | relative_url }}">电气自学之路 <span class="post-date">2026-08-08</span></a></li>
-          <li><a href="{{ '/2026/06/03/电磁场课程笔记/' | relative_url }}">电磁场笔记 <span class="post-date">2026-06-03</span></a></li>
-          <li><a href="{{ '/2026/02/23/大学物理(热学光学量子物理)笔记/' | relative_url }}">大学物理笔记 <span class="post-date">2026-02-23</span></a></li>
-          <li><a href="{{ '/2026/02/23/概率论与数理统计笔记/' | relative_url }}">概率论笔记 <span class="post-date">2026-02-23</span></a></li>
-        </ul>
-      </div>
-
-      <!-- 计算机科学 -->
-      <div class="theme-group">
-        <h3 style="border-left-color:#2980b9;">💻 计算机科学</h3>
-        <ul>
-          <li><a href="{{ '/2026/08/08/计算机自学之路/' | relative_url }}">计算机自学之路 <span class="post-date">2026-08-08</span></a></li>
-          <li><a href="{{ '/c-language-notes/' | relative_url }}">C语言总结 <span class="post-date">2026-02-10</span></a></li>
-          <li><a href="{{ '/2026/04/03/通识教育/' | relative_url }}">通识教育（学习路线部分） <span class="post-date">2026-04-03</span></a></li>
-          <li><a href="{{ '/2026/03/30/VScode插件推荐/' | relative_url }}">VS Code插件推荐 <span class="post-date">2026-03-30</span></a></li>
-          <li><a href="{{ '/2026/03/30/VScode插件管理/' | relative_url }}">VS Code插件管理 <span class="post-date">2026-03-30</span></a></li>
-        </ul>
-      </div>
-
-      <!-- 大学成长 -->
-      <div class="theme-group">
-        <h3 style="border-left-color:#f39c12;">🎓 大学成长</h3>
-        <ul>
-          <li><a href="{{ '/2026/08/06/大学成长规划闲聊/' | relative_url }}">大学成长规划闲聊 <span class="post-date">2026-08-06</span></a></li>
-          <li><a href="{{ '/2026/08/10/我的学习路线/' | relative_url }}">我的学习路线 <span class="post-date">2026-08-10</span></a></li>
-          <li><a href="{{ '/2026/08/12/学习写简历/' | relative_url }}">学习写简历 <span class="post-date">2026-08-12</span></a></li>
-          <li><a href="{{ '/2026/08/09/如何学习英语/' | relative_url }}">如何学习英语 <span class="post-date">2026-08-09</span></a></li>
-          <li><a href="{{ '/2026/06/23/现代教育/' | relative_url }}">现代教育 <span class="post-date">2026-06-23</span></a></li>
-        </ul>
-      </div>
-
-      <!-- 工具方法 -->
-      <div class="theme-group">
-        <h3 style="border-left-color:#8e44ad;">🛠️ 工具方法</h3>
-        <ul>
-          <li><a href="{{ '/2026/03/16/latex-template/' | relative_url }}">LaTeX模板分享 <span class="post-date">2026-03-16</span></a></li>
-          <li><a href="{{ '/2026/04/04/如何用LaTex优雅地写笔记/' | relative_url }}">如何用LaTeX优雅地写笔记 <span class="post-date">2026-04-04</span></a></li>
-          <li><a href="{{ '/2026/08/13/工具环境的学习和使用/' | relative_url }}">工具环境的学习和使用 <span class="post-date">2026-08-13</span></a></li>
-          <li><a href="{{ '/2026/07/16/GitHub仓库清理历史记录/' | relative_url }}">GitHub仓库清理历史记录 <span class="post-date">2026-07-16</span></a></li>
-          <li><a href="{{ '/2026/08/11/Markdown简明教程/' | relative_url }}">Markdown简明教程 <span class="post-date">2026-08-11</span></a></li>
-          <li><a href="{{ '/2026/08/15/Git简明教程/' | relative_url }}">Git简明教程 <span class="post-date">2026-08-15</span></a></li>
-          <li><a href="{{ '/2026/08/14/如何写好提交信息/' | relative_url }}">如何写好提交信息 <span class="post-date">2026-08-14</span></a></li>
-        </ul>
-      </div>
-
-      <!-- 教育思考 -->
-      <div class="theme-group">
-        <h3 style="border-left-color:#e74c3c;">📝 教育思考</h3>
-        <ul>
-          <li><a href="{{ '/2026/04/04/对高中生学习的一些建议/' | relative_url }}">给高中生学习建议 <span class="post-date">2026-04-04</span></a></li>
-          <li><a href="{{ '/2026/04/28/高考志愿填报的看法/' | relative_url }}">高考志愿填报 <span class="post-date">2026-04-28</span></a></li>
-          <li><a href="{{ '/2026/06/29/贫困县城缺失的计算机教育/' | relative_url }}">贫困县城计算机教育 <span class="post-date">2026-06-29</span></a></li>
-          <li><a href="{{ '/2026/04/03/通识教育/' | relative_url }}">通识教育（非学习路线部分） <span class="post-date">2026-04-03</span></a></li>
-          <li><a href="{{ '/2026/08/06/可供参考如何在鲁山一高度过三年/' | relative_url }}">鲁山一高三年 <span class="post-date">2026-08-06</span></a></li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-</div>

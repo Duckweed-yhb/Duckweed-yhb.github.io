@@ -3,6 +3,7 @@ layout: default
 ---
 
 <div class="page-content">
+  <div class="post-layout">
   <article class="post-container">
     <header class="post-header">
       <h1 class="post-title">{{ page.title | escape }}</h1>
@@ -36,15 +37,9 @@ layout: default
       {% endif %}
     </header>
 
-    <!-- 正文 + 右侧章节目录（flex 三栏布局，互不重叠） -->
-    <div class="post-body">
-      <div class="post-content">
+    <!-- 正文内容（文章卡片内，与右侧目录彻底分离） -->
+    <div class="post-content">
         {{ content }}
-      </div>
-      <aside class="post-toc-container" id="post-toc">
-        <div class="post-toc-toggle" onclick="document.getElementById('post-toc').classList.toggle('open')">📑 目录</div>
-        <nav class="post-toc-nav" id="toc-nav"></nav>
-      </aside>
     </div>
 
     <!-- ========== 系列导航 ========== -->
@@ -131,21 +126,24 @@ layout: default
 
     <!-- ========== TOC 章节目录 + 阅读进度条 样式和脚本 ========== -->
     <style>
-    /* 正文 + 右侧章节目录：双栏布局，目录栏与正文完全分开、永不重叠 */
-    .post-body {
+    /* ===== 布局：文章卡片 + 右侧独立目录容器（彻底分开、永不叠加） ===== */
+    .post-layout {
       display: flex;
-      gap: 40px;
+      gap: 36px;
       align-items: flex-start;
+      justify-content: center;
     }
-    .post-body .post-content {
-      flex: 1;
-      min-width: 0; /* 防止长代码块/表格撑破列宽 */
-      max-width: 100%;
-      box-sizing: border-box;
+    .post-layout .post-container {
+      flex: 1 1 0;
+      min-width: 0; /* 防止长代码/表格撑破布局 */
+      max-width: 920px !important; /* 正文阅读宽度上限，右侧留出目录空间 */
+      margin: 0 0 25px;
     }
+    /* 右侧独立目录容器：文章卡片之外、整篇文章右侧，固定宽度的单独容器 */
     .post-toc-container {
-      width: 260px;
-      flex-shrink: 0;
+      flex: 0 0 240px;
+      width: 240px;
+      box-sizing: border-box;
       position: sticky;
       top: 90px;
       max-height: calc(100vh - 120px);
@@ -189,15 +187,15 @@ layout: default
     .post-toc-nav a.toc-h2 { padding-left: 12px; }
     .post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
 
-    /* 窄屏（<=1280px）：横向空间不足（左侧导航已占 260px），目录收起为一行折叠块（不悬浮、不覆盖正文） */
+    /* 窄屏（<=1280px）：横向空间不足，目录收起为一行折叠块（不悬浮、不覆盖正文） */
     @media (max-width: 1280px) {
-      .post-body { display: flex; flex-direction: column; }
+      .post-layout { display: flex; flex-direction: column; }
       .post-toc-container {
-        order: -1; /* 默认只占一行，位于正文上方，展开时向下推正文 */
+        order: -1; /* 默认只占一行，展开时向下推正文 */
         position: static;
         width: 100%;
         max-height: none;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
       }
       .post-toc-toggle { display: block; }
       .post-toc-toggle::after { content: ' ▾'; }
@@ -260,4 +258,10 @@ layout: default
     });
     </script>
   </article>
+  <!-- 右侧独立目录容器：与文章卡片分离，位于整篇文章右侧 -->
+  <aside class="post-toc-container" id="post-toc">
+    <div class="post-toc-toggle" onclick="document.getElementById('post-toc').classList.toggle('open')">📑 目录</div>
+    <nav class="post-toc-nav" id="toc-nav"></nav>
+  </aside>
+  </div><!-- /.post-layout -->
 </div>
