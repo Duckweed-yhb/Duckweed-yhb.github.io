@@ -16,6 +16,7 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-09-06 | [算法竞赛入门资源推荐](https://duckweed-yhb.github.io/2026/09/06/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8/) |
 | 2026-08-29 | [劝退还是劝进：读《给各位天命人的劝退信》](https://duckweed-yhb.github.io/2026/08/29/%E8%AF%BB%E3%80%8A%E7%BB%99%E5%90%84%E4%BD%8D%E5%A4%A9%E5%91%BD%E4%BA%BA%E7%9A%84%E5%8A%9D%E9%80%80%E4%BF%A1%E3%80%8B/) |
 | 2026-08-28 | [从零造轮子：build-your-own-x 指南](https://duckweed-yhb.github.io/2026/08/28/build-your-own-x/) |
 | 2026-08-27 | [VSCode + GitHub 下的 LaTeX 多源文档协作](https://duckweed-yhb.github.io/2026/08/27/VSCode%2BGitHub%20%E4%B8%8B%E7%9A%84%20LaTeX%20%E5%A4%9A%E6%BA%90%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C/) |
@@ -23,7 +24,6 @@
 | 2026-08-25 | [嘉立创插件开发入门](https://duckweed-yhb.github.io/2026/08/25/%E5%98%89%E7%AB%8B%E5%88%9B%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/) |
 | 2026-08-24 | [如何写读书笔记](https://duckweed-yhb.github.io/2026/08/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B/) |
 | 2026-08-23 | [命令行的艺术](https://duckweed-yhb.github.io/2026/08/23/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E8%89%BA%E6%9C%AF/) |
-| 2026-08-22 | [考研备考规划](https://duckweed-yhb.github.io/2026/08/22/%E8%80%83%E7%A0%94%E5%A4%87%E8%80%83%E5%85%A8%E6%94%BB%E7%95%A5/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -74,7 +74,8 @@
 │   ├── 2026-08-24-读书笔记模板与示例.md
 │   ├── 2026-08-25-嘉立创插件开发入门.md
 │   ├── 2026-08-26-中文文案排版指北.md
-│   └── 2026-08-29-读《给各位天命人的劝退信》.md
+│   ├── 2026-08-29-读《给各位天命人的劝退信》.md
+│   └── 2026-09-06-算法竞赛入门.md
 ├── assets
 │   ├── css
 │   │   ├── main.css
@@ -111,7 +112,7 @@
 ```
 
 ---
-> 最后更新：2026-09-05 10:52:59 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-05 16:42:44 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
