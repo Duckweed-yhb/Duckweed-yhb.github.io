@@ -16,6 +16,7 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-09-11 | [计算机安全新人大礼包：xp0int 战队新生指南](https://duckweed-yhb.github.io/2026/09/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E6%96%B0%E4%BA%BA%E5%A4%A7%E7%A4%BC%E5%8C%85/) |
 | 2026-09-11 | [计算机科学自学路线：roadmap.sh CS Roadmap](https://duckweed-yhb.github.io/2026/09/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E8%87%AA%E5%AD%A6%E8%B7%AF%E7%BA%BF%E5%9B%BE/) |
 | 2026-09-09 | [计算机修仙境界](https://duckweed-yhb.github.io/2026/09/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%AE%E4%BB%99%E5%A2%83%E7%95%8C/) |
 | 2026-09-08 | [华科开放原子开源俱乐部申请指南](https://duckweed-yhb.github.io/2026/09/08/%E5%8D%8E%E7%A7%91%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E6%BA%90%E4%BF%B1%E4%B9%90%E9%83%A8%E7%94%B3%E8%AF%B7%E6%8C%87%E5%8D%97/) |
@@ -23,7 +24,6 @@
 | 2026-08-30 | [一些有趣的活动和比赛](https://duckweed-yhb.github.io/2026/08/30/%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E6%B4%BB%E5%8A%A8%E5%92%8C%E6%AF%94%E8%B5%9B/) |
 | 2026-08-29 | [劝退还是劝进：读《给各位天命人的劝退信》](https://duckweed-yhb.github.io/2026/08/29/%E8%AF%BB%E3%80%8A%E7%BB%99%E5%90%84%E4%BD%8D%E5%A4%A9%E5%91%BD%E4%BA%BA%E7%9A%84%E5%8A%9D%E9%80%80%E4%BF%A1%E3%80%8B/) |
 | 2026-08-28 | [从零造轮子：build-your-own-x 指南](https://duckweed-yhb.github.io/2026/08/28/build-your-own-x/) |
-| 2026-08-27 | [VSCode + GitHub 下的 LaTeX 多源文档协作](https://duckweed-yhb.github.io/2026/08/27/VSCode%2BGitHub%20%E4%B8%8B%E7%9A%84%20LaTeX%20%E5%A4%9A%E6%BA%90%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -79,6 +79,7 @@
 │   ├── 2026-09-06-算法竞赛入门.md
 │   ├── 2026-09-08-华科开放原子开源俱乐部申请指南.md
 │   ├── 2026-09-09-计算机修仙境界.md
+│   ├── 2026-09-11-计算机安全新人大礼包.md
 │   └── 2026-09-11-计算机科学自学路线图.md
 ├── assets
 │   ├── css
@@ -115,7 +116,7 @@
 ```
 
 ---
-> 最后更新：2026-09-11 13:24:33 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-11 14:30:19 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
