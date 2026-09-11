@@ -99,8 +99,7 @@
 │   │   ├── bilibili.svg
 │   │   ├── github.svg
 │   │   └── zhihu.svg
-│   ├── pdf
-│   └── videos
+│   └── pdf
 ├── index.html
 ├── pages
 │   ├── archive.html
@@ -116,7 +115,7 @@
 ```
 
 ---
-> 最后更新：2026-09-11 13:00:44 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-11 13:12:37 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
