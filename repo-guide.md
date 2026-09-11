@@ -21,24 +21,19 @@ render_with_liquid: true
 ├── _data/
 │   ├── friends.yml
 │   ├── navigation.yml
+│   ├── series.yml
 │   └── social.yml
 ├── _includes/
 │   ├── footer.html
 │   ├── head.html
-│   ├── header.html
+│   ├── header.html（已废弃，导航移入 sidebar.html）
 │   ├── search.html
+│   ├── sidebar.html
 │   └── social.html
 ├── _layouts/
 │   ├── default.html
 │   └── post.html
-├── _posts/
-│   ├── 2026-02-10-c语言笔记汇总.md
-│   ├── 2026-02-21-Welcome to Duckweed's Space.md
-│   ├── 2026-02-23-大学物理(热学光学量子物理)笔记.md
-│   ├── 2026-02-23-概率论与数理统计笔记.md
-│   ├── 2026-03-16-latex-template.md
-│   ├── 2026-03-30-VScode插件管理.md
-│   └── 2026-03-30-VScode插件推荐.md
+├── _posts/                    （YYYY-MM-DD-文章标题.md，共 46+ 篇）
 ├── .github/
 │   ├── workflows/
 │   │   ├── pages-jekyll.yml
@@ -46,29 +41,12 @@ render_with_liquid: true
 │   └── dependabot.yml
 ├── assets/
 │   ├── css/
-│   │   ├── custom-bg.css
-│   │   ├── header.css
-│   │   └── main.css
-│   ├── images/
-│   │   ├── bg.jpg
-│   │   ├── 2026-03-30-1.png
-│   │   ├── 2026-03-30-2.png
-│   │   ├── 2026-03-30-3.png
-│   │   ├── 2026-03-30-4.png
-│   │   ├── 2026-03-30-5.png
-│   │   ├── 2026-03-30-6.png
-│   │   ├── bilibili.svg
-│   │   ├── github.svg
-│   │   ├── probability-notes-cover.jpg
-│   │   ├── university-physics-notes(thermal-optics-quantum).jpg
-│   │   └── zhihu.svg
-│   ├── js/
-│   ├── pdf/
-│   │   ├── electromagnetic-field-notes.pdf
-│   │   ├── probability-and-statistics-notes.pdf
-│   │   └── university-physics(thermal-optics-quantum).pdf
-│   └── videos/
-│       └── background.mp4
+│   │   ├── layout.css
+│   │   ├── main.css
+│   │   └── sidebar.css
+│   ├── images/                （背景图、封面、社交图标、文章配图）
+│   ├── js/                    （预留目录）
+│   └── pdf/                   （课程笔记 PDF 源文件）
 ├── pages/
 │   ├── about.html
 │   ├── archive.html
@@ -76,6 +54,7 @@ render_with_liquid: true
 │   ├── contribute.html
 │   ├── course-map.html
 │   ├── en-about.html
+│   ├── en-home.html
 │   ├── exhibition.html
 │   ├── friends.html
 │   ├── future.html
@@ -84,15 +63,18 @@ render_with_liquid: true
 │   └── generate_readme.py
 ├── templates/
 │   └── README.template.md
-├── _config.yml
+├── .gitignore
 ├── 404.html
 ├── favicon.png
 ├── Gemfile
-├── index.md
+├── index.html
+├── manifest.json
 ├── README.md
 ├── repo-guide.md
 ├── requirements.txt
-└── search.json
+├── robots.txt
+├── search.json
+└── sw.js
 ```
 
 ---
@@ -108,7 +90,8 @@ render_with_liquid: true
 | 文件名 | 作用 |
 | :--- | :--- |
 | `friends.yml` | 友链页面数据配置，管理友链名称、链接、描述 |
-| `navigation.yml` | 导航栏菜单配置，控制顶部导航的栏目、顺序、链接 |
+| `navigation.yml` | 侧边栏菜单配置，控制侧边导航的栏目、顺序、链接 |
+| `series.yml` | 文章系列配置，定义系列名、描述与成员文章，驱动文章页底部「系列导航」 |
 | `social.yml` | 社交账号链接配置，管理页脚/侧边栏的社交图标与跳转地址 |
 
 #### 2. `_includes/`（页面可复用组件）
@@ -119,8 +102,9 @@ render_with_liquid: true
 | :--- | :--- |
 | `footer.html` | 全站页脚组件，包含版权信息、备案号、社交图标等 |
 | `head.html` | 页面头部元信息，包含 SEO 标签、样式引入、JS 加载等 |
-| `header.html` | 导航栏组件，控制顶部菜单的渲染逻辑、移动端适配 |
+| `header.html` | 已废弃：导航移入 `sidebar.html`，此文件仅为占位保留 |
 | `search.html` | 站内搜索框组件，实现文章检索功能 |
+| `sidebar.html` | 侧边栏组件：站名 logo、搜索框、导航菜单、明暗切换、移动端菜单按钮 |
 | `social.html` | 社交图标组件，统一渲染各平台的社交链接 |
 
 #### 3. `_layouts/`（页面布局模板）
@@ -158,17 +142,16 @@ render_with_liquid: true
 
 | 文件名 | 作用 |
 | :--- | :--- |
-| `custom-bg.css` | 自定义背景样式，控制页面背景图、视频、透明度等 |
-| `header.css` | 导航栏专属样式，控制导航栏的布局、配色、交互效果 |
+| `layout.css` | 星空背景、侧边栏浮层等布局层样式 |
 | `main.css` | 全站核心样式，定义全局字体、配色、排版、响应式布局 |
+| `sidebar.css` | 侧边栏专属样式，控制侧边栏的布局、配色、交互效果 |
 
 ##### 6.2 `assets/images/`（图片资源）
 
 存放博客封面、文章配图、图标等所有图片资源
 
-| 文件名 | 作用 |
-| :--- | :--- |
-| `bg.jpg` | 网站背景图 |
+| `bg.jpg` | 网站背景图 / 站点 logo |
+| `2026-*.png` | 各文章内嵌配图（按日期命名） |
 | `bilibili.svg` / `github.svg` / `zhihu.svg` | 各社交平台图标 |
 | `probability-notes-cover.jpg` | 概率论笔记文章封面图 |
 | `university-physics-notes(thermal-optics-quantum).jpg` | 大学物理笔记文章封面图 |
@@ -183,17 +166,9 @@ render_with_liquid: true
 
 | 文件名 | 作用 |
 | :--- | :--- |
+| `electromagnetic-field-notes.pdf` | 电磁场与电磁波笔记 PDF 源文件 |
 | `probability-and-statistics-notes.pdf` | 概率论与数理统计笔记 PDF 源文件 |
 | `university-physics(thermal-optics-quantum).pdf` | 大学物理笔记 PDF 源文件 |
-| `electromagnetic-field-notes.pdf` | 电磁场与电磁波笔记 PDF 源文件 |
-
-##### 6.5 `assets/videos/`（视频资源）
-
-存放视频类静态资源，当前包含网站背景视频
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `background.mp4` | 网站背景视频（可替代静态背景图） |
 
 #### 7. `pages/`（独立页面文件）
 
@@ -211,6 +186,7 @@ render_with_liquid: true
 | `blog-map.html` | 「博客地图」页面，SVG 网络图展示全部文章按五大主题分组的归属与关联 |
 | `contribute.html` | 「投稿/贡献指南」页面，说明投稿方式、格式要求和联系方式 |
 | `en-about.html` | 英文版「关于我」页面（`/en/about/`），多语言支持起步 |
+| `en-home.html` | 英文版首页（`/en/`），与中文首页结构一致 |
 
 #### 8. `scripts/`（自动化脚本）
 
@@ -238,13 +214,15 @@ render_with_liquid: true
 | `404.html` | 404 错误页面，访问不存在的链接时展示，样式简洁居中 | ⭐⭐ |
 | `favicon.png` | 浏览器标签页显示的网站图标，提升辨识度 | ⭐ |
 | `Gemfile` | Ruby 依赖配置，指定 Jekyll 及相关插件版本，本地运行博客依赖此文件 | ⭐⭐⭐ |
-| `index.md` | 博客首页入口，控制首页文章列表、快速导航、欢迎语等展示逻辑 | ⭐⭐⭐⭐ |
+| `index.html` | 博客首页入口，控制首页文章列表、快速导航、欢迎语等展示逻辑 | ⭐⭐⭐⭐ |
 | `README.md` | GitHub 仓库首页展示的说明文档，由脚本自动生成并更新 | ⭐ |
 | `repo-guide.md` | 本说明文件，用于快速查阅仓库结构与 Debug 定位 | ⭐⭐⭐ |
 | `requirements.txt` | Python 依赖配置，指定 `generate_readme.py` 等脚本所需的 Python 库（如 pyyaml） | ⭐⭐⭐ |
 | `search.json` | 站内搜索索引文件，由 Jekyll 自动生成，用于实现文章检索功能 | ⭐⭐ |
 | `.gitignore` | Git 忽略文件规则，指定无需提交到 GitHub 的文件（如本地缓存、临时文件） | ⭐⭐⭐ |
-| `CNAME` | 自定义域名配置，指定博客绑定的自定义域名，删除后域名无法访问 | ⭐⭐⭐⭐ |
+| `sw.js` | Service Worker 脚本：静态资源离线缓存，页面导航请求 network-first | ⭐⭐ |
+| `manifest.json` | PWA 配置，站点名称/主题色/图标（建议补 192/512 尺寸图标） | ⭐ |
+| `robots.txt` | 爬虫规则，指向 sitemap.xml | ⭐ |
 
 ---
 
@@ -257,12 +235,11 @@ render_with_liquid: true
 | 文章不显示/不更新 | `_posts/` 文件名格式、Front Matter 语法、文章日期 | `_config.yml` 构建配置 |
 | 图片不显示/样式错乱 | `assets/` 资源路径、文件名大小写、`assets/css/` 样式文件 | 文章内图片链接、`_config.yml` 资源路径配置 |
 | 部署失败/构建报错 | `_config.yml` 语法（缩进/冒号）、`.github/workflows/pages-jekyll.yml` | `Gemfile` 依赖版本 |
-| 导航栏/页脚异常 | `_includes/header.html`/`footer.html`、`_data/navigation.yml`/`social.yml` | `_layouts/default.html` 模板 |
+| 导航栏/页脚异常 | `_includes/sidebar.html`/`footer.html`、`_data/navigation.yml`/`social.yml` | `_layouts/default.html` 模板 |
 | 页面结构错乱 | `_layouts/default.html`/`post.html` | `_includes/` 组件引用 |
 | 独立页面（关于/友链）异常 | `pages/` 对应页面文件、`_data/friends.yml` | `_layouts/` 页面布局 |
 | 自动化脚本运行失败 | `scripts/generate_readme.py`、`requirements.txt` | `templates/README.template.md` |
-| 域名无法访问 | 根目录 `CNAME` 文件、DNS 解析配置 | GitHub Pages 域名设置 |
-| 搜索功能失效 | `search.json` 索引、`_includes/search.html` 组件 | `_config.yml` 搜索插件配置 |
+| 搜索功能失效 | `search.json` 索引、`_layouts/default.html` 侧边栏搜索脚本 | `_config.yml` 搜索配置 |
 
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: none
 permalink: /search.json
+render_with_liquid: true
 ---
 [
   {% assign items = "" | split: "" %}
@@ -15,7 +16,7 @@ permalink: /search.json
   {% for item in items %}
   {
     "title"    : {{ item.title | strip | jsonify }},
-    "category" : {{ item.category | strip | jsonify }},
+    "category" : {{ item.categories[0] | default: '' | jsonify }},
     "tags"     : {{ item.tags | join: ', ' | strip | jsonify }},
     "content"  : {{ item.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }},
     "url"      : {{ item.url | relative_url | jsonify }},

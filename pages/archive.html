@@ -297,5 +297,17 @@ render_with_liquid: true
 
     // 初始化默认标签（确保第一个标签激活）
     switchTab('time');
+
+    // 根据 URL hash 自动切换到对应索引（支持文章页 #cat-xxx / #tag-xxx 锚点跳转）
+    function activateFromHash() {
+      var hash = window.location.hash || '';
+      var m = hash.match(/^#(cat|tag)-/);
+      if (!m) return;
+      switchTab(m[1] === 'cat' ? 'category' : 'tag');
+      var target = document.getElementById(hash.slice(1));
+      if (target) setTimeout(function(){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+    }
+    activateFromHash();
+    window.addEventListener('hashchange', activateFromHash);
   });
 </script>

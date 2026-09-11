@@ -1,5 +1,5 @@
 // Service Worker - 离线缓存支持
-var CACHE_NAME = 'xingyu-cache-v1';
+var CACHE_NAME = 'xingyu-cache-v2';
 var urlsToCache = [
   '/',
   '/assets/css/main.css',
@@ -34,10 +34,31 @@ self.addEventListener('activate', function(event) {
   self.clients.claim();
 });
 
-// 请求拦截：缓存优先，回退到网络
+// 请求拦截：页面导航请求 network-first（保证更新及时可见），静态资源 cache-first
 self.addEventListener('fetch', function(event) {
   // 只处理 GET 请求
   if (event.request.method !== 'GET') return;
+
+  // 页面导航请求：优先网络，保证用户总能看到最新内容
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).then(function(response) {
+        if (response && response.status === 200) {
+          var responseClone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return response;
+      }).catch(function() {
+        // 网络失败（如离线）时回退到缓存
+        return caches.match(event.request).then(function(cached) {
+          return cached || caches.match('/');
+        });
+      })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then(function(cached) {
@@ -53,10 +74,7 @@ self.addEventListener('fetch', function(event) {
         });
         return response;
       }).catch(function() {
-        // 网络失败时，如果是导航请求，返回首页缓存
-        if (event.request.mode === 'navigate') {
-          return caches.match('/');
-        }
+        return undefined;
       });
     })
   );

@@ -75,9 +75,16 @@
           results.style.display = 'none';
           return;
         }
+        // 标题匹配（权重最高），其余命中标签/分类/正文内容
         var matched = searchData.filter(function(p) {
           var t = (p.title || '').toLowerCase();
-          return t.indexOf(kw) !== -1;
+          var c = ((p.category || '') + ' ' + (p.tags || '')).toLowerCase();
+          var b = (p.content || '').toLowerCase();
+          return t.indexOf(kw) !== -1 || c.indexOf(kw) !== -1 || b.indexOf(kw) !== -1;
+        }).sort(function(a, b2) {
+          var ta = (a.title || '').toLowerCase().indexOf(kw);
+          var tb = (b2.title || '').toLowerCase().indexOf(kw);
+          return (ta === -1 ? 1 : 0) - (tb === -1 ? 1 : 0);
         });
         if (!matched.length) {
           results.innerHTML = '<div class="no-results">未找到匹配内容</div>';
@@ -162,7 +169,7 @@
   </script>
 
   {% if page.math %}
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- MathJax 配置必须在脚本加载之前定义，否则 v3 不会读取 -->
   <script>
     MathJax = {
       tex: {
@@ -185,6 +192,7 @@
       }
     };
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   {% endif %}
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 

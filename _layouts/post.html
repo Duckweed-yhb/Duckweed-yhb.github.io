@@ -10,12 +10,12 @@ layout: default
       <p class="post-meta">
         {{ page.date | date: "%Y-%m-%d" }} • {{ page.author | default: site.author }}
         {%- if page.categories.size > 0 -%}
-          • <span class="post-category"><a href="{{ '/categories/' | relative_url }}{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
+          • <span class="post-category"><a href="{{ '/archive/' | relative_url }}#cat-{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
         {%- endif -%}
         {%- if page.tags.size > 0 -%}
           • <span class="post-tags">
             {%- for tag in page.tags -%}
-              <a href="{{ '/tags/' | relative_url }}{{ tag | slugify }}">{{ tag }}</a>{%- unless forloop.last %}, {% endunless -%}
+              <a href="{{ '/archive/' | relative_url }}#tag-{{ tag | slugify }}">{{ tag }}</a>{%- unless forloop.last %}, {% endunless -%}
             {%- endfor -%}
           </span>
         {%- endif -%}
@@ -65,9 +65,14 @@ layout: default
         {% assign ns_normalized = post_url | remove: '/' %}
         {% assign pg_normalized = page.url | remove: '/' %}
         {% if ns_normalized == pg_normalized %}
-          <span style="padding:6px 14px; border-radius:20px; background:#4a6fa5; color:#fff; font-size:.85em; font-weight:600;">{{ forloop.index }}. 当前</span>
+          <span style="padding:6px 14px; border-radius:20px; background:#4a6fa5; color:#fff; font-size:.85em; font-weight:600;">{{ forloop.index }}. 本文</span>
         {% else %}
-          <a href="{{ post_url | relative_url }}" style="padding:6px 14px; border-radius:20px; border:1px solid #ddd; color:#2c3e50; text-decoration:none; font-size:.85em; transition:all .3s;">{{ forloop.index }}.&nbsp;</a>
+          {% assign series_post_title = '' %}
+          {% for p in site.posts %}
+            {% assign p_normalized = p.url | remove: '/' %}
+            {% if p_normalized == ns_normalized %}{% assign series_post_title = p.title %}{% endif %}
+          {% endfor %}
+          <a href="{{ post_url | relative_url }}" style="padding:6px 14px; border-radius:20px; border:1px solid #ddd; color:#2c3e50; text-decoration:none; font-size:.85em; transition:all .3s;">{{ forloop.index }}. {{ series_post_title }}</a>
         {% endif %}
       {% endfor %}
       </div>
@@ -86,7 +91,9 @@ layout: default
           {% if post.categories contains cat %}{% assign score = score | plus: 2 %}{% endif %}
         {% endfor %}
         {% if score >= 3 %}
-          {% capture item %}{{ score }}|{{ post.title | escape }}|{{ post.url }}|{{ post.date | date: "%Y-%m-%d" }}{% endcapture %}
+          {% comment %} 分数补零为 3 位，保证字符串排序与数值排序一致（如 010 排在 003 之后） {% endcomment %}
+          {% capture score_str %}{% if score < 10 %}00{{ score }}{% elsif score < 100 %}0{{ score }}{% else %}{{ score }}{% endif %}{% endcapture %}
+          {% capture item %}{{ score_str }}|{{ post.title | escape }}|{{ post.url }}|{{ post.date | date: "%Y-%m-%d" }}{% endcapture %}
           {% assign related_posts = related_posts | push: item %}
         {% endif %}
       {% endif %}
