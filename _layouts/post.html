@@ -133,26 +133,24 @@ layout: default
 
     <!-- ========== TOC 章节目录 + 阅读进度条 样式和脚本 ========== -->
     <style>
-    /* ===== 布局：文章卡片 + 右侧独立目录容器（彻底分开、永不叠加） ===== */
+    /* ===== 布局：正文卡片在页面正中，目录吸附于右侧边缘（不占版心） ===== */
     .post-layout {
-      display: flex;
-      gap: 36px;
-      align-items: flex-start;
-      justify-content: center;
+      display: block;
     }
     .post-layout .post-container {
-      flex: 1 1 0;
+      margin: 0 auto 25px;
       min-width: 0; /* 防止长代码/表格撑破布局 */
-      max-width: 920px !important; /* 正文阅读宽度上限，右侧留出目录空间 */
-      margin: 0 0 25px;
+      width: 100%;
+      max-width: 920px !important; /* 正文阅读宽度上限，保证居中呈现 */
     }
-    /* 右侧独立目录容器：文章卡片之外、整篇文章右侧，固定宽度的单独容器 */
+    /* 右侧目录：悬浮于视口右缘，不参与正文排版，正文保持绝对居中 */
     .post-toc-container {
-      flex: 0 0 240px;
+      position: fixed;
+      top: 90px;
+      right: 16px;
       width: 240px;
       box-sizing: border-box;
-      position: sticky;
-      top: 90px;
+      z-index: 5;
       max-height: calc(100vh - 120px);
       overflow-y: auto;
     }
@@ -194,15 +192,14 @@ layout: default
     .post-toc-nav a.toc-h2 { padding-left: 12px; }
     .post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
 
-    /* 窄屏（<=1280px）：横向空间不足，目录收起为一行折叠块（不悬浮、不覆盖正文） */
-    @media (max-width: 1280px) {
-      .post-layout { display: flex; flex-direction: column; }
+    /* 中窄屏（<=1400px）：右侧空间不足，目录收起为可折叠块置于正文上方，不再悬浮右缘 */
+    @media (max-width: 1400px) {
       .post-toc-container {
-        order: -1; /* 默认只占一行，展开时向下推正文 */
         position: static;
         width: 100%;
+        max-width: 920px !important;
+        margin: 0 auto 20px;
         max-height: none;
-        margin-bottom: 20px;
       }
       .post-toc-toggle { display: block; }
       .post-toc-toggle::after { content: ' ▾'; }

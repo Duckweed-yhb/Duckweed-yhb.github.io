@@ -1,6 +1,8 @@
 /* sidebar.css - 侧边导航栏专属样式 */
 
-/* ===== 侧边栏核心布局 ===== */
+/* ===== 侧边栏核心布局 =====
+   默认收起（左侧隐藏 off-canvas），点击 ☰ 按钮手动唤出，
+   全端（桌面/移动端）行为一致，不再常驻占用版面 */
 .site-sidebar {
   width: 260px;
   min-width: 260px;
@@ -16,7 +18,13 @@
   padding: 30px 0 20px;
   overflow-y: auto;
   box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+  transform: translateX(-100%);   /* 默认收起：整个侧边栏滑出屏幕 */
   transition: transform 0.3s ease;
+}
+
+/* 手动打开时滑入 */
+.site-sidebar.open {
+  transform: translateX(0);
 }
 
 /* ===== Logo 区域 ===== */
@@ -230,21 +238,36 @@
   background: rgba(74, 111, 165, 0.05);
 }
 
-/* ===== 移动端菜单按钮 ===== */
+/* ===== 唤出按钮（全端可见；侧边栏打开时变为 ✕） ===== */
 .sidebar-toggle {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 15px;
   left: 15px;
   z-index: 1001;
+  width: 42px;
+  height: 42px;
   background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 1.2em;
+  border: 1px solid rgba(74, 111, 165, 0.2);
+  border-radius: 10px;
+  font-size: 1.15em;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   color: #2c3e50;
+  transition: all 0.25s;
+}
+
+/* 侧边栏打开时按钮高亮为关闭态 */
+.site-sidebar.open ~ .sidebar-toggle,
+body:has(.site-sidebar.open) .sidebar-toggle {
+  transform: rotate(90deg);
+}
+
+.sidebar-toggle:hover {
+  border-color: #4a6fa5;
+  color: #4a6fa5;
 }
 
 .sidebar-overlay {
@@ -254,15 +277,21 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 999;
 }
 
-/* ===== 主要内容区域 ===== */
+/* 遮罩激活时显示（全端一致，点击遮罩可关闭侧边栏） */
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ===== 主要内容区域 =====
+   无侧边栏占位：内容卡片在整个页面视口中水平居中 */
 main.page-content {
   flex: 1;
-  margin-left: 260px;
-  padding: 40px;
+  margin-left: 0;
+  padding: 40px 24px;
   min-height: 100vh;
   position: relative;
   z-index: 1;
@@ -272,25 +301,8 @@ main.page-content {
 
 /* ===== 移动端适配 ===== */
 @media (max-width: 900px) {
-  .site-sidebar {
-    transform: translateX(-100%);
-  }
-
-  .site-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .sidebar-toggle {
-    display: block;
-  }
-
-  .sidebar-overlay.active {
-    display: block;
-  }
-
   main.page-content {
-    margin-left: 0;
-    padding: 20px 15px;
+    padding: 70px 15px 30px; /* 顶部留出 ☰ 按钮的高度 */
   }
 }
 

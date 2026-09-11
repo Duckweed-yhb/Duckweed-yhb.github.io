@@ -20,11 +20,16 @@
   </main>
 
   <script>
-    // 移动端侧边栏切换
+    // 侧边栏开合（默认收起，全端手动唤出）
     (function() {
       var toggle = document.getElementById('sidebar-toggle');
       var sidebar = document.getElementById('sidebar');
       var overlay = document.getElementById('sidebar-overlay');
+
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+      }
 
       if (toggle) {
         toggle.addEventListener('click', function() {
@@ -34,11 +39,20 @@
       }
 
       if (overlay) {
-        overlay.addEventListener('click', function() {
-          sidebar.classList.remove('open');
-          overlay.classList.remove('active');
-        });
+        overlay.addEventListener('click', closeSidebar);
       }
+
+      // 点击导航链接后自动收起（避免挡住新页面内容）
+      sidebar.querySelectorAll('.sidebar-link').forEach(function(link) {
+        link.addEventListener('click', closeSidebar);
+      });
+
+      // ESC 键也可关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+          closeSidebar();
+        }
+      });
     })();
 
     // 暗黑模式切换
