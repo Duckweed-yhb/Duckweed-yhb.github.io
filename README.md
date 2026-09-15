@@ -16,8 +16,8 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
-| 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
 | 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
+| 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
 | 2026-09-09 | [读《计算机修仙境界》：程序员的境界体系](https://duckweed-yhb.github.io/2026/09/09/读计算机修仙境界/) |
 | 2026-09-08 | [华科开源俱乐部申请流程（整理）](https://duckweed-yhb.github.io/2026/09/08/华科开源俱乐部申请指南/) |
 | 2026-09-06 | [算法竞赛入门：jyy 讲座整理](https://duckweed-yhb.github.io/2026/09/06/算法竞赛入门/) |
@@ -117,7 +117,7 @@
 ```
 
 ---
-> 最后更新：2026-09-14 02:32:47 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-15 02:36:34 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
