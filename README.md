@@ -16,19 +16,20 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-09-16 | [挖洞进入“许愿时代”：读 Hacking with LLMs](https://duckweed-yhb.github.io/2026/09/16/Hacking-with-LLMs/) |
+| 2026-09-12 | [编程面试大学：读 coding-interview-university](https://duckweed-yhb.github.io/2026/09/12/编程面试大学/) |
 | 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
 | 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
 | 2026-09-09 | [读《计算机修仙境界》：程序员的境界体系](https://duckweed-yhb.github.io/2026/09/09/读计算机修仙境界/) |
 | 2026-09-08 | [华科开源俱乐部申请流程（整理）](https://duckweed-yhb.github.io/2026/09/08/华科开源俱乐部申请指南/) |
 | 2026-09-06 | [算法竞赛入门：jyy 讲座整理](https://duckweed-yhb.github.io/2026/09/06/算法竞赛入门/) |
 | 2026-08-30 | [一些有趣的活动和比赛](https://duckweed-yhb.github.io/2026/08/30/%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E6%B4%BB%E5%8A%A8%E5%92%8C%E6%AF%94%E8%B5%9B/) |
-| 2026-08-29 | [劝退还是劝进：读《给各位天命人的劝退信》](https://duckweed-yhb.github.io/2026/08/29/%E8%AF%BB%E3%80%8A%E7%BB%99%E5%90%84%E4%BD%8D%E5%A4%A9%E5%91%BD%E4%BA%BA%E7%9A%84%E5%8A%9D%E9%80%80%E4%BF%A1%E3%80%8B/) |
-| 2026-08-28 | [从零造轮子：读 build-your-own-x](https://duckweed-yhb.github.io/2026/08/28/从零造轮子/) |
 
 ## 📂 项目结构（自动生成）
 ```
 ├── 404.html
 ├── Gemfile
+├── LICENSE
 ├── README.md
 ├── _data
 │   ├── friends.yml
@@ -81,7 +82,9 @@
 │   ├── 2026-09-08-华科开源俱乐部申请指南.md
 │   ├── 2026-09-09-读计算机修仙境界.md
 │   ├── 2026-09-11-CS路线图解读.md
-│   └── 2026-09-11-读xp0int新生指南.md
+│   ├── 2026-09-11-读xp0int新生指南.md
+│   ├── 2026-09-12-编程面试大学.md
+│   └── 2026-09-16-Hacking-with-LLMs.md
 ├── assets
 │   ├── css
 │   │   ├── main.css
@@ -117,7 +120,7 @@
 ```
 
 ---
-> 最后更新：2026-09-16 02:31:00 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-16 09:38:42 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
