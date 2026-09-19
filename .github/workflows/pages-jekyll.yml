@@ -43,7 +43,7 @@ jobs:
           LC_ALL: C.UTF-8  # 关键：强制UTF8编码，解决中文解析问题
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
