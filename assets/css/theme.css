@@ -1066,13 +1066,51 @@ html.force-dark .post-related {
   color: var(--violet) !important;
 }
 
-/* 页脚加一句收尾的诗（由 default/footer 提供，仅样式） */
+/* 页脚收尾的诗：两行对句 + 出处 */
 .footer-verse {
-  margin-top: 14px;
+  margin: 30px 0 6px;
+  padding: 18px 10px;
+  text-align: center;
+  position: relative;
+}
+
+.footer-verse::before {
+  content: "";
+  display: block;
+  width: min(360px, 70%);
+  height: 1px;
+  margin: 0 auto 16px;
+  background: var(--grad-hairline);
+}
+
+.footer-verse .verse-main {
   font-family: var(--font-kai);
-  font-size: 0.9em;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
+  font-size: 1.1em;
+  letter-spacing: 0.16em;
+  line-height: 1.9;
+  margin: 0;
+  background: var(--grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--blue) !important;
+}
+
+.footer-verse .verse-sub {
+  margin: 6px 0 0;
+  font-family: var(--font-kai);
+  font-size: 0.84em;
+  letter-spacing: 0.1em;
+  color: var(--text-muted) !important;
+}
+
+/* 页脚版权行的链接 */
+.footer-bottom a {
+  color: var(--blue) !important;
+}
+
+.footer-bottom a:hover {
+  color: var(--violet) !important;
 }
 
 /* -------------------------------------------------- 8. 全局小工具（注入式） */
@@ -1257,6 +1295,31 @@ html.force-dark .post-related {
 }
 
 /* --------------------------------------------------------------- 9. 响应式 */
+/* 关键修复：body 是 display:flex，main 作为 flex 子项默认 min-width:auto，
+   会被长代码行/宽表格撑开，导致手机端整页横向破版。置 0 才能正常收缩。 */
+main.page-content {
+  min-width: 0;
+}
+
+/* 窄屏：表格改为可横向滚动，避免 min-content 撑破布局
+   （只把 table 设为 block 滚动容器，内部行列表格结构不变，表头与单元格列宽仍对齐） */
+@media (max-width: 900px) {
+  .post-content table,
+  .page-card table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 代码块：窄屏下自身滚动，不参与撑宽 */
+  .post-content pre,
+  .page-card pre {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .post-nav {
     grid-template-columns: 1fr;
@@ -1282,7 +1345,74 @@ html.force-dark .post-related {
   }
 }
 
-/* ------------------------------------------------------------ 10. 打印样式 */
+/* ------------------------------------------------------------ 10. 404 页面 */
+/* 一颗走失的星 */
+.error-404 {
+  text-align: center;
+  max-width: 660px !important;
+  margin: 7vh auto 30px !important;
+  padding: 56px 28px 48px !important;
+}
+
+.error-404 .error-404-code {
+  font-family: var(--font-serif);
+  font-size: 4.6em;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  letter-spacing: 0.06em;
+  background: var(--grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--blue) !important;
+  border-bottom: none !important;
+}
+
+.error-404 .error-404-desc {
+  font-size: 1.05em;
+  color: var(--text-soft);
+  margin: 0 0 30px;
+}
+
+.error-404 .error-404-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.error-404 .error-404-actions a {
+  padding: 10px 26px;
+  border-radius: var(--radius-pill);
+  text-decoration: none !important;
+  font-size: 0.95em;
+  transition: all 0.26s ease;
+}
+
+.error-404 .error-404-actions a.btn-primary {
+  background: var(--grad-primary);
+  color: #fff !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.error-404 .error-404-actions a.btn-primary:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.error-404 .error-404-actions a.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--text) !important;
+  background: var(--paper-soft);
+}
+
+.error-404 .error-404-actions a.btn-ghost:hover {
+  border-color: rgba(122, 92, 240, 0.45);
+  color: var(--violet) !important;
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------ 11. 打印样式 */
 @media print {
   .starfield,
   .back-to-top,
