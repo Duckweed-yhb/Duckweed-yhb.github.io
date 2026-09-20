@@ -1,0 +1,176 @@
+/* ==========================================================================
+   theme-light.css —— 显式「浅色模式」覆盖层
+   仅在 <html class="force-light"> 时生效：用于抵消 layout.css / sidebar.css 中
+   @media (prefers-color-scheme: dark) 的深色规则。这样即使用户的系统是深色，
+   手动选择浅色也能真正生效（修复「点了浅色还是黑的」问题）。
+   本文件在默认状态下所有规则都不匹配，不会影响任何现有样式。
+   ========================================================================== */
+
+html.force-light {
+  /* 令牌回到浅色 */
+  --paper: rgba(255, 255, 255, 0.90);
+  --paper-soft: rgba(255, 255, 255, 0.74);
+  --paper-veil: rgba(255, 255, 255, 0.55);
+  --text-strong: #1b2033;
+  --text: #39415c;
+  --text-soft: #667089;
+  --text-muted: #8b93aa;
+  --line: rgba(74, 111, 165, 0.16);
+  --line-soft: rgba(74, 111, 165, 0.10);
+  --blue: #4a6fa5;
+  --blue-bright: #5b8dd6;
+}
+
+/* ---------------------------------------------------------- 卡片与文章正文 */
+html.force-light .page-card,
+html.force-light .post-container,
+html.force-light .page-header-card,
+html.force-light .category-list,
+html.force-light .tag-list,
+html.force-light .tag-cloud,
+html.force-light .site-footer {
+  background: rgba(255, 255, 255, 0.90) !important;
+}
+
+html.force-light .page-content h1,
+html.force-light .page-content h2,
+html.force-light .page-content h3,
+html.force-light .page-content h4,
+html.force-light .page-content p,
+html.force-light .page-content li,
+html.force-light .post-content,
+html.force-light .post-container .post-content {
+  color: #39415c;
+}
+
+html.force-light .post-container .post-title,
+html.force-light .page-content h1 {
+  color: #4a6fa5 !important;
+}
+
+html.force-light .page-content blockquote {
+  color: #667089;
+  border-left-color: rgba(122, 92, 240, 0.35);
+}
+
+html.force-light .page-content hr {
+  border-top-color: rgba(74, 111, 165, 0.16);
+}
+
+html.force-light .page-content a {
+  color: #4a6fa5;
+}
+
+html.force-light .community-intro {
+  color: #4a5a6a;
+}
+
+html.force-light .verse-banner {
+  background: linear-gradient(120deg, rgba(74, 111, 165, 0.08), rgba(122, 92, 240, 0.10));
+  border-color: rgba(122, 92, 240, 0.20);
+}
+
+html.force-light .verse-banner .verse-main {
+  color: #4a6fa5;
+}
+
+/* ------------------------------------------------------------------ 侧边栏 */
+html.force-light .site-sidebar {
+  background: rgba(255, 255, 255, 0.92) !important;
+}
+
+html.force-light .sidebar-logo {
+  color: #2c3e50;
+}
+
+html.force-light .sidebar-link {
+  color: #5a6a7a;
+}
+
+html.force-light .sidebar-link:hover {
+  background: rgba(74, 111, 165, 0.06);
+  color: #4a6fa5;
+}
+
+html.force-light .sidebar-link.active {
+  background: rgba(74, 111, 165, 0.10);
+  color: #4a6fa5;
+}
+
+html.force-light .sidebar-search input {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(74, 111, 165, 0.18);
+  color: #2c3e50;
+}
+
+html.force-light #sidebar-search-results {
+  background: #fff;
+}
+
+html.force-light #sidebar-search-results a {
+  color: #2c3e50;
+  border-bottom-color: #eee;
+}
+
+html.force-light #sidebar-search-results a:hover {
+  background: rgba(74, 111, 165, 0.06);
+}
+
+html.force-light .sidebar-tagline,
+html.force-light .sidebar-footer a,
+html.force-light .sidebar-footer button {
+  color: #7f8c8d;
+}
+
+html.force-light .sidebar-footer a,
+html.force-light .sidebar-footer button {
+  border-color: #e2e8f0;
+}
+
+html.force-light .sidebar-footer a:hover,
+html.force-light .sidebar-footer button:hover {
+  border-color: #4a6fa5;
+  color: #4a6fa5;
+}
+
+html.force-light .sidebar-header {
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+html.force-light .sidebar-footer {
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+html.force-light .sidebar-verse .verse-line {
+  color: #6a7a8a;
+}
+
+html.force-light .sidebar-verse .verse-author {
+  color: #95a5a6;
+}
+
+html.force-light .sidebar-toggle {
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+}
+
+/* ------------------------------------------------------ 目录卡片与进度条 */
+html.force-light .post-toc-nav,
+html.force-light .post-toc-toggle {
+  background: #fff !important;
+  border-color: rgba(74, 111, 165, 0.12) !important;
+}
+
+html.force-light .post-toc-nav a {
+  color: #667089 !important;
+}
+
+/* ------------------------------------------------------------ 自定义页面 */
+html.force-light .page-card table th {
+  background: #f0f7ff;
+  color: #2c3e50;
+}
+
+html.force-light .page-card table td {
+  border-color: #ebeef5;
+}

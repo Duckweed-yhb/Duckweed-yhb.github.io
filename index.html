@@ -15,18 +15,23 @@ render_with_liquid: true
   </div>
 
   <h2>最新文章</h2>
-  <ul>
+  <ul class="home-posts">
     {% for post in site.posts limit:6 %}
-      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-date">· {{ post.date | date: "%Y-%m-%d" }}</span></li>
+      <li>
+        <a class="home-post-link" href="{{ post.url | relative_url }}">
+          <span class="home-post-title">{{ post.title }}</span>
+          <span class="home-post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        </a>
+      </li>
     {% endfor %}
   </ul>
 
   <h2>探索本站</h2>
-  <ul>
-    <li><a href="{{ "/navigate/" | relative_url }}">导航</a> — 按你的身份与方向，找到属于你的入口</li>
-    <li><a href="{{ "/course-map/" | relative_url }}">课程地图</a> — 电气与计算机的课程先修脉络</li>
-    <li><a href="{{ "/blog-map/" | relative_url }}">博客地图</a> — 全部文章的主题归属总览</li>
-    <li><a href="{{ "/exhibition/" | relative_url }}">展览</a> — 我的项目、技能与书籍</li>
-    <li><a href="{{ "/about/" | relative_url }}">关于我</a> — 认识我，也认识星隅</li>
+  <ul class="home-explore">
+    <li><a class="home-explore-link" href="{{ "/navigate/" | relative_url }}"><span class="explore-title">导航</span><span class="explore-desc">按你的身份与方向，找到属于你的入口</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/course-map/" | relative_url }}"><span class="explore-title">课程地图</span><span class="explore-desc">电气与计算机的课程先修脉络</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/blog-map/" | relative_url }}"><span class="explore-title">博客地图</span><span class="explore-desc">全部文章的主题归属总览</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/exhibition/" | relative_url }}"><span class="explore-title">展览</span><span class="explore-desc">我的项目、技能与书籍</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/about/" | relative_url }}"><span class="explore-title">关于我</span><span class="explore-desc">认识我，也认识星隅</span></a></li>
   </ul>
 </div>

@@ -1,0 +1,1305 @@
+/* ==========================================================================
+   theme.css —— 星隅 视觉体系层（设计令牌 / 星海背景 / 卡片 / 组件）
+   在 main.css、sidebar.css、layout.css 之后加载，用于统一并升级视觉语言：
+   星空的夜、海面的潮光、白灰黑为底、蓝紫为魂，再点缀一点诗。
+   仅调整「形式」，不改变任何文章与页面的文字内容。
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- 1. 设计令牌 */
+:root {
+  /* 墨色（黑）*/
+  --ink-1000: #05070f;
+  --ink-900: #0a0e1e;
+  --ink-800: #121729;
+  --ink-700: #1b2138;
+  --ink-600: #262e4a;
+
+  /* 纸（白）与灰 */
+  --paper: rgba(255, 255, 255, 0.90);
+  --paper-soft: rgba(255, 255, 255, 0.74);
+  --paper-veil: rgba(255, 255, 255, 0.55);
+  --text-strong: #1b2033;
+  --text: #39415c;
+  --text-soft: #667089;
+  --text-muted: #8b93aa;
+  --line: rgba(74, 111, 165, 0.16);
+  --line-soft: rgba(74, 111, 165, 0.10);
+
+  /* 蓝 */
+  --blue: #4a6fa5;
+  --blue-bright: #5b8dd6;
+  --blue-deep: #2f4f7d;
+  --azure: #4a9fe0;
+  --sea: #5b93d0;
+
+  /* 紫 */
+  --violet: #7a5cf0;
+  --violet-bright: #a48bf7;
+  --violet-soft: #cfc4ff;
+
+  /* 渐变 */
+  --grad-title: linear-gradient(112deg, #3f6fb5 0%, #6f63e6 52%, #a48bf7 100%);
+  --grad-primary: linear-gradient(120deg, #4a6fa5 0%, #6d6ae0 58%, #9b7ff0 100%);
+  --grad-hairline: linear-gradient(90deg, rgba(74, 111, 165, 0), rgba(122, 92, 240, 0.55), rgba(74, 111, 165, 0));
+  --grad-progress: linear-gradient(90deg, #4a9fe0 0%, #7a5cf0 55%, #a48bf7 100%);
+  --grad-sea: linear-gradient(180deg,
+      #05070f 0%, #080c1f 14%, #0d1330 32%, #141c4a 50%,
+      #1e2d6b 66%, #2a468f 80%, #3a63ad 90%, #5b93d0 100%);
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 10px rgba(10, 14, 30, 0.07);
+  --shadow-md: 0 10px 30px rgba(10, 14, 30, 0.10);
+  --shadow-lg: 0 18px 48px rgba(10, 14, 30, 0.16);
+  --shadow-glow: 0 8px 30px rgba(122, 92, 240, 0.22);
+
+  /* 形状与节奏 */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* 字体 */
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", "STSong", "Source Han Serif SC", serif;
+  --font-kai: "STKaiti", "KaiTi", "Kaiti SC", "楷体", var(--font-serif);
+  --font-sans: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
+  --font-mono: "Fira Code", "Cascadia Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+}
+
+/* 暗色令牌（系统偏好；显式选择浅色时不生效） */
+@media (prefers-color-scheme: dark) {
+  :root:not(.force-light) {
+    --paper: rgba(24, 27, 43, 0.88);
+    --paper-soft: rgba(22, 25, 40, 0.78);
+    --paper-veil: rgba(20, 23, 38, 0.62);
+    --text-strong: #eceef6;
+    --text: #c3c8d8;
+    --text-soft: #9aa2b8;
+    --text-muted: #7d859c;
+    --line: rgba(164, 139, 247, 0.20);
+    --line-soft: rgba(164, 139, 247, 0.12);
+    --blue: #7fb3d5;
+    --blue-bright: #9cc7ef;
+    --blue-deep: #3b5f8f;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.42);
+    --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.5);
+  }
+}
+
+html.force-dark {
+  --paper: rgba(24, 27, 43, 0.90);
+  --paper-soft: rgba(22, 25, 40, 0.80);
+  --paper-veil: rgba(20, 23, 38, 0.64);
+  --text-strong: #eceef6;
+  --text: #c3c8d8;
+  --text-soft: #9aa2b8;
+  --text-muted: #7d859c;
+  --line: rgba(164, 139, 247, 0.20);
+  --line-soft: rgba(164, 139, 247, 0.12);
+  --blue: #7fb3d5;
+  --blue-bright: #9cc7ef;
+}
+
+/* ---------------------------------------------------------------- 2. 基础排版 */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink-1000) !important;
+  font-family: var(--font-sans);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(122, 92, 240, 0.26);
+  color: var(--text-strong);
+}
+
+/* 滚动条：一条星河的细边 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(122, 92, 240, 0.45) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(74, 111, 165, 0.55), rgba(122, 92, 240, 0.55));
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(74, 159, 224, 0.85), rgba(164, 139, 247, 0.85));
+  background-clip: padding-box;
+}
+
+/* 键盘焦点：可见但不刺眼 */
+:focus-visible {
+  outline: 2px solid var(--violet-bright);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 标题锚点定位补偿（滚动后标题不被顶部遮挡） */
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.page-content h2,
+.page-content h3,
+.page-content h4 {
+  scroll-margin-top: 90px;
+}
+
+/* ------------------------------------------------- 3. 星空与大海（背景升级） */
+.starfield {
+  background:
+    radial-gradient(1100px 620px at 14% 6%, rgba(122, 92, 240, 0.26), transparent 62%),
+    radial-gradient(900px 520px at 86% 10%, rgba(74, 111, 165, 0.30), transparent 64%),
+    radial-gradient(1500px 780px at 50% 112%, rgba(91, 147, 208, 0.38), transparent 72%),
+    var(--grad-sea) !important;
+}
+
+/* 海面：贴近底部的一条潮光带 */
+.starfield::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 34%;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 100% at 50% 100%, rgba(164, 199, 238, 0.22), transparent 70%),
+    repeating-linear-gradient(180deg,
+      rgba(255, 255, 255, 0.055) 0px,
+      rgba(255, 255, 255, 0.055) 1px,
+      transparent 1px,
+      transparent 9px);
+  mask-image: linear-gradient(180deg, transparent, #000 78%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 78%);
+  animation: tide-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes tide-drift {
+  from { transform: translateY(6px); opacity: 0.75; }
+  to   { transform: translateY(-4px); opacity: 1; }
+}
+
+/* 星星：冷白与淡紫两色，像不同温度的星 */
+.star {
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+}
+
+.star:nth-child(3n) {
+  background: var(--violet-soft);
+  box-shadow: 0 0 8px rgba(164, 139, 247, 0.9);
+}
+
+.star:nth-child(5n) {
+  background: #bcd9ff;
+  box-shadow: 0 0 8px rgba(91, 147, 208, 0.9);
+}
+
+/* 流星：蓝紫尾迹 */
+.meteor {
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.meteor::before {
+  background: linear-gradient(to left,
+      rgba(207, 196, 255, 0.95),
+      rgba(122, 92, 240, 0.45) 45%,
+      rgba(122, 92, 240, 0));
+}
+
+/* 尊重「减少动态效果」偏好 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .star,
+  .meteor,
+  .starfield::after,
+  .post:hover {
+    animation: none !important;
+    transition: none !important;
+  }
+  .meteor { display: none; }
+}
+
+/* ---------------------------------------------------------- 4. 卡片体系（纸） */
+.page-card,
+.post-container,
+.page-header-card,
+.category-list,
+.tag-list,
+.tag-cloud,
+.site-footer {
+  background: var(--paper) !important;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  position: relative;
+}
+
+/* 卡片顶缘的一线星光 */
+.page-card::before,
+.post-container::before,
+.page-header-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--grad-hairline);
+  pointer-events: none;
+}
+
+body.layout-home .page-content,
+.post-container {
+  background: var(--paper) !important;
+}
+
+/* 列表卡片：悬停时微微上浮 + 紫蓝描边 */
+.post,
+.page-link,
+.friend-card,
+.exhibition-card,
+.blog-map-card,
+.role-card {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg) !important;
+  transition: transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.32s ease, border-color 0.32s ease;
+}
+
+.post:hover,
+.page-link:hover,
+.friend-card:hover,
+.exhibition-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(122, 92, 240, 0.35);
+  box-shadow: var(--shadow-lg), var(--shadow-glow) !important;
+}
+
+/* 渐变标题文字：文章的「标题即海平线」 */
+.post-container .post-title,
+.page-content h1,
+.archive-h1 {
+  background: var(--grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--blue) !important; /* 兜底：不支持 background-clip 时仍可读 */
+  border-bottom: none !important;
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+}
+
+/* 只对真正的标题文字生效，避免影响内嵌链接等的可读性 */
+.post-link {
+  background: var(--grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--blue) !important;
+  font-family: var(--font-serif);
+}
+
+.post-link:hover {
+  filter: brightness(1.12);
+}
+
+/* ---------------------------------------------------------------- 5. 文章页 */
+/* 面包屑 */
+.post-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86em;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  padding: 0;
+}
+
+.post-breadcrumb a {
+  color: var(--text-soft) !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease;
+}
+
+.post-breadcrumb a:hover {
+  color: var(--violet) !important;
+}
+
+.post-breadcrumb .sep {
+  opacity: 0.5;
+}
+
+/* 文章元信息：胶囊化 */
+.post-container .post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-soft) !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 22px !important;
+}
+
+.post-meta .meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(74, 111, 165, 0.07);
+  border: 1px solid var(--line-soft);
+  font-size: 0.9em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+html.force-dark .post-meta .meta-item {
+  background: rgba(164, 139, 247, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  .post-meta .meta-item {
+    background: rgba(164, 139, 247, 0.10);
+  }
+}
+
+/* 头部标题区：标题下方一道星光分隔 */
+.post-header {
+  position: relative;
+  padding-bottom: 22px;
+  margin-bottom: 8px;
+}
+
+.post-header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: min(320px, 70%);
+  height: 1px;
+  background: var(--grad-hairline);
+}
+
+/* 标签与分类：统一为紫蓝色系芯片 */
+.post-category a,
+.post-tags a {
+  text-decoration: none !important;
+  padding: 5px 12px !important;
+  border-radius: var(--radius-pill) !important;
+  font-size: 0.9em;
+  line-height: 1.4;
+  transition: all 0.25s ease;
+}
+
+.post-category a {
+  color: var(--blue) !important;
+  background: rgba(74, 111, 165, 0.10) !important;
+  border: 1px solid rgba(74, 111, 165, 0.18);
+}
+
+.post-tags a {
+  color: var(--violet) !important;
+  background: rgba(122, 92, 240, 0.10) !important;
+  border: 1px solid rgba(122, 92, 240, 0.18);
+}
+
+.post-category a:hover,
+.post-tags a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  filter: brightness(1.05);
+}
+
+/* 正文排版 */
+.post-container .post-content {
+  color: var(--text) !important;
+  font-size: 1.08em;
+  line-height: 1.95;
+  letter-spacing: 0.01em;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  font-family: var(--font-serif);
+  color: var(--text-strong) !important;
+}
+
+.post-content h2 {
+  border-left: none !important;
+  padding: 0 0 0 18px !important;
+  position: relative;
+  font-size: 1.45em;
+}
+
+/* 用渐变竖条替代纯色竖条 */
+.post-content h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.22em;
+  bottom: 0.22em;
+  width: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-primary);
+}
+
+.post-content h3 {
+  color: var(--blue) !important;
+}
+
+/* 标题锚点（滚动时的可复制链接） */
+.post-anchor {
+  margin-left: 10px;
+  font-size: 0.72em;
+  color: var(--violet-bright);
+  text-decoration: none !important;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-weight: 400;
+}
+
+.post-content h2:hover .post-anchor,
+.post-content h3:hover .post-anchor,
+.post-content h4:hover .post-anchor,
+.post-anchor:focus {
+  opacity: 0.75;
+}
+
+/* 引用块：像一页诗笺 */
+.post-content blockquote,
+.page-content blockquote,
+.page-card blockquote {
+  position: relative;
+  border-left: 3px solid transparent !important;
+  border-image: var(--grad-primary) 1;
+  background: linear-gradient(120deg, rgba(122, 92, 240, 0.06), rgba(74, 159, 224, 0.05));
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 20px !important;
+  color: var(--text-soft) !important;
+  font-family: var(--font-kai);
+  letter-spacing: 0.02em;
+}
+
+/* 分隔线：三点星光 */
+.post-content hr,
+.page-content hr,
+.page-card hr {
+  border: none !important;
+  height: 1px;
+  margin: 2.6em auto !important;
+  width: min(560px, 88%);
+  background: var(--grad-hairline);
+  position: relative;
+}
+
+.post-content hr::after,
+.page-content hr::after {
+  content: "✦";
+  position: absolute;
+  top: -0.72em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85em;
+  color: var(--violet-bright);
+  background: transparent;
+  padding: 0 10px;
+  opacity: 0.9;
+}
+
+/* 表格：紫蓝色表头 */
+.post-content table,
+.page-card table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.6em 0;
+  font-size: 0.95em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: table;
+}
+
+.post-content table th,
+.page-card table th {
+  background: linear-gradient(120deg, rgba(74, 111, 165, 0.14), rgba(122, 92, 240, 0.14));
+  color: var(--text-strong);
+  font-weight: 600;
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-content table td,
+.page-card table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.post-content table tr:last-child td,
+.page-card table tr:last-child td {
+  border-bottom: none;
+}
+
+.post-content table tbody tr:hover,
+.page-card table tbody tr:hover {
+  background: rgba(122, 92, 240, 0.05);
+}
+
+/* 代码：深海色块 + 语言标签 + 复制按钮 */
+.post-container .post-content pre,
+.page-card pre {
+  position: relative;
+  background: linear-gradient(160deg, #101628 0%, #141a33 100%) !important;
+  border: 1px solid rgba(164, 139, 247, 0.16);
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-sm) !important;
+  padding: 1.35rem 1.2rem 1.15rem !important;
+  color: #dbe2f2;
+  overflow-x: auto;
+}
+
+.post-content pre code,
+.page-card pre code {
+  background: transparent !important;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  line-height: 1.72;
+}
+
+/* 行内代码 */
+.post-content code,
+.page-card code {
+  font-family: var(--font-mono);
+  background: rgba(122, 92, 240, 0.10) !important;
+  color: #6f52d8;
+  padding: 0.16em 0.42em;
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+
+html.force-dark .post-content code {
+  color: var(--violet-bright);
+}
+
+.post-content pre code {
+  padding: 0 !important;
+  color: #dbe2f2 !important;
+}
+
+/* 代码块工具条（由 enhance.js 注入） */
+.code-toolbar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+
+pre:hover .code-toolbar,
+.code-toolbar:focus-within {
+  opacity: 1;
+}
+
+.code-lang {
+  font-size: 0.72em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(207, 196, 255, 0.75);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(122, 92, 240, 0.16);
+  border: 1px solid rgba(164, 139, 247, 0.22);
+}
+
+.code-copy {
+  font: inherit;
+  font-size: 0.76em;
+  cursor: pointer;
+  color: #e6e9f5;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.22s ease;
+}
+
+.code-copy:hover {
+  background: rgba(122, 92, 240, 0.35);
+  border-color: rgba(164, 139, 247, 0.5);
+}
+
+.code-copy.done {
+  background: rgba(74, 159, 224, 0.35);
+  border-color: rgba(74, 159, 224, 0.55);
+}
+
+/* 图片：圆角 + 可点击放大 */
+.post-content img,
+.page-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.post-content img.zoomable,
+.page-card img.zoomable {
+  cursor: zoom-in;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-content img.zoomable:hover,
+.page-card img.zoomable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 灯箱 */
+.img-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vmin;
+  background: rgba(5, 7, 15, 0.86);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+  animation: lb-in 0.22s ease;
+}
+
+.img-lightbox img {
+  max-width: 96vw;
+  max-height: 92vh;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes lb-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 文章底部：上一篇 / 下一篇 */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.post-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: var(--paper-soft);
+  text-decoration: none !important;
+  color: var(--text) !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.post-nav a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(122, 92, 240, 0.4);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.post-nav .nav-label {
+  font-size: 0.78em;
+  letter-spacing: 0.1em;
+  color: var(--violet);
+  text-transform: uppercase;
+}
+
+.post-nav .nav-title {
+  font-family: var(--font-serif);
+  font-size: 1.02em;
+  line-height: 1.5;
+  color: var(--text-strong);
+}
+
+.post-nav .nav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.post-nav .nav-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border: 1px dashed var(--line);
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+.post-nav .nav-date {
+  font-size: 0.78em;
+  color: var(--text-muted);
+}
+
+/* 元信息中的分类链接 */
+.post-meta .meta-item a {
+  color: var(--blue) !important;
+  text-decoration: none !important;
+}
+
+.post-meta .meta-item a:hover {
+  color: var(--violet) !important;
+}
+
+/* 标签独占一行，居中排布 */
+.post-tags-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 26px;
+}
+
+.post-tags-row .post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 文章封面：柔和落地 */
+.post-cover {
+  margin: 22px 0 6px;
+  text-align: center;
+}
+
+.post-cover img {
+  width: min(100%, 860px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* 面包屑当前项 */
+.post-breadcrumb .crumb-current {
+  color: var(--text-strong);
+  max-width: 46ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 系列导航与相关阅读：统一卡片语言 */
+.post-series,
+.post-related {
+  border: 1px solid var(--line-soft) !important;
+  border-radius: var(--radius) !important;
+  background: linear-gradient(120deg, rgba(74, 111, 165, 0.06), rgba(122, 92, 240, 0.06)) !important;
+  border-left: 4px solid transparent !important;
+  border-image: var(--grad-primary) 1;
+}
+
+html.force-dark .post-series,
+html.force-dark .post-related {
+  background: rgba(24, 27, 43, 0.9) !important;
+}
+
+/* 目录：星图式 */
+.post-toc-nav {
+  background: var(--paper) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line-soft) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.post-toc-nav a {
+  color: var(--text-soft) !important;
+  border-left: 2px solid transparent;
+}
+
+.post-toc-nav a:hover,
+.post-toc-nav a.active {
+  color: var(--violet) !important;
+  border-left-color: var(--violet) !important;
+  background: linear-gradient(90deg, rgba(122, 92, 240, 0.12), rgba(74, 159, 224, 0.06)) !important;
+}
+
+.post-toc-toggle {
+  background: var(--paper) !important;
+  border: 1px solid var(--line-soft) !important;
+  border-radius: var(--radius) !important;
+  color: var(--violet) !important;
+}
+
+/* 阅读进度条：由 theme.css 统一样式（post.html 中按 class 引用） */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  z-index: 99999;
+  background: var(--grad-progress);
+  box-shadow: 0 0 12px rgba(122, 92, 240, 0.55);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.1s linear;
+}
+
+/* ------------------------------------------------- 6. 首页 / 讲座式诗词版式 */
+.verse-banner {
+  position: relative;
+  background: linear-gradient(120deg, rgba(74, 111, 165, 0.08), rgba(122, 92, 240, 0.10)) !important;
+  border: 1px solid rgba(122, 92, 240, 0.20) !important;
+  border-radius: var(--radius) !important;
+  padding: 1.6em 1.5em !important;
+  overflow: hidden;
+}
+
+.verse-banner::before,
+.verse-banner::after {
+  content: "✦";
+  position: absolute;
+  font-size: 0.8em;
+  color: var(--violet-bright);
+  opacity: 0.65;
+}
+
+.verse-banner::before { top: 10px; left: 14px; }
+.verse-banner::after  { bottom: 10px; right: 14px; }
+
+.verse-banner .verse-main {
+  font-family: var(--font-kai);
+  font-size: 1.28em !important;
+  letter-spacing: 0.14em !important;
+  background: var(--grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.verse-banner .verse-sub {
+  font-family: var(--font-kai);
+  letter-spacing: 0.08em;
+  color: var(--text-muted) !important;
+}
+
+/* 首页「最新文章」：从纯列表变成星轨卡片 */
+.home-posts {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 18px 0 8px !important;
+  display: grid;
+  gap: 12px;
+}
+
+.home-posts li {
+  margin: 0 !important;
+}
+
+.home-posts a.home-post-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: var(--paper-soft);
+  text-decoration: none !important;
+  color: var(--text-strong) !important;
+  font-family: var(--font-serif);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.home-posts a.home-post-link:hover {
+  transform: translateX(4px);
+  border-color: rgba(122, 92, 240, 0.4);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.home-posts .home-post-date {
+  font-family: var(--font-sans);
+  font-size: 0.82em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* 首页「探索本站」：入口卡片网格 */
+.home-explore {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 18px 0 0 !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.home-explore li {
+  margin: 0 !important;
+}
+
+.home-explore a.home-explore-link {
+  display: block;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: linear-gradient(140deg, rgba(74, 111, 165, 0.07), rgba(122, 92, 240, 0.08));
+  text-decoration: none !important;
+  color: var(--text) !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.home-explore a.home-explore-link:hover {
+  transform: translateY(-3px);
+  border-color: rgba(122, 92, 240, 0.4);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.home-explore .explore-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.08em;
+  color: var(--text-strong);
+  margin-bottom: 6px;
+}
+
+.home-explore .explore-desc {
+  display: block;
+  font-size: 0.88em;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------- 7. 标签云 / 归档 / 页脚细节 */
+.tag-cloud a {
+  background: rgba(74, 111, 165, 0.08) !important;
+  color: var(--blue) !important;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-pill) !important;
+}
+
+.tag-cloud a:hover {
+  background: var(--grad-primary) !important;
+  color: #fff !important;
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+/* 归档中的小标签（#tag 样式） */
+.archive-tag,
+.archive-cat,
+.post-tags-inline a {
+  border-radius: var(--radius-pill) !important;
+}
+
+/* 页脚 */
+.site-footer {
+  border-radius: var(--radius-lg) !important;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad-hairline);
+}
+
+.footer-heading {
+  border-bottom: none !important;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 46px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-primary);
+}
+
+.contact-list a:hover,
+.social-media-list a:hover {
+  color: var(--violet) !important;
+}
+
+/* 页脚加一句收尾的诗（由 default/footer 提供，仅样式） */
+.footer-verse {
+  margin-top: 14px;
+  font-family: var(--font-kai);
+  font-size: 0.9em;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* -------------------------------------------------- 8. 全局小工具（注入式） */
+/* 回到顶部（带阅读百分比，NexT 式） */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 26px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border: 1px solid rgba(164, 139, 247, 0.35);
+  border-radius: 50%;
+  background: rgba(16, 20, 38, 0.72);
+  color: #e9e6ff;
+  font-size: 0.95em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  z-index: 99997;
+}
+
+.back-to-top .btt-arrow {
+  font-size: 0.95em;
+}
+
+.back-to-top .btt-pct {
+  font-size: 0.62em;
+  letter-spacing: 0.02em;
+  color: var(--violet-soft);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--grad-primary);
+  box-shadow: var(--shadow-glow);
+  border-color: transparent;
+}
+
+.back-to-top:hover .btt-pct {
+  color: #fff;
+}
+
+/* 窄屏浮动目录按钮（TOC 三态：宽屏右栏 / 窄屏浮层 / 折叠块） */
+.toc-fab {
+  position: fixed;
+  left: 18px;
+  bottom: 26px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05em;
+  border: 1px solid rgba(164, 139, 247, 0.35);
+  border-radius: 50%;
+  background: rgba(16, 20, 38, 0.72);
+  color: #e9e6ff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  z-index: 99997;
+}
+
+.toc-fab.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.toc-fab:hover {
+  background: var(--grad-primary);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+/* 浮动目录展开态：脱离文档流，浮在正文之上 */
+.post-toc-container.mobile-open {
+  position: fixed !important;
+  top: 76px !important;
+  left: 16px !important;
+  right: 16px !important;
+  width: auto !important;
+  max-width: 520px !important;
+  margin: 0 auto !important;
+  max-height: 66vh !important;
+  overflow-y: auto !important;
+  z-index: 99998 !important;
+  animation: toc-pop 0.22s ease;
+}
+
+.post-toc-container.mobile-open .post-toc-nav {
+  display: block !important;
+}
+
+.post-toc-container.mobile-open .post-toc-toggle {
+  display: none !important;
+}
+
+@keyframes toc-pop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 分享条 */
+.post-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
+}
+
+.post-share .share-label {
+  font-size: 0.86em;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.post-share .share-btn {
+  font: inherit;
+  font-size: 0.86em;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+  color: var(--text) !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.post-share .share-btn:hover {
+  color: #fff !important;
+  background: var(--grad-primary);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+.post-share .share-btn.done {
+  color: #fff !important;
+  background: var(--blue-bright);
+  border-color: transparent;
+}
+
+/* 滚动出现的「星屑」装饰：极轻，不抢内容 */
+@media (max-width: 900px) {
+  .back-to-top {
+    right: 14px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .toc-fab {
+    left: 14px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .post-share {
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------- 9. 响应式 */
+@media (max-width: 768px) {
+  .post-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .post-nav .nav-next {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .post-content {
+    font-size: 1.04em !important;
+    line-height: 1.85 !important;
+  }
+
+  .post-container .post-title {
+    font-size: 1.7em !important;
+  }
+
+  .post-meta .meta-item {
+    padding: 4px 10px;
+    font-size: 0.86em;
+  }
+}
+
+/* ------------------------------------------------------------ 10. 打印样式 */
+@media print {
+  .starfield,
+  .back-to-top,
+  .toc-fab,
+  .sidebar-toggle,
+  .site-sidebar,
+  .post-toc-container,
+  .reading-progress,
+  .code-toolbar,
+  .post-share {
+    display: none !important;
+  }
+
+  body,
+  .post-container,
+  .page-card {
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+}

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "挖洞进入“许愿时代”：读 Hacking with LLMs"
 description: "读彭志亮《A Year of Hacking with LLMs》笔记：从 2023 年用 Code Llama 做漏洞分类的失败，到 2026 年 Agent 在真机上批量挖出 110 个 Android 漏洞、Windows 内核 200+ 漏洞的 token 经济学；GPT-5.6 用 20 分钟攻破作者四年没证出来的密码学方案；AI 攻击者与 AI 防守者已经开打，以及漏洞研究员还剩什么价值。"

@@ -6,32 +6,51 @@ layout: default
   <div class="post-layout">
   <article class="post-container">
     <header class="post-header">
+      <!-- 面包屑：让读者知道自己身在星图的哪一颗星上 -->
+      <nav class="post-breadcrumb" aria-label="面包屑导航">
+        <a href="{{ '/' | relative_url }}">首页</a>
+        <span class="sep">›</span>
+        {% if page.categories.size > 0 %}
+          <a href="{{ '/archive/' | relative_url }}#cat-{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a>
+          <span class="sep">›</span>
+        {% endif %}
+        <span class="crumb-current">{{ page.title | escape }}</span>
+      </nav>
+
       <h1 class="post-title">{{ page.title | escape }}</h1>
+
+      {%- comment -%} 正文字数与预估阅读时长（中文按每分钟约 450 字估算） {%- endcomment -%}
+      {% assign char_count = content | strip_html | strip_newlines | replace: ' ', '' | replace: '　', '' | size %}
+      {% assign read_minutes = char_count | divided_by: 450 | plus: 1 %}
+
       <p class="post-meta">
-        {{ page.date | date: "%Y-%m-%d" }} • {{ page.author | default: site.author }}
+        <span class="meta-item">📅 {{ page.date | date: "%Y-%m-%d" }}</span>
+        <span class="meta-item">✍️ {{ page.author | default: site.author }}</span>
         {%- if page.categories.size > 0 -%}
-          • <span class="post-category"><a href="{{ '/archive/' | relative_url }}#cat-{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
+          <span class="meta-item">🗂 <a href="{{ '/archive/' | relative_url }}#cat-{{ page.categories[0] | slugify }}">{{ page.categories[0] }}</a></span>
         {%- endif -%}
-        {%- if page.tags.size > 0 -%}
-          • <span class="post-tags">
-            {%- for tag in page.tags -%}
-              <a href="{{ '/archive/' | relative_url }}#tag-{{ tag | slugify }}">{{ tag }}</a>{%- unless forloop.last %}, {% endunless -%}
-            {%- endfor -%}
-          </span>
-        {%- endif -%}
-        <!-- 新增：文章阅读量统计 -->
-        • <span class="post-views">
-          <i class="fas fa-eye"></i> <!-- 可选：眼睛图标，需引入Font Awesome -->
+        <span class="meta-item">⏱ 约 {{ read_minutes }} 分钟</span>
+        <span class="meta-item">🔖 约 {{ char_count }} 字</span>
+        <!-- 文章阅读量统计 -->
+        <span class="meta-item post-views">
           <span id="busuanzi_value_page_pv"></span> 次阅读
         </span>
       </p>
 
-      <!-- 封面图代码（之前加的） -->
+      {%- if page.tags.size > 0 -%}
+      <p class="post-tags-row">
+        <span class="post-tags">
+          {%- for tag in page.tags -%}
+            <a href="{{ '/archive/' | relative_url }}#tag-{{ tag | slugify }}">{{ tag }}</a>
+          {%- endfor -%}
+        </span>
+      </p>
+      {%- endif -%}
+
+      <!-- 封面图 -->
       {% if page.image %}
-        <div class="post-cover" style="margin: 20px 0; text-align: center;">
-          <img src="{{ page.image | relative_url }}" 
-               width="80%" 
-               style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+        <div class="post-cover">
+          <img src="{{ page.image | relative_url }}"
                alt="{{ page.title }}封面">
         </div>
       {% endif %}
@@ -41,6 +60,42 @@ layout: default
     <div class="post-content">
         {{ content }}
     </div>
+
+    <!-- ========== 上一篇 / 下一篇（按发布时间相邻） ========== -->
+    {% assign newer_post = nil %}
+    {% assign older_post = nil %}
+    {% for p in site.posts %}
+      {% if p.url == page.url %}
+        {% assign cur_index = forloop.index0 %}
+        {% assign older_index = cur_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    {% if cur_index %}
+      {% if cur_index > 0 %}{% assign newer_index = cur_index | minus: 1 %}{% assign newer_post = site.posts[newer_index] %}{% endif %}
+      {% assign older_post = site.posts[older_index] %}
+    {% endif %}
+    {% if older_post or newer_post %}
+    <nav class="post-nav" aria-label="相邻文章导航">
+      {% if older_post %}
+        <a class="nav-prev" href="{{ older_post.url | relative_url }}">
+          <span class="nav-label">← 更早的一篇</span>
+          <span class="nav-title">{{ older_post.title }}</span>
+          <span class="nav-date">{{ older_post.date | date: "%Y-%m-%d" }}</span>
+        </a>
+      {% else %}
+        <span class="nav-empty">已是最早的一篇</span>
+      {% endif %}
+      {% if newer_post %}
+        <a class="nav-next" href="{{ newer_post.url | relative_url }}">
+          <span class="nav-label">更新的一篇 →</span>
+          <span class="nav-title">{{ newer_post.title }}</span>
+          <span class="nav-date">{{ newer_post.date | date: "%Y-%m-%d" }}</span>
+        </a>
+      {% else %}
+        <span class="nav-empty">已是最新的一篇</span>
+      {% endif %}
+    </nav>
+    {% endif %}
 
     <!-- ========== 系列导航 ========== -->
     {% assign series_data = site.data.series %}
@@ -231,9 +286,11 @@ layout: default
       if(headings.length===0){document.getElementById('post-toc').style.display='none';return;}
       var items=[];
       headings.forEach(function(h,i){
-        var id='heading-'+i;h.id=id;
+        /* 保留 kramdown 自动生成的 id（锚点可分享），缺失时才补一个 */
+        if(!h.id){h.id='heading-'+i;}
+        h.dataset.tocIndex=i;
         var a=document.createElement('a');
-        a.href='#'+id;a.textContent=h.textContent;
+        a.href='#'+h.id;a.textContent=h.textContent.replace('¶','');
         a.className=h.tagName.toLowerCase()==='h2'?'toc-h2':'toc-h3';
         toc.appendChild(a);
         items.push(a);
@@ -242,23 +299,23 @@ layout: default
         entries.forEach(function(e){
           if(e.isIntersecting){
             items.forEach(function(a){a.classList.remove('active');});
-            var idx=parseInt(e.target.id.replace('heading-',''));
+            var idx=parseInt(e.target.dataset.tocIndex,10);
             if(items[idx])items[idx].classList.add('active');
           }
         });
       },{rootMargin:'-80px 0px -60% 0px'});
       headings.forEach(function(h){observer.observe(h);});
 
-      /* 阅读进度条 */
+      /* 阅读进度条（样式由 theme.css 的 .reading-progress 统一提供） */
       var bar=document.createElement('div');
-      bar.style.cssText='position:fixed;top:0;left:0;height:3px;background:#4a6fa5;z-index:99999;transition:width .1s linear;border-radius:0 2px 2px 0;';
+      bar.className='reading-progress';
       document.body.appendChild(bar);
       window.addEventListener('scroll',function(){
         var scrollTop=window.scrollY||document.documentElement.scrollTop;
         var docHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
         var progress=docHeight>0?(scrollTop/docHeight)*100:0;
         bar.style.width=Math.min(progress,100)+'%';
-      });
+      },{passive:true});
     });
     </script>
   </article>

@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}">
+  <!-- 视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件（最后加载，覆盖并统一旧样式） -->
+  <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
 </head>
 
@@ -17,6 +19,8 @@
 
   <main class="page-content" aria-label="Content">
     {{ content }}
+    {%- comment -%} 全站页脚（此前该组件已存在但从未被引用，导致站点没有页脚） {%- endcomment -%}
+    {%- include footer.html -%}
   </main>
 
   <script>
@@ -55,17 +59,33 @@
       });
     })();
 
-    // 暗黑模式切换
+    // 暗黑模式切换（三态：深色 / 浅色 / 跟随系统）
+    // 初始化已在 head.html 中提前执行（避免刷新白闪），这里只负责切换
     (function() {
-      var saved = localStorage.getItem('dark-mode');
-      if (saved === 'dark') {
-        document.documentElement.classList.add('force-dark');
+      var root = document.documentElement;
+      // 若从未手动选择过，跟随系统，并让按钮第一次点击时进入相反模式
+      var saved = null;
+      try { saved = localStorage.getItem('dark-mode'); } catch (e) {}
+      if (!saved) {
+        var prefersDark = root.classList.contains('force-dark');
+        root.dataset.systemTheme = prefersDark ? 'dark' : 'light';
       }
     })();
 
     function toggleDarkSidebar() {
-      var isDark = document.documentElement.classList.toggle('force-dark');
-      localStorage.setItem('dark-mode', isDark ? 'dark' : 'light');
+      var root = document.documentElement;
+      var isDark = root.classList.contains('force-dark');
+      if (isDark) {
+        // 当前是深色 → 切浅色
+        root.classList.remove('force-dark');
+        root.classList.add('force-light');
+        try { localStorage.setItem('dark-mode', 'light'); } catch (e) {}
+      } else {
+        // 当前是浅色 → 切深色
+        root.classList.remove('force-light');
+        root.classList.add('force-dark');
+        try { localStorage.setItem('dark-mode', 'dark'); } catch (e) {}
+      }
     }
 
     // 侧边栏搜索功能
@@ -209,6 +229,9 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   {% endif %}
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <!-- 全站交互增强：代码复制 / 标题锚点 / 图片灯箱 / 回到顶部 / 搜索快捷键 -->
+  <script src="{{ '/assets/js/enhance.js' | relative_url }}" defer></script>
 
   <script>
     // 注册 Service Worker（仅生产环境）

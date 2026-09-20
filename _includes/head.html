@@ -7,6 +7,25 @@
 <!-- 图标配置 -->
 <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}" sizes="64x64">
 
+<!-- 明暗主题：必须在样式表之前执行，否则深色模式刷新时会白闪一下 -->
+<script>
+  (function () {
+    var root = document.documentElement;
+    var saved = null;
+    try { saved = localStorage.getItem('dark-mode'); } catch (e) { /* 隐私模式下忽略 */ }
+    var prefersDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      root.classList.add('force-dark');
+    } else if (saved === 'light') {
+      /* 显式选择浅色：需要覆盖系统级深色样式 */
+      root.classList.add('force-light');
+    }
+  })();
+</script>
+
+<!-- 浅色覆盖层：仅当 html.force-light 时生效，用于抵消系统深色的 @media 规则 -->
+<link rel="stylesheet" href="{{ '/assets/css/theme-light.css' | relative_url }}">
+
 <!-- 性能优化：预连接第三方资源 -->
 <link rel="preconnect" href="https://cdn.bootcdn.net">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
