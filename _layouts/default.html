@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "zh-CN" }}">
 <head>
+  {%- comment -%}
+    资源版本号：拼上构建时间戳。每次发布 URL 都会变，因此 Service Worker 的
+    cache-first 永远命中不到旧文件；同时带版本的资源仍会被缓存，离线能力保留。
+    这个变量必须在 head.html 之前赋值，head.html 里也会用到。
+  {%- endcomment -%}
+  {%- assign asset_v = site.time | date: '%s' -%}
   {%- include head.html -%}
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ asset_v }}">
+  <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}?v={{ asset_v }}">
+  <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}?v={{ asset_v }}">
   <!-- 视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件（最后加载，覆盖并统一旧样式） -->
-  <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}?v={{ asset_v }}">
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
 </head>
 
@@ -237,7 +243,7 @@
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   <!-- 全站交互增强：代码复制 / 标题锚点 / 图片灯箱 / 回到顶部 / 搜索快捷键 -->
-  <script src="{{ '/assets/js/enhance.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/enhance.js' | relative_url }}?v={{ asset_v }}" defer></script>
 
   <script>
     // 注册 Service Worker（仅生产环境）
