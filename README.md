@@ -20,8 +20,8 @@
 | 2026-09-17 | [推荐一个 CS 自学社区](https://duckweed-yhb.github.io/2026/09/17/%E6%8E%A8%E8%8D%90%E4%B8%80%E4%B8%AACS%E8%87%AA%E5%AD%A6%E7%A4%BE%E5%8C%BA/) |
 | 2026-09-16 | [挖洞进入“许愿时代”：读 Hacking with LLMs](https://duckweed-yhb.github.io/2026/09/16/Hacking-with-LLMs/) |
 | 2026-09-12 | [编程面试大学：读 coding-interview-university](https://duckweed-yhb.github.io/2026/09/12/编程面试大学/) |
-| 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
 | 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
+| 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
 | 2026-09-09 | [读《计算机修仙境界》：程序员的境界体系](https://duckweed-yhb.github.io/2026/09/09/读计算机修仙境界/) |
 | 2026-09-08 | [华科开源俱乐部申请流程（整理）](https://duckweed-yhb.github.io/2026/09/08/华科开源俱乐部申请指南/) |
 
@@ -90,7 +90,9 @@
 ├── assets
 │   ├── css
 │   │   ├── main.css
-│   │   └── sidebar.css
+│   │   ├── sidebar.css
+│   │   ├── theme-light.css
+│   │   └── theme.css
 │   ├── images
 │   │   ├── 2026-03-30-1.png
 │   │   ├── 2026-03-30-2.png
@@ -106,6 +108,8 @@
 │   │   ├── bilibili.svg
 │   │   ├── github.svg
 │   │   └── zhihu.svg
+│   ├── js
+│   │   └── enhance.js
 │   └── pdf
 ├── index.html
 ├── pages
@@ -122,7 +126,7 @@
 ```
 
 ---
-> 最后更新：2026-09-20 07:35:42 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-20 08:01:22 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
