@@ -16,14 +16,14 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-09-20 | [Agent 求职避坑：读一场 80 分钟模拟面试复盘](https://duckweed-yhb.github.io/2026/09/20/Agent工程师模拟面试/) |
 | 2026-09-17 | [推荐一个 CS 自学社区](https://duckweed-yhb.github.io/2026/09/17/%E6%8E%A8%E8%8D%90%E4%B8%80%E4%B8%AACS%E8%87%AA%E5%AD%A6%E7%A4%BE%E5%8C%BA/) |
 | 2026-09-16 | [挖洞进入“许愿时代”：读 Hacking with LLMs](https://duckweed-yhb.github.io/2026/09/16/Hacking-with-LLMs/) |
 | 2026-09-12 | [编程面试大学：读 coding-interview-university](https://duckweed-yhb.github.io/2026/09/12/编程面试大学/) |
-| 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
 | 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
+| 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
 | 2026-09-09 | [读《计算机修仙境界》：程序员的境界体系](https://duckweed-yhb.github.io/2026/09/09/读计算机修仙境界/) |
 | 2026-09-08 | [华科开源俱乐部申请流程（整理）](https://duckweed-yhb.github.io/2026/09/08/华科开源俱乐部申请指南/) |
-| 2026-09-06 | [算法竞赛入门：jyy 讲座整理](https://duckweed-yhb.github.io/2026/09/06/算法竞赛入门/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -85,7 +85,8 @@
 │   ├── 2026-09-11-读xp0int新生指南.md
 │   ├── 2026-09-12-编程面试大学.md
 │   ├── 2026-09-16-Hacking-with-LLMs.md
-│   └── 2026-09-17-推荐一个CS自学社区.md
+│   ├── 2026-09-17-推荐一个CS自学社区.md
+│   └── 2026-09-20-Agent工程师模拟面试.md
 ├── assets
 │   ├── css
 │   │   ├── main.css
@@ -121,7 +122,7 @@
 ```
 
 ---
-> 最后更新：2026-09-20 02:32:21 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-09-20 07:35:42 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
