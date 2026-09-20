@@ -198,85 +198,7 @@ layout: default
       width: 100%;
       max-width: 920px !important; /* 正文阅读宽度上限，保证居中呈现 */
     }
-    /* 右侧目录：悬浮于视口右缘，不参与正文排版，正文保持绝对居中 */
-    .post-toc-container {
-      position: fixed;
-      top: 90px;
-      right: 16px;
-      width: 240px;
-      box-sizing: border-box;
-      z-index: 5;
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-    }
-    .post-toc-toggle {
-      display: none;
-      padding: 10px 16px;
-      background: #fff;
-      border: 1px solid rgba(74, 111, 165, 0.15);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9em;
-      font-weight: 600;
-      color: #4a6fa5;
-      user-select: none;
-    }
-    .post-toc-nav {
-      padding: 16px 14px;
-      background: #fff; /* 不透明：正文滚动时不会透过目录卡片透出文字 */
-      border: 1px solid rgba(74, 111, 165, 0.12);
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
-    }
-    .post-toc-nav a {
-      display: block;
-      padding: 5px 8px;
-      color: #7f8c8d;
-      text-decoration: none;
-      font-size: 0.85em;
-      border-radius: 4px;
-      transition: all 0.2s;
-      border-left: 2px solid transparent;
-      word-break: break-word;
-    }
-    .post-toc-nav a:hover, .post-toc-nav a.active {
-      color: #4a6fa5;
-      border-left-color: #4a6fa5;
-      background: rgba(74, 111, 165, 0.08);
-    }
-    .post-toc-nav a.toc-h2 { padding-left: 12px; }
-    .post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
-
-    /* 中窄屏（<=1400px）：右侧空间不足，目录收起为可折叠块置于正文上方，不再悬浮右缘 */
-    @media (max-width: 1400px) {
-      .post-toc-container {
-        position: static;
-        width: 100%;
-        max-width: 920px !important;
-        margin: 0 auto 20px;
-        max-height: none;
-      }
-      .post-toc-toggle { display: block; }
-      .post-toc-toggle::after { content: ' ▾'; }
-      .post-toc-nav { display: none; margin-top: 8px; }
-      .post-toc-container.open .post-toc-toggle::after { content: ' ▴'; }
-      .post-toc-container.open .post-toc-nav { display: block; }
-    }
-
-    /* 暗黑模式：目录卡片使用不透明深色背景 */
-    @media (prefers-color-scheme: dark) {
-      .post-toc-nav, .post-toc-toggle {
-        background: #1c1c26;
-        border-color: rgba(255, 255, 255, 0.08);
-      }
-      .post-toc-nav a { color: #bdc3c7; }
-    }
-    html.force-dark .post-toc-nav,
-    html.force-dark .post-toc-toggle {
-      background: #1c1c26;
-      border-color: rgba(255, 255, 255, 0.08);
-    }
-    html.force-dark .post-toc-nav a { color: #bdc3c7; }
+    /* 目录抽屉（.post-toc-*）的样式统一在 assets/css/theme.css 中维护 */
     </style>
 
     <script>
@@ -319,9 +241,12 @@ layout: default
     });
     </script>
   </article>
-  <!-- 右侧独立目录容器：与文章卡片分离，位于整篇文章右侧 -->
-  <aside class="post-toc-container" id="post-toc">
-    <div class="post-toc-toggle" onclick="document.getElementById('post-toc').classList.toggle('open')">📑 目录</div>
+  <!-- 右侧目录抽屉：默认隐藏，由右下角 📑 按钮或快捷键 T 唤出 -->
+  <aside class="post-toc-container" id="post-toc" aria-label="章节目录" aria-hidden="true">
+    <div class="post-toc-head">
+      <span class="post-toc-title">目录</span>
+      <button type="button" class="post-toc-close" aria-label="收起目录" title="收起目录">✕</button>
+    </div>
     <nav class="post-toc-nav" id="toc-nav"></nav>
   </aside>
   </div><!-- /.post-layout -->

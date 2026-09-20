@@ -233,48 +233,82 @@
     update();
   }
 
-  /* ------------------------------------------------ 8. 窄屏浮动目录（TOC 三态） */
-  function initTocFab() {
+  /* ------------------------------------ 8. 目录抽屉（默认隐藏，按钮 / 快捷键 T 唤出） */
+  function initTocDrawer() {
     var toc = doc.getElementById('post-toc');
     if (!toc) return;
+
+    var nav = doc.getElementById('toc-nav');
+    // 注意：目录链接由 post.html 的内联脚本在 DOMContentLoaded 时才生成，
+    // 而本文件以 defer 执行（更早），因此这里必须惰性判断，不能只在初始化时查一次。
+    function hasLinks() {
+      return !!(nav && nav.querySelectorAll('a').length);
+    }
 
     var fab = doc.createElement('button');
     fab.type = 'button';
     fab.className = 'toc-fab';
-    fab.setAttribute('aria-label', '打开目录');
-    fab.title = '章节目录';
+    fab.setAttribute('aria-label', '展开章节目录');
+    fab.setAttribute('aria-controls', 'post-toc');
+    fab.title = '章节目录（快捷键 T）';
     fab.innerHTML = '📑';
+    fab.style.display = 'none';
     doc.body.appendChild(fab);
 
-    function isFloatingMode() {
-      // 宽屏时目录本来就固定在右缘，无需浮动按钮
-      return window.getComputedStyle(toc).position !== 'fixed' || window.innerWidth <= 1400;
+    function setOpen(open, remember) {
+      toc.classList.toggle('toc-open', open);
+      fab.classList.toggle('active', open);
+      doc.body.classList.toggle('toc-drawer-open', open);
+      toc.setAttribute('aria-hidden', open ? 'false' : 'true');
+      fab.setAttribute('aria-label', open ? '收起章节目录' : '展开章节目录');
+      if (remember) {
+        try { localStorage.setItem('toc-open', open ? '1' : '0'); } catch (e) { /* 忽略 */ }
+      }
     }
+
+    function isOpen() { return toc.classList.contains('toc-open'); }
+
+    var saved = null;
+    try { saved = localStorage.getItem('toc-open'); } catch (e) { /* 忽略 */ }
 
     fab.addEventListener('click', function (e) {
       e.stopPropagation();
-      toc.classList.toggle('mobile-open');
+      setOpen(!isOpen(), true);
     });
 
+    var closeBtn = toc.querySelector('.post-toc-close');
+    if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false, true); });
+
+    // 点击抽屉外部收起（不写入记忆，免得下次以为坏了）
     doc.addEventListener('click', function (e) {
-      if (!toc.classList.contains('mobile-open')) return;
+      if (!isOpen()) return;
       if (e.target.closest('#post-toc') || e.target.closest('.toc-fab')) return;
-      toc.classList.remove('mobile-open');
+      setOpen(false, false);
     });
 
     doc.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') toc.classList.remove('mobile-open');
+      if (e.key === 'Escape' && isOpen()) { setOpen(false, false); return; }
+      var tag = (e.target.tagName || '').toLowerCase();
+      var typing = tag === 'input' || tag === 'textarea' || e.target.isContentEditable;
+      if (!typing && (e.key === 't' || e.key === 'T') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        if (!hasLinks()) return;
+        e.preventDefault();
+        setOpen(!isOpen(), true);
+      }
     });
 
-    // 目录内的锚点点击后收起浮层
+    // 窄屏点条目后自动收起，避免挡住正文
     toc.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') toc.classList.remove('mobile-open');
+      if (e.target.tagName === 'A' && window.innerWidth <= 900) setOpen(false, false);
     });
 
+    // 滚动一点之后再出现按钮，避免一进文章就糊在右下角
     var ticking = false;
     function update() {
       var y = window.scrollY || doc.documentElement.scrollTop;
-      fab.classList.toggle('show', y > 320 && isFloatingMode());
+      var ok = hasLinks();
+      fab.style.display = ok ? '' : 'none';
+      fab.classList.toggle('show', ok && y > 140);
       ticking = false;
     }
     window.addEventListener('scroll', function () {
@@ -283,8 +317,19 @@
         window.requestAnimationFrame(update);
       }
     }, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+
+    // 目录生成之后（DOMContentLoaded 晚于 post.html 的内联脚本）再恢复状态。
+    // 注意：defer 脚本执行时 readyState 是 'interactive'（不是 'loading'），
+    // 此时 DOMContentLoaded 尚未触发，必须挂监听而不是直接执行。
+    function afterTocBuilt() {
+      update();
+      if (saved === '1' && hasLinks()) setOpen(true, false);
+    }
+    if (doc.readyState === 'complete') {
+      afterTocBuilt();
+    } else {
+      doc.addEventListener('DOMContentLoaded', afterTocBuilt);
+    }
   }
 
   /* ------------------------------------------------ 9. 分享（Web Share API + 复制链接） */
@@ -360,7 +405,7 @@
     initSearchShortcut();
     initExternalLinks();
     initProgressFallback();
-    initTocFab();
+    initTocDrawer();
     initShare();
   });
 })();

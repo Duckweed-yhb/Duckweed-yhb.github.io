@@ -46,6 +46,12 @@
         overlay.addEventListener('click', closeSidebar);
       }
 
+      // 面板内的 ✕ 按钮也能收起
+      var closeBtn = document.getElementById('sidebar-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeSidebar);
+      }
+
       // 点击导航链接后自动收起（避免挡住新页面内容）
       sidebar.querySelectorAll('.sidebar-link').forEach(function(link) {
         link.addEventListener('click', closeSidebar);

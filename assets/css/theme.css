@@ -163,7 +163,7 @@ body {
   scroll-margin-top: 90px;
 }
 
-/* ------------------------------------------------- 3. 星空与大海（背景升级） */
+/* --------------------------------------------------------------- 3. 星空与大海（背景升级） */
 .starfield {
   background:
     radial-gradient(1100px 620px at 14% 6%, rgba(122, 92, 240, 0.26), transparent 62%),
@@ -840,19 +840,102 @@ html.force-dark .post-related {
   background: rgba(24, 27, 43, 0.9) !important;
 }
 
-/* 目录：星图式 */
+/* ======================================================== 目录抽屉（默认隐藏）
+   以前宽屏下目录常驻右缘；现在全端默认收起，由右下角 📑 按钮（或按 T）唤出，
+   状态记在 localStorage：用户展开过就保持展开，收起过就一直收起。 */
+.post-toc-container {
+  position: fixed;
+  top: 84px;
+  right: 16px;
+  width: 264px;
+  max-height: min(68vh, 600px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 9998;
+  padding: 14px 14px 12px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  transform: translateX(calc(100% + 28px));
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.3s ease, visibility 0.3s;
+}
+
+.post-toc-container.toc-open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 目录面板头部：标题 + 收起按钮 */
+.post-toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.post-toc-title {
+  font-family: var(--font-serif);
+  font-size: 0.94em;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+}
+
+.post-toc-close {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.78em;
+  line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.post-toc-close:hover {
+  color: var(--violet);
+  border-color: rgba(122, 92, 240, 0.35);
+  background: rgba(122, 92, 240, 0.08);
+}
+
+/* 目录列表：面板已提供容器，这里不再叠一层卡片 */
 .post-toc-nav {
-  background: var(--paper) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--line-soft) !important;
-  border-radius: var(--radius) !important;
-  box-shadow: var(--shadow-md) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
 }
 
 .post-toc-nav a {
+  display: block;
+  padding: 5px 8px;
+  font-size: 0.85em;
+  border-radius: 4px;
+  text-decoration: none !important;
+  word-break: break-word;
   color: var(--text-soft) !important;
   border-left: 2px solid transparent;
+  transition: all 0.2s ease;
 }
+
+.post-toc-nav a.toc-h2 { padding-left: 12px; }
+.post-toc-nav a.toc-h3 { padding-left: 24px; font-size: 0.8em; }
 
 .post-toc-nav a:hover,
 .post-toc-nav a.active {
@@ -861,11 +944,43 @@ html.force-dark .post-related {
   background: linear-gradient(90deg, rgba(122, 92, 240, 0.12), rgba(74, 159, 224, 0.06)) !important;
 }
 
-.post-toc-toggle {
-  background: var(--paper) !important;
-  border: 1px solid var(--line-soft) !important;
-  border-radius: var(--radius) !important;
-  color: var(--violet) !important;
+/* 宽屏下抽屉展开时，把正文整体左移，避免目录压住正文右缘。
+   注意：main.css 里 `body.layout-post .page-content { padding: 0 !important }`
+   会覆盖普通声明，所以这里必须提高选择器权重并同样用 !important。 */
+main.page-content {
+  transition: padding-right 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (min-width: 1101px) {
+  /* 只作用于最外层 main（post.html 里还有一个同名的内层 div.page-content，
+     若一并匹配会重复加内边距，把正文挤得过窄） */
+  body.layout-post.toc-drawer-open main.page-content {
+    padding-right: 300px !important;
+  }
+}
+
+/* 目录抽屉打开时，按钮高亮 */
+.toc-fab.active {
+  background: var(--grad-primary);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+  color: #fff;
+}
+
+/* 窄屏：抽屉改为顶部浮层，几乎占满宽度 */
+@media (max-width: 900px) {
+  .post-toc-container {
+    top: 72px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: 64vh;
+    transform: translateY(-12px);
+  }
+
+  .post-toc-container.toc-open {
+    transform: translateY(0);
+  }
 }
 
 /* 阅读进度条：由 theme.css 统一样式（post.html 中按 class 引用） */
@@ -1167,11 +1282,11 @@ html.force-dark .post-related {
   color: #fff;
 }
 
-/* 窄屏浮动目录按钮（TOC 三态：宽屏右栏 / 窄屏浮层 / 折叠块） */
+/* 目录唤出按钮（📑）：右下角，叠在「回到顶部」上方 */
 .toc-fab {
   position: fixed;
-  left: 18px;
-  bottom: 26px;
+  right: 22px;
+  bottom: 84px;
   width: 46px;
   height: 46px;
   display: flex;
@@ -1201,34 +1316,6 @@ html.force-dark .post-related {
   background: var(--grad-primary);
   border-color: transparent;
   box-shadow: var(--shadow-glow);
-}
-
-/* 浮动目录展开态：脱离文档流，浮在正文之上 */
-.post-toc-container.mobile-open {
-  position: fixed !important;
-  top: 76px !important;
-  left: 16px !important;
-  right: 16px !important;
-  width: auto !important;
-  max-width: 520px !important;
-  margin: 0 auto !important;
-  max-height: 66vh !important;
-  overflow-y: auto !important;
-  z-index: 99998 !important;
-  animation: toc-pop 0.22s ease;
-}
-
-.post-toc-container.mobile-open .post-toc-nav {
-  display: block !important;
-}
-
-.post-toc-container.mobile-open .post-toc-toggle {
-  display: none !important;
-}
-
-@keyframes toc-pop {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* 分享条 */
@@ -1283,8 +1370,8 @@ html.force-dark .post-related {
   }
 
   .toc-fab {
-    left: 14px;
-    bottom: 16px;
+    right: 14px;
+    bottom: 70px;
     width: 42px;
     height: 42px;
   }
@@ -1292,6 +1379,45 @@ html.force-dark .post-related {
   .post-share {
     justify-content: center;
   }
+}
+
+/* ------------------------------------ 8.5 侧边栏：面板内的关闭按钮（✕） */
+.sidebar-header {
+  position: relative;
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.82em;
+  line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.sidebar-close:hover {
+  color: var(--violet);
+  border-color: rgba(122, 92, 240, 0.35);
+  background: rgba(122, 92, 240, 0.1);
+}
+
+html.force-dark .sidebar-close {
+  color: #9aa2b8;
+}
+
+html.force-light .sidebar-close {
+  color: #7f8c8d;
 }
 
 /* --------------------------------------------------------------- 9. 响应式 */

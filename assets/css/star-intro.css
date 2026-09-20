@@ -1,0 +1,179 @@
+/* ==========================================================================
+   star-intro.css —— 首页「星海」入场动画（仅首页加载）
+   画面：深海夜色的底、Canvas 绘制的星与潮、中央浮出的站名与一句诗。
+   退场用 clip-path 自下而上收幕，像潮水退去。
+   ========================================================================== */
+
+body.star-intro-open {
+  overflow: hidden;
+}
+
+.star-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  clip-path: inset(0 0 0 0);
+  background:
+    radial-gradient(1200px 700px at 18% 8%, rgba(122, 92, 240, 0.30), transparent 62%),
+    radial-gradient(900px 560px at 84% 12%, rgba(74, 111, 165, 0.34), transparent 64%),
+    radial-gradient(1400px 760px at 50% 108%, rgba(91, 147, 208, 0.30), transparent 72%),
+    linear-gradient(180deg, #04060e 0%, #070b1c 18%, #0c1233 40%, #141c4a 60%, #1d2b63 78%, #2a468f 100%);
+  transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.9s ease;
+}
+
+.star-intro.is-leaving {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0.92;
+}
+
+.star-intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 入场瞬间整体轻微推近，像从海底浮上来 */
+.star-intro.is-live {
+  animation: si-breathe 6s ease-out forwards;
+}
+
+@keyframes si-breathe {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1); }
+}
+
+/* ------------------------------------------------------------------ 中央文字 */
+.star-intro-core {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  pointer-events: none;
+}
+
+.si-kicker {
+  margin: 0 0 14px;
+  font-family: var(--font-kai);
+  font-size: 0.95em;
+  letter-spacing: 0.42em;
+  color: rgba(207, 196, 255, 0.72);
+  opacity: 0;
+  animation: si-fade-up 1s ease 0.15s forwards;
+}
+
+.si-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 13vw, 7rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1.1;
+  background: linear-gradient(112deg, #bcd9ff 0%, #a48bf7 48%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(122, 92, 240, 0.45));
+  opacity: 0;
+  animation: si-title-in 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s forwards;
+}
+
+.si-sub {
+  margin: 16px 0 0;
+  font-family: var(--font-kai);
+  font-size: 0.98em;
+  letter-spacing: 0.34em;
+  color: rgba(214, 224, 246, 0.66);
+  opacity: 0;
+  animation: si-fade-up 1.1s ease 0.9s forwards;
+}
+
+/* 站名小字：放在细线下方，最轻的一层 */
+.si-tagline {
+  margin: 18px 0 0;
+  font-size: 0.76em;
+  letter-spacing: 0.3em;
+  color: rgba(186, 198, 224, 0.52);
+  opacity: 0;
+  animation: si-fade-up 1s ease 1.35s forwards;
+}
+
+.si-line {
+  display: block;
+  width: 0;
+  height: 1px;
+  margin: 26px auto 0;
+  background: linear-gradient(90deg, transparent, rgba(164, 139, 247, 0.9), rgba(91, 147, 208, 0.9), transparent);
+  animation: si-line-grow 1.4s ease 1.1s forwards;
+}
+
+@keyframes si-title-in {
+  0%   { opacity: 0; letter-spacing: 0.6em; transform: translateY(18px); filter: blur(8px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; letter-spacing: 0.22em; transform: translateY(0); }
+}
+
+@keyframes si-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes si-line-grow {
+  from { width: 0; opacity: 0; }
+  to   { width: min(320px, 62vw); opacity: 1; }
+}
+
+/* ------------------------------------------------------------------ 跳过提示 */
+.star-intro-skip {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 8px 18px;
+  font: inherit;
+  font-size: 0.82em;
+  letter-spacing: 0.18em;
+  color: rgba(226, 232, 248, 0.72);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(164, 139, 247, 0.28);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  animation: si-fade-up 0.8s ease 1.5s forwards;
+  transition: all 0.25s ease;
+}
+
+.star-intro-skip:hover {
+  color: #fff;
+  border-color: rgba(164, 139, 247, 0.6);
+  background: rgba(122, 92, 240, 0.28);
+}
+
+/* 动画期间在深色底上强制浅色文字，避免跟随浅色主题时对比不足 */
+html.force-light .star-intro .si-title {
+  background: linear-gradient(112deg, #bcd9ff 0%, #a48bf7 48%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 窄屏收敛一些节奏 */
+@media (max-width: 600px) {
+  .si-kicker { letter-spacing: 0.3em; font-size: 0.86em; }
+  .si-sub { letter-spacing: 0.24em; font-size: 0.88em; }
+  .si-tagline { letter-spacing: 0.2em; font-size: 0.72em; }
+  .star-intro-skip { bottom: 24px; }
+}
+
+/* 若用户开启「减少动态效果」，动画脚本本就不启动；这里再兜一层 */
+@media (prefers-reduced-motion: reduce) {
+  .star-intro { display: none !important; }
+}
