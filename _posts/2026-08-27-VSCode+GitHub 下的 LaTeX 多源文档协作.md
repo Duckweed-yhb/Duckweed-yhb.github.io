@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "VSCode + GitHub 下的 LaTeX 多源文档协作"
+description: "一个人写 LaTeX，单文件就够用。但论文、课程大作业、社团手册这类多人协作的文档，一上来就是几千行——一个 .tex 文件堆到底，光是滚动查找章节就让人崩溃。"
 date: 2026-08-27 00:00:00 +0800
+permalink: /2026/08/27/VSCode+GitHub 下的 LaTeX 多源文档协作/
 categories: [Tools, LaTeX]
 tags: [LaTeX, VSCode, GitHub, 协作, 多文件]
 author: Duckweed
@@ -243,7 +245,7 @@ build/
 
 4. **用 `\includeonly` 快速调试**：大文档全量编译可能几十秒，调某章时只编译它，效率翻倍。
 
-5. **提交信息写清楚**：`docs: 完成第二章实验方法初稿` 比 `update` 有用一百倍。想写好提交信息，可以看看我之前的 [《如何写好提交信息》](https://duckweed-yhb.github.io/tools/git/2026/08/14/如何写好提交信息.html)。
+5. **提交信息写清楚**：`docs: 完成第二章实验方法初稿` 比 `update` 有用一百倍。想写好提交信息，可以看看我之前的 [《如何写好提交信息》](https://duckweed-yhb.github.io/2026/08/14/如何写好提交信息/)。
 
 6. **命名别用中文文件名**：`.tex` 文件名和图片名尽量用英文/拼音，规避编码和跨平台问题。
 

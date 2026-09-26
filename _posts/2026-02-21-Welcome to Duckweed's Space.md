@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "欢迎来到我的博客"
+description: "我们是一群热爱探索的大学生，聚成一片名为「星云」的共同体。星云之间，彼此照亮，也各自发光。"
 date:   2026-02-21 14:30:00 +0800
+permalink: /2026/02/21/welcome-to-duckweeds-space/
 categories: [Blog, 公告]
 tags: [博客上线, 个人空间, 电气工程, 编程学习]  # 补充专业标签，删除多余空格
 author: Duckweed
