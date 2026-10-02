@@ -61,8 +61,10 @@
   --radius-editorial: 2px;
 
   /* --- 版心宽度 --- */
-  --width-page: 1080px; /* 常规页面白框 */
-  --width-wide: 1200px; /* 网格型页面（友链 / 展览） */
+  --width-page: 1080px;   /* 常规页面白框 */
+  --width-wide: 1200px;   /* 网格型页面（友链 / 展览） */
+  --width-article: min(1400px, 94vw); /* 文章纸面：让长文页在宽屏上撑开，不再显得局促 */
+  --width-reading: 1120px;            /* 文章阅读栏：约 56 个中文字/行，可读性上限 */
 }
 
 /* 深色：与 theme.css 完全同一套切换机制，手动切换才会同步生效 */
@@ -339,6 +341,45 @@ button,
 .page-card blockquote,
 .page-header-card blockquote {
   border-radius: 0 var(--radius-editorial) var(--radius-editorial) 0;
+}
+
+/* --------------------------------- 5.5 文章页版式（宽纸面 + 量度合适的阅读栏） */
+/* 背景：此前文章卡被 _layouts/post.html 的内联样式写死在 920px
+   （`.post-layout .post-container { max-width: 920px !important }`），
+   实测在 2560px 视口下正文只占 36% 宽，整页显得小气。
+   WIRED 的做法是「宽纸面 + 量度合适的正文栏」：纸面尽量撑开给气势，
+   正文收在一个舒适的列宽里保证易读。两层共用同一列宽，
+   标题、正文、上下篇、系列与相关阅读的左缘因此完全对齐。 */
+
+/* 外层：main 不再被 1200px 卡住 */
+body.layout-post .page-content {
+  max-width: var(--width-article) !important;
+}
+
+/* 纸面：不再被 1080px / 920px 卡住 */
+body.layout-post .post-layout .post-container {
+  max-width: var(--width-article) !important;
+  width: 100% !important;
+}
+
+/* 阅读栏：卡片内所有直接子块统一列宽并居中 */
+body.layout-post .post-container > .post-header,
+body.layout-post .post-container > .post-meta,
+body.layout-post .post-container > .post-tags-row,
+body.layout-post .post-container > .post-content,
+body.layout-post .post-container > .post-nav,
+body.layout-post .post-container > .post-series,
+body.layout-post .post-container > .post-related,
+body.layout-post .post-container > #giscus-container {
+  max-width: var(--width-reading);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 正文：字号提高一档，行距维持在中文的舒适区（约 1.95） */
+body.layout-post .post-container .post-content {
+  font-size: 1.15em;
+  line-height: 1.95;
 }
 
 /* ----------------------------------------------------- 6. story-row 列表行 */
@@ -725,6 +766,19 @@ body.layout-home .page-card > h2 {
 }
 
 /* ------------------------------------------------------------ 11. 响应式 */
+/* 窄屏：文章卡顶部要给固定的 ☰ 按钮让位。
+   main.css 里 `body.layout-post .page-content { padding: 0 !important }`
+   会把 sidebar.css 为 ☰ 预留的 70px 顶部内边距一并清掉，
+   于是文章卡顶到 y=16，而 ☰ 固定在 (15,15)–(57,57)，
+   正好压住卡片左上角的面包屑。这里按更高权重把它补回来。
+   注意只作用于最外层 main：post.html 里还有一个同名的内层 div.page-content，
+   若一并匹配会重复加内边距。 */
+@media (max-width: 900px) {
+  body.layout-post main.page-content {
+    padding-top: 70px !important;
+  }
+}
+
 @media (max-width: 768px) {
 
   .page-card,

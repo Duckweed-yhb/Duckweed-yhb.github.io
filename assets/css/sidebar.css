@@ -259,10 +259,19 @@
   transition: all 0.25s;
 }
 
-/* 侧边栏打开时按钮高亮为关闭态 */
+/* 侧边栏打开时：外部 ☰ 必须让位。
+   实测（1440px 视口）：打开后 ☰ 位于 (15,15)–(57,57)、z-index 1001，
+   而侧边栏面板占据 x 0–260、z-index 1000，
+   于是一枚深色圆角按钮正好压在面板左上角的站名 logo 上，两者重叠。
+   面板自身右上角已有 ✕（.sidebar-close），遮罩点击与 ESC 也都能关闭，
+   所以这里把 ☰ 淡出并整体移出面板范围，不再与面板抢位置。
+   同时用 visibility + pointer-events 兜底，确保它既看不见也点不到。 */
 .site-sidebar.open ~ .sidebar-toggle,
 body:has(.site-sidebar.open) .sidebar-toggle {
-  transform: rotate(90deg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-72px) scale(0.85);
 }
 
 .sidebar-toggle:hover {

@@ -262,6 +262,9 @@ render_with_liquid: true
 | 明暗切换在某页失效 / 某页文字颜色不对 | 该页是否**残留页面级 `:root`**，或是否还在用 `@media (prefers-color-scheme: dark)` 做颜色覆盖 | 页面级 `:root` 会污染全局令牌，且只跟随系统、不响应手动切换；颜色一律改用全局令牌（`--paper` / `--text-*` / `--line` / `--link-ink`），规范见 `DESIGN.md` |
 | 内链颜色不对 / 墨蓝不生效 | `assets/css/editorial.css` 的 `--link-ink`，以及 `layout.css`、`theme-light.css` 中是否有把颜色写死的 `!important` 规则盖住令牌 | 用无头浏览器读 `getComputedStyle(el).color` 与 CDP `CSS.getMatchedStylesForNode` 定位胜出规则 |
 | 圆角/阴影风格不一致 | 编辑层（纸面上的面）应为方角 `--radius-editorial`，氛围层（星空浮层）才用圆角 | `assets/css/editorial.css` 第 9 节「编辑层几何统一」 |
+| 文章页版心太窄 / 正文只占屏幕一小块 | `_layouts/post.html` 内联 `<style>` 与 `main.css`、`layout.css` 里 `.post-container` 各自写的 `max-width` | 版心宽度只应来自 `DESIGN.md` 的 `--width-article`（纸面）与 `--width-reading`（阅读栏），见 `editorial.css` 第 5.5 节「文章页版式」 |
+| 侧边栏开关按钮与导航面板重叠 | `assets/css/sidebar.css` 的 `.sidebar-toggle` 与 `.site-sidebar.open` | 浮层打开时唤出按钮必须让位（面板右上角另有 ✕） |
+| 窄屏下 ☰ 压住文章卡顶部的面包屑 | `main.css` 的 `body.layout-post .page-content { padding: 0 !important }` 清掉了为 ☰ 预留的顶部内边距 | `editorial.css` 响应式一节里 `body.layout-post main.page-content` 的补偿规则 |
 
 ---
 
