@@ -11,8 +11,10 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ asset_v }}">
   <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}?v={{ asset_v }}">
   <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}?v={{ asset_v }}">
-  <!-- 视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件（最后加载，覆盖并统一旧样式） -->
+  <!-- 视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件（在 theme.css 之后覆盖并统一旧样式） -->
   <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}?v={{ asset_v }}">
+  <!-- 编辑层：WIRED 派生的报刊式排版 / 内链 / 发丝线 / 统一页面容器（规范见仓库根 DESIGN.md） -->
+  <link rel="stylesheet" href="{{ '/assets/css/editorial.css' | relative_url }}?v={{ asset_v }}">
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
 </head>
 

@@ -43,7 +43,11 @@ render_with_liquid: true
 │   ├── css/
 │   │   ├── layout.css
 │   │   ├── main.css
-│   │   └── sidebar.css
+│   │   ├── sidebar.css
+│   │   ├── star-intro.css      （首页「星海」入场动画）
+│   │   ├── theme.css           （视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件）
+│   │   ├── theme-light.css     （手动切浅色时，抵消系统深色的覆盖层）
+│   │   └── editorial.css       （编辑层：WIRED 派生的报刊式排版与统一页面容器）
 │   ├── images/                （背景图、封面、社交图标、文章配图）
 │   ├── js/                    （预留目录）
 │   └── pdf/                   （课程笔记 PDF 源文件）
@@ -63,8 +67,10 @@ render_with_liquid: true
 │   └── generate_readme.py
 ├── templates/
 │   └── README.template.md
+├── .verify_plugins/           （校验构建专用插件目录，不参与发布）
 ├── .gitignore
 ├── 404.html
+├── DESIGN.md                  （设计规范：编辑层 / 氛围层两套语言的权威文档）
 ├── favicon.png
 ├── Gemfile
 ├── index.html
@@ -74,6 +80,7 @@ render_with_liquid: true
 ├── requirements.txt
 ├── robots.txt
 ├── search.json
+├── _config_verify.yml         （本地校验构建配置，不参与发布）
 └── sw.js
 ```
 
@@ -145,6 +152,15 @@ render_with_liquid: true
 | `layout.css` | 星空背景、侧边栏浮层等布局层样式 |
 | `main.css` | 全站核心样式，定义全局字体、配色、排版、响应式布局 |
 | `sidebar.css` | 侧边栏专属样式，控制侧边栏的布局、配色、交互效果 |
+| `star-intro.css` | 首页「星海」入场动画样式（一次访问只播一次，尊重「减少动态效果」偏好） |
+| `theme.css` | **视觉体系层**：设计令牌（颜色 / 字体 / 圆角 / 阴影 / 渐变）、星海与海面背景、卡片体系、文章页、首页、归档、404、打印样式 |
+| `theme-light.css` | 手动切换浅色时，用于抵消 `theme.css` 中系统深色 `@media` 规则的覆盖层 |
+| `editorial.css` | **编辑层**：按 `DESIGN.md` 落地的报刊式排版 —— 标题阶梯、内链墨蓝、发丝线层级、方角几何、`story-row` 密集列表；并提供全站唯一的 `.page-card` / `.page-header-card` 容器，以及归档、友链、卡片网格等组件定义 |
+
+> 样式分两层，改样式前请先读根目录 `DESIGN.md`：
+> **编辑层**（`editorial.css`）负责长文阅读、页面容器、标题、内链与列表；
+> **氛围层**（`theme.css` / `layout.css` / `sidebar.css`）负责星空、海面、侧边栏、页脚与浮层。
+> 页面自身**不应**再内联 `.page-card` 这类公共容器样式，也不应声明页面级 `:root`。
 
 ##### 6.2 `assets/images/`（图片资源）
 
@@ -211,6 +227,8 @@ render_with_liquid: true
 | 文件名 | 作用 | Debug 优先级 |
 | :--- | :--- | :--- |
 | `_config.yml` | Jekyll 全局核心配置，控制博客标题、域名、主题、插件、构建规则等，修改后需重新构建生效 | ⭐⭐⭐⭐⭐（最高） |
+| `DESIGN.md` | **设计规范**：以 awesome-design-md 的 WIRED 设计语言为基准，定义编辑层/氛围层两套视觉语言、颜色与排版令牌、组件、Do's & Don'ts。改任何视觉前先读它。已在 `_config.yml` 中排除，不作为访客页面生成 | ⭐⭐⭐⭐⭐ |
+| `_config_verify.yml` | 本地校验构建配置（配合 `.verify_plugins/`），仅在离线/沙箱环境下用；不参与 GitHub Pages 发布 | ⭐⭐ |
 | `404.html` | 404 错误页面，访问不存在的链接时展示，样式简洁居中 | ⭐⭐ |
 | `favicon.png` | 浏览器标签页显示的网站图标，提升辨识度 | ⭐ |
 | `Gemfile` | Ruby 依赖配置，指定 Jekyll 及相关插件版本，本地运行博客依赖此文件 | ⭐⭐⭐ |
@@ -220,6 +238,7 @@ render_with_liquid: true
 | `requirements.txt` | Python 依赖配置，指定 `generate_readme.py` 等脚本所需的 Python 库（如 pyyaml） | ⭐⭐⭐ |
 | `search.json` | 站内搜索索引文件，由 Jekyll 自动生成，用于实现文章检索功能 | ⭐⭐ |
 | `.gitignore` | Git 忽略文件规则，指定无需提交到 GitHub 的文件（如本地缓存、临时文件） | ⭐⭐⭐ |
+| `.verify_plugins/` | 校验构建专用插件目录（默认 `plugins_dir` 是 `_plugins`，正常构建与 GitHub Pages 都不会加载它） | ⭐ |
 | `sw.js` | Service Worker 脚本：静态资源离线缓存，页面导航请求 network-first | ⭐⭐ |
 | `manifest.json` | PWA 配置，站点名称/主题色/图标（建议补 192/512 尺寸图标） | ⭐ |
 | `robots.txt` | 爬虫规则，指向 sitemap.xml | ⭐ |
@@ -240,6 +259,9 @@ render_with_liquid: true
 | 独立页面（关于/友链）异常 | `pages/` 对应页面文件、`_data/friends.yml` | `_layouts/` 页面布局 |
 | 自动化脚本运行失败 | `scripts/generate_readme.py`、`requirements.txt` | `templates/README.template.md` |
 | 搜索功能失效 | `search.json` 索引、`_layouts/default.html` 侧边栏搜索脚本 | `_config.yml` 搜索配置 |
+| 明暗切换在某页失效 / 某页文字颜色不对 | 该页是否**残留页面级 `:root`**，或是否还在用 `@media (prefers-color-scheme: dark)` 做颜色覆盖 | 页面级 `:root` 会污染全局令牌，且只跟随系统、不响应手动切换；颜色一律改用全局令牌（`--paper` / `--text-*` / `--line` / `--link-ink`），规范见 `DESIGN.md` |
+| 内链颜色不对 / 墨蓝不生效 | `assets/css/editorial.css` 的 `--link-ink`，以及 `layout.css`、`theme-light.css` 中是否有把颜色写死的 `!important` 规则盖住令牌 | 用无头浏览器读 `getComputedStyle(el).color` 与 CDP `CSS.getMatchedStylesForNode` 定位胜出规则 |
+| 圆角/阴影风格不一致 | 编辑层（纸面上的面）应为方角 `--radius-editorial`，氛围层（星空浮层）才用圆角 | `assets/css/editorial.css` 第 9 节「编辑层几何统一」 |
 
 ---
 
@@ -249,173 +271,8 @@ render_with_liquid: true
 - **本地测试优先**：所有修改先本地运行 `jekyll serve` 测试无误后，再提交到 GitHub，避免部署后出现异常
 - **文档同步更新**：后续新增目录/文件后，同步更新此文档，保持结构说明的准确性，方便后续维护
 - **核心文件备份**：`_config.yml`、`.github/workflows/` 等核心文件定期备份，避免误删导致博客瘫痪
+- **改视觉先读规范**：任何涉及配色、字体、圆角、间距的改动，先读根目录 `DESIGN.md`，把改动写进对应的层（编辑层 → `editorial.css`，氛围层 → `theme.css`），不要写进页面
+- **随手清历史债**：`layout.css` / `main.css` / `theme-light.css` 里仍有一批早期写死的颜色（只按 `prefers-color-scheme` 分支，不走令牌），后续替换为新页面时优先顺手改成全局令牌
 
 </div>
 
-<!-- 样式单独放在容器外，避免 Markdown 解析干扰（和关于/档案/展览/友链页完全一致） -->
-<style>
-  /* 核心：统一的白框容器 */
-  .page-card {
-    background: rgba(255, 255, 255, 0.88);
-    padding: 35px 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(8px);
-    max-width: 1000px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    line-height: 1.8;
-  }
-
-  /* 标题与文本样式 */
-  .page-card h1 {
-    font-size: 2em;
-    border-bottom: 2px solid #4a6fa5;
-    padding-bottom: 0.5em;
-    color: #2c3e50;
-    margin-top: 0 !important;
-    margin-bottom: 0.5em;
-  }
-  .page-card h2 {
-    font-size: 1.5em;
-    border-left: 4px solid #4a6fa5;
-    padding-left: 0.5em;
-    color: #2c3e50;
-    margin-top: 2em;
-    margin-bottom: 1em;
-  }
-  .page-card h3 {
-    font-size: 1.2em;
-    color: #4a6fa5;
-    margin-top: 2em;
-    margin-bottom: 1em;
-  }
-  .page-card h4 {
-    font-size: 1.1em;
-    color: #2c3e50;
-    margin-top: 1.5em;
-    margin-bottom: 0.8em;
-  }
-  .page-card blockquote {
-    border-left: 4px solid #eee;
-    padding-left: 1em;
-    color: #7f8c8d;
-    margin: 1em 0;
-  }
-  .page-card a {
-    color: #4a6fa5;
-    text-decoration: none;
-  }
-  .page-card a:hover {
-    text-decoration: underline;
-  }
-  .page-card ul {
-    padding-left: 1.5em;
-  }
-  .page-card li {
-    margin: 0.5em 0;
-  }
-  .page-card hr {
-    border: none;
-    border-top: 1px dashed #eee;
-    margin: 2em 0;
-  }
-
-  /* 表格样式 */
-  .page-card table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1em 0;
-    font-size: 0.95em;
-  }
-  .page-card table th {
-    background: #f0f7ff;
-    color: #2c3e50;
-    font-weight: 600;
-    padding: 10px 15px;
-    border: 1px solid #dcdfe6;
-    text-align: left;
-  }
-  .page-card table td {
-    padding: 8px 15px;
-    border: 1px solid #ebeef5;
-  }
-  .page-card table tr:hover {
-    background: #f5f7fa;
-  }
-
-  /* 代码块样式 */
-  .page-card pre {
-    background: rgba(247, 250, 252, 0.95);
-    padding: 1.2rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    margin: 1.5rem 0;
-    font-size: 0.9em;
-    line-height: 1.6;
-  }
-  .page-card code {
-    background: rgba(247, 250, 252, 0.95);
-    padding: 0.2em 0.4em;
-    border-radius: 4px;
-    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
-    font-size: 0.9em;
-  }
-  .page-card pre code {
-    background: transparent;
-    padding: 0;
-  }
-
-  /* 移动端适配 */
-  @media (max-width: 768px) {
-    .page-card {
-      padding: 25px 15px;
-      margin: 0 10px;
-    }
-    .page-card h1 {
-      font-size: 1.8em;
-    }
-    .page-card h2 {
-      font-size: 1.3em;
-    }
-    .page-card table {
-      font-size: 0.85em;
-    }
-    .page-card table th,
-    .page-card table td {
-      padding: 6px 10px;
-    }
-  }
-
-  /* 暗黑模式适配 */
-  @media (prefers-color-scheme: dark) {
-    .page-card {
-      background: rgba(30, 30, 40, 0.88);
-    }
-    .page-card h1, .page-card h2, .page-card h4 {
-      color: #ecf0f1;
-    }
-    .page-card blockquote {
-      color: #bdc3c7;
-      border-left-color: #34495e;
-    }
-    .page-card hr {
-      border-top-color: #34495e;
-    }
-    .page-card a {
-      color: #4a6fa5;
-    }
-    .page-card table th {
-      background: #2c3e50;
-      color: #ecf0f1;
-      border-color: #34495e;
-    }
-    .page-card table td {
-      border-color: #2c3e50;
-    }
-    .page-card table tr:hover {
-      background: rgba(44, 62, 80, 0.4);
-    }
-  }
-</style>

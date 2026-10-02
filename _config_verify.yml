@@ -1,0 +1,46 @@
+# ============================================================================
+# 仅用于本地校验构建（不属于站点发布配置）
+#
+# 用法：
+#   cd <repo>
+#   $env:JEKYLL_NO_BUNDLER_REQUIRE = "true"
+#   ruby -S jekyll build --disable-disk-cache `
+#        --config _config.yml,_config_verify.yml -d "$env:TEMP\site_verify"
+#
+# 为什么要这个文件：
+#   1) 本机未安装 github-pages 元 gem（离线环境装不了），但 jekyll 4.4.1 与站点
+#      所需插件（jekyll-feed / jekyll-seo-tag / jekyll-sitemap / minima）都已装好，
+#      所以用 JEKYLL_NO_BUNDLER_REQUIRE=true 绕过 bundler 直接跑。
+#   2) 站点设了 theme: minima，minima 自带的 assets/main.scss 需要 sass-embedded
+#      启动子进程并用管道通信，在本机沙箱内报
+#      `IO.pipe: Permission denied (Errno::EACCES)`，构建中断。
+#      该文件站点从未引用（_layouts/default.html 只加载 assets/css/*.css），
+#      站内所有页面/文章都用本仓库 _layouts/ 下的 default 与 post 布局。
+#      处理办法：用校验专用 plugins_dir 加载 .verify_plugins/disable_scss.rb，
+#      让 SCSS 转换器对任何扩展名都不匹配，于是它退化为普通静态文件拷贝。
+#
+# ⚠ 注意：Jekyll 合并多个 --config 时，数组型配置项（exclude / plugins / include）
+#   是「整体替换」而不是「追加」。所以下面必须把 _config.yml 的 exclude 列表
+#   完整重抄一遍，只在末尾加上 assets/main.scss；否则 README.md、DESIGN.md、
+#   scripts/、templates/、Gemfile 等会重新被读取并生成出多余页面。
+# ============================================================================
+
+plugins_dir: .verify_plugins
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - .verify_plugins/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - LICENSE
+  - templates/
+  - scripts/
+  - requirements.txt
+  - README.md
+  - DESIGN.md
+  - assets/main.scss
+  - _config_verify.yml

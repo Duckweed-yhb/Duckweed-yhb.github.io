@@ -72,6 +72,7 @@ exclude:
   - scripts/
   - requirements.txt
   - README.md # 排除根目录README.md（避免生成页面）
+  - DESIGN.md # 排除设计规范文档（供维护者与 AI 读取，不作为访客页面）
 
 # ===================== Minima主题自定义 =====================
 minima:

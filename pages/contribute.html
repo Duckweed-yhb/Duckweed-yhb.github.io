@@ -11,30 +11,20 @@ render_with_liquid: true
 </div>
 
 <style>
-  :root {
-    --primary: #4a6fa5; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
-    --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d; --shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  .page-header-card { background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px); max-width:900px; margin:0 auto 30px; box-sizing:border-box; }
-  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
-  .page-header-card p { color:var(--muted); margin:0; }
+  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--blue); padding-bottom:.5em; color:var(--text-strong); margin-top:0; margin-bottom:.5em; }
+  .page-header-card p { color:var(--text-soft); margin:0; }
   .content-wrap { max-width:900px; margin:0 auto; }
-  .card { background:var(--bg); padding:30px; border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px); margin-bottom:25px; }
-  .card h2 { color:var(--text); font-size:1.3em; margin:0 0 15px; padding-left:10px; border-left:4px solid var(--primary); }
-  .card h3 { color:var(--primary); font-size:1.1em; margin:20px 0 10px; }
-  .card p,.card li { color:var(--muted); line-height:1.9; font-size:.95em; margin-bottom:10px; }
-  .card a { color:var(--primary); text-decoration:none; }
+  .card { background:var(--paper); padding:30px; border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:blur(8px); margin-bottom:25px; }
+  .card h2 { color:var(--text-strong); font-size:1.3em; margin:0 0 15px; padding-left:10px; border-left:4px solid var(--blue); }
+  .card h3 { color:var(--blue); font-size:1.1em; margin:20px 0 10px; }
+  .card p,.card li { color:var(--text-soft); line-height:1.9; font-size:.95em; margin-bottom:10px; }
+  .card a { color:var(--blue); text-decoration:none; }
   .card a:hover { text-decoration:underline; }
-  .card code { background:rgba(74,111,165,0.08); padding:2px 6px; border-radius:4px; font-size:.9em; color:#e74c3c; }
+  .card code { background:var(--line-soft); padding:2px 6px; border-radius:4px; font-size:.9em; color:#e74c3c; }
   .step-list { counter-reset:step; list-style:none; padding:0; }
   .step-list li { counter-increment:step; padding:10px 0 10px 40px; position:relative; margin-bottom:8px; }
-  .step-list li::before { content:counter(step); position:absolute; left:0; top:10px; width:26px; height:26px; background:var(--primary); color:#fff; border-radius:50%; text-align:center; line-height:26px; font-size:.85em; font-weight:600; }
-  @media(max-width:768px){.page-header-card{padding:25px 15px;margin:0 10px 25px;}.card{padding:22px 18px;}}
-  @media(prefers-color-scheme:dark){
-    .page-header-card,.card{background:var(--bg-dark);}
-    .page-header-card h1,.card h2{color:var(--text-light);}
-    .page-header-card p,.card p,.card li{color:#bdc3c7;}
-  }
+  .step-list li::before { content:counter(step); position:absolute; left:0; top:10px; width:26px; height:26px; background:var(--blue); color:#fff; border-radius:50%; text-align:center; line-height:26px; font-size:.85em; font-weight:600; }
+  @media(max-width:768px){.card{padding:22px 18px;}}
 </style>
 
 <div class="content-wrap">

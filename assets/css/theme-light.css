@@ -58,7 +58,7 @@ html.force-light .page-content hr {
 }
 
 html.force-light .page-content a {
-  color: #4a6fa5;
+  color: var(--link-ink);
 }
 
 html.force-light .community-intro {

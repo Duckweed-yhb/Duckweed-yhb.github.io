@@ -11,17 +11,8 @@ render_with_liquid: true
 </div>
 
 <style>
-  :root {
-    --primary: #4a6fa5; --bg: rgba(255,255,255,0.88); --bg-dark: rgba(30,30,40,0.88);
-    --text: #2c3e50; --text-light: #ecf0f1; --muted: #7f8c8d;
-    --shadow: 0 4px 12px rgba(0,0,0,0.08); --shadow-hover: 0 12px 24px rgba(0,0,0,0.12);
-  }
-  .page-header-card {
-    background:var(--bg); padding:35px 25px; border-radius:12px; box-shadow:var(--shadow);
-    backdrop-filter:blur(8px); max-width:1050px; margin:0 auto 30px; box-sizing:border-box;
-  }
-  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--primary); padding-bottom:.5em; color:var(--text); margin-top:0; margin-bottom:.5em; }
-  .page-header-card p { color:var(--muted); margin:0; font-size:1em; }
+  .page-header-card h1 { font-size:2em; border-bottom:2px solid var(--blue); padding-bottom:.5em; color:var(--text-strong); margin-top:0; margin-bottom:.5em; }
+  .page-header-card p { color:var(--text-soft); margin:0; font-size:1em; }
 
   .content-wrap { max-width:1050px; margin:0 auto; }
 
@@ -29,15 +20,15 @@ render_with_liquid: true
   .role-section { margin-bottom:25px; }
   .role-cards { display:flex; flex-wrap:wrap; gap:16px; }
   .role-card {
-    flex:1 1 180px; min-width:150px; background:var(--bg); padding:22px 15px;
-    border-radius:12px; box-shadow:var(--shadow); backdrop-filter:blur(8px);
+    flex:1 1 180px; min-width:150px; background:var(--paper); padding:22px 15px;
+    border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:blur(8px);
     text-align:center; cursor:pointer; transition:all .3s; border:2px solid transparent;
   }
-  .role-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); border-color:var(--primary); }
-  .role-card.active { border-color:var(--primary); background:rgba(74,111,165,0.08); }
+  .role-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--blue); }
+  .role-card.active { border-color:var(--blue); background:var(--line-soft); }
   .role-card .role-icon { font-size:36px; margin-bottom:8px; }
-  .role-card .role-name { font-size:1.15em; font-weight:600; color:var(--text); }
-  .role-card .role-desc { font-size:.8em; color:var(--muted); margin-top:4px; }
+  .role-card .role-name { font-size:1.15em; font-weight:600; color:var(--text-strong); }
+  .role-card .role-desc { font-size:.8em; color:var(--text-soft); margin-top:4px; }
 
   /* 子分类区 */
   .sub-section { display:none; }
@@ -46,60 +37,49 @@ render_with_liquid: true
   /* 子分类标签（仅准大学生和大学生有） */
   .sub-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
   .sub-tab {
-    padding:8px 16px; border:1px solid #ddd; border-radius:20px;
-    background:rgba(255,255,255,0.88); backdrop-filter:blur(8px);
-    cursor:pointer; font-size:.9em; color:var(--text); transition:all .3s;
+    padding:8px 16px; border:1px solid var(--line); border-radius:20px;
+    background:var(--paper); backdrop-filter:blur(8px);
+    cursor:pointer; font-size:.9em; color:var(--text-strong); transition:all .3s;
   }
-  .sub-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
-  .sub-tab:hover:not(.active) { border-color:var(--primary); color:var(--primary); }
+  .sub-tab.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+  .sub-tab:hover:not(.active) { border-color:var(--blue); color:var(--blue); }
 
   /* 推荐列表 */
   .guide-list {
-    background:var(--bg); padding:25px 30px; border-radius:12px;
-    box-shadow:var(--shadow); backdrop-filter:blur(8px);
+    background:var(--paper); padding:25px 30px; border-radius:12px;
+    box-shadow:var(--shadow-md); backdrop-filter:blur(8px);
   }
   .guide-list h3 {
-    font-size:1.1em; color:var(--primary); margin:0 0 15px;
-    padding-left:10px; border-left:3px solid var(--primary);
+    font-size:1.1em; color:var(--blue); margin:0 0 15px;
+    padding-left:10px; border-left:3px solid var(--blue);
   }
   .guide-sublist { display:none; }
   .guide-sublist.active { display:block; }
 
   .guide-item {
     display:flex; align-items:center; padding:12px 18px; margin-bottom:8px;
-    border-radius:10px; background:rgba(255,255,255,0.5);
-    transition:all .25s; text-decoration:none; color:var(--text); border:1px solid transparent;
+    border-radius:10px; background:var(--paper-veil);
+    transition:all .25s; text-decoration:none; color:var(--text-strong); border:1px solid transparent;
   }
   .guide-item:hover {
-    background:rgba(74,111,165,0.06); border-color:rgba(74,111,165,0.2); transform:translateX(4px);
+    background:var(--line-soft); border-color:var(--line); transform:translateX(4px);
   }
   .guide-item .item-icon { font-size:1.3em; margin-right:12px; flex-shrink:0; }
   .guide-item .item-info { flex:1; }
-  .guide-item .item-title { font-weight:600; font-size:1em; color:var(--text); }
-  .guide-item .item-meta { font-size:.82em; color:var(--muted); margin-top:2px; }
+  .guide-item .item-title { font-weight:600; font-size:1em; color:var(--text-strong); }
+  .guide-item .item-meta { font-size:.82em; color:var(--text-soft); margin-top:2px; }
 
   .tip-card {
-    background:rgba(74,111,165,0.06); border-left:4px solid var(--primary);
+    background:var(--line-soft); border-left:4px solid var(--blue);
     padding:14px 20px; border-radius:6px; margin-top:18px;
-    color:var(--muted); font-size:.88em; line-height:1.7;
+    color:var(--text-soft); font-size:.88em; line-height:1.7;
   }
 
   @media (max-width:768px) {
-    .page-header-card { padding:25px 15px; margin:0 10px 25px; }
-    .page-header-card h1 { font-size:1.8em; }
     .role-card { flex:1 1 45%; min-width:130px; padding:18px 12px; }
     .guide-list { padding:18px 15px; }
     .guide-item { padding:10px 12px; }
     .sub-tab { padding:7px 12px; font-size:.85em; }
-  }
-  @media (prefers-color-scheme:dark) {
-    .page-header-card,.role-card,.guide-list { background:var(--bg-dark); }
-    .page-header-card h1,.role-card .role-name,.guide-item .item-title { color:var(--text-light); }
-    .page-header-card p,.role-card .role-desc,.guide-item .item-meta,.tip-card { color:#bdc3c7; }
-    .sub-tab { background:rgba(44,62,80,0.88); border-color:#34495e; color:var(--text-light); }
-    .guide-item { background:rgba(30,30,40,0.5); }
-    .guide-item:hover { background:rgba(74,111,165,0.12); }
-    .tip-card { background:rgba(74,111,165,0.1); }
   }
 </style>
 

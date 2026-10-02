@@ -165,7 +165,7 @@ body {
 }
 
 .page-content a {
-  color: #4a6fa5;
+  color: var(--link-ink);
   text-decoration: underline;
 }
 
@@ -202,12 +202,16 @@ body {
   }
 }
 
-/* ===== 暗黑模式（系统偏好） ===== */
+/* ===== 暗黑模式（系统偏好） =====
+   本块的颜色已改为引用全局令牌，与 theme.css / theme-light.css / editorial.css
+   使用同一套语义（--paper / --text-strong / --text-soft / --line / --link-ink）。
+   原先这里硬编码 #7fb3d5 等值，会把 editorial.css 依据 --link-ink 定义的
+   正文内链墨蓝在深色下整个盖掉（已用无头浏览器实测确认）。 */
 @media (prefers-color-scheme: dark) {
   .page-card,
   .post-container,
   .page-header-card {
-    background: rgba(30, 30, 40, 0.88);
+    background: var(--paper);
   }
 
   .page-content h1,
@@ -215,20 +219,20 @@ body {
   .page-content h3,
   .page-content p,
   .page-content li {
-    color: #ecf0f1;
+    color: var(--text-strong);
   }
 
   .page-content blockquote {
-    color: #bdc3c7;
-    border-left-color: #34495e;
+    color: var(--text-soft);
+    border-left-color: var(--line);
   }
 
   .page-content hr {
-    border-top-color: #34495e;
+    border-top-color: var(--line);
   }
 
   .page-content a {
-    color: #7fb3d5;
+    color: var(--link-ink);
   }
 
   .verse-banner {
@@ -237,11 +241,11 @@ body {
   }
 
   .verse-banner .verse-main {
-    color: #8aadcc;
+    color: var(--blue);
   }
 
   .community-intro {
-    color: #b0b8c4;
+    color: var(--text-soft);
   }
 }
 
@@ -317,10 +321,17 @@ html.force-dark .page-link {
   color: #ecf0f1 !important;
 }
 
-html.force-dark .post-link,
+html.force-dark .post-link {
+  color: #7fb3d5 !important;
+}
+
+/* 正文内链的颜色由 assets/css/editorial.css 依据 --link-ink 令牌统一管理。
+   此处原先与 .post-link 合并成一条并硬编码 #7fb3d5 !important，
+   结果在深色下手动切换路径上把内链墨蓝令牌整个盖掉（已用无头浏览器实测）。
+   现在去掉 !important 并改用令牌，只作为「不在 p/li/blockquote 内的裸链接」的兜底。 */
 html.force-dark .page-card a,
 html.force-dark .page-content a {
-  color: #7fb3d5 !important;
+  color: var(--link-ink);
 }
 
 html.force-dark .post-related {

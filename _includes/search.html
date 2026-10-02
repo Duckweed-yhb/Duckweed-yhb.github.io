@@ -50,8 +50,8 @@
   padding: 8px 18px;
   border: none;
   border-radius: 25px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #2c3e50;
+  background: var(--paper);
+  color: var(--text-strong);
   cursor: pointer;
   min-width: 90px;
   font-size: 1em;
@@ -63,7 +63,7 @@
 }
 
 .search-toggle-btn:hover {
-  background: #4a6fa5;
+  background: var(--blue);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(74, 111, 165, 0.2);
@@ -80,7 +80,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--paper);
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -94,17 +94,18 @@
   width: 70%;
   max-width: 450px;
   padding: 12px 20px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--line);
   border-radius: 25px;
   outline: none;
   font-size: 1em;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--paper);
+  color: var(--text-strong);
   transition: all 0.3s ease;
 }
 
 .search-input:focus {
-  border-color: #4a6fa5;
+  border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
 }
 
@@ -113,8 +114,8 @@
   padding: 12px 20px;
   border: none;
   border-radius: 25px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #2c3e50;
+  background: var(--paper);
+  color: var(--text-strong);
   cursor: pointer;
   min-width: 80px;
   font-size: 1em;
@@ -126,7 +127,7 @@
 }
 
 .search-btn:hover, .clear-btn:hover {
-  background: #4a6fa5;
+  background: var(--blue);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(74, 111, 165, 0.2);
@@ -140,7 +141,7 @@
   right: 0;
   width: 100%;
   max-width: 600px;
-  background: #fff;
+  background: var(--paper);
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -155,16 +156,16 @@
 .search-results a {
   display: block;
   padding: 12px 15px;
-  color: #333;
+  color: var(--text);
   text-decoration: none;
-  border-bottom: 1px dashed #eee;
+  border-bottom: 1px solid var(--line-soft);
   border-radius: 8px;
   margin-bottom: 5px;
   transition: all 0.3s ease;
 }
 
 .search-results a:hover {
-  background-color: rgba(74, 111, 165, 0.08);
+  background-color: var(--line-soft);
   padding-left: 20px;
   transform: translateX(2px);
 }
@@ -173,18 +174,18 @@
   font-weight: 600;
   margin-bottom: 4px;
   font-size: 1.05em;
-  color: #2c3e50;
+  color: var(--text-strong);
 }
 
 .search-results a div:last-child {
   font-size: 0.85em;
-  color: #666;
+  color: var(--text-soft);
   line-height: 1.4;
 }
 
 /* 关键词高亮样式 */
 .search-results span {
-  color: #4a6fa5;
+  color: var(--blue);
   font-weight: bold;
   text-decoration: underline;
   text-decoration-color: rgba(74, 111, 165, 0.3);
@@ -192,7 +193,7 @@
 
 /* 加载中/空结果提示样式 */
 .search-loading, .search-empty {
-  color: #666;
+  color: var(--text-soft);
   text-align: center;
   padding: 20px 0;
   line-height: 1.6;
@@ -269,40 +270,14 @@
   }
 }
 
-/* 暗黑模式适配 */
-@media (prefers-color-scheme: dark) {
-  .search-toggle-btn, .search-box-container, .search-btn, .clear-btn {
-    background: rgba(44, 62, 80, 0.88);
-    color: #ecf0f1;
-  }
-  
-  .search-input {
-    background: rgba(34, 49, 63, 0.9);
-    border-color: #34495e;
-    color: #ecf0f1;
-  }
-  
-  .search-results {
-    background: rgba(26, 37, 48, 0.95);
-  }
-  
-  .search-results a {
-    color: #ecf0f1;
-    border-bottom-color: #34495e;
-  }
-  
-  .search-results a:hover {
-    background-color: rgba(74, 111, 165, 0.15);
-  }
-  
-  .search-results a div:first-child {
-    color: #ecf0f1;
-  }
-  
-  .search-results a div:last-child {
-    color: #bdc3c7;
-  }
-}
+/*
+  此处原先有一段 @media (prefers-color-scheme: dark) 颜色覆盖块。
+  它只响应系统深色偏好，忽略了侧边栏的手动明暗切换
+  （html.force-dark / html.force-light），会让本组件在手动切到深色时仍是浅色。
+  上面所有颜色已改用全局令牌（--paper / --text-strong / --text / --text-soft /
+  --line / --line-soft / --blue），令牌本身在深浅两态下都有取值，
+  两条切换路径同时生效，因此该块已删除。规范见仓库根 DESIGN.md。
+*/
 </style>
 
 <!-- 全文搜索核心脚本 -->
