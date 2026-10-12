@@ -23,7 +23,7 @@
 | 2026-09-17 | [推荐一个 CS 自学社区](https://duckweed-yhb.github.io/2026/09/17/推荐一个CS自学社区/) |
 | 2026-09-16 | [挖洞进入“许愿时代”：读 Hacking with LLMs](https://duckweed-yhb.github.io/2026/09/16/Hacking-with-LLMs/) |
 | 2026-09-12 | [编程面试大学：读 coding-interview-university](https://duckweed-yhb.github.io/2026/09/12/编程面试大学/) |
-| 2026-09-11 | [读 xp0int 新生指南：入坑安全第一步](https://duckweed-yhb.github.io/2026/09/11/读xp0int新生指南/) |
+| 2026-09-11 | [读 roadmap.sh CS 路线图：科班到底学什么](https://duckweed-yhb.github.io/2026/09/11/CS路线图解读/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -128,7 +128,7 @@
 ```
 
 ---
-> 最后更新：2026-10-11 03:03:35 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-10-12 03:26:51 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
