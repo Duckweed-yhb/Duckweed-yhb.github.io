@@ -73,8 +73,8 @@
       });
     })();
 
-    // 暗黑模式切换（三态：深色 / 浅色 / 跟随系统）
-    // 初始化已在 head.html 中提前执行（避免刷新白闪），这里只负责切换
+    // 暗黑模式切换（三态循环：跟随系统 → 浅色 → 深色 → 跟随系统）
+    // 初始化已在 head.html 中提前执行（避免刷新白闪），这里只负责切换与按钮状态
     (function() {
       var root = document.documentElement;
       // 若从未手动选择过，跟随系统，并让按钮第一次点击时进入相反模式
@@ -84,22 +84,52 @@
         var prefersDark = root.classList.contains('force-dark');
         root.dataset.systemTheme = prefersDark ? 'dark' : 'light';
       }
+      // 让按钮图标与标题反映当前主题状态
+      updateThemeButton(saved || 'system');
     })();
 
     function toggleDarkSidebar() {
-      var root = document.documentElement;
-      var isDark = root.classList.contains('force-dark');
-      if (isDark) {
-        // 当前是深色 → 切浅色
-        root.classList.remove('force-dark');
-        root.classList.add('force-light');
-        try { localStorage.setItem('dark-mode', 'light'); } catch (e) {}
+      var saved = null;
+      try { saved = localStorage.getItem('dark-mode'); } catch (e) {}
+      var current = saved || 'system';
+      var next;
+      if (current === 'system') {
+        // 跟随系统中 → 切到与系统相反的模式（让用户立刻看到变化）
+        var prefersDark = document.documentElement.classList.contains('force-dark');
+        next = prefersDark ? 'light' : 'dark';
+      } else if (current === 'light') {
+        next = 'dark';
       } else {
-        // 当前是浅色 → 切深色
-        root.classList.remove('force-light');
-        root.classList.add('force-dark');
-        try { localStorage.setItem('dark-mode', 'dark'); } catch (e) {}
+        next = 'system'; // 深色 → 回到跟随系统
       }
+      applyTheme(next);
+    }
+
+    function applyTheme(mode) {
+      var root = document.documentElement;
+      root.classList.remove('force-dark', 'force-light');
+      if (mode === 'dark') {
+        root.classList.add('force-dark');
+      } else if (mode === 'light') {
+        root.classList.add('force-light');
+      }
+      // mode === 'system'：不加任何类，交给 prefers-color-scheme 规则接管
+      try { localStorage.setItem('dark-mode', mode === 'system' ? '' : mode); } catch (e) {}
+      updateThemeButton(mode);
+    }
+
+    function updateThemeButton(mode) {
+      var btn = document.getElementById('dark-toggle-sidebar');
+      if (!btn) return;
+      var map = {
+        system: ['🌓', '跟随系统（推荐）'],
+        light: ['☀️', '浅色模式'],
+        dark: ['🌙', '深色模式']
+      };
+      var item = map[mode] || map.system;
+      btn.textContent = item[0];
+      btn.title = item[1];
+      btn.setAttribute('aria-label', item[1]);
     }
 
     // 侧边栏搜索功能
