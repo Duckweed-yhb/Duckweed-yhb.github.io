@@ -1,0 +1,430 @@
+/* ==========================================================================
+   bloom.css —— Bloom 主题层（莫兰迪 OKLCH 十套色板 + 玻璃拟态 + 磨砂侧栏）
+   --------------------------------------------------------------------------
+   在 editorial.css 之后加载。仅通过覆盖设计令牌换肤，不改变任何布局：
+     · html[data-palette="starry|mist|dusk|teal|moss|clay|lotus|sand|ember|ink"]
+       选择色板（侧栏 🎨 选择器切换，localStorage 'bloom-palette' 持久化）
+     · 明暗沿用现有三态机制（force-dark / force-light / 跟随系统）
+     · 玻璃拟态：卡片组半透明纸 + backdrop-filter
+     · 磨砂侧栏：侧栏背景半透明 + 更强 blur
+   ========================================================================== */
+
+/* --------------------------------------------------------- 1. 色板种子 */
+/* 莫兰迪特征：低饱和（c 0.01~0.09）、灰调、柔和。每套 10 个种子：
+   --b-bg-d / --b-card-d / --b-text-d / --b-acc-d / --b-acc2-d（深色）
+   --b-bg-l / --b-card-l / --b-text-l / --b-acc-l / --b-acc2-l（浅色）     */
+
+html[data-palette="starry"] {
+  /* 星灰：蓝紫灰，最接近原站气质 */
+  --b-bg-d: oklch(0.145 0.020 255);  --b-card-d: oklch(0.215 0.028 255);
+  --b-text-d: oklch(0.940 0.012 255); --b-acc-d: oklch(0.750 0.080 255);
+  --b-acc2-d: oklch(0.720 0.090 282);
+  --b-bg-l: oklch(0.965 0.010 255);  --b-card-l: oklch(0.995 0.004 255);
+  --b-text-l: oklch(0.335 0.030 255); --b-acc-l: oklch(0.500 0.085 255);
+  --b-acc2-l: oklch(0.540 0.095 282);
+}
+
+html[data-palette="mist"] {
+  /* 雾蓝：冷调灰蓝 */
+  --b-bg-d: oklch(0.150 0.018 238);  --b-card-d: oklch(0.220 0.025 238);
+  --b-text-d: oklch(0.940 0.010 238); --b-acc-d: oklch(0.760 0.070 238);
+  --b-acc2-d: oklch(0.730 0.080 250);
+  --b-bg-l: oklch(0.968 0.009 238);  --b-card-l: oklch(0.996 0.003 238);
+  --b-text-l: oklch(0.330 0.028 238); --b-acc-l: oklch(0.510 0.075 238);
+  --b-acc2-l: oklch(0.530 0.080 250);
+}
+
+html[data-palette="dusk"] {
+  /* 薄暮紫：黄昏的雾紫 */
+  --b-bg-d: oklch(0.145 0.022 290);  --b-card-d: oklch(0.215 0.030 290);
+  --b-text-d: oklch(0.940 0.014 290); --b-acc-d: oklch(0.750 0.085 290);
+  --b-acc2-d: oklch(0.740 0.090 300);
+  --b-bg-l: oklch(0.965 0.011 290);  --b-card-l: oklch(0.995 0.004 290);
+  --b-text-l: oklch(0.335 0.032 290); --b-acc-l: oklch(0.510 0.090 290);
+  --b-acc2-l: oklch(0.550 0.095 300);
+}
+
+html[data-palette="teal"] {
+  /* 灰湖：湖水的青灰 */
+  --b-bg-d: oklch(0.155 0.020 205);  --b-card-d: oklch(0.225 0.026 205);
+  --b-text-d: oklch(0.945 0.011 205); --b-acc-d: oklch(0.760 0.075 205);
+  --b-acc2-d: oklch(0.750 0.080 190);
+  --b-bg-l: oklch(0.968 0.009 205);  --b-card-l: oklch(0.996 0.003 205);
+  --b-text-l: oklch(0.330 0.026 205); --b-acc-l: oklch(0.500 0.080 205);
+  --b-acc2-l: oklch(0.520 0.085 190);
+}
+
+html[data-palette="moss"] {
+  /* 苔青：雨后苔藓的绿 */
+  --b-bg-d: oklch(0.150 0.020 152);  --b-card-d: oklch(0.220 0.026 152);
+  --b-text-d: oklch(0.945 0.012 152); --b-acc-d: oklch(0.750 0.070 152);
+  --b-acc2-d: oklch(0.720 0.075 135);
+  --b-bg-l: oklch(0.968 0.009 152);  --b-card-l: oklch(0.996 0.003 152);
+  --b-text-l: oklch(0.330 0.027 152); --b-acc-l: oklch(0.490 0.075 152);
+  --b-acc2-l: oklch(0.510 0.080 135);
+}
+
+html[data-palette="clay"] {
+  /* 陶土：温润的暖棕 */
+  --b-bg-d: oklch(0.155 0.022 45);  --b-card-d: oklch(0.225 0.028 45);
+  --b-text-d: oklch(0.945 0.013 45); --b-acc-d: oklch(0.760 0.080 45);
+  --b-acc2-d: oklch(0.750 0.085 25);
+  --b-bg-l: oklch(0.968 0.011 45);  --b-card-l: oklch(0.996 0.005 45);
+  --b-text-l: oklch(0.335 0.030 45); --b-acc-l: oklch(0.500 0.085 45);
+  --b-acc2-l: oklch(0.530 0.090 25);
+}
+
+html[data-palette="lotus"] {
+  /* 藕荷：荷塘的粉紫 */
+  --b-bg-d: oklch(0.150 0.024 330);  --b-card-d: oklch(0.220 0.030 330);
+  --b-text-d: oklch(0.945 0.014 330); --b-acc-d: oklch(0.760 0.085 330);
+  --b-acc2-d: oklch(0.750 0.090 345);
+  --b-bg-l: oklch(0.968 0.012 330);  --b-card-l: oklch(0.996 0.004 330);
+  --b-text-l: oklch(0.335 0.032 330); --b-acc-l: oklch(0.510 0.090 330);
+  --b-acc2-l: oklch(0.530 0.095 345);
+}
+
+html[data-palette="sand"] {
+  /* 沙金：沙丘的金调 */
+  --b-bg-d: oklch(0.160 0.020 90);  --b-card-d: oklch(0.230 0.025 90);
+  --b-text-d: oklch(0.945 0.011 90); --b-acc-d: oklch(0.750 0.075 90);
+  --b-acc2-d: oklch(0.730 0.080 70);
+  --b-bg-l: oklch(0.970 0.009 90);  --b-card-l: oklch(0.996 0.003 90);
+  --b-text-l: oklch(0.335 0.025 90); --b-acc-l: oklch(0.490 0.080 90);
+  --b-acc2-l: oklch(0.510 0.085 70);
+}
+
+html[data-palette="ember"] {
+  /* 暮橙：晚霞的暖橙 */
+  --b-bg-d: oklch(0.150 0.024 30);  --b-card-d: oklch(0.220 0.030 30);
+  --b-text-d: oklch(0.945 0.014 30); --b-acc-d: oklch(0.760 0.085 30);
+  --b-acc2-d: oklch(0.750 0.090 15);
+  --b-bg-l: oklch(0.968 0.012 30);  --b-card-l: oklch(0.996 0.005 30);
+  --b-text-l: oklch(0.335 0.031 30); --b-acc-l: oklch(0.500 0.090 30);
+  --b-acc2-l: oklch(0.520 0.095 15);
+}
+
+html[data-palette="ink"] {
+  /* 黛墨：最"莫兰迪灰"的中性色 */
+  --b-bg-d: oklch(0.150 0.015 268);  --b-card-d: oklch(0.220 0.020 268);
+  --b-text-d: oklch(0.945 0.008 268); --b-acc-d: oklch(0.760 0.050 268);
+  --b-acc2-d: oklch(0.740 0.060 275);
+  --b-bg-l: oklch(0.970 0.006 268);  --b-card-l: oklch(0.996 0.002 268);
+  --b-text-l: oklch(0.335 0.020 268); --b-acc-l: oklch(0.510 0.055 268);
+  --b-acc2-l: oklch(0.530 0.065 275);
+}
+
+/* --------------------------------------------- 2. 深色映射（系统深色或 force-dark） */
+html[data-palette]:root:not(.force-light) {
+  /* 墨色层 */
+  --ink-1000: var(--b-bg-d);
+  --ink-900: color-mix(in oklch, var(--b-bg-d) 86%, var(--b-card-d));
+  --ink-800: var(--b-card-d);
+  --ink-700: color-mix(in oklch, var(--b-card-d) 85%, var(--b-acc-d));
+  --ink-600: color-mix(in oklch, var(--b-card-d) 70%, var(--b-acc-d));
+  /* 玻璃纸 */
+  --paper: color-mix(in oklch, var(--b-card-d) 78%, transparent);
+  --paper-soft: color-mix(in oklch, var(--b-card-d) 66%, transparent);
+  --paper-veil: color-mix(in oklch, var(--b-card-d) 52%, transparent);
+  /* 文字 */
+  --text-strong: var(--b-text-d);
+  --text: color-mix(in oklch, var(--b-text-d) 84%, var(--b-card-d));
+  --text-soft: color-mix(in oklch, var(--b-text-d) 68%, var(--b-bg-d));
+  --text-muted: color-mix(in oklch, var(--b-text-d) 54%, var(--b-bg-d));
+  /* 发丝线 */
+  --line: color-mix(in oklch, var(--b-text-d) 20%, transparent);
+  --line-soft: color-mix(in oklch, var(--b-text-d) 11%, transparent);
+  /* 强调色 */
+  --blue: var(--b-acc-d);
+  --blue-bright: color-mix(in oklch, var(--b-acc-d) 72%, white);
+  --blue-deep: color-mix(in oklch, var(--b-acc-d) 75%, var(--b-bg-d));
+  --azure: color-mix(in oklch, var(--b-acc-d) 86%, white);
+  --sea: color-mix(in oklch, var(--b-acc-d) 80%, var(--b-bg-d));
+  --violet: var(--b-acc2-d);
+  --violet-bright: color-mix(in oklch, var(--b-acc2-d) 70%, white);
+  --violet-soft: color-mix(in oklch, var(--b-acc2-d) 55%, var(--b-bg-d));
+  /* 渐变 */
+  --grad-title: linear-gradient(112deg, var(--blue) 0%, var(--violet) 52%, var(--violet-bright) 100%);
+  --grad-primary: linear-gradient(120deg, var(--blue) 0%, var(--violet) 58%, var(--violet-bright) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
+  --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
+  --grad-sea: linear-gradient(180deg, var(--b-bg-d) 0%, var(--b-bg-d) 55%,
+      color-mix(in oklch, var(--b-acc-d) 26%, var(--b-bg-d)) 100%);
+  /* 内链与光晕 */
+  --link-ink: var(--blue-bright);
+  --link-ink-hover: var(--violet-bright);
+  --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-d) 24%, transparent);
+}
+
+/* 手动深色（force-dark）走同一套深色映射 */
+html[data-palette].force-dark {
+  --ink-1000: var(--b-bg-d);
+  --ink-900: color-mix(in oklch, var(--b-bg-d) 86%, var(--b-card-d));
+  --ink-800: var(--b-card-d);
+  --ink-700: color-mix(in oklch, var(--b-card-d) 85%, var(--b-acc-d));
+  --ink-600: color-mix(in oklch, var(--b-card-d) 70%, var(--b-acc-d));
+  --paper: color-mix(in oklch, var(--b-card-d) 78%, transparent);
+  --paper-soft: color-mix(in oklch, var(--b-card-d) 66%, transparent);
+  --paper-veil: color-mix(in oklch, var(--b-card-d) 52%, transparent);
+  --text-strong: var(--b-text-d);
+  --text: color-mix(in oklch, var(--b-text-d) 84%, var(--b-card-d));
+  --text-soft: color-mix(in oklch, var(--b-text-d) 68%, var(--b-bg-d));
+  --text-muted: color-mix(in oklch, var(--b-text-d) 54%, var(--b-bg-d));
+  --line: color-mix(in oklch, var(--b-text-d) 20%, transparent);
+  --line-soft: color-mix(in oklch, var(--b-text-d) 11%, transparent);
+  --blue: var(--b-acc-d);
+  --blue-bright: color-mix(in oklch, var(--b-acc-d) 72%, white);
+  --blue-deep: color-mix(in oklch, var(--b-acc-d) 75%, var(--b-bg-d));
+  --azure: color-mix(in oklch, var(--b-acc-d) 86%, white);
+  --sea: color-mix(in oklch, var(--b-acc-d) 80%, var(--b-bg-d));
+  --violet: var(--b-acc2-d);
+  --violet-bright: color-mix(in oklch, var(--b-acc2-d) 70%, white);
+  --violet-soft: color-mix(in oklch, var(--b-acc2-d) 55%, var(--b-bg-d));
+  --grad-title: linear-gradient(112deg, var(--blue) 0%, var(--violet) 52%, var(--violet-bright) 100%);
+  --grad-primary: linear-gradient(120deg, var(--blue) 0%, var(--violet) 58%, var(--violet-bright) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
+  --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
+  --grad-sea: linear-gradient(180deg, var(--b-bg-d) 0%, var(--b-bg-d) 55%,
+      color-mix(in oklch, var(--b-acc-d) 26%, var(--b-bg-d)) 100%);
+  --link-ink: var(--blue-bright);
+  --link-ink-hover: var(--violet-bright);
+  --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-d) 24%, transparent);
+}
+
+/* ------------------------------------------------- 3. 浅色映射（force-light） */
+html[data-palette]:root.force-light {
+  --ink-1000: var(--b-bg-l);
+  --ink-900: color-mix(in oklch, var(--b-bg-l) 90%, var(--b-card-l));
+  --ink-800: var(--b-card-l);
+  --ink-700: color-mix(in oklch, var(--b-card-l) 86%, var(--b-acc-l));
+  --ink-600: color-mix(in oklch, var(--b-card-l) 70%, var(--b-acc-l));
+  --paper: color-mix(in oklch, var(--b-card-l) 82%, transparent);
+  --paper-soft: color-mix(in oklch, var(--b-card-l) 72%, transparent);
+  --paper-veil: color-mix(in oklch, var(--b-card-l) 58%, transparent);
+  --text-strong: var(--b-text-l);
+  --text: color-mix(in oklch, var(--b-text-l) 86%, var(--b-card-l));
+  --text-soft: color-mix(in oklch, var(--b-text-l) 70%, var(--b-bg-l));
+  --text-muted: color-mix(in oklch, var(--b-text-l) 56%, var(--b-bg-l));
+  --line: color-mix(in oklch, var(--b-text-l) 22%, transparent);
+  --line-soft: color-mix(in oklch, var(--b-text-l) 12%, transparent);
+  --blue: var(--b-acc-l);
+  --blue-bright: color-mix(in oklch, var(--b-acc-l) 72%, white);
+  --blue-deep: color-mix(in oklch, var(--b-acc-l) 78%, var(--b-bg-l));
+  --azure: color-mix(in oklch, var(--b-acc-l) 86%, white);
+  --sea: color-mix(in oklch, var(--b-acc-l) 80%, var(--b-bg-l));
+  --violet: var(--b-acc2-l);
+  --violet-bright: color-mix(in oklch, var(--b-acc2-l) 68%, white);
+  --violet-soft: color-mix(in oklch, var(--b-acc2-l) 55%, var(--b-bg-l));
+  --grad-title: linear-gradient(112deg, var(--blue) 0%, var(--violet) 52%, var(--violet-bright) 100%);
+  --grad-primary: linear-gradient(120deg, var(--blue) 0%, var(--violet) 58%, var(--violet-bright) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
+  --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
+  --grad-sea: linear-gradient(180deg, var(--b-bg-l) 0%, var(--b-bg-l) 55%,
+      color-mix(in oklch, var(--b-acc-l) 22%, var(--b-bg-l)) 100%);
+  --link-ink: var(--blue);
+  --link-ink-hover: var(--blue-deep);
+  --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-l) 22%, transparent);
+}
+
+/* ------------------------------------- 4. 玻璃拟态（卡片组半透明 + 强化模糊） */
+html[data-palette] .page-card,
+html[data-palette] .post-container,
+html[data-palette] .page-header-card,
+html[data-palette] .site-footer,
+html[data-palette] .post-related,
+html[data-palette] .blog-map-card,
+html[data-palette] .exhibition-card,
+html[data-palette] .friend-card,
+html[data-palette] .role-card,
+html[data-palette] .map-card,
+html[data-palette] .phase-card,
+html[data-palette] .guide-list,
+html[data-palette] .about-page,
+html[data-palette] .rel-graph,
+html[data-palette] .summary-box,
+html[data-palette] .tip-card,
+html[data-palette] .note-card {
+  background: var(--paper) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  border-color: var(--line-soft) !important;
+}
+
+/* ------------------------------------------- 5. 磨砂侧栏（半透明 + 强模糊） */
+html[data-palette] .site-sidebar {
+  background: var(--paper-veil) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(160%) !important;
+  backdrop-filter: blur(26px) saturate(160%) !important;
+  border-right: 1px solid var(--line-soft) !important;
+  box-shadow: 2px 0 24px color-mix(in oklch, var(--b-bg-d) 18%, transparent) !important;
+}
+
+/* 侧栏强调色随色板 */
+html[data-palette] .sidebar-logo { color: var(--text-strong) !important; }
+html[data-palette] .sidebar-tagline { color: var(--text-muted) !important; }
+html[data-palette] .sidebar-link { color: var(--text-soft) !important; }
+html[data-palette] .sidebar-link:hover {
+  color: var(--blue) !important;
+  background: color-mix(in oklch, var(--blue) 10%, transparent) !important;
+}
+html[data-palette] .sidebar-link.active {
+  color: var(--blue) !important;
+  background: color-mix(in oklch, var(--blue) 14%, transparent) !important;
+}
+html[data-palette] .sidebar-search input {
+  background: var(--paper-soft) !important;
+  border-color: var(--line) !important;
+  color: var(--text) !important;
+}
+html[data-palette] .sidebar-search input:focus {
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--blue) 16%, transparent) !important;
+}
+html[data-palette] #sidebar-search-results {
+  background: var(--paper-soft) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-md) !important;
+}
+html[data-palette] #sidebar-search-results a { color: var(--text) !important; border-bottom-color: var(--line-soft) !important; }
+html[data-palette] #sidebar-search-results a:hover { background: color-mix(in oklch, var(--blue) 8%, transparent) !important; color: var(--blue) !important; }
+html[data-palette] #sidebar-search-results .search-title { color: var(--text-strong) !important; }
+html[data-palette] #sidebar-search-results .search-meta { color: var(--text-muted) !important; }
+html[data-palette] .sidebar-search .no-results { color: var(--text-muted) !important; }
+html[data-palette] .sidebar-verse .verse-line { color: var(--text-soft) !important; }
+html[data-palette] .sidebar-verse .verse-author { color: var(--text-muted) !important; }
+html[data-palette] .sidebar-footer a,
+html[data-palette] .sidebar-footer button,
+html[data-palette] .lang-btn {
+  border-color: var(--line) !important;
+  color: var(--text-soft) !important;
+}
+html[data-palette] .sidebar-footer a:hover,
+html[data-palette] .sidebar-footer button:hover,
+html[data-palette] .lang-btn:hover {
+  border-color: var(--blue) !important;
+  color: var(--blue) !important;
+  background: color-mix(in oklch, var(--blue) 8%, transparent) !important;
+}
+html[data-palette] .lang-btn.active {
+  background: var(--blue) !important;
+  border-color: var(--blue) !important;
+  color: var(--paper-strong, #fff) !important;
+}
+html[data-palette] .sidebar-header { border-bottom-color: var(--line-soft) !important; }
+html[data-palette] .sidebar-footer { border-top-color: var(--line-soft) !important; }
+html[data-palette] .sidebar-verse { border-top-color: var(--line-soft) !important; }
+html[data-palette] .sidebar-toggle {
+  background: var(--paper-veil) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  border-color: var(--line) !important;
+  color: var(--text) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ----------------------------------------------------- 6. 正文排版随色板 */
+html[data-palette] .page-content h1,
+html[data-palette] .page-content h2 { color: var(--text-strong); }
+html[data-palette] .page-content h2 { border-left-color: var(--blue); }
+html[data-palette] .page-content h3,
+html[data-palette] .page-content h4 { color: var(--blue); }
+html[data-palette] .page-content p,
+html[data-palette] .page-content li,
+html[data-palette] .post-content,
+html[data-palette] .post-content p,
+html[data-palette] .post-content li { color: var(--text); }
+html[data-palette] .page-content blockquote { border-left-color: var(--line); color: var(--text-soft); }
+html[data-palette] .page-content hr { border-top-color: var(--line-soft); }
+html[data-palette] .page-card table th { color: var(--text-strong); border-color: var(--line); }
+html[data-palette] .page-card table td { color: var(--text); border-color: var(--line-soft); }
+html[data-palette] .community-intro { color: var(--text); }
+html[data-palette] .verse-banner { background: color-mix(in oklch, var(--blue) 8%, transparent); border-color: var(--line); }
+html[data-palette] .verse-banner .verse-main { color: var(--blue); }
+html[data-palette] .verse-banner .verse-sub { color: var(--text-muted); }
+html[data-palette] .post-date { color: var(--text-muted); }
+
+/* 代码块：深海色块换成色板深色渐变；行内代码随色板 */
+html[data-palette] .post-container .post-content pre,
+html[data-palette] .page-card pre {
+  background: linear-gradient(160deg, var(--b-bg-d) 0%, color-mix(in oklch, var(--b-card-d) 85%, var(--b-bg-d)) 100%) !important;
+  border-color: var(--line) !important;
+  color: var(--b-text-d) !important;
+}
+html[data-palette] .post-content pre code,
+html[data-palette] .page-card pre code { color: var(--b-text-d) !important; }
+html[data-palette] .post-content code,
+html[data-palette] .page-card code {
+  background: color-mix(in oklch, var(--blue) 12%, transparent) !important;
+  color: var(--blue) !important;
+}
+
+/* --------------------------------------------------- 7. 色板选择器 UI */
+.sidebar-palette {
+  padding: 12px 20px 14px;
+}
+
+.palette-toggle {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85em;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.palette-toggle:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: color-mix(in oklch, var(--blue) 8%, transparent);
+}
+.palette-toggle .palette-name {
+  font-size: 0.82em;
+  opacity: 0.85;
+}
+
+.palette-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 10px;
+  padding: 12px;
+  background: var(--paper-veil);
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.palette-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  flex: 0 0 auto;
+}
+.palette-dot:hover { transform: scale(1.18); }
+.palette-dot.active {
+  border-color: var(--text-strong);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--text-strong) 28%, transparent);
+}
+.palette-dot[data-palette="starry"] { background: oklch(0.75 0.080 255); }
+.palette-dot[data-palette="mist"]   { background: oklch(0.76 0.070 238); }
+.palette-dot[data-palette="dusk"]   { background: oklch(0.75 0.085 290); }
+.palette-dot[data-palette="teal"]   { background: oklch(0.76 0.075 205); }
+.palette-dot[data-palette="moss"]   { background: oklch(0.75 0.070 152); }
+.palette-dot[data-palette="clay"]   { background: oklch(0.76 0.080 45); }
+.palette-dot[data-palette="lotus"]  { background: oklch(0.76 0.085 330); }
+.palette-dot[data-palette="sand"]   { background: oklch(0.75 0.075 90); }
+.palette-dot[data-palette="ember"]  { background: oklch(0.76 0.085 30); }
+.palette-dot[data-palette="ink"]    { background: oklch(0.76 0.050 268); }
+
+/* 无 JS / 无 data-palette 时保持原主题，选择器样式不侵入 */

@@ -41,6 +41,12 @@
     </div>
     <button id="dark-toggle-sidebar" onclick="toggleDarkSidebar()" title="切换明暗主题" aria-label="切换明暗主题">🌓</button>
   </div>
+
+  <!-- Bloom 色板选择（十套莫兰迪 OKLCH 色板，色点由 default.html 注入） -->
+  <div class="sidebar-palette">
+    <button type="button" class="palette-toggle" id="palette-toggle" title="切换色板" aria-label="切换色板">🎨 <span class="palette-name">色板</span></button>
+    <div class="palette-dots" id="palette-dots" hidden></div>
+  </div>
 </aside>
 
 <!-- 移动端菜单按钮 -->

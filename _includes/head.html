@@ -20,6 +20,13 @@
       /* 显式选择浅色：需要覆盖系统级深色样式 */
       root.classList.add('force-light');
     }
+    /* Bloom 色板：首帧即应用，避免切换主题时闪一下默认色 */
+    var pal = null;
+    try { pal = localStorage.getItem('bloom-palette'); } catch (e) { /* 隐私模式下忽略 */ }
+    root.setAttribute('data-palette',
+      (pal === 'mist' || pal === 'dusk' || pal === 'teal' || pal === 'moss' ||
+       pal === 'clay' || pal === 'lotus' || pal === 'sand' || pal === 'ember' ||
+       pal === 'ink') ? pal : 'starry');
   })();
 </script>
 
