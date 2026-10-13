@@ -114,7 +114,8 @@ html[data-palette="ink"] {
   --b-acc2-l: oklch(0.530 0.065 275);
 }
 
-/* --------------------------------------------- 2. 深色映射（系统深色或 force-dark） */
+/* --------------------------------------------- 2. 深色映射（跟随系统深色） */
+@media (prefers-color-scheme: dark) {
 html[data-palette]:root:not(.force-light) {
   /* 墨色层 */
   --ink-1000: var(--b-bg-d);
@@ -155,6 +156,7 @@ html[data-palette]:root:not(.force-light) {
   --link-ink-hover: var(--violet-bright);
   --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-d) 24%, transparent);
 }
+}
 
 /* 手动深色（force-dark）走同一套深色映射 */
 html[data-palette].force-dark {
@@ -191,7 +193,44 @@ html[data-palette].force-dark {
   --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-d) 24%, transparent);
 }
 
-/* ------------------------------------------------- 3. 浅色映射（force-light） */
+/* ------------------------------- 3. 浅色映射（跟随系统浅色 或 force-light） */
+@media (prefers-color-scheme: light) {
+html[data-palette]:root:not(.force-dark) {
+  --ink-1000: var(--b-bg-l);
+  --ink-900: color-mix(in oklch, var(--b-bg-l) 90%, var(--b-card-l));
+  --ink-800: var(--b-card-l);
+  --ink-700: color-mix(in oklch, var(--b-card-l) 86%, var(--b-acc-l));
+  --ink-600: color-mix(in oklch, var(--b-card-l) 70%, var(--b-acc-l));
+  --paper: color-mix(in oklch, var(--b-card-l) 82%, transparent);
+  --paper-soft: color-mix(in oklch, var(--b-card-l) 72%, transparent);
+  --paper-veil: color-mix(in oklch, var(--b-card-l) 58%, transparent);
+  --text-strong: var(--b-text-l);
+  --text: color-mix(in oklch, var(--b-text-l) 86%, var(--b-card-l));
+  --text-soft: color-mix(in oklch, var(--b-text-l) 70%, var(--b-bg-l));
+  --text-muted: color-mix(in oklch, var(--b-text-l) 56%, var(--b-bg-l));
+  --line: color-mix(in oklch, var(--b-text-l) 22%, transparent);
+  --line-soft: color-mix(in oklch, var(--b-text-l) 12%, transparent);
+  --blue: var(--b-acc-l);
+  --blue-bright: color-mix(in oklch, var(--b-acc-l) 72%, white);
+  --blue-deep: color-mix(in oklch, var(--b-acc-l) 78%, var(--b-bg-l));
+  --azure: color-mix(in oklch, var(--b-acc-l) 86%, white);
+  --sea: color-mix(in oklch, var(--b-acc-l) 80%, var(--b-bg-l));
+  --violet: var(--b-acc2-l);
+  --violet-bright: color-mix(in oklch, var(--b-acc2-l) 68%, white);
+  --violet-soft: color-mix(in oklch, var(--b-acc2-l) 55%, var(--b-bg-l));
+  --grad-title: linear-gradient(112deg, var(--blue) 0%, var(--violet) 52%, var(--violet-bright) 100%);
+  --grad-primary: linear-gradient(120deg, var(--blue) 0%, var(--violet) 58%, var(--violet-bright) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
+  --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
+  --grad-sea: linear-gradient(180deg, var(--b-bg-l) 0%, var(--b-bg-l) 55%,
+      color-mix(in oklch, var(--b-acc-l) 22%, var(--b-bg-l)) 100%);
+  --link-ink: var(--blue);
+  --link-ink-hover: var(--blue-deep);
+  --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-l) 22%, transparent);
+}
+}
+
+/* 手动浅色（force-light）走同一套浅色映射 */
 html[data-palette]:root.force-light {
   --ink-1000: var(--b-bg-l);
   --ink-900: color-mix(in oklch, var(--b-bg-l) 90%, var(--b-card-l));
