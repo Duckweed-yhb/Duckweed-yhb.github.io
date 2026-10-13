@@ -20,8 +20,8 @@
 | 2026-10-12 | [哪些会被模型学走，哪些会越做越大：读 Joye 的 Agent Harness 三种协作尺度](https://duckweed-yhb.github.io/2026/10/12/读Agent-Harness的三种协作尺度/) |
 | 2026-10-07 | [为什么不用 Claude Code：读 Joye 的 Summer of Agents 复盘](https://duckweed-yhb.github.io/2026/10/07/读我办了一场Agent比赛/) |
 | 2026-09-20 | [Agent 面试到底在考什么：读 Joye 的实习面试修炼手册](https://duckweed-yhb.github.io/2026/09/20/跟着Joye学Agent-面试篇/) |
-| 2026-09-20 | [Agent 求职避坑：读一场 80 分钟模拟面试复盘](https://duckweed-yhb.github.io/2026/09/20/Agent工程师模拟面试/) |
 | 2026-09-20 | [Agent 入门该学什么：读 Joye 的 Agent 工程师入门指南](https://duckweed-yhb.github.io/2026/09/20/跟着Joye学Agent-上手引导篇/) |
+| 2026-09-20 | [Agent 求职避坑：读一场 80 分钟模拟面试复盘](https://duckweed-yhb.github.io/2026/09/20/Agent工程师模拟面试/) |
 | 2026-09-17 | [推荐一个 CS 自学社区](https://duckweed-yhb.github.io/2026/09/17/推荐一个CS自学社区/) |
 | 2026-09-16 | [挖洞进入“许愿时代”：读 Hacking with LLMs](https://duckweed-yhb.github.io/2026/09/16/Hacking-with-LLMs/) |
 
@@ -129,7 +129,7 @@
 ```
 
 ---
-> 最后更新：2026-10-13 03:01:16 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-10-13 03:25:19 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
