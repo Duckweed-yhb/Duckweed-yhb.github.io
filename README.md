@@ -16,14 +16,14 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
+| 2026-10-15 | [从使命愿景到 Logo：陪跑一家创业公司的品牌](https://duckweed-yhb.github.io/2026/10/15/陪跑一家创业公司的品牌/) |
+| 2026-10-15 | [手段先行的 AI 项目，如何用探索性研究重新定义问题](https://duckweed-yhb.github.io/2026/10/15/手段先行的AI项目如何被重新定义/) |
+| 2026-10-15 | [一张用了三年还在用的旅程图：B2B 复杂服务的可视化](https://duckweed-yhb.github.io/2026/10/15/B2B复杂服务的一张旅程图/) |
+| 2026-10-15 | [用之美：一位日本设计师的 sense-making 工作法](https://duckweed-yhb.github.io/2026/10/15/用之美一位日本设计师的sense-making工作法/) |
+| 2026-10-15 | [没有 PM，用 HCD 流程领跑 4500 人的内网改造](https://duckweed-yhb.github.io/2026/10/15/用HCD流程领跑4500人的内网改造/) |
+| 2026-10-15 | [从「只招资深」到「能养设计师」：一份设计育成路线图](https://duckweed-yhb.github.io/2026/10/15/从只招资深到能养设计师/) |
 | 2026-10-14 | [高级初学者的编程项目](https://duckweed-yhb.github.io/2026/10/14/高级初学者的编程项目/) |
 | 2026-10-14 | [适合初学者阅读的小于1000行的小型开源项目](https://duckweed-yhb.github.io/2026/10/14/适合初学者阅读的小型开源项目/) |
-| 2026-10-12 | [模型越强，产品越要做减法：读 Joye 的 Personal Agent 拆解](https://duckweed-yhb.github.io/2026/10/12/读Personal-Agent拆解/) |
-| 2026-10-12 | [哪些会被模型学走，哪些会越做越大：读 Joye 的 Agent Harness 三种协作尺度](https://duckweed-yhb.github.io/2026/10/12/读Agent-Harness的三种协作尺度/) |
-| 2026-10-07 | [为什么不用 Claude Code：读 Joye 的 Summer of Agents 复盘](https://duckweed-yhb.github.io/2026/10/07/读我办了一场Agent比赛/) |
-| 2026-09-20 | [Agent 面试到底在考什么：读 Joye 的实习面试修炼手册](https://duckweed-yhb.github.io/2026/09/20/跟着Joye学Agent-面试篇/) |
-| 2026-09-20 | [Agent 入门该学什么：读 Joye 的 Agent 工程师入门指南](https://duckweed-yhb.github.io/2026/09/20/跟着Joye学Agent-上手引导篇/) |
-| 2026-09-20 | [Agent 求职避坑：读一场 80 分钟模拟面试复盘](https://duckweed-yhb.github.io/2026/09/20/Agent工程师模拟面试/) |
 
 ## 📂 项目结构（自动生成）
 ```
@@ -91,7 +91,13 @@
 │   ├── 2026-10-07-读《我办了一场Agent比赛》.md
 │   ├── 2026-10-12-读《Agent-Harness的三种协作尺度》.md
 │   ├── 2026-10-14-适合初学者阅读的小型开源项目.md
-│   └── 2026-10-14-高级初学者的编程项目.md
+│   ├── 2026-10-14-高级初学者的编程项目.md
+│   ├── 2026-10-15-B2B复杂服务的一张旅程图.md
+│   ├── 2026-10-15-从只招资深到能养设计师.md
+│   ├── 2026-10-15-手段先行的AI项目如何被重新定义.md
+│   ├── 2026-10-15-用HCD流程领跑4500人的内网改造.md
+│   ├── 2026-10-15-用之美一位日本设计师的sense-making工作法.md
+│   └── 2026-10-15-陪跑一家创业公司的品牌.md
 ├── assets
 │   ├── css
 │   │   ├── main.css
@@ -131,7 +137,7 @@
 ```
 
 ---
-> 最后更新：2026-10-14 13:42:50 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-10-14 19:34:11 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
