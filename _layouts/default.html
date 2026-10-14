@@ -109,6 +109,13 @@
 
     function applyTheme(mode) {
       var root = document.documentElement;
+      // better-ui：主题切换会同时改变几乎所有元素的颜色/背景/边框/阴影，
+      // 若让这些过渡一起跑，整页会“糊”一下。先注入抑制，强制一次 reflow
+      // 提交旧状态，下一帧再移除 —— 让切换是干脆的“咔”，而非整页渐变。
+      var suppress = document.createElement('style');
+      suppress.textContent = '*,*::before,*::after{transition:none !important}';
+      document.head.appendChild(suppress);
+      void root.offsetHeight; /* force reflow */
       root.classList.remove('force-dark', 'force-light');
       if (mode === 'dark') {
         root.classList.add('force-dark');
@@ -117,6 +124,7 @@
       }
       // mode === 'system'：不加任何类，交给 prefers-color-scheme 规则接管
       try { localStorage.setItem('dark-mode', mode === 'system' ? '' : mode); } catch (e) {}
+      requestAnimationFrame(function() { suppress.remove(); });
       updateThemeButton(mode);
     }
 

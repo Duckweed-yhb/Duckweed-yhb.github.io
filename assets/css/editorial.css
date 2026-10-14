@@ -128,6 +128,7 @@ button,
   margin: 0 0 var(--sp-md);
   padding-bottom: var(--sp-md);
   border-bottom: 1px solid var(--line) !important;
+  text-wrap: balance; /* better-typography：两行及以上标题均衡断行，避免孤行 */
 }
 
 .page-content h2,
@@ -137,6 +138,7 @@ button,
   font-weight: 400;
   line-height: 1.22;
   margin: var(--sp-3xl) 0 var(--sp-md);
+  text-wrap: balance;
 }
 
 .page-content h3,
@@ -146,6 +148,7 @@ button,
   line-height: 1.3;
   color: var(--text-strong) !important;
   margin: var(--sp-2xl) 0 var(--sp-md);
+  text-wrap: balance;
 }
 
 .page-content h4,
@@ -277,6 +280,7 @@ button,
   line-height: 1.72;
   color: var(--text-soft);
   margin: 0;
+  text-wrap: pretty; /* better-typography：避免末行只落一个短词 */
 }
 
 .page-card p,
@@ -533,7 +537,7 @@ body.layout-post .post-container .post-content {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.24s ease;
+  transition: color 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
 }
 
 .archive-tab:hover:not(.active) {
@@ -608,7 +612,13 @@ body.layout-post .post-container .post-content {
   color: var(--text-soft);
   font-size: var(--type-body-sm);
   text-decoration: none;
-  transition: all 0.22s ease;
+  transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+}
+
+/* 筛选芯片的按压反馈：better-ui —— scale 恒为 0.96 */
+.archive-tab:active,
+.cat-tag-btn:active {
+  transform: scale(0.96);
 }
 
 .cat-tag-btn:hover {
