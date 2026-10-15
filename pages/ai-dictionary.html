@@ -1,0 +1,220 @@
+---
+layout: default
+title: AI 编程词典
+permalink: /ai-dictionary/
+render_with_liquid: true
+# 术语数据：译自 The AI Coding Dictionary（aicodingdictionary.com，Matt Pocock）
+sections:
+  - id: model
+    en: The Model
+    name: 模型
+    desc: 模型是什么、怎么收费、如何运作
+    terms:
+      - { t: AI, d: 人工智能。一个移动的标签，而非某种固定技术：它指向“计算机当下最新、最令人惊叹能做的事”——眼下即大语言模型。 }
+      - { t: Cache tokens, d: 缓存令牌。提供商用前缀缓存把上一次请求已缓存的输入令牌存起来，按低得多的费率计费。 }
+      - { t: Effort, d: 推理投入。一个旋钮，控制模型在回答前做多少推理。投入越多、花掉的输出令牌越多，但对难题更有胜算。 }
+      - { t: Harness, d: 运行框架。把模型变成智能体的所有外围：工具、系统提示词、上下文窗口管理、权限、钩子。 }
+      - { t: Inference, d: 推理。运行训练好的模型去生成输出——每次向模型提供商发请求都会发生；参数保持不变。 }
+      - { t: Input tokens, d: 输入令牌。运行框架每次请求时发给提供商的令牌，计费比输出令牌低。 }
+      - { t: Model provider request, d: 模型提供商请求。从运行框架到提供商的一次往返：框架发送上下文，提供商返回一次响应。 }
+      - { t: Model provider, d: 模型提供商。为推理提供模型服务的一方，通常远程（Anthropic、OpenAI、Google），也可本地（Ollama、llama.cpp）。 }
+      - { t: Model, d: 模型。即参数本身，无状态——只做“下一个令牌预测”，别无其他，自身做不了任何智能体性质的事。 }
+      - { t: Next-token prediction, d: 下一个令牌预测。模型真正在做的事：从上下文采样下一个令牌、接上、再跑一遍。这是它唯一的运行方式。 }
+      - { t: Non-determinism, d: 非确定性。同样的输入可能产生不同输出——模型生成文本与提供商处理请求的固有属性。 }
+      - { t: Output tokens, d: 输出令牌。模型生成回来的令牌，计费比输入令牌高，因为产生它们更费算力。 }
+      - { t: Parameters, d: 参数。模型内部的数字（常以十亿计），训练时被调整；模型知道的一切都在其中，也叫权重。 }
+      - { t: Prefix cache, d: 前缀缓存。提供商侧存储，让连续请求跳过对公共前缀的重复处理，并对这些令牌按更低费率计费。 }
+      - { t: Token, d: 令牌。模型读写的原子单位，大致像“词”但不完全等同；上下文窗口大小、成本、延迟都按它计数。 }
+      - { t: Training, d: 训练。把模型暴露于海量文本、调整参数以改进“下一个令牌预测”的过程。 }
+  - id: session
+    en: Sessions, Context Windows & Turns
+    name: 会话、上下文窗口与回合
+    desc: 智能体如何与用户、与自己的一段段上下文打交道
+    terms:
+      - { t: Agent, d: 智能体。被工具、系统提示词和上下文窗口“武装”起来的模型，与用户交替回合——即运动中的模型。 }
+      - { t: Context window, d: 上下文窗口。模型在每次请求中看到的一切：有限、随模型而异，是模型感知世界的唯一表面。 }
+      - { t: Context, d: 上下文。智能体当下能访问的、与任务相关的信息——它此刻“知道”的东西。 }
+      - { t: Session, d: 会话。与智能体的一次有边界交互：从空开始、逐步累积，被清空、关闭或压缩进新会话时结束。 }
+      - { t: Stateful, d: 有状态。把信息向前携带。会话在回合之间是有状态的；智能体可借记忆系统做到跨会话有状态。 }
+      - { t: Stateless, d: 无状态。不向前携带信息。模型在请求之间无状态；智能体默认在会话之间也无状态。 }
+      - { t: System prompt, d: 系统提示词。运行框架在每个请求前插入的指令——智能体的常设工作简报，通常在一个会话内保持稳定。 }
+      - { t: Turn, d: 回合。一条用户消息，加上智能体在响应中做的一切，直到把控制权交还用户；含一次或多次提供商请求。 }
+  - id: tool
+    en: Tools & Environment
+    name: 工具与环境
+    desc: 智能体靠什么感知世界、作用于世界
+    terms:
+      - { t: Agent mode, d: 智能体模式。把权限模式与注入系统提示词的行为指令捆在一起的预设，可在会话中途切换。 }
+      - { t: Environment, d: 环境。智能体作用于其上的世界——框架之外、它借工具结果感知、借工具调用改变的一切。 }
+      - { t: Filesystem, d: 文件系统。智能体读取、写入、执行的目录树——编码智能体的默认环境。 }
+      - { t: MCP, d: 模型上下文协议。把外部工具服务器接入运行框架的协议，让智能体获得框架自带之外的工具。 }
+      - { t: Permission mode, d: 权限模式。智能体模式里把关权限的那一块：哪些工具调用触发权限请求、哪些自动放行。 }
+      - { t: Permission request, d: 权限请求。执行未经预批准的工具调用前，运行框架展示给用户的东西——把人放回回路里的机制。 }
+      - { t: Sandbox, d: 沙箱。智能体运行的隔离环境（容器、虚拟机或受限 shell），用来限制它动作的爆炸半径。 }
+      - { t: Tool call, d: 工具调用。模型输出中命名某工具及其参数的文本——本质只是一段结构化文本，由运行框架读取并执行。 }
+      - { t: Tool result, d: 工具结果。执行工具调用后发回的内容（文件内容、输出或错误）——智能体对环境的唯一视角。 }
+      - { t: Tool, d: 工具。运行框架暴露给智能体调用的函数：Read、Write、Bash、Search。智能体借它感知与作用于环境。 }
+  - id: failure
+    en: Failure Modes
+    name: 失败模式
+    desc: 智能体会在哪些地方悄悄出错
+    terms:
+      - { t: Attention budget, d: 注意力预算。每个令牌可分配给上下文其余部分的有限影响力：按令牌计，不随上下文增长而变大。 }
+      - { t: Attention degradation, d: 注意力衰退。会话变长后，每个令牌的注意力预算被更多竞争者分摊，对有意义关系的信号变弱。 }
+      - { t: Attention relationship, d: 注意力关系。两个令牌的配对；有意义的配对相互影响更强。N 个令牌的上下文约有约 N² 个这种关系。 }
+      - { t: Contextual knowledge, d: 上下文知识。智能体此刻能直接从上下文读到的信息，与参数知识相对。 }
+      - { t: Hallucination, d: 幻觉。自信但错误的输出，分两种：事实性（编造事实）与忠实性（偏离已加载的上下文）。 }
+      - { t: Knowledge cutoff, d: 知识截止。模型不再拥有参数知识的日期；截止后的库与 API 若不加载文档，就是捏造的陷阱。 }
+      - { t: Parametric knowledge, d: 参数知识。模型训练时学进、存于参数里的东西，训练时冻结；与上下文知识相对。 }
+      - { t: Smart zone, d: 聪明区。会话早期智能体敏锐专注；会话变长后滑入“愚钝区”——更马虎、更健忘、更多错。 }
+      - { t: Sycophancy, d: 谄媚。自信但一味附和的输出；源于训练把模型塑造成偏向人类喜欢的回答——包括附和。 }
+  - id: handoff
+    en: Handoffs
+    name: 交接
+    desc: 上下文如何从一个会话移交到另一个
+    terms:
+      - { t: Autocompact, d: 自动压缩。上下文窗口接近占满时，由运行框架自动触发的压缩。 }
+      - { t: Clearing, d: 清空。结束当前会话、开一个新会话；下一条消息从空会话与空上下文开始。 }
+      - { t: Compaction, d: 压缩。内存中的交接：把上一会话的历史总结后播进新会话。有损——拿细节换余量。 }
+      - { t: Handoff artifact, d: 交接产物。作为交接载体的文档——由前一会话写出、供后一会话读取。 }
+      - { t: Handoff, d: 交接。把智能体上下文从一个会话转移到另一个，没有回路；载体各异（产物、压缩或其他）。 }
+      - { t: Primary source, d: 一手来源。事物本身——代码、转录、原始数据：完整权威，但载入上下文很贵。 }
+      - { t: Secondary source, d: 二手来源。对一手来源的转述（摘要、文档、压缩摘要）：便宜，但天生有损。 }
+      - { t: Spec, d: 规格。描述一项跨会话工作的交接产物——做什么，而非每个会话怎么做；由若干工单组成。 }
+      - { t: Ticket, d: 工单。限定一次会话工作范围的交接产物；可独立，也可挂在 spec 下，可与兄弟工单互相阻塞。 }
+  - id: memory
+    en: Memory and Steering
+    name: 记忆与引导
+    desc: 让智能体记住事、并在恰当时候唤起对应能力
+    terms:
+      - { t: AGENTS.md, d: AGENTS.md。环境里的一份文件，运行框架在会话开始时载入上下文窗口——项目给智能体的常设工作简报。 }
+      - { t: Context pointer, d: 上下文指针。某文档里指向另一文档的引用，让智能体只在任务需要时把它拉进上下文。 }
+      - { t: Memory system, d: 记忆系统。通过持久化到环境、会话开始重载，试图让智能体跨会话有状态的系统。 }
+      - { t: Progressive disclosure, d: 渐进披露。只加载智能体当下需要的上下文、用指针指向其余——借自 UI 设计。 }
+      - { t: Skill, d: 技能。打包成单元、可传授的能力：平时不进上下文窗口，直到任务需要时由上下文指针拉进来。 }
+      - { t: Subagent, d: 子智能体。由另一智能体经工具调用派生的智能体：在独立会话运行、只回报一个工具结果，不能再派生。 }
+  - id: pattern
+    en: Patterns of Work
+    name: 工作模式
+    desc: 人与智能体配合的常见工作方式
+    terms:
+      - { t: AFK, d: 离开键盘。用户启动会话后离开、让智能体无人看管地自主运行的工作模式。 }
+      - { t: AX, d: 智能体体验。环境为智能体做好工作的顺畅程度——检查、架构、空余上下文。 }
+      - { t: Automated check, d: 自动化检查。环境中运行的确定性验证（测试、类型检查、lint、构建、pre-commit 钩子）：通过/失败，不带判断。 }
+      - { t: Automated review, d: 自动化评审。一个智能体评审另一个智能体的工作，常配不同模型或系统提示词；非确定性，会形成判断。 }
+      - { t: DX, d: 开发者体验。代码库及其工具链让人类把活干得多顺手——文档、反馈速度、报错。 }
+      - { t: Dark factory, d: 暗工厂。一个代码库（或其一部分）由软件工厂写代码、从无人类评审。 }
+      - { t: Design concept, d: 设计概念。对“正在构建什么”的共识，用户与智能体共同持有，但独立于任何具体产物。 }
+      - { t: Grilling, d: 盘问式访谈。深化设计概念的技巧：智能体以苏格拉底式、逐个决策地采访用户。 }
+      - { t: Human review, d: 人工评审。用户阅读智能体产出的代码并形成判断。看 diff 算；只看摘要不算。 }
+      - { t: Human-in-the-loop, d: 人在回路。一个或多个人类在会话期间与智能体结对：实时评审、纠偏或协作。 }
+      - { t: Prototyping, d: 原型。对话保真度太低、需要拿真实产物来谈时，让智能体快速搭一个粗糙版本。 }
+      - { t: Software factory, d: 软件工厂。由触发器而非人类启动智能体会话的工作系统，让更多工作 AFK 运行，把人在回路的时间留给真正需要的部分。 }
+      - { t: Vibe coding, d: 氛围编程。用户不经过人工评审就接受智能体代码的工作模式——把 diff 当作黑箱。 }
+---
+
+<div class="page-header-card">
+  <h1>AI 编程词典</h1>
+  <p>AI 编程的术语表，用大白话解释。源 <a href="https://www.aicodingdictionary.com/" target="_blank" rel="noopener">aicodingdictionary.com</a>（Matt Pocock）。共 <strong>{% assign _n = 0 %}{% for s in page.sections %}{% assign _n = _n | plus: s.terms.size %}{% endfor %}{{ _n }}</strong> 个词条，按 <strong>7</strong> 大类组织，可在下方搜索过滤。</p>
+</div>
+
+<div class="content-wrap">
+  <!-- 搜索与分类锚点 -->
+  <div class="dict-toolbar">
+    <form role="search" class="dict-search" onsubmit="return false;">
+      <label for="dict-search">搜索词条</label>
+      <input id="dict-search" type="search" placeholder="输入术语或含义，如 MCP / 上下文 / 幻觉…" autocomplete="off" spellcheck="false">
+      <span class="dict-count" id="dict-count" role="status" aria-live="polite"></span>
+    </form>
+    <nav class="dict-jump" aria-label="跳转到分类">
+      {% for s in page.sections %}
+      <a href="#dict-{{ s.id }}" class="dict-chip">{{ s.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+
+  <!-- 分类卡片 -->
+  {% for s in page.sections %}
+  <section class="dict-card" id="dict-{{ s.id }}" aria-labelledby="h-{{ s.id }}">
+    <h2 id="h-{{ s.id }}">{{ s.name }} <span class="dict-en">{{ s.en }}</span></h2>
+    <p class="dict-desc">{{ s.desc }}</p>
+    <dl class="dict-list">
+      {% for t in s.terms %}
+      <div class="term-item" data-search="{{ t.t | downcase }} {{ t.d }}">
+        <dt>{{ t.t }}</dt>
+        <dd>{{ t.d }}</dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </section>
+  {% endfor %}
+</div>
+
+<style>
+  /* 与全站一致的词典页样式（令牌取自 editorial） */
+  .page-header-card h1 { font-size: 2em; border-bottom: 2px solid var(--blue); padding-bottom: .5em; color: var(--text-strong); margin-top: 0; margin-bottom: .5em; }
+  .page-header-card p { color: var(--text-soft); margin: 0; }
+
+  .content-wrap { max-width: 1000px; margin: 0 auto; padding: 8px; }
+
+  /* 工具栏 */
+  .dict-toolbar { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 8px 0 20px; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,.05)); }
+  .dict-search { display: flex; align-items: center; gap: 10px; flex: 1 1 280px; }
+  .dict-search label { font-size: .82em; color: var(--text-soft); white-space: nowrap; }
+  .dict-search input {
+    flex: 1; padding: 8px 12px; font-size: .95em; color: var(--text-strong);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+  }
+  .dict-search input:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+  .dict-count { font-size: .78em; color: var(--text-soft); white-space: nowrap; }
+  .dict-jump { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dict-chip { padding: 5px 12px; font-size: .82em; color: var(--text-soft); border: 1px solid var(--line); border-radius: 999px; text-decoration: none; }
+  .dict-chip:hover { color: var(--blue); border-color: var(--blue); }
+
+  /* 分类卡片 */
+  .dict-card { background: var(--paper); padding: 22px 24px; border-radius: 12px; box-shadow: var(--shadow-md); margin: 0 0 18px; box-sizing: border-box; scroll-margin-top: 90px; }
+  .dict-card h2 { font-size: 1.25em; color: var(--text-strong); margin: 0 0 2px; }
+  .dict-en { font-size: .72em; color: var(--text-soft); font-weight: 400; margin-left: 8px; letter-spacing: .04em; }
+  .dict-desc { color: var(--text-soft); font-size: .88em; margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+
+  /* 词条：英文词 + 中文释义 */
+  .dict-list { margin: 0; padding: 0; }
+  .term-item { display: grid; grid-template-columns: 168px 1fr; gap: 14px; padding: 10px 4px; border-bottom: 1px dashed var(--line); }
+  .term-item:last-child { border-bottom: none; }
+  .term-item dt { font-weight: 600; color: var(--blue); font-size: .96em; line-height: 1.5; }
+  .term-item dd { margin: 0; color: var(--text-strong); font-size: .93em; line-height: 1.65; }
+  .term-item.is-hidden { display: none; }
+  .dict-card.is-empty { display: none; }
+
+  @media (max-width: 768px) {
+    .term-item { grid-template-columns: 1fr; gap: 2px; }
+    .content-wrap { padding: 0 10px; }
+    .dict-toolbar { align-items: stretch; }
+  }
+</style>
+
+<script>
+  (function () {
+    var input = document.getElementById('dict-search');
+    var count = document.getElementById('dict-count');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.term-item'));
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.dict-card'));
+
+    function apply() {
+      var q = (input.value || '').trim().toLowerCase();
+      var shown = 0;
+      items.forEach(function (li) {
+        var hit = !q || li.getAttribute('data-search').toLowerCase().indexOf(q) !== -1;
+        li.classList.toggle('is-hidden', !hit);
+        if (hit) shown++;
+      });
+      cards.forEach(function (card) {
+        var vis = card.querySelectorAll('.term-item:not(.is-hidden)').length;
+        card.classList.toggle('is-empty', vis === 0);
+      });
+      count.textContent = q ? (shown + ' / ' + items.length) : ('共 ' + items.length + ' 条');
+    }
+    input.addEventListener('input', apply);
+    count.textContent = '共 ' + items.length + ' 条';
+  })();
+</script>
