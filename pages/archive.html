@@ -5,13 +5,20 @@ permalink: /archive/
 render_with_liquid: true
 ---
 
-<!-- 纯 HTML 容器，Liquid 语法仅用于数据渲染，与结构分离 -->
 <div class="page-card">
-  <!-- 标题区域（纯 HTML，无任何模板/Markdown 混写） -->
   <h1 class="archive-h1">档案</h1>
-  <p class="archive-subtitle">所有已发布帖子的汇总与分类索引</p>
+  <p class="archive-subtitle">所有已发布帖子的汇总与分类索引，支持实时搜索过滤</p>
 
-  <!-- 切换按钮（纯 HTML 结构，脚本逻辑抽离） -->
+  <!-- 搜索工具栏：输入即跨视图过滤全部文章 -->
+  <div class="archive-searchbar" role="search">
+    <form onsubmit="return false;">
+      <label for="archive-search">搜索文章</label>
+      <input id="archive-search" type="search" placeholder="输入标题、标签或日期，如 LaTeX / Agent / 2026…" autocomplete="off" spellcheck="false">
+      <span class="archive-count" id="archive-count" role="status" aria-live="polite"></span>
+    </form>
+  </div>
+
+  <!-- 切换按钮 -->
   <div class="archive-tabs">
     <div class="archive-tab active" data-tab="time">按时间排序</div>
     <div class="archive-tab" data-tab="category">按分类浏览</div>
@@ -22,9 +29,8 @@ render_with_liquid: true
   <div id="time" class="archive-content active">
     <h3>📅 所有帖子（按发布时间倒序）</h3>
     <ul class="post-list">
-      {% comment %} 兼容 Liquid 4.x 的写法：用 else 替代 empty {% endcomment %}
       {% for post in site.posts %}
-      <li class="post-item">
+      <li class="post-item" data-search="{{ post.title | downcase }} {{ post.date | date: '%Y-%m-%d' }}{% for tag in post.tags %} #{{ tag | downcase }}{% endfor %}">
         {{ post.date | date: '%Y-%m-%d' }} - 
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
         {% for tag in post.tags %}
@@ -40,10 +46,10 @@ render_with_liquid: true
   <!-- 2. 分类浏览内容 -->
   <div id="category" class="archive-content">
     <h3>📁 分类索引</h3>
-    <div class="cat-tag-container">
+    <div class="cat-tag-container" data-anchors>
       {% assign categories = site.categories | sort %}
       {% for category in categories %}
-      <a href="#cat-{{ category[0] | slugify }}" class="cat-tag-btn">
+      <a href="#cat-{{ category[0] | slugify }}" class="cat-tag-btn" data-group="cat-{{ category[0] | slugify }}">
         {{ category[0] }} ({{ category[1] | size }})
       </a>
       {% else %}
@@ -52,24 +58,26 @@ render_with_liquid: true
     </div>
 
     {% for category in categories %}
-    <h4 id="cat-{{ category[0] | slugify }}" class="cat-tag-title">{{ category[0] }}</h4>
-    <ul class="post-list">
-      {% for post in category[1] %}
-      <li class="post-item">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: '%Y-%m-%d' }}
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="archive-group" data-group="cat-{{ category[0] | slugify }}">
+      <h4 id="cat-{{ category[0] | slugify }}" class="cat-tag-title">{{ category[0] }}</h4>
+      <ul class="post-list">
+        {% for post in category[1] %}
+        <li class="post-item" data-search="{{ post.title | downcase }} {{ post.date | date: '%Y-%m-%d' }}{% for tag in post.tags %} #{{ tag | downcase }}{% endfor %}">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: '%Y-%m-%d' }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endfor %}
   </div>
 
   <!-- 3. 标签浏览内容 -->
   <div id="tag" class="archive-content">
     <h3>🏷️ 标签索引</h3>
-    <div class="cat-tag-container">
+    <div class="cat-tag-container" data-anchors>
       {% assign tags = site.tags | sort %}
       {% for tag in tags %}
-      <a href="#tag-{{ tag[0] | slugify }}" class="cat-tag-btn">
+      <a href="#tag-{{ tag[0] | slugify }}" class="cat-tag-btn" data-group="tag-{{ tag[0] | slugify }}">
         #{{ tag[0] }} ({{ tag[1] | size }})
       </a>
       {% else %}
@@ -78,62 +86,89 @@ render_with_liquid: true
     </div>
 
     {% for tag in tags %}
-    <h4 id="tag-{{ tag[0] | slugify }}" class="cat-tag-title">{{ tag[0] }}</h4>
-    <ul class="post-list">
-      {% for post in tag[1] %}
-      <li class="post-item">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: '%Y-%m-%d' }}
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="archive-group" data-group="tag-{{ tag[0] | slugify }}">
+      <h4 id="tag-{{ tag[0] | slugify }}" class="cat-tag-title">{{ tag[0] }}</h4>
+      <ul class="post-list">
+        {% for post in tag[1] %}
+        <li class="post-item" data-search="{{ post.title | downcase }} {{ post.date | date: '%Y-%m-%d' }}{% for tag in post.tags %} #{{ tag | downcase }}{% endfor %}">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: '%Y-%m-%d' }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endfor %}
   </div>
 </div>
 
-<!-- 脚本（优化逻辑，增加容错，避免全局污染） -->
+<style>
+  /* 搜索工具栏 */
+  .archive-searchbar { margin: 4px 0 18px; }
+  .archive-searchbar form { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,.05)); }
+  .archive-searchbar label { font-size: .82em; color: var(--text-soft); white-space: nowrap; }
+  .archive-searchbar input { flex: 1; padding: 8px 12px; font-size: .95em; color: var(--text-strong); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
+  .archive-searchbar input:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+  .archive-count { font-size: .78em; color: var(--text-soft); white-space: nowrap; }
+
+  /* 搜索过滤态 */
+  .post-item.is-hidden { display: none; }
+  .archive-group.is-empty { display: none; }
+  .cat-tag-btn.is-hidden { display: none; }
+</style>
+
 <script>
-  // 页面加载完成后初始化
-  document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有切换按钮和内容容器
+  document.addEventListener('DOMContentLoaded', function () {
     const tabs = document.querySelectorAll('.archive-tab');
     const contents = document.querySelectorAll('.archive-content');
+    const input = document.getElementById('archive-search');
+    const count = document.getElementById('archive-count');
 
-    // 切换标签函数（优化逻辑，增加容错）
+    // 切换标签
     function switchTab(tabName) {
-      // 隐藏所有内容
-      contents.forEach(content => {
-        content.classList.remove('active');
-      });
-      // 移除所有按钮激活态
-      tabs.forEach(tab => {
-        tab.classList.remove('active');
-      });
-      // 激活目标（增加容错）
+      contents.forEach(c => c.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
       const targetContent = document.getElementById(tabName);
-      const targetTab = document.querySelector(`.archive-tab[data-tab="${tabName}"]`);
+      const targetTab = document.querySelector('.archive-tab[data-tab="' + tabName + '"]');
       if (targetContent) targetContent.classList.add('active');
       if (targetTab) targetTab.classList.add('active');
+      applyFilter();
     }
-
-    // 绑定按钮点击事件（替代内联 onclick，更规范）
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-        const tabName = this.getAttribute('data-tab');
-        switchTab(tabName);
-      });
-    });
-
-    // 初始化默认标签（确保第一个标签激活）
+    tabs.forEach(tab => tab.addEventListener('click', function () {
+      switchTab(this.getAttribute('data-tab'));
+    }));
     switchTab('time');
 
-    // 根据 URL hash 自动切换到对应索引（支持文章页 #cat-xxx / #tag-xxx 锚点跳转）
+    // 搜索过滤：跨所有视图过滤文章，空分类/标签自动收起
+    function applyFilter() {
+      const q = (input.value || '').trim().toLowerCase();
+      let shown = 0;
+      document.querySelectorAll('.post-item').forEach(li => {
+        const hit = !q || (li.getAttribute('data-search') || '').toLowerCase().indexOf(q) !== -1;
+        li.classList.toggle('is-hidden', !hit);
+        if (hit) shown++;
+      });
+      // 收起空分组，并同步隐藏/显示锚点按钮
+      document.querySelectorAll('.archive-group').forEach(g => {
+        const vis = g.querySelectorAll('.post-item:not(.is-hidden)').length;
+        g.classList.toggle('is-empty', vis === 0);
+        const key = g.getAttribute('data-group');
+        document.querySelectorAll('.cat-tag-btn[data-group="' + key + '"]').forEach(btn => {
+          btn.classList.toggle('is-hidden', vis === 0);
+        });
+      });
+      count.textContent = q ? (shown + ' / ' + document.querySelectorAll('.post-item').length)
+                            : ('共 ' + document.querySelectorAll('.post-item').length + ' 篇');
+    }
+    input.addEventListener('input', applyFilter);
+    applyFilter();
+
+    // 根据 URL hash 自动切换索引（#cat-xxx / #tag-xxx）
     function activateFromHash() {
       var hash = window.location.hash || '';
       var m = hash.match(/^#(cat|tag)-/);
       if (!m) return;
       switchTab(m[1] === 'cat' ? 'category' : 'tag');
       var target = document.getElementById(hash.slice(1));
-      if (target) setTimeout(function(){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+      if (target) setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
     }
     activateFromHash();
     window.addEventListener('hashchange', activateFromHash);
