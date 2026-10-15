@@ -114,6 +114,61 @@
 .w2 { left: 60%; bottom: 12%; transform: scale(0.72); }
 .w3 { left: 74%; bottom: 3%;  transform: scale(0.55); }
 
+/* ------------------------------------------------- 剑气长城（仅「浮萍」浮现） */
+/* 《剑来》意象：无根浮萍的剑修，飘零天地，死而无坟，唯有剑气长存。
+   切到「浮萍」一阕时，星海尽头升起长城剪影与几缕剑气。 */
+.starsea-wall,
+.starsea-horizon,
+.starsea-sword {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.starsea[data-verse="2"] .starsea-wall,
+.starsea[data-verse="2"] .starsea-horizon,
+.starsea[data-verse="2"] .starsea-sword {
+  opacity: 1;
+}
+
+/* 地平线微光：让长城剪影从星海中浮出 */
+.starsea-horizon {
+  position: absolute;
+  left: 0; right: 0; bottom: 40%;
+  height: 56px;
+  background: linear-gradient(180deg, rgba(169, 196, 232, 0) 0%, rgba(169, 196, 232, 0.28) 55%, rgba(169, 196, 232, 0) 100%);
+}
+
+/* 长城剪影：横贯星海尽头的城垛与烽台（月白顶光托出轮廓） */
+.starsea-wall {
+  position: absolute;
+  left: 0; right: 0; bottom: 39%;
+  height: 92px;
+  pointer-events: none;
+  filter: drop-shadow(0 -1px 4px rgba(190, 214, 255, 0.35));
+}
+.starsea-wall svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 剑气：自长城之后刺向长空的一缕缕剑光 */
+.starsea-sword {
+  position: absolute;
+  bottom: 48%;
+  width: 2px;
+  filter: blur(0.6px);
+  background: linear-gradient(180deg, rgba(210, 228, 255, 0) 0%, rgba(210, 228, 255, 0.55) 42%, rgba(210, 228, 255, 0) 100%);
+  animation: starsea-sword 3.4s ease-in-out infinite;
+}
+.sword-a { left: 30%; height: 86px; }
+.sword-b { left: 55%; height: 56px; animation-delay: 0.8s; }
+.sword-c { left: 78%; height: 108px; animation-delay: 1.5s; }
+
+@keyframes starsea-sword {
+  0%, 100% { opacity: 0.14; }
+  50%      { opacity: 0.72; }
+}
+
 /* ------------------------------------------------ 诗词层（相对，读屏可见） */
 .starsea-verses {
   position: relative;
@@ -190,11 +245,17 @@
 /* ------------------------------------------------ 减少动态效果 */
 @media (prefers-reduced-motion: reduce) {
   .starsea-star,
-  .starsea-glow {
+  .starsea-glow,
+  .starsea-sword {
     animation: none;
   }
   .starsea-verse.is-active {
     animation: none;
+  }
+  .starsea-wall,
+  .starsea-horizon,
+  .starsea-sword {
+    transition: none;
   }
 }
 
@@ -204,4 +265,6 @@
   .starsea-moon { width: 54px; height: 54px; }
   .starsea-verses { padding: 44px 20px 30px; }
   .starsea-boat { width: 72px; height: 36px; left: 16%; }
+  .starsea-wall { height: 56px; bottom: 40%; }
+  .starsea-sword { height: 48px; bottom: 49%; }
 }
