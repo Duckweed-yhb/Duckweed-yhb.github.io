@@ -8,16 +8,76 @@ render_with_liquid: true
 <!-- 首页专属：「星海」入场动画（一次访问只播一次，尊重「减少动态效果」偏好） -->
 <!-- 注意：页面内容先于布局渲染，布局里 assign 的 asset_v 在这里取不到，所以直接用表达式 -->
 <link rel="stylesheet" href="{{ '/assets/css/star-intro.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<link rel="stylesheet" href="{{ '/assets/css/starsea.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <script src="{{ '/assets/js/star-intro.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 
 <div class="page-card">
   <h1>你好，我是 Duckweed 🌌</h1>
   <p class="community-intro">这里是我的个人博客，记录编程学习、考研备考与读书思考的点滴。我发起了一个名为「星隅共学社」的小社群——一群热爱探索的大学生，聚成一片「星云」，一起钻研技术、分享阅读、记录成长。开放、包容、面向未来，是我们共同的底色。</p>
 
-  <div class="verse-banner">
-    <p class="verse-main">且将新火试新茶，诗酒趁年华。</p>
-    <p class="verse-sub">—— 苏轼《望江南·超然台作》</p>
+  <!-- 星海浮萍 · 诗词场景：两阕可切换（星河 / 浮萍），按钮切换，键盘可用 -->
+  <div class="starsea" id="starsea" data-verse="1">
+    <!-- 场景层：装饰，不读屏 -->
+    <div class="starsea-scene" aria-hidden="true">
+      <span class="starsea-moon"></span>
+      <span class="starsea-star star-a"></span>
+      <span class="starsea-star star-b"></span>
+      <span class="starsea-star star-c"></span>
+      <span class="starsea-star star-d"></span>
+      <span class="starsea-star star-e"></span>
+      <div class="starsea-water">
+        <span class="starsea-glow"></span>
+        <svg class="starsea-boat" viewBox="0 0 140 70" aria-hidden="true">
+          <path d="M18 50 C40 62 100 62 122 50 L108 56 C82 62 58 62 32 56 Z" fill="#0f2a4d"/>
+          <path d="M70 10 L70 44" stroke="#0f2a4d" stroke-width="2.5"/>
+          <path d="M70 12 C52 16 44 26 46 34 C60 34 68 26 70 20 Z" fill="#dbe7ff" opacity="0.92"/>
+        </svg>
+        <span class="starsea-duckweed w1"></span>
+        <span class="starsea-duckweed w2"></span>
+        <span class="starsea-duckweed w3"></span>
+      </div>
+    </div>
+
+    <!-- 诗词层：两阕 -->
+    <div class="starsea-verses">
+      <p class="starsea-verse is-active" data-verse="1">
+        <span class="starsea-line">醉后不知天在水，满船清梦压星河。</span>
+        <span class="starsea-src">—— 元 · 唐珙《题龙阳县青草湖》</span>
+      </p>
+      <p class="starsea-verse" data-verse="2">
+        <span class="starsea-line">萍之草无根而浮，于水中飘零而不沉溺。<br>万年刑徒剑修，如浮萍飘零天地间，死而无坟，唯有剑气长存。</span>
+        <span class="starsea-src">—— 浮萍 · 星隅</span>
+      </p>
+    </div>
+
+    <!-- 切换芯片 -->
+    <div class="starsea-nav" role="group" aria-label="切换诗词">
+      <button type="button" class="starsea-chip is-active" data-verse="1" aria-pressed="true">星河</button>
+      <button type="button" class="starsea-chip" data-verse="2" aria-pressed="false">浮萍</button>
+    </div>
   </div>
+  <script>
+    (function() {
+      var box = document.getElementById('starsea');
+      if (!box) return;
+      var chips = box.querySelectorAll('.starsea-chip');
+      var verses = box.querySelectorAll('.starsea-verse');
+      function show(n) {
+        box.setAttribute('data-verse', n);
+        chips.forEach(function(c) {
+          var on = c.getAttribute('data-verse') === n;
+          c.classList.toggle('is-active', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        verses.forEach(function(v) {
+          v.classList.toggle('is-active', v.getAttribute('data-verse') === n);
+        });
+      }
+      chips.forEach(function(c) {
+        c.addEventListener('click', function() { show(c.getAttribute('data-verse')); });
+      });
+    })();
+  </script>
 
   <h2>最新文章</h2>
   <ul class="home-posts">

@@ -1,0 +1,207 @@
+/* ==========================================================================
+   starsea.css —— 首页「星海浮萍 · 诗词场景」
+   --------------------------------------------------------------------------
+   归属：氛围层（星海浮萍）。独立组件，不改动既有 verse-banner（页脚仍用）。
+   场景 = 一片星海：天顶一轮月、几点星、波光水面、驶向星河的小舟、浮萍数簇。
+   两阕诗词（星河 / 浮萍）用按钮切换，纯 opacity 交叉淡入，键盘可用，
+   并尊重「减少动态效果」（prefers-reduced-motion）。
+   纸面内的场景沿用编辑层方角（--radius-editorial）；场景自身用深空调色，
+   与站点「星海浮萍」身份一致，浅色/深色主题下皆以「星海之窗」呈现。
+   ========================================================================== */
+
+.starsea {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 320px;
+  margin: 2rem 0;
+  overflow: hidden;
+  border: 1px solid rgba(169, 196, 232, 0.22);
+  border-radius: var(--radius-editorial);
+  background:
+    radial-gradient(120% 90% at 78% -6%, #2a5f96 0%, transparent 52%),
+    linear-gradient(180deg, #071a33 0%, #0a2447 46%, #0d3057 55%, #123a63 68%, #0a2447 100%);
+  box-shadow: inset 0 0 46px rgba(0, 0, 0, 0.30);
+}
+
+/* ------------------------------------------------ 场景层（装饰，不读屏） */
+.starsea-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* 天顶一轮月：暖白微光，星河的心 */
+.starsea-moon {
+  position: absolute;
+  top: 10%;
+  left: 72%;
+  width: 74px;
+  height: 74px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 40%, #fff6e3 0%, #ffe6b8 42%, #f5c87a 76%, rgba(245, 200, 122, 0) 100%);
+  box-shadow: 0 0 18px rgba(255, 224, 150, 0.55), 0 0 46px rgba(255, 214, 130, 0.30);
+}
+
+/* 几点星：微光闪烁 */
+.starsea-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #eaf3ff;
+  opacity: 0.85;
+  animation: starsea-twinkle 2.4s ease-in-out infinite;
+}
+.star-a { top: 20%; left: 24%; }
+.star-b { top: 32%; left: 62%; animation-delay: 0.4s; }
+.star-c { top: 13%; left: 40%; animation-delay: 0.8s; }
+.star-d { top: 26%; left: 82%; animation-delay: 1.1s; }
+.star-e { top: 38%; left: 14%; animation-delay: 0.6s; }
+
+@keyframes starsea-twinkle {
+  0%, 100% { opacity: 0.22; transform: scale(0.85); }
+  50%      { opacity: 0.95; transform: scale(1.05); }
+}
+
+/* 水面：下端半区，承托月色倒影 */
+.starsea-water {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 42%;
+  background:
+    radial-gradient(60% 120% at 72% 6%, rgba(255, 224, 150, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(26, 74, 122, 0) 0%, #12325e 52%, #0d2447 100%);
+}
+
+/* 月色倒影光带 */
+.starsea-glow {
+  position: absolute;
+  top: -2px;
+  left: 62%; right: 14%;
+  height: 3px;
+  filter: blur(1px);
+  background: linear-gradient(90deg, transparent, rgba(255, 224, 150, 0.5), transparent);
+  animation: starsea-shimmer 5s ease-in-out infinite;
+}
+@keyframes starsea-shimmer {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+/* 小舟：驶向星河的一叶扁舟（内联 SVG 剪影） */
+.starsea-boat {
+  position: absolute;
+  bottom: 13%;
+  left: 20%;
+  width: 96px;
+  height: 48px;
+}
+
+/* 浮萍：数簇圆点浮于水面 */
+.starsea-duckweed {
+  position: absolute;
+  bottom: 5%;
+  width: 20px;
+  height: 13px;
+  border-radius: 62% 62% 50% 50%;
+  background: radial-gradient(circle at 50% 44%, #7fb08a 0%, #2f5b3f 60%, #123b2a 100%);
+  opacity: 0.85;
+}
+.w1 { left: 44%; }
+.w2 { left: 60%; bottom: 12%; transform: scale(0.72); }
+.w3 { left: 74%; bottom: 3%;  transform: scale(0.55); }
+
+/* ------------------------------------------------ 诗词层（相对，读屏可见） */
+.starsea-verses {
+  position: relative;
+  z-index: 2;
+  padding: 52px 28px 34px;
+  text-align: center;
+}
+
+.starsea-verse {
+  display: none;
+  margin: 0;
+  font-family: var(--font-serif);
+}
+.starsea-verse.is-active {
+  display: block;
+  animation: starsea-verse-in 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.starsea-line {
+  display: block;
+  font-size: clamp(1.3rem, 3.1vw, 1.9rem);
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  color: #eaf3ff;
+  text-shadow: 0 0 18px rgba(90, 140, 220, 0.35);
+}
+
+.starsea-src {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: #a9c4e8;
+}
+
+@keyframes starsea-verse-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------ 切换芯片 */
+.starsea-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 0 0 22px;
+}
+
+.starsea-chip {
+  padding: 7px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: #a9c4e8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(169, 196, 232, 0.28);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.22s ease, background-color 0.22s ease, border-color 0.22s ease;
+}
+.starsea-chip:hover {
+  color: #eaf3ff;
+  border-color: rgba(169, 196, 232, 0.6);
+}
+.starsea-chip.is-active {
+  color: #071a33;
+  background: #eaf3ff;
+  border-color: #eaf3ff;
+}
+
+/* ------------------------------------------------ 减少动态效果 */
+@media (prefers-reduced-motion: reduce) {
+  .starsea-star,
+  .starsea-glow {
+    animation: none;
+  }
+  .starsea-verse.is-active {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------ 窄屏 */
+@media (max-width: 640px) {
+  .starsea { min-height: 280px; }
+  .starsea-moon { width: 54px; height: 54px; }
+  .starsea-verses { padding: 44px 20px 30px; }
+  .starsea-boat { width: 72px; height: 36px; left: 16%; }
+}
