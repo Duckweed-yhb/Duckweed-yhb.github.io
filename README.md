@@ -128,7 +128,7 @@
 │   ├── archive.html
 │   ├── friends.html
 │   ├── future.html
-│   └── navigate.html
+│   ├── navigate.html
 ├── requirements.txt
 ├── scripts
 │   └── generate_readme.py
@@ -138,7 +138,7 @@
 ```
 
 ---
-> 最后更新：2026-10-16 02:23:39 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-10-16 03:48:21 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
