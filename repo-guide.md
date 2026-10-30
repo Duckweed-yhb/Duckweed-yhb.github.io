@@ -129,7 +129,7 @@ render_with_liquid: true
 
 - **文件命名强制规范**：`YYYY-MM-DD-文章标题.md`，不符合格式的文件不会被 Jekyll 渲染
 - **文章内图片**：可临时存放于此，建议统一迁移至 `assets/images/` 管理，避免混乱
-- **包含文件类型**：技术笔记（C语言、LaTeX、VS Code）、课程笔记（大学物理、概率论）、首页欢迎页、文章临时配图
+- **包含文件类型**：技术笔记（C 语言代码规范、LaTeX、VS Code）、课程笔记（电磁场等）、首页欢迎页、文章临时配图
 
 #### 5. `.github/`（GitHub 自动化配置）
 
@@ -169,8 +169,6 @@ render_with_liquid: true
 | `bg.jpg` | 网站背景图 / 站点 logo |
 | `2026-*.png` | 各文章内嵌配图（按日期命名） |
 | `bilibili.svg` / `github.svg` / `zhihu.svg` | 各社交平台图标 |
-| `probability-notes-cover.jpg` | 概率论笔记文章封面图 |
-| `university-physics-notes(thermal-optics-quantum).jpg` | 大学物理笔记文章封面图 |
 
 ##### 6.3 `assets/js/`（交互脚本）
 
@@ -183,8 +181,6 @@ render_with_liquid: true
 | 文件名 | 作用 |
 | :--- | :--- |
 | `electromagnetic-field-notes.pdf` | 电磁场与电磁波笔记 PDF 源文件 |
-| `probability-and-statistics-notes.pdf` | 概率论与数理统计笔记 PDF 源文件 |
-| `university-physics(thermal-optics-quantum).pdf` | 大学物理笔记 PDF 源文件 |
 
 #### 7. `pages/`（独立页面文件）
 
