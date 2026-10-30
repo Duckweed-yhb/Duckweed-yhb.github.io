@@ -6,7 +6,7 @@ summary: "整理自 Joye 2026-03-09 的《一个大二实习生的 Agent 开发�
 date: 2026-09-20 00:00:00 +0800
 permalink: /2026/09/20/跟着Joye学Agent-面试篇/
 categories: [Study, 计算机科学]
-tags: [Agent, LLM, 面试, 求职, 实习, 阅读整理]
+tags: [Agent, LLM, 面试, 求职, 阅读整理]
 author: Duckweed
 ---
 # Agent 面试到底在考什么：读 Joye 的实习面试修炼手册

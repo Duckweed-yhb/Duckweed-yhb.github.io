@@ -6,7 +6,7 @@ summary: "整理自安全研究员彭志亮在 OffbyOne 2026 的演讲《A Year 
 date: 2026-09-16 00:00:00 +0800
 permalink: /2026/09/16/Hacking-with-LLMs/
 categories: [Study, 网络安全]
-tags: [Hacking with LLMs, 彭志亮, LLM, AI安全, 漏洞挖掘, Agent]
+tags: [LLM, AI安全, 漏洞挖掘, Agent, 阅读整理]
 author: Duckweed
 ---
 # 挖洞进入“许愿时代”：读 Hacking with LLMs

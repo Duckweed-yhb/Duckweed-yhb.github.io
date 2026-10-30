@@ -6,7 +6,7 @@ summary: "整理自 Joye 2026-05-17 发布、2026-07-25 更新到 v1.2 的 Agent
 date: 2026-09-20 00:10:00 +0800
 permalink: /2026/09/20/跟着Joye学Agent-上手引导篇/
 categories: [Study, 计算机科学]
-tags: [Agent, LLM, 入门, 学习路线, 求职, 阅读整理]
+tags: [Agent, LLM, 入门, 学习路线, 阅读整理]
 author: Duckweed
 ---
 # Agent 入门该学什么：读 Joye 的 Agent 工程师入门指南

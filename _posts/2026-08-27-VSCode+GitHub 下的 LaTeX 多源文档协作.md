@@ -5,7 +5,7 @@ description: "一个人写 LaTeX，单文件就够用。但论文、课程大作
 date: 2026-08-27 00:00:00 +0800
 permalink: /2026/08/27/VSCode+GitHub 下的 LaTeX 多源文档协作/
 categories: [Tools, LaTeX]
-tags: [LaTeX, VSCode, GitHub, 协作, 多文件]
+tags: [LaTeX, VS Code, GitHub, 协作, 多文件]
 author: Duckweed
 ---
 # VSCode + GitHub 下的 LaTeX 多源文档协作

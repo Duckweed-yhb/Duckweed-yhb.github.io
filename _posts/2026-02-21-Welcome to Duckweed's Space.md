@@ -5,7 +5,7 @@ description: "我们是一群热爱探索的大学生，聚成一片名为「星
 date:   2026-02-21 14:30:00 +0800
 permalink: /2026/02/21/welcome-to-duckweeds-space/
 categories: [Blog, 公告]
-tags: [博客上线, 个人空间, 电气工程, 编程学习]  # 补充专业标签，删除多余空格
+tags: [博客上线, 个人空间, 电气工程, 编程学习]
 author: Duckweed
 ---
 
