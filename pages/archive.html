@@ -27,10 +27,13 @@ render_with_liquid: true
 
   <!-- 1. 时间排序内容 -->
   <div id="time" class="archive-content active">
-    <h3>📅 所有帖子（按发布时间倒序）</h3>
-    <ul class="post-list">
+    <div class="time-sort-head">
+      <h3 id="time-heading">📅 所有帖子（最新在前 · 倒序）</h3>
+      <button type="button" id="time-sort-toggle" class="time-sort-btn" aria-label="切换时间排序方向" title="在最新在前 / 最早在前之间切换">↑ 切换为最早在前</button>
+    </div>
+    <ul class="post-list" id="time-post-list">
       {% for post in site.posts %}
-      <li class="post-item" data-url="{{ post.url }}" data-search="{{ post.title | downcase }} {{ post.date | date: '%Y-%m-%d' }}{% for tag in post.tags %} #{{ tag | downcase }}{% endfor %}">
+      <li class="post-item" data-url="{{ post.url }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-search="{{ post.title | downcase }} {{ post.date | date: '%Y-%m-%d' }}{% for tag in post.tags %} #{{ tag | downcase }}{% endfor %}">
         {{ post.date | date: '%Y-%m-%d' }} - 
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
         {% for tag in post.tags %}
@@ -113,6 +116,39 @@ render_with_liquid: true
   .post-item.is-hidden { display: none; }
   .archive-group.is-empty { display: none; }
   .cat-tag-btn.is-hidden { display: none; }
+
+  /* 时间视图：标题 + 排序切换按钮 同一行 */
+  .time-sort-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-md);
+    flex-wrap: wrap;
+    margin: 0 0 var(--sp-md);
+  }
+  .time-sort-head h3 { margin: 0; }
+  .time-sort-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-editorial, 999px);
+    background: transparent;
+    color: var(--text-soft);
+    font-size: var(--type-body-sm, .85rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, transform 0.12s ease;
+    white-space: nowrap;
+  }
+  .time-sort-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .time-sort-btn:active { transform: scale(0.96); }
+  @media (max-width: 560px) {
+    .time-sort-head { align-items: flex-start; }
+    .time-sort-btn { font-size: .78rem; }
+  }
 </style>
 
 <script>
@@ -138,6 +174,49 @@ render_with_liquid: true
       switchTab(this.getAttribute('data-tab'));
     }));
     switchTab('time');
+
+    // ===== 时间视图：最新在前 / 最早在前 排序切换 =====
+    const timeList = document.getElementById('time-post-list');
+    const sortToggle = document.getElementById('time-sort-toggle');
+    const timeHeading = document.getElementById('time-heading');
+    const ORDER_KEY = 'archive-time-order'; // desc=最新在前（默认），asc=最早在前
+    let timeOrder = 'desc';
+    try { timeOrder = localStorage.getItem(ORDER_KEY) === 'asc' ? 'asc' : 'desc'; } catch (e) { timeOrder = 'desc'; }
+
+    function applyTimeSort() {
+      if (!timeList) return;
+      const items = Array.prototype.slice.call(timeList.querySelectorAll('.post-item'));
+      const dir = timeOrder === 'asc' ? 1 : -1;
+      items.sort(function (a, b) {
+        const da = a.getAttribute('data-date') || '';
+        const db = b.getAttribute('data-date') || '';
+        return da.localeCompare(db) * dir;
+      });
+      items.forEach(function (li) { timeList.appendChild(li); }); // appendChild 会移动已有节点，不破坏事件与搜索状态
+    }
+
+    function updateSortLabels() {
+      if (!sortToggle || !timeHeading) return;
+      if (timeOrder === 'asc') {
+        timeHeading.textContent = '📅 所有帖子（最早在前 · 正序）';
+        sortToggle.textContent = '↓ 切换为最新在前';
+      } else {
+        timeHeading.textContent = '📅 所有帖子（最新在前 · 倒序）';
+        sortToggle.textContent = '↑ 切换为最早在前';
+      }
+    }
+
+    if (sortToggle) {
+      sortToggle.addEventListener('click', function () {
+        timeOrder = timeOrder === 'asc' ? 'desc' : 'asc';
+        try { localStorage.setItem(ORDER_KEY, timeOrder); } catch (e) {}
+        applyTimeSort();
+        updateSortLabels();
+        applyFilter(); // 重排后刷新隐藏态与计数
+      });
+    }
+    applyTimeSort();
+    updateSortLabels();
 
     // 搜索过滤：跨所有视图过滤文章，空分类/标签自动收起
     function applyFilter() {
