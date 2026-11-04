@@ -2,7 +2,7 @@
 source "https://rubygems.org"
 
 # 适配 GitHub Pages，使用官方推荐的版本
-gem "github-pages", "~> 231", group: :jekyll_plugins
+gem "github-pages", "~> 232", group: :jekyll_plugins
 gem "bundler", "~> 2.3"  # 适配 GitHub Pages 的 bundler 版本
 
 # 主题
