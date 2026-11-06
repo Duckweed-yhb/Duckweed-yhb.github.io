@@ -11,3 +11,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# 本地页面验证产物
+.preview-site/
