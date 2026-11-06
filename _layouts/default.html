@@ -21,13 +21,14 @@
 </head>
 
 <body class="layout-{{ page.layout }}">
+  <a class="skip-link" href="#main-content">跳到正文</a>
   {%- include sidebar.html -%}
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- 自制星空背景（海蓝/天蓝渐变 + 闪烁星星 + 流星划过） -->
   <div class="starfield" id="starfield"></div>
 
-  <main class="page-content" aria-label="Content">
+  <main class="page-content" id="main-content" tabindex="-1" aria-label="正文">
     {{ content }}
     {%- comment -%} 全站页脚（此前该组件已存在但从未被引用，导致站点没有页脚） {%- endcomment -%}
     {%- include footer.html -%}
@@ -40,17 +41,32 @@
       var sidebar = document.getElementById('sidebar');
       var overlay = document.getElementById('sidebar-overlay');
 
-      function closeSidebar() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
+      var main = document.getElementById('main-content');
+      function setSidebar(open) {
+        if (!open) toggle.focus();
+        sidebar.classList.toggle('open', open);
+        overlay.classList.toggle('active', open);
+        sidebar.inert = !open;
+        sidebar.setAttribute('aria-hidden', String(!open));
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? '收起菜单' : '展开菜单');
+        main.inert = open;
+        document.body.classList.toggle('sidebar-is-open', open);
+        if (open) sidebar.querySelector('.sidebar-close').focus();
+        else toggle.focus();
       }
-
-      if (toggle) {
-        toggle.addEventListener('click', function() {
-          sidebar.classList.toggle('open');
-          overlay.classList.toggle('active');
-        });
-      }
+      function closeSidebar() { setSidebar(false); }
+      if (toggle) toggle.addEventListener('click', function() {
+        setSidebar(!sidebar.classList.contains('open'));
+      });
+      sidebar.addEventListener('keydown', function(e) {
+        if (e.key !== 'Tab' || !sidebar.classList.contains('open')) return;
+        var controls = Array.from(sidebar.querySelectorAll('a[href],button,input'))
+          .filter(function(el) { return !el.disabled && el.getClientRects().length; });
+        var first = controls[0], last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
 
       if (overlay) {
         overlay.addEventListener('click', closeSidebar);
@@ -239,17 +255,19 @@
           return (ta === -1 ? 1 : 0) - (tb === -1 ? 1 : 0);
         });
         if (!matched.length) {
+          document.getElementById('search-status').textContent = '未找到匹配内容';
           results.innerHTML = '<div class="no-results">未找到匹配内容</div>';
           results.style.display = 'block';
           return;
         }
+        document.getElementById('search-status').textContent = matched.length ? '找到 ' + matched.length + ' 篇文章' : '未找到匹配内容';
         results.innerHTML = matched.slice(0, 8).map(function(p) {
           return '<a href="' + p.url + '"><div class="search-title">' + p.title + '</div><div class="search-meta">' + (p.date || '') + '</div></a>';
         }).join('');
         results.style.display = 'block';
       }
 
-      loadData();
+      if (input) input.addEventListener('focus', loadData, { once: true });
 
       if (input) {
         input.addEventListener('input', function() {
@@ -259,7 +277,9 @@
             results.style.display = 'none';
             return;
           }
-          loadData().then(function() { doSearch(kw); });
+          timer = setTimeout(function() {
+            loadData().then(function() { if (input.value === kw) doSearch(kw); });
+          }, 180);
         });
 
         input.addEventListener('focus', function() {
@@ -277,7 +297,7 @@
     // 星空背景：生成星星 + 流星划过
     (function() {
       var field = document.getElementById('starfield');
-      if (!field) return;
+      if (!field || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       // 生成闪烁的星星（150 颗，随机大小、位置、闪烁节奏）
       var starCount = 150;

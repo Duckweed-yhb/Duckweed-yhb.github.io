@@ -194,8 +194,8 @@
         var sidebar = doc.getElementById('sidebar');
         var overlay = doc.getElementById('sidebar-overlay');
         if (sidebar && !sidebar.classList.contains('open')) {
-          sidebar.classList.add('open');
-          if (overlay) overlay.classList.add('active');
+          var toggle = doc.getElementById('sidebar-toggle');
+          if (toggle) toggle.click();
         }
         input.focus();
         input.select();
@@ -256,11 +256,16 @@
     doc.body.appendChild(fab);
 
     function setOpen(open, remember) {
+      toc.inert = !open;
+      fab.setAttribute('aria-expanded', String(open));
+      var focusedInside = toc.contains(doc.activeElement);
       toc.classList.toggle('toc-open', open);
       fab.classList.toggle('active', open);
       doc.body.classList.toggle('toc-drawer-open', open);
       toc.setAttribute('aria-hidden', open ? 'false' : 'true');
       fab.setAttribute('aria-label', open ? '收起章节目录' : '展开章节目录');
+      if (open && remember) toc.querySelector('.post-toc-close').focus();
+      if (!open && focusedInside) fab.focus();
       if (remember) {
         try { localStorage.setItem('toc-open', open ? '1' : '0'); } catch (e) { /* 忽略 */ }
       }
@@ -398,6 +403,13 @@
   }
 
   ready(function () {
+    // 有些 Markdown 自带同名 H1，页面模板已有标题时避免重复展示。
+    var title = doc.querySelector('.post-title');
+    var firstHeading = doc.querySelector('.post-content > h1:first-child');
+    if (title && firstHeading && title.textContent.trim() === firstHeading.textContent.trim()) {
+      if (firstHeading.id && !title.id) { title.id = firstHeading.id; firstHeading.removeAttribute('id'); }
+      firstHeading.hidden = true;
+    }
     initCodeBlocks();
     initHeadingAnchors();
     initImages();

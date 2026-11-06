@@ -1,4 +1,4 @@
-<aside class="site-sidebar" id="sidebar">
+<aside class="site-sidebar" id="sidebar" inert aria-hidden="true" tabindex="-1">
   <!-- Logo 区域 -->
   <div class="sidebar-header">
     <button type="button" class="sidebar-close" id="sidebar-close" aria-label="收起菜单" title="收起菜单">✕</button>
@@ -8,7 +8,9 @@
 
   <!-- 搜索区域 -->
   <div class="sidebar-search">
-    <input type="text" id="sidebar-search-input" placeholder="在星云中寻找..." autocomplete="off">
+    <label class="visually-hidden" for="sidebar-search-input">搜索文章</label>
+    <input type="search" id="sidebar-search-input" placeholder="在星云中寻找..." autocomplete="off">
+    <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
     <div id="sidebar-search-results" style="display:none;"></div>
   </div>
 
@@ -50,4 +52,4 @@
 </aside>
 
 <!-- 移动端菜单按钮 -->
-<button class="sidebar-toggle" id="sidebar-toggle" aria-label="菜单">☰</button>
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="展开菜单" aria-controls="sidebar" aria-expanded="false">☰</button>

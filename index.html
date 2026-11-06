@@ -11,10 +11,41 @@ render_with_liquid: true
 <link rel="stylesheet" href="{{ '/assets/css/starsea.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <script src="{{ '/assets/js/star-intro.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 
-<div class="page-card">
-  <h1>你好，我是 Duckweed 🌌</h1>
+<div class="page-card home-page">
+  <h1>你好，我是 Duckweed</h1>
   <p class="community-intro">这里是我的个人博客，记录编程学习、考研备考与读书思考的点滴。我发起了一个名为「星隅共学社」的小社群——一群热爱探索的大学生，聚成一片「星云」，一起钻研技术、分享阅读、记录成长。开放、包容、面向未来，是我们共同的底色。</p>
 
+  <nav class="home-start" aria-label="开始探索">
+    <a href="#latest-posts">阅读最新文章</a>
+    <a href="{{ '/navigate/' | relative_url }}">学习与导航</a>
+    <a href="{{ '/exhibition/' | relative_url }}">看看我的项目</a>
+  </nav>
+
+  <div class="home-section-head" id="latest-posts">
+    <h2>最新文章</h2>
+    <a href="{{ '/archive/' | relative_url }}">全部文章 →</a>
+  </div>
+  <ul class="home-posts">
+    {% for post in site.posts limit:6 %}
+      <li>
+        <a class="home-post-link" href="{{ post.url | relative_url }}">
+          <span class="home-post-title">{{ post.title }}</span>
+          <span class="home-post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>探索本站</h2>
+  <ul class="home-explore">
+    <li><a class="home-explore-link" href="{{ "/navigate/" | relative_url }}"><span class="explore-title">导航</span><span class="explore-desc">按你的身份与方向，找到属于你的入口</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/course-map/" | relative_url }}"><span class="explore-title">课程地图</span><span class="explore-desc">电气与计算机的课程先修脉络</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/blog-map/" | relative_url }}"><span class="explore-title">博客地图</span><span class="explore-desc">全部文章的主题归属总览</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/exhibition/" | relative_url }}"><span class="explore-title">展览</span><span class="explore-desc">我的项目、技能与书籍</span></a></li>
+    <li><a class="home-explore-link" href="{{ "/about/" | relative_url }}"><span class="explore-title">关于我</span><span class="explore-desc">认识我，也认识星隅</span></a></li>
+  </ul>
+
+  <h2>星海拾句</h2>
   <!-- 星海浮萍 · 诗词场景：两阕可切换（星河 / 浮萍），按钮切换，键盘可用 -->
   <div class="starsea" id="starsea" data-verse="1">
     <!-- 场景层：装饰，不读屏 -->
@@ -88,24 +119,4 @@ render_with_liquid: true
     })();
   </script>
 
-  <h2>最新文章</h2>
-  <ul class="home-posts">
-    {% for post in site.posts limit:6 %}
-      <li>
-        <a class="home-post-link" href="{{ post.url | relative_url }}">
-          <span class="home-post-title">{{ post.title }}</span>
-          <span class="home-post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <h2>探索本站</h2>
-  <ul class="home-explore">
-    <li><a class="home-explore-link" href="{{ "/navigate/" | relative_url }}"><span class="explore-title">导航</span><span class="explore-desc">按你的身份与方向，找到属于你的入口</span></a></li>
-    <li><a class="home-explore-link" href="{{ "/course-map/" | relative_url }}"><span class="explore-title">课程地图</span><span class="explore-desc">电气与计算机的课程先修脉络</span></a></li>
-    <li><a class="home-explore-link" href="{{ "/blog-map/" | relative_url }}"><span class="explore-title">博客地图</span><span class="explore-desc">全部文章的主题归属总览</span></a></li>
-    <li><a class="home-explore-link" href="{{ "/exhibition/" | relative_url }}"><span class="explore-title">展览</span><span class="explore-desc">我的项目、技能与书籍</span></a></li>
-    <li><a class="home-explore-link" href="{{ "/about/" | relative_url }}"><span class="explore-title">关于我</span><span class="explore-desc">认识我，也认识星隅</span></a></li>
-  </ul>
 </div>
