@@ -1,1 +1,171 @@
-.campus-guide{max-width:56rem;margin:0 auto;padding:clamp(18px,4vw,40px);background:var(--paper);color:var(--text-strong);line-height:1.85;overflow-wrap:anywhere}.campus-guide nav{font-size:.9rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid currentColor}.campus-guide h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4}.campus-guide h2{margin-top:2.5rem}.campus-guide table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;margin:1.2rem 0}.campus-guide th,.campus-guide td{padding:.6rem;border-bottom:1px solid var(--text-soft);text-align:left;min-width:6rem}.campus-guide pre{max-width:100%;overflow:auto}.campus-guide .campus-hero{display:grid;grid-template-columns:2fr 1fr;gap:2rem}.campus-guide .campus-meta>div{padding:.5rem 0;border-bottom:1px solid var(--text-soft)}.campus-guide dd{margin:0}.campus-guide dt{font-weight:600}@media(max-width:720px){.campus-guide .campus-hero{grid-template-columns:1fr;gap:1rem}}
+/* 同校指南（/campus/hitsz-ee/*）专用样式
+   只补这些页面里出现的自定义块：hero / meta / ladder / grid。
+   颜色、边框、圆角一律取 theme.css 的语义令牌，明暗两套自动跟随。 */
+
+.campus-guide {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: clamp(18px, 4vw, 40px);
+  background: var(--paper);
+  color: var(--text-strong);
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.campus-guide nav {
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.campus-guide h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  line-height: 1.4;
+}
+
+.campus-guide h2 {
+  margin-top: 2.5rem;
+}
+
+.campus-guide table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+}
+
+.campus-guide th,
+.campus-guide td {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  min-width: 6rem;
+}
+
+.campus-guide pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+/* ---------- hero：左右两栏，左叙述右参数 ---------- */
+
+.campus-guide .campus-hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin: 2rem 0;
+  padding: clamp(18px, 3vw, 30px);
+  background: var(--paper-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-editorial, 2px);
+}
+
+.campus-guide .campus-hero__tag {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.campus-guide .campus-hero__main h3 {
+  margin: 0 0 0.8rem;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: var(--text-strong);
+}
+
+.campus-guide .campus-hero__main p {
+  margin: 0;
+  color: var(--text);
+}
+
+/* ---------- meta：学制 / 学分 / 学位 这类参数表 ---------- */
+
+.campus-guide .campus-meta {
+  margin: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.campus-guide .campus-meta > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.92rem;
+}
+
+.campus-guide .campus-meta dt {
+  font-weight: 600;
+  color: var(--text-strong);
+  white-space: nowrap;
+}
+
+.campus-guide .campus-meta dd {
+  margin: 0;
+  text-align: right;
+  color: var(--text-soft);
+}
+
+/* ---------- ladder：01 / 02 / 03 三级阶梯 ---------- */
+
+.campus-guide .campus-ladder {
+  margin: 1.8rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.campus-guide .campus-ladder__row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.campus-guide .campus-ladder__no {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.campus-guide .campus-ladder__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.campus-guide .campus-ladder__meta {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* 每一级的编号色随层数递进，深浅两种主题都可读 */
+.campus-guide .campus-ladder__row--2 .campus-ladder__no,
+.campus-guide .campus-ladder__row--3 .campus-ladder__no {
+  color: var(--link-ink, var(--text));
+}
+
+/* ---------- 窄屏：hero 变单列，阶梯收窄 ---------- */
+
+@media (max-width: 720px) {
+  .campus-guide .campus-hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .campus-guide .campus-ladder__row {
+    grid-template-columns: 2.6rem 1fr;
+    gap: 0.7rem;
+  }
+
+  .campus-guide .campus-ladder__no {
+    font-size: 1.2rem;
+  }
+}
