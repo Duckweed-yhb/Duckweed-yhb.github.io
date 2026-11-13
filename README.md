@@ -20,8 +20,8 @@
 | 2026-10-15 | [从「只招资深」到「能养设计师」：一份设计育成路线图](https://duckweed-yhb.github.io/2026/10/15/从只招资深到能养设计师/) |
 | 2026-10-15 | [没有 PM，用 HCD 流程领跑 4500 人的内网改造](https://duckweed-yhb.github.io/2026/10/15/用HCD流程领跑4500人的内网改造/) |
 | 2026-10-15 | [从使命愿景到 Logo：陪跑一家创业公司的品牌](https://duckweed-yhb.github.io/2026/10/15/陪跑一家创业公司的品牌/) |
-| 2026-10-15 | [一张用了三年还在用的旅程图：B2B 复杂服务的可视化](https://duckweed-yhb.github.io/2026/10/15/B2B复杂服务的一张旅程图/) |
 | 2026-10-15 | [用之美：一位日本设计师的 sense-making 工作法](https://duckweed-yhb.github.io/2026/10/15/用之美一位日本设计师的sense-making工作法/) |
+| 2026-10-15 | [一张用了三年还在用的旅程图：B2B 复杂服务的可视化](https://duckweed-yhb.github.io/2026/10/15/B2B复杂服务的一张旅程图/) |
 | 2026-10-14 | [适合初学者阅读的小于1000行的小型开源项目](https://duckweed-yhb.github.io/2026/10/14/适合初学者阅读的小型开源项目/) |
 | 2026-10-14 | [高级初学者的编程项目](https://duckweed-yhb.github.io/2026/10/14/高级初学者的编程项目/) |
 
@@ -41,6 +41,7 @@
 │   ├── search.html
 │   ├── sidebar.html
 ├── _layouts
+│   ├── campus-guide.html
 │   ├── default.html
 ├── _posts
 │   ├── 2026-03-16-latex-template.md
@@ -97,6 +98,7 @@
 │   └── 2026-10-15-陪跑一家创业公司的品牌.md
 ├── assets
 │   ├── css
+│   │   ├── campus-guide.css
 │   │   ├── main.css
 │   │   ├── sidebar.css
 │   │   ├── starsea.css
@@ -123,6 +125,26 @@
 ├── index.html
 ├── pages
 │   ├── archive.html
+│   ├── campus
+│   │   └── hitsz-ee
+│   │       ├── beyond
+│   │       │   ├── README.md
+│   │       │   ├── internship.md
+│   │       ├── curriculum
+│   │       │   ├── README.md
+│   │       │   ├── y1-autumn.md
+│   │       │   ├── y1-spring.md
+│   │       │   ├── y1-summer.md
+│   │       │   ├── y2-autumn.md
+│   │       │   ├── y2-spring.md
+│   │       │   ├── y2-summer.md
+│   │       │   ├── y3-autumn.md
+│   │       │   ├── y3-spring.md
+│   │       │   ├── y3-summer.md
+│   │       │   ├── y4-autumn.md
+│   │       │   ├── y4-spring.md
+│   │       │   └── y4-summer.md
+│   │       └── index.md
 │   ├── friends.html
 │   ├── future.html
 │   ├── navigate.html
@@ -135,7 +157,7 @@
 ```
 
 ---
-> 最后更新：2026-11-13 04:15:41 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-11-13 13:56:43 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
