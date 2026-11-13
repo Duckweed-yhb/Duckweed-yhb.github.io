@@ -10,7 +10,7 @@ render_with_liquid: true
 
 <h1>博客仓库完整文件结构说明</h1>
 
-<blockquote>用于快速查阅全量文件/文件夹用途，精准定位 Debug 位置，适配 Jekyll + GitHub Pages 博客架构</blockquote>
+> 用于快速查阅全量文件/文件夹用途，精准定位 Debug 位置，适配 Jekyll + GitHub Pages 博客架构
 
 ---
 

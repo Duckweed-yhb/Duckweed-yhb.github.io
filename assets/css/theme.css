@@ -59,10 +59,11 @@
   --radius-pill: 999px;
 
   /* 字体 */
-  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", "STSong", "Source Han Serif SC", serif;
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", "STSong", "Source Han Serif SC", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", serif;
   --font-kai: "STKaiti", "KaiTi", "Kaiti SC", "楷体", var(--font-serif);
   --font-sans: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
+    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", Arial,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
   --font-mono: "Fira Code", "Cascadia Code", "JetBrains Mono", Consolas, "Courier New", monospace;
 }
 
