@@ -11,9 +11,9 @@ permalink: /campus/hitsz-ee/
 >
 > 两者的组织依据不同：通用板块按**知识块**分（见 [板块索引](https://duckweed-yhb.github.io/eediy/README)），本套页面按**培养方案与学期**排。不互相替代，互相链接。学分、开课学期的来源与版本见文末「这套页面还缺什么」。
 
-<div class="campus-hero" markdown="1">
-  <div class="campus-hero__main" markdown="1">
-    <div class="campus-hero__tag" markdown="1">专业画像</div>
+<div class="campus-hero" markdown="0">
+  <div class="campus-hero__main">
+    <div class="campus-hero__tag">专业画像</div>
     <h3>强弱电结合，软硬件结合</h3>
     <p>哈工大电气学科始于 1920 年的电气机械工程科，1954 年设系，是我国最早的电气专业之一；深圳校区电气学科 2002 年起建，学科在第四轮全国学科评估中列 A 类（全国第 5）。落到本科培养上，这个专业既要求你懂电机、电力系统这类「强电」，也要求你懂电路、模电数电、信号与 DSP 这类「弱电」，两头都不能瘸。</p>
   </div>

@@ -8,26 +8,26 @@ permalink: /campus/hitsz-ee/beyond/project/
 
 课程给你知识，项目给你「这件事我真的做成过」的底气。三个项目按顺序做，每个都能独立写进简历；做不完第三个不算失败，前两个做完就已经甩开大多数人。
 
-<div class="campus-ladder" markdown="1">
-  <div class="campus-ladder__row" markdown="1">
+<div class="campus-ladder" markdown="0">
+  <div class="campus-ladder__row">
     <span class="campus-ladder__no">01</span>
-    <div class="campus-ladder__body" markdown="1">
-      <div class="campus-ladder__title" markdown="1">面包板上的共射放大电路</div>
-      <div class="campus-ladder__meta" markdown="1">配 02 电路与电子学 · 验收：工作点、中频增益、上限截止频率都测得准，并能解释削顶</div>
+    <div class="campus-ladder__body">
+      <div class="campus-ladder__title">面包板上的共射放大电路</div>
+      <div class="campus-ladder__meta">配 02 电路与电子学 · 验收：工作点、中频增益、上限截止频率都测得准，并能解释削顶</div>
     </div>
   </div>
-  <div class="campus-ladder__row campus-ladder__row--2" markdown="1">
+  <div class="campus-ladder__row campus-ladder__row--2">
     <span class="campus-ladder__no">02</span>
-    <div class="campus-ladder__body" markdown="1">
-      <div class="campus-ladder__title" markdown="1">MCU 上的单环闭环</div>
-      <div class="campus-ladder__meta" markdown="1">配 03 嵌入式与单片机 · 验收：串口画出阶跃响应，且 PI 参数改动肉眼可见</div>
+    <div class="campus-ladder__body">
+      <div class="campus-ladder__title">MCU 上的单环闭环</div>
+      <div class="campus-ladder__meta">配 03 嵌入式与单片机 · 验收：串口画出阶跃响应，且 PI 参数改动肉眼可见</div>
     </div>
   </div>
-  <div class="campus-ladder__row campus-ladder__row--3" markdown="1">
+  <div class="campus-ladder__row campus-ladder__row--3">
     <span class="campus-ladder__no">03</span>
-    <div class="campus-ladder__body" markdown="1">
-      <div class="campus-ladder__title" markdown="1">PMSM 的 FOC 双环</div>
-      <div class="campus-ladder__meta" markdown="1">配 04 电机与运动控制 · 验收：稳速不抖、突加负载能恢复、留下波形记录</div>
+    <div class="campus-ladder__body">
+      <div class="campus-ladder__title">PMSM 的 FOC 双环</div>
+      <div class="campus-ladder__meta">配 04 电机与运动控制 · 验收：稳速不抖、突加负载能恢复、留下波形记录</div>
     </div>
   </div>
 </div>
