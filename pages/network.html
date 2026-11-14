@@ -7,42 +7,25 @@ render_with_liquid: true
 
 <div class="page-header-card network-header">
   <h1>星网</h1>
-  <p>把全部 <strong>{% assign _n = 0 %}{% for _p in site.posts %}{% assign _n = _n | plus: 1 %}{% endfor %}{{ _n }}</strong> 篇文章画成一片星野：每篇文章是一个星点，按分类着色；同系列、共享标签的文章之间，以一线相连。选中文章查看摘要与关联内容，再从全局切换到局部探索。</p>
+  <p>文章之间，也有值得循着走的线索。把鼠标移到星点上查看标题与关联，点击查看简介，从一篇文章找到下一篇想读的内容。</p>
 </div>
 
 <div class="content-wrap network-page">
   <noscript><p>星网需要 JavaScript。可通过<a href="/archive/">文章归档</a>浏览文章。</p></noscript>
-  <aside class="net-index" aria-label="文章检索与索引">
-  <h2>文章索引</h2>
-  <!-- 控制条 -->
-  <div class="net-toolbar">
-    <div class="net-search">
-      <label for="net-search">检索星点</label>
-      <input id="net-search" type="search" placeholder="输入标题 / 标签 / 分类，如 LaTeX / Agent / 大学物理…" autocomplete="off" spellcheck="false">
-      <span class="net-count" id="net-count" role="status" aria-live="polite"></span>
-    </div>
-    <div class="net-controls">
-      <button type="button" id="net-relayout" class="net-btn">重新布局</button>
-      <button type="button" id="net-clear" class="net-btn">重置视角</button>
-    </div>
-  </div>
-  <div class="net-cats" id="net-cats" role="group" aria-label="按分类过滤星点"></div>
-
-  <div class="net-reading"><h3>匹配文章 <span id="net-list-count"></span></h3><ul id="net-reading-list"></ul></div>
-  </aside>
   <section class="net-map" aria-label="关系网络">
   <div class="net-mode"><span id="net-mode-label">全局网络</span><button type="button" class="net-btn" id="net-global">返回全局</button></div>
   <!-- 图区 -->
   <div class="net-canvas-wrap" id="net-wrap">
-    <svg id="net-svg" role="group" aria-label="文章关系图，可通过下方文章列表访问全部结果"></svg>
+    <svg id="net-svg" role="group" aria-label="文章关系图，点击节点查看文章简介"></svg>
     <div class="net-tooltip" id="net-tooltip" hidden></div>
-    <div class="net-empty" id="net-empty" hidden>没有匹配的星点，换个关键词试试。</div>
+    <div class="net-empty" id="net-empty" hidden>当前分类没有可显示的文章，请选择其他分类。</div>
   </div>
 
 
 
   </section>
-  <aside class="net-detail" aria-label="文章详情" aria-live="polite"><button class="net-card-close net-btn" type="button" aria-label="关闭文章详情">关闭</button><h2>文章详情</h2><p id="net-detail-hint">选择一个星点或左侧文章，查看内容摘要与关联文章。</p><div id="net-detail-content" hidden><p id="net-detail-meta"></p><h3 id="net-detail-title"></h3><p id="net-detail-excerpt"></p><a id="net-detail-link" class="net-btn">开始阅读</a><button id="net-focus" type="button" class="net-btn">聚焦关联网络</button><h3>关联文章</h3><ul id="net-related"></ul></div></aside>
+  <aside class="net-detail" aria-label="文章详情" aria-live="polite"><button class="net-card-close net-btn" type="button" aria-label="关闭文章详情">关闭</button><h2>文章详情</h2><p id="net-detail-hint">选择一个星点，查看内容摘要与关联文章。</p><div id="net-detail-content" hidden><p id="net-detail-meta"></p><h3 id="net-detail-title"></h3><p id="net-detail-excerpt"></p><a id="net-detail-link" class="net-btn">开始阅读</a><button id="net-focus" type="button" class="net-btn">聚焦关联网络</button><h3>关联文章</h3><ul id="net-related"></ul></div></aside>
+  <div class="net-filter"><h2>按分类浏览</h2><div class="net-cats" id="net-cats" role="group" aria-label="按分类过滤星点"></div></div>
   <!-- 图例 -->
   <div class="net-legend" id="net-legend"></div>
   <p class="net-foot">关系口径：同系列（series.yml 归档）、共享相同标签（标签成员 2–20 篇）。星点大小 = 连接数。可 <strong>滚轮缩放</strong>、<strong>拖拽平移</strong>、<strong>点击星点</strong>查看详情；“聚焦关联网络”显示当前文章及直接相邻文章。</p>
@@ -53,13 +36,6 @@ render_with_liquid: true
   .page-header-card p { color: var(--text-soft); margin: 0; }
   .content-wrap { max-width: 1100px; margin: 0 auto; padding: 8px; }
 
-  .net-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 6px 0 12px; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,.05)); }
-  .net-search { display: flex; align-items: center; gap: 10px; flex: 1 1 300px; }
-  .net-search label { font-size: .82em; color: var(--text-soft); white-space: nowrap; }
-  .net-search input { flex: 1; padding: 8px 12px; font-size: .95em; color: var(--text-strong); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
-  .net-search input:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
-  .net-count { font-size: .78em; color: var(--text-soft); white-space: nowrap; }
-  .net-controls { display: flex; gap: 8px; }
   .net-btn { padding: 7px 14px; font-size: .85em; color: var(--text-strong); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
   .net-btn:hover { border-color: var(--blue); color: var(--blue); }
 
@@ -89,9 +65,6 @@ render_with_liquid: true
   /* Scoped graph surface; do not restyle other blog pages. */
   .network-header h1 { border:0; font-size:clamp(2rem,5vw,3.2rem); letter-spacing:.04em; }
   .network-page { max-width:1200px; padding:0; }
-  .network-page .net-toolbar { border-radius:0; box-shadow:none; padding:18px; gap:16px; }
-  .network-page .net-search { min-width:0; flex-wrap:wrap; }
-  .network-page .net-search input { min-width:120px; width:100%; font-size:16px; }
   .network-page .net-cats { gap:6px; margin-block:18px; }
   .network-page .net-cat-chip { min-height:36px; border-radius:4px; }
   .network-page .net-cat-chip.on { background:var(--blue); color:#fff; }
@@ -100,9 +73,6 @@ render_with_liquid: true
   .net-label { font-size:11px; fill:var(--text-strong); pointer-events:none; paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
   .net-node { cursor:pointer; }
   .net-edge { opacity:.5; vector-effect:non-scaling-stroke; }
-  .net-reading { margin-top:20px; padding:16px 20px; border:1px solid var(--line); background:var(--paper); }
-  .net-reading summary { cursor:pointer; font-weight:600; color:var(--text-strong); }
-  #net-reading-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 30px; padding-inline-start:20px; line-height:1.7; }
   .network-page :is(button,summary):focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
   @media(max-width:600px) { #net-reading-list { grid-template-columns:1fr; } .network-page .net-controls { width:100%; } .network-page .net-btn { flex:1; min-height:42px; } }
 
@@ -111,15 +81,7 @@ render_with_liquid: true
   .net-index h2,.net-detail h2 { margin:0 0 16px; font-size:1rem; }
   .net-detail h3 { font-size:1.05rem; line-height:1.6; margin-block:20px 10px; }
   .net-detail p { font-size:.9rem; line-height:1.85; overflow-wrap:anywhere; }
-  .network-page .net-toolbar { display:block; border:0; padding:0; margin:0; }
-  .network-page .net-search { display:block; }
-  .network-page .net-search input { box-sizing:border-box; width:100%; margin:8px 0; }
-  .network-page .net-controls { margin-top:12px; flex-wrap:wrap; }
   .network-page .net-cats { max-height:170px; overflow:auto; }
-  .network-page .net-reading { margin:0; padding:0; border:0; }
-  .network-page #net-reading-list { display:block; max-height:430px; overflow:auto; padding:0; list-style:none; }
-  #net-reading-list button,#net-related button { width:100%; text-align:left; border:0; background:none; color:var(--text-strong); cursor:pointer; padding:9px 0; font:inherit; font-size:.85rem; line-height:1.6; border-bottom:1px solid var(--line); }
-  #net-reading-list button:hover,#net-related button:hover { color:var(--blue); }
   #net-related { padding:0; list-style:none; }
   .net-map { min-width:0; }
   .net-mode { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:48px; font-size:.85rem; }
@@ -138,10 +100,16 @@ render_with_liquid: true
   .network-page .net-detail.is-open { display:block; }
   .net-card-close { float:right; }
   .net-detail #net-detail-link { background:var(--blue); color:white; padding:10px 18px; }
-  .network-page .net-index { max-height:78vh; overflow:auto; }
   body:has(.network-page) .page-content { max-width:none; width:auto; }
   body:has(.network-page) .network-header { max-width:none; padding-block:16px; }
   @media(max-width:700px){ .network-page{display:flex}.network-page .net-index{max-height:220px}.network-page #net-svg{height:70vh;min-height:420px}.network-page .net-detail{position:fixed;top:auto;bottom:16px;right:12px;width:calc(100% - 24px);max-height:48vh}.network-page .net-detail.is-open{display:block} }
+
+  .network-page { display:block; }
+  .network-page .net-filter { margin:20px 0 0; padding:18px 0; border-block:1px solid var(--line); }
+  .network-page .net-filter h2 { margin:0 0 12px; font-size:.9rem; color:var(--text-soft); }
+  .network-page .net-cats { max-height:none; overflow:visible; margin:0; gap:8px; }
+  .network-page .net-legend { display:none; }
+  .network-page .net-foot { margin-top:14px; }
 </style>
 
 <script>
@@ -219,8 +187,6 @@ render_with_liquid: true
   var wrap = document.getElementById('net-wrap');
   var tooltip = document.getElementById('net-tooltip');
   var emptyEl = document.getElementById('net-empty');
-  var countEl = document.getElementById('net-count');
-  var searchInput = document.getElementById('net-search');
   var catsEl = document.getElementById('net-cats');
   var legendEl = document.getElementById('net-legend');
   var NS = "http://www.w3.org/2000/svg";
@@ -338,6 +304,13 @@ render_with_liquid: true
       c.setAttribute("stroke-width", "1.5");
       c.setAttribute("data-idx", o.idx);
       c.classList.add("net-node");
+      c.setAttribute('tabindex', '0'); c.setAttribute('role', 'button');
+      c.setAttribute('aria-label', POSTS[o.idx].title + '，查看简介');
+      c.addEventListener('keydown', function(event){
+        if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectArticle(o.idx); }
+      });
+      c.addEventListener('focus', function(){ highlight(o.idx); });
+      c.addEventListener('blur', function(){ highlight(selectedIdx); });
       gView.appendChild(c);
       var title = document.createElementNS(NS, 'title'); title.textContent = POSTS[o.idx].title; c.appendChild(title);
       var label = document.createElementNS(NS, 'text');
@@ -364,18 +337,10 @@ render_with_liquid: true
     layout(nodes, 240);
     render();
     applyView();
-    countEl.textContent = n === 0 ? "0 / " + POSTS.length : (n + " / " + POSTS.length);
     emptyEl.hidden = n !== 0;
     renderLegend();
     view = { tx: 0, ty: 0, s: 1 }; applyView();
-    var list = document.getElementById('net-reading-list'); list.replaceChildren();
-    nodes.forEach(function(o) {
-      var li = document.createElement('li'), a = document.createElement('button');
-      a.type = 'button'; a.textContent = POSTS[o.idx].title; a.setAttribute('aria-pressed', o.idx === selectedIdx);
-      a.addEventListener('click', function(){ selectArticle(o.idx); });
-      li.appendChild(a); list.appendChild(li);
-    });
-    document.getElementById('net-list-count').textContent = '(' + nodes.length + ')';
+
   }
 
   // ---- 分类 chips + 图例 ----
@@ -515,7 +480,7 @@ render_with_liquid: true
     highlight(idx);
   }
   document.getElementById('net-focus').onclick = function(){
-    focusIdx = selectedIdx; searchQ = ''; searchInput.value = ''; activeCats = {none:true}; syncChips(); refresh(); selectArticle(selectedIdx);
+    focusIdx = selectedIdx; searchQ = ''; activeCats = {none:true}; syncChips(); refresh(); selectArticle(selectedIdx);
     document.getElementById('net-mode-label').textContent = '局部网络 · ' + POSTS[selectedIdx].title;
   };
   document.getElementById('net-global').onclick = function(){ focusIdx = null; document.getElementById('net-mode-label').textContent = '全局网络'; refresh(); };
@@ -524,9 +489,6 @@ render_with_liquid: true
   };
   document.addEventListener('keydown', function(event){ if(event.key === 'Escape') document.querySelector('.net-card-close').click(); });
   // ---- 搜索 / 控制 ----
-  searchInput.addEventListener('input', function () { searchQ = searchInput.value.trim().toLowerCase(); refresh(); });
-  document.getElementById('net-relayout').addEventListener('click', function () { refresh(); });
-  document.getElementById('net-clear').addEventListener('click', function () { view = { tx: 0, ty: 0, s: 1 }; applyView(); });
 
   var resizeTimer;
   new ResizeObserver(function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(refresh, 150); }).observe(wrap);
