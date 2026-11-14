@@ -7,10 +7,13 @@ render_with_liquid: true
 
 <div class="page-header-card network-header">
   <h1>星网</h1>
-  <p>把全部 <strong>{% assign _n = 0 %}{% for _p in site.posts %}{% assign _n = _n | plus: 1 %}{% endfor %}{{ _n }}</strong> 篇文章画成一片星野：每篇文章是一个星点，按分类着色；同系列、共享标签的文章之间，以一线相连。缩放平移、悬停看标题、点击进原文。</p>
+  <p>把全部 <strong>{% assign _n = 0 %}{% for _p in site.posts %}{% assign _n = _n | plus: 1 %}{% endfor %}{{ _n }}</strong> 篇文章画成一片星野：每篇文章是一个星点，按分类着色；同系列、共享标签的文章之间，以一线相连。选中文章查看摘要与关联内容，再从全局切换到局部探索。</p>
 </div>
 
 <div class="content-wrap network-page">
+  <noscript><p>星网需要 JavaScript。可通过<a href="/archive/">文章归档</a>浏览文章。</p></noscript>
+  <aside class="net-index" aria-label="文章检索与索引">
+  <h2>文章索引</h2>
   <!-- 控制条 -->
   <div class="net-toolbar">
     <div class="net-search">
@@ -25,6 +28,10 @@ render_with_liquid: true
   </div>
   <div class="net-cats" id="net-cats" role="group" aria-label="按分类过滤星点"></div>
 
+  <div class="net-reading"><h3>匹配文章 <span id="net-list-count"></span></h3><ul id="net-reading-list"></ul></div>
+  </aside>
+  <section class="net-map" aria-label="关系网络">
+  <div class="net-mode"><span id="net-mode-label">全局网络</span><button type="button" class="net-btn" id="net-global">返回全局</button></div>
   <!-- 图区 -->
   <div class="net-canvas-wrap" id="net-wrap">
     <svg id="net-svg" role="group" aria-label="文章关系图，可通过下方文章列表访问全部结果"></svg>
@@ -32,11 +39,13 @@ render_with_liquid: true
     <div class="net-empty" id="net-empty" hidden>没有匹配的星点，换个关键词试试。</div>
   </div>
 
-  <details class="net-reading"><summary>浏览文章列表 <span id="net-list-count"></span></summary><ul id="net-reading-list"></ul></details>
 
+
+  </section>
+  <aside class="net-detail" aria-label="文章详情" aria-live="polite"><h2>文章详情</h2><p id="net-detail-hint">选择一个星点或左侧文章，查看内容摘要与关联文章。</p><div id="net-detail-content" hidden><p id="net-detail-meta"></p><h3 id="net-detail-title"></h3><p id="net-detail-excerpt"></p><a id="net-detail-link" class="net-btn">阅读全文</a><button id="net-focus" type="button" class="net-btn">聚焦关联网络</button><h3>关联文章</h3><ul id="net-related"></ul></div></aside>
   <!-- 图例 -->
   <div class="net-legend" id="net-legend"></div>
-  <p class="net-foot">关系口径：同系列（series.yml 归档）、共享相同标签（标签成员 2–20 篇）。星点大小 = 连接数。可 <strong>滚轮缩放</strong>、<strong>拖拽平移</strong>、<strong>点击星点</strong>打开文章。</p>
+  <p class="net-foot">关系口径：同系列（series.yml 归档）、共享相同标签（标签成员 2–20 篇）。星点大小 = 连接数。可 <strong>滚轮缩放</strong>、<strong>拖拽平移</strong>、<strong>点击星点</strong>查看详情；“聚焦关联网络”显示当前文章及直接相邻文章。</p>
 </div>
 
 <style>
@@ -96,6 +105,30 @@ render_with_liquid: true
   #net-reading-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 30px; padding-inline-start:20px; line-height:1.7; }
   .network-page :is(button,summary):focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
   @media(max-width:600px) { #net-reading-list { grid-template-columns:1fr; } .network-page .net-controls { width:100%; } .network-page .net-btn { flex:1; min-height:42px; } }
+
+  .network-page { display:grid; grid-template-columns:220px minmax(0,1fr) 270px; gap:16px; max-width:1500px; align-items:start; }
+  .net-index,.net-detail { min-width:0; background:var(--paper); border:1px solid var(--line); padding:18px; }
+  .net-index h2,.net-detail h2 { margin:0 0 16px; font-size:1rem; }
+  .net-detail h3 { font-size:1.05rem; line-height:1.6; margin-block:20px 10px; }
+  .net-detail p { font-size:.9rem; line-height:1.85; overflow-wrap:anywhere; }
+  .network-page .net-toolbar { display:block; border:0; padding:0; margin:0; }
+  .network-page .net-search { display:block; }
+  .network-page .net-search input { box-sizing:border-box; width:100%; margin:8px 0; }
+  .network-page .net-controls { margin-top:12px; flex-wrap:wrap; }
+  .network-page .net-cats { max-height:170px; overflow:auto; }
+  .network-page .net-reading { margin:0; padding:0; border:0; }
+  .network-page #net-reading-list { display:block; max-height:430px; overflow:auto; padding:0; list-style:none; }
+  #net-reading-list button,#net-related button { width:100%; text-align:left; border:0; background:none; color:var(--text-strong); cursor:pointer; padding:9px 0; font:inherit; font-size:.85rem; line-height:1.6; border-bottom:1px solid var(--line); }
+  #net-reading-list button:hover,#net-related button:hover { color:var(--blue); }
+  #net-related { padding:0; list-style:none; }
+  .net-map { min-width:0; }
+  .net-mode { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:48px; font-size:.85rem; }
+  .net-mode span { overflow-wrap:anywhere; }
+  .net-detail .net-btn { display:inline-block; margin:8px 0; text-decoration:none; }
+  .network-page .net-legend,.network-page .net-foot { grid-column:1/-1; margin:0; }
+  .net-node.selected { stroke:var(--text-strong); stroke-width:3px; }
+  @media(max-width:1150px){ .network-page { grid-template-columns:190px minmax(0,1fr); } .net-detail { grid-column:1/-1; } }
+  @media(max-width:700px){ .network-page { display:flex; flex-direction:column; } .net-index,.net-map,.net-detail { width:100%; box-sizing:border-box; } .network-page #net-reading-list { max-height:160px; } .network-page #net-svg { height:430px; } }
 </style>
 
 <script>
@@ -104,7 +137,7 @@ render_with_liquid: true
   // ---- 数据（由 Liquid 注入） ----
   var POSTS = [
     {% for post in site.posts %}
-    { "id": {{ post.url | jsonify }}, "title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "cats": {{ post.categories | jsonify }}, "tags": {{ post.tags | jsonify }} }
+    { "excerpt": {{ post.excerpt | strip_html | normalize_whitespace | truncate: 220 | jsonify }}, "date": {{ post.date | date: "%Y-%m-%d" | jsonify }}, "id": {{ post.url | jsonify }}, "title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "cats": {{ post.categories | jsonify }}, "tags": {{ post.tags | jsonify }} }
     {% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
@@ -187,8 +220,11 @@ render_with_liquid: true
   var curEdges = []; // 当前可见的边 [[iIdx,jIdx]]
   var activeCats = {};   // 当前开启的分类
   var searchQ = "";
+  var selectedIdx = null, focusIdx = null;
+  function neighbors(idx) { var set = new Set([idx]); edges.forEach(function(e){ if(e[0]===idx)set.add(e[1]); if(e[1]===idx)set.add(e[0]); }); return set; }
 
   function nodeMatch(p) {
+    if (focusIdx !== null && !neighbors(focusIdx).has(index[p.id])) return false;
     if (searchQ) {
       var hay = (p.title + " " + p.topic + " " + (p.cats || []).join(" ") + " " + (p.tags || []).join(" ") + " " + (seriesOf[p.id] || "")).toLowerCase();
       if (hay.indexOf(searchQ) === -1) return false;
@@ -213,6 +249,7 @@ render_with_liquid: true
   // 力导向布局：斥力 + 引力（边）+ 向心
   function layout(n, iters) {
     var W = 1000, H = 640, k = 28, cx = W / 2, cy = H / 2;
+    var topics = [...new Set(n.map(function(o){ return POSTS[o.idx].topic; }))];
     n.forEach(function (o, i) {
       o.x = cx + Math.cos(i * 2.4) * (40 + (i % 50));
       o.y = cy + Math.sin(i * 2.4) * (40 + (i % 50));
@@ -242,8 +279,12 @@ render_with_liquid: true
       }
       // 向心 + 阻尼
       for (var m = 0; m < n.length; m++) {
-        n[m].vx += (cx - n[m].x) * 0.01;
-        n[m].vy += (cy - n[m].y) * 0.01;
+        var group = topics.indexOf(POSTS[n[m].idx].topic);
+        var angle = group * Math.PI * 2 / Math.max(topics.length, 1);
+        var radius = topics.length > 1 ? 150 : 0;
+        var gx = cx + Math.cos(angle) * radius, gy = cy + Math.sin(angle) * radius;
+        n[m].vx += (gx - n[m].x) * 0.025;
+        n[m].vy += (gy - n[m].y) * 0.025;
         n[m].x += n[m].vx; n[m].y += n[m].vy;
         n[m].vx *= 0.82; n[m].vy *= 0.82;
       }
@@ -316,8 +357,9 @@ render_with_liquid: true
     view = { tx: 0, ty: 0, s: 1 }; applyView();
     var list = document.getElementById('net-reading-list'); list.replaceChildren();
     nodes.forEach(function(o) {
-      var li = document.createElement('li'), a = document.createElement('a');
-      a.href = POSTS[o.idx].url; a.textContent = POSTS[o.idx].title;
+      var li = document.createElement('li'), a = document.createElement('button');
+      a.type = 'button'; a.textContent = POSTS[o.idx].title; a.setAttribute('aria-pressed', o.idx === selectedIdx);
+      a.addEventListener('click', function(){ selectArticle(o.idx); });
       li.appendChild(a); list.appendChild(li);
     });
     document.getElementById('net-list-count').textContent = '(' + nodes.length + ')';
@@ -407,19 +449,20 @@ render_with_liquid: true
       tooltip.style.left = Math.max(6, Math.min(rect.width - tt.width - 6, sx + 12)) + "px";
       tooltip.style.top = Math.max(6, Math.min(rect.height - tt.height - 6, sy - tt.height - 8)) + "px";
       svg.style.cursor = 'pointer';
-    } else { highlight(null); tooltip.hidden = true; svg.style.cursor = 'grab'; }
+    } else { highlight(selectedIdx); tooltip.hidden = true; svg.style.cursor = 'grab'; }
   });
-  svg.addEventListener('mouseleave', function () { highlight(null); tooltip.hidden = true; });
+  svg.addEventListener('mouseleave', function () { highlight(selectedIdx); tooltip.hidden = true; });
   svg.addEventListener('click', function (evt) {
     var o = nodeFromEvent(evt);
-    if (o) window.open(POSTS[o.idx].url, '_blank', 'noopener');
+    if (o && !moved) selectArticle(o.idx);
   });
 
   // ---- 平移 / 缩放 ----
-  var dragging = false, lastX = 0, lastY = 0;
-  svg.addEventListener('mousedown', function (evt) { if (evt.button !== 0) return; dragging = true; lastX = evt.clientX; lastY = evt.clientY; svg.classList.add('dragging'); evt.preventDefault(); });
+  var dragging = false, moved = false, lastX = 0, lastY = 0;
+  svg.addEventListener('mousedown', function (evt) { if (evt.button !== 0) return; dragging = true; moved = false; lastX = evt.clientX; lastY = evt.clientY; svg.classList.add('dragging'); evt.preventDefault(); });
   window.addEventListener('mousemove', function (evt) {
     if (!dragging) return;
+    if (Math.abs(evt.clientX-lastX)+Math.abs(evt.clientY-lastY)>3) moved = true;
     view.tx += evt.clientX - lastX; view.ty += evt.clientY - lastY;
     lastX = evt.clientX; lastY = evt.clientY; applyView();
   });
@@ -435,6 +478,33 @@ render_with_liquid: true
     view.s = s1; applyView();
   }, { passive: false });
 
+  function selectArticle(idx) {
+    selectedIdx = idx;
+    if(focusIdx !== null) document.getElementById("net-mode-label").textContent = "局部网络 · " + POSTS[focusIdx].title;
+    var p = POSTS[idx];
+    document.getElementById('net-detail-hint').hidden = true;
+    document.getElementById('net-detail-content').hidden = false;
+    document.getElementById('net-detail-title').textContent = p.title;
+    document.getElementById('net-detail-meta').textContent = p.topic + ' · ' + p.date;
+    document.getElementById('net-detail-excerpt').textContent = p.excerpt || '本文暂无摘要，可打开全文阅读。';
+    document.getElementById('net-detail-link').href = p.url;
+    var list = document.getElementById('net-related'); list.replaceChildren();
+    neighbors(idx).forEach(function(other) {
+      if(other === idx) return;
+      var li = document.createElement('li'), button = document.createElement('button');
+      button.type = 'button'; button.textContent = POSTS[other].title;
+      button.onclick = function(){ if(focusIdx !== null) { focusIdx = other; refresh(); } selectArticle(other); };
+      li.appendChild(button); list.appendChild(li);
+    });
+    if (!list.children.length) { var li = document.createElement('li'); li.textContent = '暂无直接关联文章'; list.appendChild(li); }
+    gView.querySelectorAll('.net-node').forEach(function(el){ el.classList.toggle('selected', +el.dataset.idx===idx); });
+    highlight(idx);
+  }
+  document.getElementById('net-focus').onclick = function(){
+    focusIdx = selectedIdx; searchQ = ''; searchInput.value = ''; activeCats = {none:true}; syncChips(); refresh(); selectArticle(selectedIdx);
+    document.getElementById('net-mode-label').textContent = '局部网络 · ' + POSTS[selectedIdx].title;
+  };
+  document.getElementById('net-global').onclick = function(){ focusIdx = null; document.getElementById('net-mode-label').textContent = '全局网络'; refresh(); };
   // ---- 搜索 / 控制 ----
   searchInput.addEventListener('input', function () { searchQ = searchInput.value.trim().toLowerCase(); refresh(); });
   document.getElementById('net-relayout').addEventListener('click', function () { refresh(); });
