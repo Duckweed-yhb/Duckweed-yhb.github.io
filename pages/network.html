@@ -5,12 +5,12 @@ permalink: /network/
 render_with_liquid: true
 ---
 
-<div class="page-header-card">
+<div class="page-header-card network-header">
   <h1>星网</h1>
   <p>把全部 <strong>{% assign _n = 0 %}{% for _p in site.posts %}{% assign _n = _n | plus: 1 %}{% endfor %}{{ _n }}</strong> 篇文章画成一片星野：每篇文章是一个星点，按分类着色；同系列、共享标签的文章之间，以一线相连。缩放平移、悬停看标题、点击进原文。</p>
 </div>
 
-<div class="content-wrap">
+<div class="content-wrap network-page">
   <!-- 控制条 -->
   <div class="net-toolbar">
     <div class="net-search">
@@ -27,10 +27,12 @@ render_with_liquid: true
 
   <!-- 图区 -->
   <div class="net-canvas-wrap" id="net-wrap">
-    <svg id="net-svg" role="img" aria-label="博客关系星网图"></svg>
+    <svg id="net-svg" role="group" aria-label="文章关系图，可通过下方文章列表访问全部结果"></svg>
     <div class="net-tooltip" id="net-tooltip" hidden></div>
     <div class="net-empty" id="net-empty" hidden>没有匹配的星点，换个关键词试试。</div>
   </div>
+
+  <details class="net-reading"><summary>浏览文章列表 <span id="net-list-count"></span></summary><ul id="net-reading-list"></ul></details>
 
   <!-- 图例 -->
   <div class="net-legend" id="net-legend"></div>
@@ -74,6 +76,26 @@ render_with_liquid: true
     #net-svg { height: 460px; }
     .content-wrap { padding: 0 10px; }
   }
+
+  /* Scoped graph surface; do not restyle other blog pages. */
+  .network-header h1 { border:0; font-size:clamp(2rem,5vw,3.2rem); letter-spacing:.04em; }
+  .network-page { max-width:1200px; padding:0; }
+  .network-page .net-toolbar { border-radius:0; box-shadow:none; padding:18px; gap:16px; }
+  .network-page .net-search { min-width:0; flex-wrap:wrap; }
+  .network-page .net-search input { min-width:120px; width:100%; font-size:16px; }
+  .network-page .net-cats { gap:6px; margin-block:18px; }
+  .network-page .net-cat-chip { min-height:36px; border-radius:4px; }
+  .network-page .net-cat-chip.on { background:var(--blue); color:#fff; }
+  .network-page .net-canvas-wrap { border-radius:8px; box-shadow:none; background-color:var(--paper); background-image:radial-gradient(var(--line) 1px,transparent 1px); background-size:24px 24px; }
+  .network-page #net-svg { height:clamp(420px,65vh,720px); }
+  .net-label { font-size:11px; fill:var(--text-strong); pointer-events:none; paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
+  .net-node { cursor:pointer; }
+  .net-edge { opacity:.5; vector-effect:non-scaling-stroke; }
+  .net-reading { margin-top:20px; padding:16px 20px; border:1px solid var(--line); background:var(--paper); }
+  .net-reading summary { cursor:pointer; font-weight:600; color:var(--text-strong); }
+  #net-reading-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 30px; padding-inline-start:20px; line-height:1.7; }
+  .network-page :is(button,summary):focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  @media(max-width:600px) { #net-reading-list { grid-template-columns:1fr; } .network-page .net-controls { width:100%; } .network-page .net-btn { flex:1; min-height:42px; } }
 </style>
 
 <script>
@@ -230,7 +252,8 @@ render_with_liquid: true
     var minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
     n.forEach(function (o) { if (o.x < minX) minX = o.x; if (o.x > maxX) maxX = o.x; if (o.y < minY) minY = o.y; if (o.y > maxY) maxY = o.y; });
     var spanX = Math.max(maxX - minX, 1), spanY = Math.max(maxY - minY, 1);
-    var scale = Math.min(880 / spanX, 560 / spanY, 60);
+    var bounds = svg.getBoundingClientRect();
+    var scale = Math.min(Math.max(bounds.width - 120, 120) / spanX, Math.max(bounds.height - 120, 120) / spanY, 2);
     n.forEach(function (o) { o.x = (o.x - (minX + maxX) / 2) * scale; o.y = (o.y - (minY + maxY) / 2) * scale; });
     return scale;
   }
@@ -246,6 +269,8 @@ render_with_liquid: true
       line.setAttribute("x1", a.x); line.setAttribute("y1", a.y);
       line.setAttribute("x2", b.x); line.setAttribute("y2", b.y);
       line.setAttribute("stroke-width", "1");
+      line.setAttribute("data-a", a.idx); line.setAttribute("data-b", b.idx);
+      line.classList.add("net-edge");
       gEdges.appendChild(line);
     });
     gView.appendChild(gEdges);
@@ -260,6 +285,14 @@ render_with_liquid: true
       c.setAttribute("data-idx", o.idx);
       c.classList.add("net-node");
       gView.appendChild(c);
+      var title = document.createElementNS(NS, 'title'); title.textContent = POSTS[o.idx].title; c.appendChild(title);
+      var label = document.createElementNS(NS, 'text');
+      label.setAttribute('x', o.x + o.r + 6); label.setAttribute('y', o.y + 4);
+      label.setAttribute('data-idx', o.idx); label.classList.add('net-label');
+      var text = POSTS[o.idx].title;
+      label.textContent = text.length > 15 ? text.slice(0, 15) + '…' : text;
+      label.style.display = nodes.length <= 16 || deg[o.idx] >= 5 ? '' : 'none';
+      gView.appendChild(label);
     });
   }
 
@@ -280,6 +313,14 @@ render_with_liquid: true
     countEl.textContent = n === 0 ? "0 / " + POSTS.length : (n + " / " + POSTS.length);
     emptyEl.hidden = n !== 0;
     renderLegend();
+    view = { tx: 0, ty: 0, s: 1 }; applyView();
+    var list = document.getElementById('net-reading-list'); list.replaceChildren();
+    nodes.forEach(function(o) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = POSTS[o.idx].url; a.textContent = POSTS[o.idx].title;
+      li.appendChild(a); list.appendChild(li);
+    });
+    document.getElementById('net-list-count').textContent = '(' + nodes.length + ')';
   }
 
   // ---- 分类 chips + 图例 ----
@@ -320,6 +361,21 @@ render_with_liquid: true
     });
   }
 
+  function highlight(idx) {
+    var related = new Set([idx]);
+    edges.forEach(function(e) { if(e[0] === idx) related.add(e[1]); if(e[1] === idx) related.add(e[0]); });
+    gView.querySelectorAll('.net-node').forEach(function(el) {
+      el.style.opacity = idx === null || related.has(+el.dataset.idx) ? '1' : '.15';
+    });
+    gView.querySelectorAll('.net-edge').forEach(function(el) {
+      var active = +el.dataset.a === idx || +el.dataset.b === idx;
+      el.style.stroke = active ? 'var(--blue)' : '';
+      el.style.opacity = idx === null ? '.5' : active ? '.9' : '.08';
+    });
+    gView.querySelectorAll('.net-label').forEach(function(el) {
+      el.style.opacity = idx === null || related.has(+el.dataset.idx) ? '1' : '.12';
+    });
+  }
   // ---- 交互：悬停 / 点击 ----
   function nodeFromEvent(evt) {
     var rect = svg.getBoundingClientRect();
@@ -338,7 +394,12 @@ render_with_liquid: true
     var o = nodeFromEvent(evt);
     if (o) {
       var p = POSTS[o.idx];
-      tooltip.innerHTML = '<b>' + p.title + '</b><div class="tt-tags">' + (p.topic) + (p.tags && p.tags.length ? ' · ' + p.tags.join(' / ') : '') + (seriesOf[p.id] ? ' · 系列：' + seriesOf[p.id] : '') + '</div>';
+      highlight(o.idx);
+      tooltip.replaceChildren();
+      var heading = document.createElement('b'); heading.textContent = p.title;
+      var meta = document.createElement('div'); meta.className = 'tt-tags';
+      meta.textContent = p.topic + (p.tags && p.tags.length ? ' · ' + p.tags.join(' / ') : '');
+      tooltip.append(heading, meta);
       tooltip.hidden = false;
       var rect = wrap.getBoundingClientRect();
       var sx = o.x * view.s + view.tx + rect.width / 2, sy = o.y * view.s + view.ty + rect.height / 2;
@@ -346,9 +407,9 @@ render_with_liquid: true
       tooltip.style.left = Math.max(6, Math.min(rect.width - tt.width - 6, sx + 12)) + "px";
       tooltip.style.top = Math.max(6, Math.min(rect.height - tt.height - 6, sy - tt.height - 8)) + "px";
       svg.style.cursor = 'pointer';
-    } else { tooltip.hidden = true; svg.style.cursor = 'grab'; }
+    } else { highlight(null); tooltip.hidden = true; svg.style.cursor = 'grab'; }
   });
-  svg.addEventListener('mouseleave', function () { tooltip.hidden = true; });
+  svg.addEventListener('mouseleave', function () { highlight(null); tooltip.hidden = true; });
   svg.addEventListener('click', function (evt) {
     var o = nodeFromEvent(evt);
     if (o) window.open(POSTS[o.idx].url, '_blank', 'noopener');
@@ -366,7 +427,7 @@ render_with_liquid: true
   svg.addEventListener('wheel', function (evt) {
     evt.preventDefault();
     var rect = svg.getBoundingClientRect();
-    var px = evt.clientX - rect.left, py = evt.clientY - rect.top;
+    var px = evt.clientX - rect.left - rect.width / 2, py = evt.clientY - rect.top - rect.height / 2;
     var s0 = view.s, s1 = Math.max(0.15, Math.min(8, s0 * (evt.deltaY < 0 ? 1.12 : 1 / 1.12)));
     // 以光标为锚点缩放
     view.tx = px - (px - view.tx) * (s1 / s0);
@@ -378,6 +439,9 @@ render_with_liquid: true
   searchInput.addEventListener('input', function () { searchQ = searchInput.value.trim().toLowerCase(); refresh(); });
   document.getElementById('net-relayout').addEventListener('click', function () { refresh(); });
   document.getElementById('net-clear').addEventListener('click', function () { view = { tx: 0, ty: 0, s: 1 }; applyView(); });
+
+  var resizeTimer;
+  new ResizeObserver(function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(refresh, 150); }).observe(wrap);
 
   // 初始化
   activeCats.none = true;
