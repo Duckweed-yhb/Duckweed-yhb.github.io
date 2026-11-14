@@ -42,7 +42,7 @@ render_with_liquid: true
 
 
   </section>
-  <aside class="net-detail" aria-label="文章详情" aria-live="polite"><h2>文章详情</h2><p id="net-detail-hint">选择一个星点或左侧文章，查看内容摘要与关联文章。</p><div id="net-detail-content" hidden><p id="net-detail-meta"></p><h3 id="net-detail-title"></h3><p id="net-detail-excerpt"></p><a id="net-detail-link" class="net-btn">阅读全文</a><button id="net-focus" type="button" class="net-btn">聚焦关联网络</button><h3>关联文章</h3><ul id="net-related"></ul></div></aside>
+  <aside class="net-detail" aria-label="文章详情" aria-live="polite"><button class="net-card-close net-btn" type="button" aria-label="关闭文章详情">关闭</button><h2>文章详情</h2><p id="net-detail-hint">选择一个星点或左侧文章，查看内容摘要与关联文章。</p><div id="net-detail-content" hidden><p id="net-detail-meta"></p><h3 id="net-detail-title"></h3><p id="net-detail-excerpt"></p><a id="net-detail-link" class="net-btn">开始阅读</a><button id="net-focus" type="button" class="net-btn">聚焦关联网络</button><h3>关联文章</h3><ul id="net-related"></ul></div></aside>
   <!-- 图例 -->
   <div class="net-legend" id="net-legend"></div>
   <p class="net-foot">关系口径：同系列（series.yml 归档）、共享相同标签（标签成员 2–20 篇）。星点大小 = 连接数。可 <strong>滚轮缩放</strong>、<strong>拖拽平移</strong>、<strong>点击星点</strong>查看详情；“聚焦关联网络”显示当前文章及直接相邻文章。</p>
@@ -129,6 +129,19 @@ render_with_liquid: true
   .net-node.selected { stroke:var(--text-strong); stroke-width:3px; }
   @media(max-width:1150px){ .network-page { grid-template-columns:190px minmax(0,1fr); } .net-detail { grid-column:1/-1; } }
   @media(max-width:700px){ .network-page { display:flex; flex-direction:column; } .net-index,.net-map,.net-detail { width:100%; box-sizing:border-box; } .network-page #net-reading-list { max-height:160px; } .network-page #net-svg { height:430px; } }
+
+  /* Immersive canvas with compact index and on-demand article card. */
+  .network-page { display:grid; grid-template-columns:190px minmax(0,1fr); max-width:none; width:100%; position:relative; }
+  .network-page .net-map { min-width:0; }
+  .network-page #net-svg { height:clamp(580px,78vh,1100px); }
+  .network-page .net-detail { display:none; position:absolute; right:20px; top:74px; width:min(350px,calc(100% - 40px)); max-height:65vh; overflow:auto; z-index:6; box-sizing:border-box; box-shadow:0 12px 40px rgba(0,0,0,.18); background:var(--paper); backdrop-filter:blur(20px); }
+  .network-page .net-detail.is-open { display:block; }
+  .net-card-close { float:right; }
+  .net-detail #net-detail-link { background:var(--blue); color:white; padding:10px 18px; }
+  .network-page .net-index { max-height:78vh; overflow:auto; }
+  body:has(.network-page) .page-content { max-width:none; width:auto; }
+  body:has(.network-page) .network-header { max-width:none; padding-block:16px; }
+  @media(max-width:700px){ .network-page{display:flex}.network-page .net-index{max-height:220px}.network-page #net-svg{height:70vh;min-height:420px}.network-page .net-detail{position:fixed;top:auto;bottom:16px;right:12px;width:calc(100% - 24px);max-height:48vh}.network-page .net-detail.is-open{display:block} }
 </style>
 
 <script>
@@ -137,7 +150,7 @@ render_with_liquid: true
   // ---- 数据（由 Liquid 注入） ----
   var POSTS = [
     {% for post in site.posts %}
-    { "excerpt": {{ post.excerpt | strip_html | normalize_whitespace | truncate: 220 | jsonify }}, "date": {{ post.date | date: "%Y-%m-%d" | jsonify }}, "id": {{ post.url | jsonify }}, "title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "cats": {{ post.categories | jsonify }}, "tags": {{ post.tags | jsonify }} }
+    { "excerpt": {{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 220 | jsonify }}, "date": {{ post.date | date: "%Y-%m-%d" | jsonify }}, "id": {{ post.url | jsonify }}, "title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "cats": {{ post.categories | jsonify }}, "tags": {{ post.tags | jsonify }} }
     {% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
@@ -332,7 +345,7 @@ render_with_liquid: true
       label.setAttribute('data-idx', o.idx); label.classList.add('net-label');
       var text = POSTS[o.idx].title;
       label.textContent = text.length > 15 ? text.slice(0, 15) + '…' : text;
-      label.style.display = nodes.length <= 16 || deg[o.idx] >= 5 ? '' : 'none';
+      label.style.display = 'none';
       gView.appendChild(label);
     });
   }
@@ -415,7 +428,7 @@ render_with_liquid: true
       el.style.opacity = idx === null ? '.5' : active ? '.9' : '.08';
     });
     gView.querySelectorAll('.net-label').forEach(function(el) {
-      el.style.opacity = idx === null || related.has(+el.dataset.idx) ? '1' : '.12';
+      el.style.display = +el.dataset.idx === idx ? '' : 'none';
     });
   }
   // ---- 交互：悬停 / 点击 ----
@@ -454,7 +467,7 @@ render_with_liquid: true
   svg.addEventListener('mouseleave', function () { highlight(selectedIdx); tooltip.hidden = true; });
   svg.addEventListener('click', function (evt) {
     var o = nodeFromEvent(evt);
-    if (o && !moved) selectArticle(o.idx);
+    if (o && !moved) { if(selectedIdx === o.idx) window.location.assign(POSTS[o.idx].url); else selectArticle(o.idx); }
   });
 
   // ---- 平移 / 缩放 ----
@@ -482,6 +495,7 @@ render_with_liquid: true
     selectedIdx = idx;
     if(focusIdx !== null) document.getElementById("net-mode-label").textContent = "局部网络 · " + POSTS[focusIdx].title;
     var p = POSTS[idx];
+    document.querySelector('.net-detail').classList.add('is-open');
     document.getElementById('net-detail-hint').hidden = true;
     document.getElementById('net-detail-content').hidden = false;
     document.getElementById('net-detail-title').textContent = p.title;
@@ -505,6 +519,10 @@ render_with_liquid: true
     document.getElementById('net-mode-label').textContent = '局部网络 · ' + POSTS[selectedIdx].title;
   };
   document.getElementById('net-global').onclick = function(){ focusIdx = null; document.getElementById('net-mode-label').textContent = '全局网络'; refresh(); };
+  document.querySelector('.net-card-close').onclick = function(){
+    document.querySelector('.net-detail').classList.remove('is-open'); selectedIdx = null; highlight(null);
+  };
+  document.addEventListener('keydown', function(event){ if(event.key === 'Escape') document.querySelector('.net-card-close').click(); });
   // ---- 搜索 / 控制 ----
   searchInput.addEventListener('input', function () { searchQ = searchInput.value.trim().toLowerCase(); refresh(); });
   document.getElementById('net-relayout').addEventListener('click', function () { refresh(); });
