@@ -1,7 +1,9 @@
 <footer class="site-footer compact-footer" role="contentinfo">
+  <blockquote class="footer-poem"><p>自信人生二百年，会当水击三千里。</p><cite>—— 毛泽东《七古·残句》</cite></blockquote>
   <span>© {{ site.time | date: '%Y' }} <a href="{{ '/' | relative_url }}">{{ site.title | escape }}</a> · Duckweed</span>
   <nav aria-label="页脚链接"><a href="mailto:{{ site.email }}">邮件</a><a href="https://github.com/{{ site.github_username }}">GitHub</a><a href="{{ site.zhihu_url }}">知乎</a><a href="{{ site.bilibili_url }}">哔哩哔哩</a><a href="/about/">关于</a></nav>
 </footer>
 <style>
 .site-footer.compact-footer{box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px 24px;max-width:1200px;width:100%;margin:28px auto 0;padding:18px 4px;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none;color:var(--text-soft);font-size:.8rem;line-height:1.7}.compact-footer nav{display:flex;flex-wrap:wrap;gap:16px}.compact-footer a{color:inherit}.compact-footer a:hover{color:var(--blue)}
+.compact-footer .footer-poem{flex-basis:100%;margin:0 0 8px;padding:0;border:0;text-align:center;color:var(--text-strong);font-family:"Noto Serif SC","Songti SC",SimSun,serif}.compact-footer .footer-poem p{margin:0;font-size:.95rem;line-height:1.9}.compact-footer .footer-poem cite{font-size:.75rem;font-style:normal;color:var(--text-soft)}
 </style>
