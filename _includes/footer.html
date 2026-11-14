@@ -1,9 +1,219 @@
-<footer class="site-footer compact-footer" role="contentinfo">
-  <blockquote class="footer-poem"><p>自信人生二百年，会当水击三千里。</p><cite>—— 毛泽东《七古·残句》</cite></blockquote>
-  <span>© {{ site.time | date: '%Y' }} <a href="{{ '/' | relative_url }}">{{ site.title | escape }}</a> · Duckweed</span>
-  <nav aria-label="页脚链接"><a href="mailto:{{ site.email }}">邮件</a><a href="https://github.com/{{ site.github_username }}">GitHub</a><a href="{{ site.zhihu_url }}">知乎</a><a href="{{ site.bilibili_url }}">哔哩哔哩</a><a href="/about/">关于</a></nav>
+<!-- _includes/footer.html - 页面底部组件 -->
+<footer class="site-footer h-card" role="contentinfo">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <!-- 页脚样式优化（内嵌，避免样式文件依赖） -->
+  <style>
+    .site-footer {
+      background-color: rgba(255, 255, 255, 0.88); /* 和页面卡片统一透明度 */
+      padding: 24px 28px;
+      border-radius: 12px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+      margin: 30px auto 20px auto;
+      max-width: 950px;
+      width: 90%;
+      position: relative;
+      z-index: 10;
+    }
+    .footer-col-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
+    .footer-heading {
+      font-size: 1.05em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #4a6fa5;
+    }
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .contact-list li {
+      margin-bottom: 8px;
+      font-size: .9em;
+    }
+    .contact-list a {
+      color: #34495e;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .contact-list a:hover {
+      color: #4a6fa5;
+      transform: translateX(5px);
+    }
+    /* 社交图标样式 */
+    .social-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .social-links li {
+      margin: 0;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34495e;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #4a6fa5;
+      transform: translateX(5px);
+    }
+    .social-icon {
+      width: 17px;
+      height: 17px;
+      fill: currentColor; /* 继承文字颜色，hover时同步变色 */
+    }
+    .site-desc {
+      color: #7f8c8d;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .copyright, .beian {
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin: 5px 0;
+    }
+    .copyright a, .beian a {
+      color: #4a6fa5;
+      text-decoration: none;
+    }
+    .copyright a:hover, .beian a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    .footer-bottom a {
+      color: #4a6fa5;
+      text-decoration: none;
+    }
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .footer-col-wrapper {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .footer-col {
+        min-width: 100%;
+      }
+      .site-footer {
+        padding: 22px 18px;
+        width: 98%;
+      }
+    }
+    /* 保留原布局，仅降低文字与留白的视觉体量。 */
+    .site-footer .social-links a,
+    .site-footer .site-desc { font-size: .9rem; }
+    .site-footer .footer-verse { margin-block: 18px 12px; padding-block: 12px; }
+    .site-footer .footer-verse .verse-main { font-size: 1rem; line-height: 1.8; margin-block: 4px; }
+    .site-footer .footer-verse .verse-sub { font-size: .78rem; margin-top: 8px; }
+    .site-footer .footer-bottom p { margin-block: 4px; }
+  </style>
+
+  <!-- 页脚内容容器 -->
+  <div class="footer-col-wrapper">
+    <!-- 第一列：站点信息 + 联系方式 -->
+    <div class="footer-col footer-col-1">
+      <h2 class="footer-heading">{{ site.title | escape }}</h2>
+      <ul class="contact-list">
+        <li class="p-name">
+          {%- if site.author -%}
+            {{ site.author | escape }}
+          {%- else -%}
+            {{ site.title | escape }}
+          {%- endif -%}
+        </li>
+        {%- if site.email -%}
+          <li>
+            <a class="u-email" href="mailto:{{ site.email }}" aria-label="发送邮件至{{ site.email }}">
+              <i class="fas fa-envelope"></i> {{ site.email }}
+            </a>
+          </li>
+        {%- endif -%}
+        <!-- 可选：电话 -->
+        {%- if site.phone -%}
+          <li>
+            <a href="tel:{{ site.phone }}" aria-label="拨打电话{{ site.phone }}">
+              <i class="fas fa-phone"></i> {{ site.phone }}
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <!-- 第二列：社交媒体 -->
+    <div class="footer-col footer-col-2">
+      <h2 class="footer-heading">社交链接</h2>
+      {%- include social.html -%}
+    </div>
+
+    <!-- 第三列：站点描述 + 版权信息 -->
+    <div class="footer-col footer-col-3">
+      <h2 class="footer-heading">关于本站</h2>
+      <p class="site-desc">{{- site.description | default: "分享技术与生活的博客" | escape -}}</p>
+      <!-- 版权信息 -->
+      <p class="copyright">
+        <i class="fas fa-copyright"></i> {{ 'now' | date: "%Y" }}
+        <a href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>.
+        保留所有权利。
+      </p>
+      <!-- 备案号（国内站点推荐） -->
+      {%- if site.beian -%}
+        <p class="beian">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" aria-label="查看工信部备案信息">
+            {{ site.beian }}
+          </a>
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- 页脚收尾：一句诗 -->
+  <div class="footer-verse">
+    <p class="verse-main">自信人生二百年</p>
+    <p class="verse-main">会当水击三千里</p>
+    <p class="verse-sub">—— 毛泽东《七古·残句》</p>
+  </div>
+
+  <!-- 底部额外提示 -->
+  <div class="footer-bottom">
+    <p>
+      本站使用 <a href="https://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a> 构建
+      · 设计：{{ site.author | default: site.title | escape }}
+    </p>
+    <!-- 可选：添加ICP备案号重复展示（移动端更易查看） -->
+    {%- if site.beian and site.mobile_beian_show -%}
+    <p class="beian mobile-beian">
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{{ site.beian }}</a>
+    </p>
+    {%- endif -%}
+  </div>
 </footer>
-<style>
-.site-footer.compact-footer{box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px 24px;max-width:1200px;width:100%;margin:28px auto 0;padding:18px 4px;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none;color:var(--text-soft);font-size:.8rem;line-height:1.7}.compact-footer nav{display:flex;flex-wrap:wrap;gap:16px}.compact-footer a{color:inherit}.compact-footer a:hover{color:var(--blue)}
-.compact-footer .footer-poem{flex-basis:100%;margin:0 0 8px;padding:0;border:0;text-align:center;color:var(--text-strong);font-family:"Noto Serif SC","Songti SC",SimSun,serif}.compact-footer .footer-poem p{margin:0;font-size:.95rem;line-height:1.9}.compact-footer .footer-poem cite{font-size:.75rem;font-style:normal;color:var(--text-soft)}
-</style>
