@@ -8,13 +8,13 @@ render_with_liquid: true
 <!-- 统一的白框容器（和关于/档案/展览/友链页样式一致） -->
 <div class="page-card">
 
-<h1>博客仓库完整文件结构说明</h1>
+<h1>仓库结构与文件说明</h1>
 
-> 用于快速查阅全量文件/文件夹用途，精准定位 Debug 位置，适配 Jekyll + GitHub Pages 博客架构
+<p>这份文档对应仓库当前的真实状态：目录树逐项核对过，文件数量、职责、加载顺序都以实际文件为准。用途是让你在改东西之前先知道「该改哪个文件」，出问题时能直接定位。最后更新：2026-11-16。</p>
 
 ---
 
-## 一、完整目录树（100% 对应当前仓库）
+## 一、目录树
 
 ```text
 ./
@@ -26,14 +26,14 @@ render_with_liquid: true
 ├── _includes/
 │   ├── footer.html
 │   ├── head.html
-│   ├── header.html（已废弃，导航移入 sidebar.html）
-│   ├── search.html
+│   ├── header.html
 │   ├── sidebar.html
 │   └── social.html
 ├── _layouts/
+│   ├── campus-guide.html
 │   ├── default.html
 │   └── post.html
-├── _posts/                    （YYYY-MM-DD-文章标题.md，共 46+ 篇）
+├── _posts/
 ├── .github/
 │   ├── workflows/
 │   │   ├── pages-jekyll.yml
@@ -41,18 +41,58 @@ render_with_liquid: true
 │   └── dependabot.yml
 ├── assets/
 │   ├── css/
+│   │   ├── bloom.css
+│   │   ├── campus-guide.css
+│   │   ├── editorial.css
 │   │   ├── layout.css
 │   │   ├── main.css
 │   │   ├── sidebar.css
-│   │   ├── star-intro.css      （首页「星海」入场动画）
-│   │   ├── theme.css           （视觉体系层：设计令牌 / 星海背景 / 卡片 / 组件）
-│   │   ├── theme-light.css     （手动切浅色时，抵消系统深色的覆盖层）
-│   │   └── editorial.css       （编辑层：WIRED 派生的报刊式排版与统一页面容器）
-│   ├── images/                （背景图、封面、社交图标、文章配图）
-│   ├── js/                    （预留目录）
-│   └── pdf/                   （课程笔记 PDF 源文件）
+│   │   ├── star-intro.css
+│   │   ├── starsea.css
+│   │   ├── theme-light.css
+│   │   └── theme.css
+│   ├── fonts/
+│   │   ├── OFL.txt
+│   │   └── playfair-display-latin-400.woff2
+│   ├── images/
+│   │   ├── 2026-03-30-1.png … 2026-03-30-6.png
+│   │   ├── 2026-04-28-1.png … 2026-04-28-4.png
+│   │   ├── bg.jpg
+│   │   ├── bilibili.svg
+│   │   ├── github.svg
+│   │   ├── icon-192.png
+│   │   ├── icon-512.png
+│   │   └── zhihu.svg
+│   ├── js/
+│   │   ├── enhance.js
+│   │   └── star-intro.js
+│   └── pdf/
+│       └── electromagnetic-field-notes.pdf
 ├── pages/
+│   ├── campus/
+│   │   └── hitsz-ee/
+│   │       ├── beyond/
+│   │       │   ├── README.md
+│   │       │   ├── competition.md
+│   │       │   ├── internship.md
+│   │       │   └── project.md
+│   │       ├── curriculum/
+│   │       │   ├── README.md
+│   │       │   ├── y1-autumn.md
+│   │       │   ├── y1-spring.md
+│   │       │   ├── y1-summer.md
+│   │       │   ├── y2-autumn.md
+│   │       │   ├── y2-spring.md
+│   │       │   ├── y2-summer.md
+│   │       │   ├── y3-autumn.md
+│   │       │   ├── y3-spring.md
+│   │       │   ├── y3-summer.md
+│   │       │   ├── y4-autumn.md
+│   │       │   ├── y4-spring.md
+│   │       │   └── y4-summer.md
+│   │       └── index.md
 │   ├── about.html
+│   ├── ai-dictionary.html
 │   ├── archive.html
 │   ├── blog-map.html
 │   ├── contribute.html
@@ -62,216 +102,228 @@ render_with_liquid: true
 │   ├── exhibition.html
 │   ├── friends.html
 │   ├── future.html
-│   └── navigate.html
+│   ├── navigate.html
+│   └── network.html
 ├── scripts/
+│   ├── compress_images.py
+│   ├── fix_frontmatter.py
 │   └── generate_readme.py
 ├── templates/
 │   └── README.template.md
-├── .verify_plugins/           （校验构建专用插件目录，不参与发布）
+├── _config.yml
+├── _config_verify.yml
 ├── .gitignore
 ├── 404.html
-├── DESIGN.md                  （设计规范：编辑层 / 氛围层两套语言的权威文档）
+├── DESIGN.md
 ├── favicon.png
 ├── Gemfile
 ├── index.html
+├── LICENSE
+├── LICENSE-posts.txt
 ├── manifest.json
 ├── README.md
 ├── repo-guide.md
 ├── requirements.txt
 ├── robots.txt
 ├── search.json
-├── _config_verify.yml         （本地校验构建配置，不参与发布）
 └── sw.js
 ```
 
----
+`_posts/` 下是 60 篇文章，命名 `YYYY-MM-DD-标题.md`，日期范围 2026-02-21 ~ 2026-10-15。`assets/images/` 里的 `2026-03-30-1 … 6` 与 `2026-04-28-1 … 4` 是按文章日期命名的配图。
 
-## 二、全量文件/文件夹详细说明
-
-### 📁 一级目录详解
-
-#### 1. `_data/`（全局配置数据中心）
-
-存放全站可复用的 YAML 配置数据，无需修改模板即可快速更新页面内容
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `friends.yml` | 友链页面数据配置，管理友链名称、链接、描述 |
-| `navigation.yml` | 侧边栏菜单配置，控制侧边导航的栏目、顺序、链接 |
-| `series.yml` | 文章系列配置，定义系列名、描述与成员文章，驱动文章页底部「系列导航」 |
-| `social.yml` | 社交账号链接配置，管理页脚/侧边栏的社交图标与跳转地址 |
-
-#### 2. `_includes/`（页面可复用组件）
-
-存放可在多个页面引用的 HTML 片段，统一维护公共组件，减少重复代码
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `footer.html` | 全站页脚组件，包含版权信息、备案号、社交图标等 |
-| `head.html` | 页面头部元信息，包含 SEO 标签、样式引入、JS 加载等 |
-| `header.html` | 已废弃：导航移入 `sidebar.html`，此文件仅为占位保留 |
-| `search.html` | 站内搜索框组件，实现文章检索功能 |
-| `sidebar.html` | 侧边栏组件：站名 logo、搜索框、导航菜单、明暗切换、移动端菜单按钮 |
-| `social.html` | 社交图标组件，统一渲染各平台的社交链接 |
-
-#### 3. `_layouts/`（页面布局模板）
-
-定义页面的整体骨架结构，所有页面基于模板渲染，保证全站布局统一
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `default.html` | 全站默认布局模板，所有页面的基础骨架（包含 head、header、footer） |
-| `post.html` | 文章页专属布局，继承 default 模板，适配文章阅读的排版、目录等 |
-
-#### 4. `_posts/`（博客文章核心目录）
-
-存放所有博客文章与文章内临时图片，是博客内容的核心载体
-
-- **文件命名强制规范**：`YYYY-MM-DD-文章标题.md`，不符合格式的文件不会被 Jekyll 渲染
-- **文章内图片**：可临时存放于此，建议统一迁移至 `assets/images/` 管理，避免混乱
-- **包含文件类型**：技术笔记（C 语言代码规范、LaTeX、VS Code）、课程笔记（电磁场等）、首页欢迎页、文章临时配图
-
-#### 5. `.github/`（GitHub 自动化配置）
-
-管理 GitHub Actions 自动化任务与依赖更新，实现博客自动部署、文档自动更新
-
-| 目录/文件 | 作用 |
-| :--- | :--- |
-| `workflows/pages-jekyll.yml` | GitHub Pages 自动部署脚本，提交代码后自动构建并部署博客 |
-| `workflows/update-readme.yml` | README 自动更新脚本，定期同步仓库信息、最新博客列表 |
-| `dependabot.yml` | 依赖自动更新配置，监控 Ruby/Python 依赖版本并自动提 PR |
-
-#### 6. `assets/`（静态资源总目录）
-
-存放所有非代码静态资源，按类型分类管理，便于维护和查找
-
-##### 6.1 `assets/css/`（样式文件）
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `layout.css` | 星空背景、侧边栏浮层等布局层样式 |
-| `main.css` | 全站核心样式，定义全局字体、配色、排版、响应式布局 |
-| `sidebar.css` | 侧边栏专属样式，控制侧边栏的布局、配色、交互效果 |
-| `star-intro.css` | 首页「星海」入场动画样式（一次访问只播一次，尊重「减少动态效果」偏好） |
-| `theme.css` | **视觉体系层**：设计令牌（颜色 / 字体 / 圆角 / 阴影 / 渐变）、星海与海面背景、卡片体系、文章页、首页、归档、404、打印样式 |
-| `theme-light.css` | 手动切换浅色时，用于抵消 `theme.css` 中系统深色 `@media` 规则的覆盖层 |
-| `editorial.css` | **编辑层**：按 `DESIGN.md` 落地的报刊式排版 —— 标题阶梯、内链墨蓝、发丝线层级、方角几何、`story-row` 密集列表；并提供全站唯一的 `.page-card` / `.page-header-card` 容器，以及归档、友链、卡片网格等组件定义 |
-
-> 样式分两层，改样式前请先读根目录 `DESIGN.md`：
-> **编辑层**（`editorial.css`）负责长文阅读、页面容器、标题、内链与列表；
-> **氛围层**（`theme.css` / `layout.css` / `sidebar.css`）负责星空、海面、侧边栏、页脚与浮层。
-> 页面自身**不应**再内联 `.page-card` 这类公共容器样式，也不应声明页面级 `:root`。
-
-##### 6.2 `assets/images/`（图片资源）
-
-存放博客封面、文章配图、图标等所有图片资源
-
-| `bg.jpg` | 网站背景图 / 站点 logo |
-| `2026-*.png` | 各文章内嵌配图（按日期命名） |
-| `bilibili.svg` / `github.svg` / `zhihu.svg` | 各社交平台图标 |
-
-##### 6.3 `assets/js/`（交互脚本）
-
-存放博客交互逻辑脚本（如目录滚动、搜索、统计等），当前目录为空，后续可扩展
-
-##### 6.4 `assets/pdf/`（PDF 资源）
-
-存放课程笔记 PDF 源文件，用于文章内下载/预览
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `electromagnetic-field-notes.pdf` | 电磁场与电磁波笔记 PDF 源文件 |
-
-#### 7. `pages/`（独立页面文件）
-
-存放非文章类的独立页面，直接渲染为博客的二级页面，功能独立
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `about.html` | 「关于我」页面，展示个人介绍、联系方式、技能栈等 |
-| `archive.html` | 文章归档页，按时间/分类/标签聚合所有博客文章 |
-| `exhibition.html` | 作品集页面，展示项目、技能、书籍等个人成果 |
-| `friends.html` | 友链页面，渲染 `_data/friends.yml` 中的友链数据 |
-| `future.html` | 「未研」页面，展示博客间关系建设与功能迭代方向 |
-| `navigate.html` | 「导航」页面，按访客身份（高中生/准大学生/大学生）+ 专业细分提供针对性引导 |
-| `course-map.html` | 「课程地图」页面，参考 UC Berkeley EECS 设计，SVG 可视化课程先修依赖关系 |
-| `blog-map.html` | 「博客地图」页面，SVG 网络图展示全部文章按五大主题分组的归属与关联 |
-| `contribute.html` | 「投稿/贡献指南」页面，说明投稿方式、格式要求和联系方式 |
-| `en-about.html` | 英文版「关于我」页面（`/en/about/`），多语言支持起步 |
-| `en-home.html` | 英文版首页（`/en/`），与中文首页结构一致 |
-
-#### 8. `scripts/`（自动化脚本）
-
-存放仓库自动化维护的 Python 脚本，减少手动操作
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `generate_readme.py` | README 自动生成脚本，基于 `templates/README.template.md` 生成仓库首页说明，同步最新博客和目录树 |
-
-#### 9. `templates/`（模板文件）
-
-存放自动化生成文件的源模板，定义生成文件的结构和占位符
-
-| 文件名 | 作用 |
-| :--- | :--- |
-| `README.template.md` | README 生成模板，定义 README 的结构、内容占位符（最新博客、目录树、更新时间） |
+> `.git/`、`.jekyll-cache/`、`.sass-cache/`、`vendor/`、`.bundle/`、`node_modules/` 属于构建与版本控制产物；`.preview-site/`、`.shots/`、`.verify_plugins/` 是本地校验目录，均被 `.gitignore` 忽略，不属于站点内容，故未列入上面的树。
 
 ---
 
-### 📄 根目录全量文件说明
+## 二、目录与文件职责
 
-| 文件名 | 作用 | Debug 优先级 |
+### 1. `_data/`（全站数据）
+
+改内容不改模板的地方。四个 YAML 分别驱动友链、导航、系列、社交链接；新增文章系列要同时改 `series.yml` 和文章 Front Matter 里的 `series` 字段。
+
+### 2. `_includes/`（组件）
+
+| 文件 | 职责 |
+| :--- | :--- |
+| `footer.html` | 页脚三栏（站名 / 社交 / 关于本站）与页脚诗词 `.footer-verse` |
+| `head.html` | 字符集、viewport、SEO 标签、`theme-light.css`、RSS、favicon、PWA |
+| `header.html` | **已废弃**：早期顶部导航的占位文件，全站无 `include` 引用，可随时删除 |
+| `sidebar.html` | 侧边栏：站名、搜索框、导航、明暗三态、十套色板、移动端开关 |
+| `social.html` | 按 `social.yml` 渲染社交图标 |
+
+站内搜索现在只有一套实现：`_layouts/default.html` 内联的侧边栏搜索（读 `search.json`，180 ms 防抖，最多 8 条）。原先的第二套 `_includes/search.html` 已于 2026-11-16 删除，不要恢复。
+
+### 3. `_layouts/`
+
+| 文件 | 职责 |
+| :--- | :--- |
+| `default.html` | 全站骨架：head、星空背景、侧边栏、主内容、页脚；并内联侧边栏开合、三态明暗、色板切换、搜索、Service Worker 注册 |
+| `post.html` | 文章页：面包屑、标题区、正文容器、系列导航、相关文章、目录抽屉 |
+| `campus-guide.html` | 同校指南专用，额外加载 `assets/css/campus-guide.css` |
+
+### 4. `_posts/`
+
+60 篇文章，命名必须为 `YYYY-MM-DD-标题.md`，否则不参与渲染。Front Matter 默认：`layout: post`、`render_with_liquid: true`、`math: false`（需要公式的文章单独写 `math: true`）。文章日期以 Front Matter 的 `date` 为准，排序也按它。
+
+### 5. `assets/css/`（10 个文件，分层明确）
+
+| 文件 | 层 | 职责 |
 | :--- | :--- | :--- |
-| `_config.yml` | Jekyll 全局核心配置，控制博客标题、域名、主题、插件、构建规则等，修改后需重新构建生效 | ⭐⭐⭐⭐⭐（最高） |
-| `DESIGN.md` | **设计规范**：以 awesome-design-md 的 WIRED 设计语言为基准，定义编辑层/氛围层两套视觉语言、颜色与排版令牌、组件、Do's & Don'ts。改任何视觉前先读它。已在 `_config.yml` 中排除，不作为访客页面生成 | ⭐⭐⭐⭐⭐ |
-| `_config_verify.yml` | 本地校验构建配置（配合 `.verify_plugins/`），仅在离线/沙箱环境下用；不参与 GitHub Pages 发布 | ⭐⭐ |
-| `404.html` | 404 错误页面，访问不存在的链接时展示，样式简洁居中 | ⭐⭐ |
-| `favicon.png` | 浏览器标签页显示的网站图标，提升辨识度 | ⭐ |
-| `Gemfile` | Ruby 依赖配置，指定 Jekyll 及相关插件版本，本地运行博客依赖此文件 | ⭐⭐⭐ |
-| `index.html` | 博客首页入口，控制首页文章列表、快速导航、欢迎语等展示逻辑 | ⭐⭐⭐⭐ |
-| `README.md` | GitHub 仓库首页展示的说明文档，由脚本自动生成并更新 | ⭐ |
-| `repo-guide.md` | 本说明文件，用于快速查阅仓库结构与 Debug 定位 | ⭐⭐⭐ |
-| `requirements.txt` | Python 依赖配置，指定 `generate_readme.py` 等脚本所需的 Python 库（如 pyyaml） | ⭐⭐⭐ |
-| `search.json` | 站内搜索索引文件，由 Jekyll 自动生成，用于实现文章检索功能 | ⭐⭐ |
-| `.gitignore` | Git 忽略文件规则，指定无需提交到 GitHub 的文件（如本地缓存、临时文件） | ⭐⭐⭐ |
-| `.verify_plugins/` | 校验构建专用插件目录（默认 `plugins_dir` 是 `_plugins`，正常构建与 GitHub Pages 都不会加载它） | ⭐ |
-| `sw.js` | Service Worker 脚本：静态资源离线缓存，页面导航请求 network-first | ⭐⭐ |
-| `manifest.json` | PWA 配置，站点名称/主题色/图标（建议补 192/512 尺寸图标） | ⭐ |
-| `robots.txt` | 爬虫规则，指向 sitemap.xml | ⭐ |
+| `theme.css` | 氛围层 / 令牌 | 设计令牌（颜色、字体、圆角、阴影、渐变）、星海与海面背景、卡片、文章页、首页、归档、404、打印；`@font-face` 也在这里 |
+| `theme-light.css` | 令牌覆盖 | 手动切浅色时抵消系统深色，仅 `html.force-light` 生效 |
+| `layout.css` | 布局 | 星空/流星、页面容器盒模型、内容区标题与正文、`html.force-dark` 整块 |
+| `main.css` | 基础 | 全站字体与排版、文章卡、代码块盒模型、标签与归档组件、页脚、响应式 |
+| `sidebar.css` | 组件 | 侧边栏布局、搜索框与结果、明暗与色板按钮 |
+| `editorial.css` | 编辑层 | 报刊式排版：标题阶梯、内链墨蓝、发丝线、方角几何、`.page-card` / `.page-header-card` 容器 |
+| `starsea.css` | 首页组件 | 首页「星海拾句」诗词横幅 `.starsea` |
+| `star-intro.css` | 首页组件 | 首屏「星海」入场动画 |
+| `bloom.css` | 色板覆盖 | 十套 Bloom 色板（`html[data-palette]`），对令牌与组件做局部覆盖 |
+| `campus-guide.css` | 页面级 | 同校指南页面的表格、阶段卡、代码块 |
 
----
+加载顺序（`_layouts/default.html`）：`head.html`（含 `theme-light.css`）→ `main.css` → `sidebar.css` → `layout.css` → `theme.css` → `editorial.css` → `bloom.css`。首页额外加载 `star-intro.css`、`starsea.css`、`star-intro.js`，campus 页额外加载 `campus-guide.css`。
 
-## 三、常见问题 Debug 精准定位表
+颜色只走令牌。改样式前先读 `DESIGN.md`：编辑层写进 `editorial.css`，氛围层写进 `theme.css`，页面里不要再写 `:root`、不要内联公共容器样式。深色有三条路径（系统 `@media`、`html.force-dark`、`html.force-light`），新增令牌三处都要补齐。
 
-快速排查博客异常，无需逐一查找文件，提升维护效率
+### 6. `assets/js/`
 
-| 问题现象 | 核心排查路径 | 补充检查点 |
+| 文件 | 职责 |
+| :--- | :--- |
+| `enhance.js` | 代码块语言标签与复制、标题锚点、图片懒加载与灯箱、回到顶部、搜索快捷键（`/`、`Ctrl/Cmd+K`）、外链新窗口、阅读进度条 |
+| `star-intro.js` | 首页入场动画，`sessionStorage` 保证一次访问只播一次，尊重 `prefers-reduced-motion` |
+
+### 7. `assets/fonts/`
+
+只自托管了 Playfair Display Latin 400（用于西文与数字的衬线对比），中文仍由系统字体（Noto Serif SC / 宋体 / 楷体）承担，避免整站拖入数 MB 的中文字库。新增字体必须同时放许可证文件，并在 `theme.css` 写 `@font-face`（`font-display: swap` + `unicode-range`）。
+
+### 8. `assets/images/` 与 `assets/pdf/`
+
+图片按「文章日期-序号」命名；`bg.jpg` 是站点背景图；`icon-192.png` / `icon-512.png` 供 PWA 使用。PDF 只有一份电磁场笔记，供文章内下载。
+
+### 9. `pages/`（13 个 HTML + 18 篇 Markdown）
+
+| 文件 | 路由 | 职责 |
 | :--- | :--- | :--- |
-| 文章不显示/不更新 | `_posts/` 文件名格式、Front Matter 语法、文章日期 | `_config.yml` 构建配置 |
-| 图片不显示/样式错乱 | `assets/` 资源路径、文件名大小写、`assets/css/` 样式文件 | 文章内图片链接、`_config.yml` 资源路径配置 |
-| 部署失败/构建报错 | `_config.yml` 语法（缩进/冒号）、`.github/workflows/pages-jekyll.yml` | `Gemfile` 依赖版本 |
-| 导航栏/页脚异常 | `_includes/sidebar.html`/`footer.html`、`_data/navigation.yml`/`social.yml` | `_layouts/default.html` 模板 |
-| 页面结构错乱 | `_layouts/default.html`/`post.html` | `_includes/` 组件引用 |
-| 独立页面（关于/友链）异常 | `pages/` 对应页面文件、`_data/friends.yml` | `_layouts/` 页面布局 |
-| 自动化脚本运行失败 | `scripts/generate_readme.py`、`requirements.txt` | `templates/README.template.md` |
-| 搜索功能失效 | `search.json` 索引、`_layouts/default.html` 侧边栏搜索脚本 | `_config.yml` 搜索配置 |
-| 明暗切换在某页失效 / 某页文字颜色不对 | 该页是否**残留页面级 `:root`**，或是否还在用 `@media (prefers-color-scheme: dark)` 做颜色覆盖 | 页面级 `:root` 会污染全局令牌，且只跟随系统、不响应手动切换；颜色一律改用全局令牌（`--paper` / `--text-*` / `--line` / `--link-ink`），规范见 `DESIGN.md` |
-| 内链颜色不对 / 墨蓝不生效 | `assets/css/editorial.css` 的 `--link-ink`，以及 `layout.css`、`theme-light.css` 中是否有把颜色写死的 `!important` 规则盖住令牌 | 用无头浏览器读 `getComputedStyle(el).color` 与 CDP `CSS.getMatchedStylesForNode` 定位胜出规则 |
-| 圆角/阴影风格不一致 | 编辑层（纸面上的面）应为方角 `--radius-editorial`，氛围层（星空浮层）才用圆角 | `assets/css/editorial.css` 第 9 节「编辑层几何统一」 |
-| 文章页版心太窄 / 正文只占屏幕一小块 | `_layouts/post.html` 内联 `<style>` 与 `main.css`、`layout.css` 里 `.post-container` 各自写的 `max-width` | 版心宽度只应来自 `DESIGN.md` 的 `--width-article`（纸面）与 `--width-reading`（阅读栏），见 `editorial.css` 第 5.5 节「文章页版式」 |
-| 侧边栏开关按钮与导航面板重叠 | `assets/css/sidebar.css` 的 `.sidebar-toggle` 与 `.site-sidebar.open` | 浮层打开时唤出按钮必须让位（面板右上角另有 ✕） |
-| 窄屏下 ☰ 压住文章卡顶部的面包屑 | `main.css` 的 `body.layout-post .page-content { padding: 0 !important }` 清掉了为 ☰ 预留的顶部内边距 | `editorial.css` 响应式一节里 `body.layout-post main.page-content` 的补偿规则 |
+| `about.html` | `/about/` | 关于我 |
+| `navigate.html` | `/navigate/` | 按身份与专业分流的入口页 |
+| `archive.html` | `/archive/` | 归档：按时间、分类、标签聚合 |
+| `network.html` | `/network/` | 星网：文章之间的关系图 |
+| `course-map.html` | `/course-map/` | 课程地图：电气与计算机先修脉络（SVG） |
+| `blog-map.html` | `/blog-map/` | 博客地图：全部文章的主题归属 |
+| `ai-dictionary.html` | `/ai-dictionary/` | AI 编程词典 |
+| `exhibition.html` | `/exhibition/` | 展览：项目、技能、书籍 |
+| `friends.html` | `/friends/` | 友链 |
+| `future.html` | `/future/` | 未研：功能与关系建设方向 |
+| `contribute.html` | `/contribute/` | 投稿与贡献指南 |
+| `en-home.html` | `/en/` | 英文首页 |
+| `en-about.html` | `/en/about/` | 英文关于页 |
+
+`pages/campus/hitsz-ee/` 共 18 篇：`index.md` 总览；`curriculum/` 下 12 个学期页 + 1 个 README；`beyond/` 下 README、竞赛、项目、实习 4 篇。页面 Front Matter 使用 `layout: campus-guide`，新增页面后要同步 `index.md` 与 `_data/navigation.yml`。
+
+### 10. `scripts/`
+
+| 文件 | 职责 |
+| :--- | :--- |
+| `generate_readme.py` | 扫描真实目录与 `_posts/`，按 `templates/README.template.md` 生成根目录 README；目录树排除构建产物与本地校验目录，文章按 Front Matter `date` 倒序取 8 篇 |
+| `compress_images.py` | 图片压缩（需要 Pillow） |
+| `fix_frontmatter.py` | 批量修正文章 Front Matter |
+
+README 由脚本生成，**不要手改**：手改会在下次 `update-readme.yml` 运行时被覆盖。本地生成需要 Python 3 与 `pyyaml`（见 `requirements.txt`）。
+
+### 11. `templates/`
+
+`README.template.md` 是 README 的唯一结构来源，占位符由脚本填充；改 README 版式改这里，不要改产物。
+
+### 12. `.github/`
+
+`pages-jekyll.yml`：push 到 `main` → Ruby 3.1 → `bundle exec jekyll build` → 上传 artifact → `deploy-pages` 部署。
+`update-readme.yml`：手动或定时运行 README 生成脚本并提交回仓库。
+`dependabot.yml`：Ruby 与 GitHub Actions 依赖更新。
 
 ---
 
-## 四、补充维护建议
+## 三、根目录文件
 
-- **资源统一管理**：将 `_posts/` 内的临时图片迁移至 `assets/images/`，统一路径规范，避免图片丢失或路径错乱
-- **本地测试优先**：所有修改先本地运行 `jekyll serve` 测试无误后，再提交到 GitHub，避免部署后出现异常
-- **文档同步更新**：后续新增目录/文件后，同步更新此文档，保持结构说明的准确性，方便后续维护
-- **核心文件备份**：`_config.yml`、`.github/workflows/` 等核心文件定期备份，避免误删导致博客瘫痪
-- **改视觉先读规范**：任何涉及配色、字体、圆角、间距的改动，先读根目录 `DESIGN.md`，把改动写进对应的层（编辑层 → `editorial.css`，氛围层 → `theme.css`），不要写进页面
-- **随手清历史债**：`layout.css` / `main.css` / `theme-light.css` 里仍有一批早期写死的颜色（只按 `prefers-color-scheme` 分支，不走令牌），后续替换为新页面时优先顺手改成全局令牌
+| 文件 | 职责 | 改动风险 |
+| :--- | :--- | :--- |
+| `_config.yml` | 站点主配置：标题、域名、主题、插件、文章与页面默认值、`exclude` | 最高，改完必须重新构建 |
+| `_config_verify.yml` | 离线校验用配置，配合 `.verify_plugins/`，不参与发布 | 低 |
+| `Gemfile` | Ruby 依赖，锁 `github-pages ~> 231`（Jekyll 3.9 系） | 高，版本一变部署就可能失败 |
+| `requirements.txt` | Python 依赖（`pyyaml`） | 低 |
+| `index.html` | 首页：欢迎语、最新文章、探索入口、星海拾句 | 中 |
+| `404.html` | 404 页，页面上方独立卡片 + 页脚 | 低 |
+| `search.json` | 侧边栏搜索索引，由 Jekyll 渲染生成 | 中，改字段要同步侧边栏脚本 |
+| `sw.js` | Service Worker：导航 network-first、静态资源 cache-first，缓存名带构建时间戳 | 中 |
+| `manifest.json` | PWA 名称、主题色、图标 | 低 |
+| `robots.txt` | 爬虫规则与 sitemap 指向 | 低 |
+| `favicon.png` | 浏览器图标 | 低 |
+| `DESIGN.md` | 设计规范：令牌表、组件、Do's & Don'ts、已知取舍 | 改视觉前必读 |
+| `README.md` | 仓库门面，脚本生成 | 不要手改 |
+| `repo-guide.md` | 本文件 | 结构变化后同步 |
+| `LICENSE` | 代码授权 | 低 |
+| `LICENSE-posts.txt` | 文章内容授权 | 低 |
+| `.gitignore` | 忽略构建产物、本地预览、校验目录 | 低 |
+
+---
+
+## 四、构建、预览与文档生成
+
+**线上**：GitHub Actions 用 Ruby 3.1 跑 `bundle exec jekyll build`，产物交给 Pages。`_config.yml` 的 `exclude` 已排除 `README.md`、`DESIGN.md`、`scripts/`、`templates/`、`requirements.txt`、`Gemfile` 等非站点文件。
+
+**本地**：`Gemfile` 锁的是 `github-pages ~> 231`，它要求 Ruby 3.1 左右。本机若是 Ruby 3.4，直接 `bundle install` 大概率在原生扩展上失败，这属于版本约束问题，不是配置写错。想在本地真实构建，用 Ruby 3.1（rbenv / Docker `ruby:3.1`）再 `bundle exec jekyll serve`。
+
+**本机可用的离线校验构建**：仓库里有 `_config_verify.yml` 与 `.verify_plugins/`，专门用来绕过 `github-pages` 元 gem：本机已装 Jekyll 4.4.1 与站点所需插件，用 `JEKYLL_NO_BUNDLER_REQUIRE=true` 直接跑即可。`_config_verify.yml` 里用 `disable_scss.rb` 让 SCSS 转换器不匹配任何扩展名，因为 minima 自带的 `assets/main.scss` 在本机会因 `IO.pipe` 权限报错，而本站从未引用它。
+
+```powershell
+$env:JEKYLL_NO_BUNDLER_REQUIRE = "true"
+# PATH 里没有 jekyll binstub 时，用 gem 安装目录里的 exe 入口（版本号按本机实际改）
+$exe = Join-Path (gem env home) 'gems\jekyll-4.4.1\exe\jekyll'
+ruby $exe build --disable-disk-cache --config _config.yml,_config_verify.yml -d "$env:TEMP\site_verify"
+```
+
+构建成功会打印 `done in x seconds`，退出码 0；产物在 `%TEMP%\site_verify`，可直接用 `python -m http.server` 起服务做截图验收。
+
+**没有 Jekyll 时的静态校验**：仓库里有被忽略的 `.preview-site/` 完整静态产物。把 `assets/css/*` 与 `assets/fonts/*` 同步进去，用 `python -m http.server` 起服务，再用无头 Chrome 截图，就能验证浅色、深色、404 与说明页的真实渲染。注意两点：`Invoke-WebRequest` 可能被系统代理拖到超时，用 `curl.exe --noproxy "*"`；`Copy-Item -LiteralPath` 不展开通配符，要 `Get-ChildItem | Copy-Item`。
+
+**README 生成**：
+
+```powershell
+python -m pip install --quiet pyyaml
+python scripts/generate_readme.py
+```
+
+脚本会打印解析到的文章数与输出的条数，写完直接 `git diff README.md` 看树是否符合预期。
+
+---
+
+## 五、Debug 定位表
+
+| 现象 | 先查 | 再查 |
+| :--- | :--- | :--- |
+| 文章不显示 / 日期不对 | `_posts/` 文件名格式、Front Matter `date` 与 `published` | `_config.yml` 的 `future`/`timezone` |
+| 图片不显示 | `assets/images/` 路径与大小写 | 文章里的相对路径、`relative_url` |
+| 构建失败 | `_config.yml` 缩进与冒号 | `Gemfile` 版本、workflow 的 Ruby 版本 |
+| 导航 / 页脚异常 | `_data/navigation.yml`、`social.yml`、`_includes/sidebar.html`、`footer.html` | `_layouts/default.html` |
+| 侧边栏搜索失效 | `search.json` 是否生成、`default.html` 内联搜索脚本 | 浏览器控制台的 JSON 解析报错 |
+| 手动深色下某处颜色不对 | 该选择器是否还在写 `#hex`/`rgba()`，而不是 `var(--…)` | `theme.css` 的 `html.force-dark` 令牌块是否漏了该令牌 |
+| 手动浅色下仍是深色 | `theme-light.css` 的 `html.force-light` 是否缺该令牌 | 是否有 `!important` 在 `html.force-dark` 之外把颜色写死 |
+| 内链颜色被盖 | `editorial.css` 的 `--link-ink` | `layout.css` / `theme-light.css` 里有没有 `!important` 抢先 |
+| 404 数字不是红色 | `.error-404-code` 是否被 `.page-content h1` 的渐变裁剪与 `-webkit-text-fill-color: transparent` 盖住 | `--error` 令牌是否在三条深色路径里都定义 |
+| 代码块与正文配色不一致 | 代码块统一由 `theme.css` 的 `--grad-code` 控制 | `bloom.css` 的色板覆盖是否生效 |
+| 版心宽度打架 | `_layouts/post.html` 内联样式、`main.css`、`layout.css` 里各自的 `max-width` | `DESIGN.md` 的 `--width-article` / `--width-reading` |
+| 字体没生效 | `assets/fonts/` 是否真的存在、`@font-face` 的 `url` 是否相对 `assets/css/` | `font-family` 调用方是否用了 `var(--font-display)` |
+| 圆角 / 阴影风格不统一 | 编辑层用方角，氛围层才用圆角 | `editorial.css` 的几何统一一节 |
+| 窄屏 ☰ 压住面包屑 | `main.css` 清掉了文章页顶部内边距 | `editorial.css` 响应式补偿规则 |
+
+---
+
+## 六、维护约定
+
+1. **新增文章**：放 `_posts/`，命名 `YYYY-MM-DD-标题.md`，Front Matter 写 `title`、`date`、`categories`、`tags`，需要系列就加 `series`；然后重跑 README 脚本。
+2. **新增页面**：放 `pages/`，Front Matter 写 `layout: default` 与 `permalink`，再加进 `_data/navigation.yml`，最后同步本文件与 README。
+3. **新增同校指南**：放 `pages/campus/hitsz-ee/`，`layout: campus-guide`，并更新 `index.md` 的目录。
+4. **改样式**：只改 `assets/css/`。颜色、字体、圆角、阴影、渐变一律用 `theme.css` 的令牌；新增令牌必须同时补 `@media`、`html.force-dark`、`html.force-light` 三处。
+5. **改结构**：同步改 `README.template.md`（README 的树）与本文件；不要手改 `README.md`。
+6. **提交前自检**：CSS 花括号配平、`assets/css` 里不再出现新的写死颜色、无头截图看浅色与深色、404 与说明页各一张。
+7. **不要恢复**：`_includes/search.html`（第二套搜索）、`_includes/header.html`（废弃导航），以及页面里的 `:root` 颜色块。
 
 </div>
-

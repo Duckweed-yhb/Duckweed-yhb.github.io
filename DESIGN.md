@@ -11,7 +11,6 @@ sources:
 
 colors:
   ink: "#05070f"          # --ink-1000 星海底色
-  ink-raised: "#121729"   # --ink-800 抬升的深海面
   canvas: "#ffffff"       # 浅色纸面
   canvas-dark: "#181b2b"  # 深色纸面
   paper: "rgba(255,255,255,0.90)"        # --paper 卡片纸面（浅色）
@@ -27,67 +26,73 @@ colors:
   link-ink-dark: "#4aa8d8"
   brand-blue: "#4a6fa5"   # --blue 品牌蓝
   brand-violet: "#7a5cf0" # --violet 品牌紫
+  warn: "#9a6b16"         # --warn 警告 / 空状态（深色 #d6a94a）
+  error: "#b4483f"        # --error 错误态（深色 #e0857c）
+  tag-accent: "#fb7299"   # --tag-accent 标签芯片暖粉
+  on-brand: "#ffffff"     # --on-brand 品牌色块上的文字
+  code-light: "linear-gradient(160deg,#101628,#141a33)"  # --grad-code 浅色下的深海代码块
+  code-dark: "linear-gradient(160deg,#121a2e,#172039)"   # --grad-code 深色变体
+  verse-light: "linear-gradient(112deg,#244b7d,#43398f,#5f47a8)"  # --grad-verse 浅色诗词
 
 typography:
   display-hero:
-    fontFamily: "Noto Serif SC", Songti SC, SimSun, serif
+    fontFamily: ["Playfair Display", "Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: clamp(2.4rem, 1.5rem + 3.4vw, 3.6rem)
     fontWeight: 400
     lineHeight: 1.16
     letterSpacing: 0.01em
   display-lg:
-    fontFamily: "Noto Serif SC", Songti SC, SimSun, serif
+    fontFamily: ["Playfair Display", "Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: clamp(1.95rem, 1.35rem + 2.2vw, 2.9rem)
     fontWeight: 400
     lineHeight: 1.16
     letterSpacing: 0.01em
   display-md:
-    fontFamily: "Noto Serif SC", Songti SC, SimSun, serif
+    fontFamily: ["Playfair Display", "Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: clamp(1.5rem, 1.25rem + 1.1vw, 2rem)
     fontWeight: 400
     lineHeight: 1.22
   display-sm:
-    fontFamily: "Noto Serif SC", Songti SC, SimSun, serif
+    fontFamily: ["Playfair Display", "Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: clamp(1.25rem, 1.12rem + 0.6vw, 1.6rem)
     fontWeight: 400
     lineHeight: 1.30
   display-xs:
-    fontFamily: "Microsoft Yahei", -apple-system, Segoe UI, sans-serif
+    fontFamily: ["Playfair Display", "Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1.40
     letterSpacing: -0.01em
   body-serif-md:
-    fontFamily: "Noto Serif SC", Songti SC, SimSun, serif
+    fontFamily: ["Noto Serif SC", "Songti SC", "SimSun", "serif"]
     fontSize: 17px
     fontWeight: 400
     lineHeight: 1.85
     letterSpacing: 0.01em
   body-md:
-    fontFamily: "Microsoft Yahei", -apple-system, Segoe UI, sans-serif
+    fontFamily: ["Microsoft Yahei", "-apple-system", "Segoe UI", "sans-serif"]
     fontSize: 16px
     fontWeight: 400
   body-sm:
-    fontFamily: "Microsoft Yahei", -apple-system, Segoe UI, sans-serif
+    fontFamily: ["Microsoft Yahei", "-apple-system", "Segoe UI", "sans-serif"]
     fontSize: 14px
   eyebrow:
-    fontFamily: "Microsoft Yahei", -apple-system, Segoe UI, sans-serif
+    fontFamily: ["Microsoft Yahei", "-apple-system", "Segoe UI", "sans-serif"]
     fontSize: 14px
     fontWeight: 700
     letterSpacing: 0.14em
     textTransform: uppercase
   byline:
-    fontFamily: "Noto Serif SC", serif
+    fontFamily: ["Noto Serif SC", "serif"]
     fontSize: 12.7px
     fontWeight: 700
     lineHeight: 2.2
   caption:
-    fontFamily: "Microsoft Yahei", -apple-system, Segoe UI, sans-serif
+    fontFamily: ["Microsoft Yahei", "-apple-system", "Segoe UI", "sans-serif"]
     fontSize: 12px
 
 rounded:
   editorial: 2px      # --radius-editorial 编辑层方角
-  sm: 8px             # --radius-sm
   md: 14px            # --radius
   lg: 20px            # --radius-lg 氛围层玻璃面
   pill: 999px         # --radius-pill 标签芯片 / 圆形图标按钮
@@ -152,7 +157,7 @@ components:
   archive-tab:
     rounded: "{rounded.editorial}"
     activeBackgroundColor: "{colors.brand-blue}"
-    activeTextColor: "#ffffff"
+    activeTextColor: "var(--on-brand)"
     typography: "{typography.eyebrow}"
   card-grid:
     rounded: "{rounded.editorial}"
@@ -217,24 +222,33 @@ WIRED 提供的是**严谨度**，不是配色。它把一本印刷杂志搬到�
 - 渐变 `--grad-title` / `--grad-primary` / `--grad-hairline` 只用于标题文字、进度条与顶缘星光。
 
 ### Semantic（语义色）
-站点目前没有独立的错误 / 成功 / 警告调色板。表单与状态提示复用「墨色 + 灰阶」层级，
-这一点与 WIRED 一致（WIRED 的营销面同样没有语义色）。
+
+只有两个，都只服务于「状态」，不参与装饰：
+
+- **`--warn`** 浅色 `#9a6b16` / 深色 `#d6a94a`：空状态与提示（如侧栏搜索无结果）。
+- **`--error`** 浅色 `#b4483f` / 深色 `#e0857c`：真正的错误态（404 数字、错误提示）。
+
+刻意**不设** `--ok`：站点没有成功态 UI，加一个没人引用的令牌只会扩大维护面。
+
+语义色不得挪用为类别色或代码着色：`pages/course-map.html` 的课程类别红点、`pages/contribute.html` 的代码着色都保留各自颜色，不走 `--error`。
 
 ## Typography
 
 ### Font Family
 
-三个字族，三个角色（与原规范一一对应）：
+三个字族 + 一个 display 面，四个角色：
 
 | 角色 | WIRED | 星隅落地 | 用途 |
 |---|---|---|---|
-| 标题衬线 | `WiredDisplay` | `--font-serif`（Noto Serif SC / 宋体） | H1–H3、文章标题、卡片大标题 |
-| 正文衬线 | `BreveText` | `--font-serif` | 正文、署名 |
+| 标题衬线（display） | `WiredDisplay` | `--font-display`（Playfair Display + 中文衬线回退） | H1–H4、文章标题、404 数字 |
+| 标题/正文衬线 | `WiredDisplay` / `BreveText` | `--font-serif`（Noto Serif SC / 宋体） | 正文、署名 |
 | 结构无衬线 | `Apercu` | `--font-sans`（Microsoft Yahei / 系统栈） | 导航、眉标、元信息、按钮、表头 |
 | 等宽 | — | `--font-mono` | 代码 |
 
-> **中文本地化说明**：WIRED 用两个不同衬线区分 display 与 body。中文环境下 Noto Serif SC
-> 同时承担两者会丢失那层对比，因此改用**字号阶梯 + 字重恒 400**来建立层级，而不是换字族。
+> **双语对比说明**：Playfair Display 只自托管了 Latin 子集（`assets/fonts/playfair-display-latin-400.woff2`，19.4 KB，
+> `font-display: swap` + `unicode-range`）。西文与数字因此获得 WIRED 那层高对比衬线；中文仍走系统衬线，
+> 用**字号阶梯 + 字重恒 400** 建立层级。完整 Noto Serif SC 有数 MB，不自托管是体积取舍，不是遗漏。
+> 新增字体必须同时放 `OFL.txt` 一类许可证到 `assets/fonts/`。
 
 ### Hierarchy
 
@@ -361,7 +375,10 @@ WIRED 原文不使用任何投影，只用发丝线。星隅**刻意偏离**：�
 - **最新文章** — `.home-posts` 是 WIRED 的 `story-row` 目录行：无卡片、无阴影、
   发丝线分隔、悬停时底边转品牌蓝并向右移 8px。这是全站最接近 WIRED 原意的一处。
 - **探索本站** — `.home-explore` 入口卡片，`{rounded.editorial}` 方角，悬停边框转品牌蓝、底色转透明。
-- **诗词横幅** `.verse-banner` — 星隅自有签名，保留楷体与 ✦ 角饰，只统一圆角到编辑层。
+- **诗词组件** — 首页「星海拾句」是独立的 `.starsea`（`assets/css/starsea.css`），带月亮、海面与诗句轮换；
+  `.verse-banner` 只用于英文首页与页脚的 `.footer-verse`。两者共用 `--grad-verse`，
+  浅色下压暗到 `#244b7d → #43398f → #5f47a8`，并保留 `color: var(--text-strong)` 兜底与
+  `@supports not (background-clip: text)` 的实色退路。
 
 ## Do's and Don'ts
 
@@ -422,29 +439,45 @@ WIRED 原文不使用任何投影，只用发丝线。星隅**刻意偏离**：�
 
 ## Known Gaps
 
-- **字体未自托管**：WIRED 依赖专有字面（WiredDisplay / BreveText / Apercu），星隅用系统字体栈兜底，
-  因此 display 的高对比笔画特征无法完全复刻；中文环境下 Noto Serif SC 同时承担 display 与 body
-  两个角色，缺少西文那层「两个衬线」的对比。
-- **`_layouts/post.html` 的文章版心**仍由 `main.css` 与布局控制，尚未纳入本文档的令牌体系。
-- **`_includes/search.html` 已无任何页面引用**（站内搜索实际由 `_includes/sidebar.html` +
-  `default.html` 内的脚本实现）。本次只修掉了它的深色模式缺陷，未做删除；
-  建议后续择机移除，避免两套搜索实现并存。
-- **`pages/course-map.html`、`pages/blog-map.html`、`pages/navigate.html` 等页面**
-  仍有各自的 SVG / 地图 / 标签页组件，本次只做了令牌对齐，未纳入统一组件层。
-- **`theme.css` 中有一批定义但从未引用的令牌**（`--ink-600/700/800/900`、`--azure`、
-  `--blue-deep`、`--sea`、`--paper-veil`、`--radius-sm`），属于历史遗留，可在后续清理。
-- **早期样式层里仍有一批写死的颜色**，它们只按 `@media (prefers-color-scheme: dark)` 分支，
-  没有走令牌，因此会与令牌打架。本次已实测并修掉的典型一例：`layout.css` 里
-  `html.force-dark .post-link, .page-card a, .page-content a { color: #7fb3d5 !important }`
-  会把 `--link-ink` 在深色下整个盖掉（正文内链永远是 `--blue` 而不是墨蓝）。
-  `layout.css` 的 `@media (prefers-color-scheme: dark)` 块与 `theme-light.css` 的
-  对应覆盖层已完成令牌化，但 **`layout.css` 的 `html.force-dark` 大块（约 170 行）
-  与 `main.css` 的若干硬编码色仍然是历史债**，建议后续逐块替换为令牌。
-- **语义色缺失**：站点没有错误 / 成功 / 警告色板，表单校验只能靠墨色与灰阶
-  （`_includes/search.html` 的 `.search-error` 仍在用一次性红色 `#e74c3c`）。
-- **首页诗词横幅 `.verse-banner` 的对比度偏低**：`.verse-main` 走 `--grad-title` 渐变文字，
-  叠在同色系淡紫底上，浅色模式下实测偏淡。属既有观感问题，本次未改动其配色，
-  如需提升可读性建议单独调整渐变或底色的明度差。
+### 已清理（2026-11-16）
+
+- **`_includes/search.html` 已删除**（573 行）。站内搜索只剩一套实现：`_includes/sidebar.html` +
+  `default.html` 内联脚本。不要恢复。
+- **`layout.css` 的 `html.force-dark` 大块已全部令牌化**（原约 170 行硬编码，现为 `--ink-1000` /
+  `--paper` / `--text-*` / `--blue` / `--link-ink` / `--line*` / `color-mix`），
+  手动深色与系统深色共用同一套值。`main.css` 的 UI 颜色同步令牌化，`grep` 复查已无 `#hex` / `rgba(`。
+- **未用令牌已删除**：`--ink-600/700/800/900`、`--sea`、`--radius-sm`。
+  保留 `--azure` / `--blue-deep` / `--paper-veil`：`bloom.css` 的十套色板仍在引用，不是死令牌。
+- **语义色已建立**：`--warn` / `--error`（三条深色路径都补齐）。404 数字改用 `--error`，
+  并显式解掉 `.page-content h1` 的渐变裁剪与 `-webkit-text-fill-color: transparent`；
+  侧栏搜索空结果与空状态改用 `--warn`，不再写死 `#95a5a6`。
+- **字体已自托管**：Playfair Display Latin 400（19.4 KB）+ `OFL.txt`，用于西文/数字的 display 对比；
+  `--font-display` 进入标题角色。
+- **诗词对比度已修**：`.verse-banner` / `.footer-verse` 的 `.verse-main` 改用 `--grad-verse`
+  （浅色下压暗到 `#244b7d → #43398f → #5f47a8`），加 `color: var(--text-strong)` 兜底，
+  并提供 `@supports not (background-clip: text)` 的实色退路。
+- **代码块配色令牌化**：`--grad-code`（浅色 `#101628 → #141a33`，深色 `#121a2e → #172039`），
+  `main.css` 里重复且被 `!important` 覆盖的 `--code-bg` 声明一并删除。
+
+### 仍然存在
+
+- **文章页版心仍未统一**：`main.css` 的 `max-width: 1080px !important`、`layout.css` 的 `1100px`、
+  `_layouts/post.html` 的内联样式三处并存，尚未收敛到 `--width-article` / `--width-reading`。
+  改版心前必须三处一起看，否则会出现「改了一个没反应」。
+- **页面级组件未纳入统一组件层**：`course-map`、`blog-map`、`navigate`、`network` 各自持有
+  SVG / 图 / 标签页组件，本轮只做令牌对齐，没有抽象成公共组件。
+- **中文衬线未自托管**：完整 Noto Serif SC 数 MB，会拖垮首屏；因此中文的 display 与 body 仍是
+  同一字面，只靠字号阶梯分层。这是体积取舍，接受。
+- **装饰性白色是刻意的**：`layout.css` 的 `.star` / `.meteor` 仍用 `#ffffff`，因为星星与流星本体
+  就该是白色，不随主题变；不要把它们「令牌化」。
+- **类别色与语法色不是错误色**：`pages/course-map.html` 的课程类别红点、`pages/contribute.html`
+  的代码着色仍写死颜色，属类别 / 语法用途，未走 `--error`。
+- **`_includes/header.html` 是零引用占位文件**：已确认无任何 `include`，保留未删；下次整理可直接移除。
+- **本机构建口径**：`Gemfile` 锁 `github-pages ~> 231`，在 Ruby 3.4 上无法 `bundle install`；
+  但本机装有 Jekyll 4.4.1 与全部站点插件，用 `JEKYLL_NO_BUNDLER_REQUIRE=true` +
+  `_config_verify.yml` 已实测构建通过（exit 0、无警告）。正式部署仍由 CI 的 Ruby 3.1 承担。
+- **令牌扫描**：全站 82 个自定义属性中只剩 `--sp-xxs`（2px）未被 `var()` 引用，
+  它属于间距刻度表的完整性，保留。
 
 
 ## 2026-11-06 阅读与导航修订
@@ -487,3 +520,28 @@ WIRED 原文不使用任何投影，只用发丝线。星隅**刻意偏离**：�
 ## 星网移除侧栏
 
 删除文章索引、检索框、匹配列表及重新布局/重置按钮；分类筛选位于全宽关系图下方，不重复显示分类图例。介绍改为简短的阅读引导。保留节点悬停、文章卡片、局部聚焦及返回全局；节点可通过键盘聚焦并打开简介，补偿移除文章索引后的访问路径。
+
+
+## 一次性清样式债（2026-11-16）
+
+- **搜索**：删除无人引用的 `_includes/search.html`（573 行），站内搜索只保留侧边栏一套。
+- **令牌化**：`layout.css` 的 `html.force-dark` 整块（约 170 行）、`main.css` 的全部 UI 颜色、
+  `theme-light.css` 的 `html.force-light` 覆盖层改为引用全局令牌；深色适配三路径
+  （系统 `@media`、`html.force-dark`、`html.force-light`）取值一致。
+- **令牌增删**：新增 `--font-display`、`--warn`、`--error`、`--grad-verse`、`--grad-code`、`--tag-accent`、
+  `--on-brand`、`--shadow-up`；删除 `--ink-600/700/800/900`、`--sea`、`--radius-sm`。
+  `--azure` / `--blue-deep` / `--paper-veil` 保留，因 `bloom.css` 仍在引用。
+- **语义色**：404 数字用 `--error` 并解掉渐变文字裁剪；空状态用 `--warn`；不引入 `--ok`。
+- **字体**：自托管 Playfair Display Latin 400 + `OFL.txt`，`--font-display` 接管 H1–H4 的西文部分。
+- **诗词对比度**：`--grad-verse` 浅色下压暗，`color` 兜底与 `@supports` 实色退路。
+- **验证**：10 个 CSS 花括号配平；`_config_verify.yml` + 本机 Jekyll 4.4.1 真实构建通过（exit 0、无警告）；
+  用产物 + 无头 Chrome 核对浅色首页、深色首页、404、说明页、归档，以及手动 `force-dark` / `force-light` 两条路径；
+  本机无法 `bundle install` 的 `github-pages 231` 仍由 CI 承担。
+- **同步文档**：`README.md` 由修正后的 `scripts/generate_readme.py` 重新生成（目录树与 60 篇文章一致，
+  并补回此前被点号过滤掉的 `.github/` 与 `.gitignore`）；
+  `repo-guide.md` 按实际目录重写（补 `bloom.css` / `starsea.css` / `ai-dictionary.html` / `network.html` /
+  `campus-guide.html` / `assets/fonts` / `scripts` 三个脚本，删除 `search.html` 条目）。
+- **规范文本**：`DESIGN.md` front matter 的 `fontFamily` 改为合法 YAML 数组（原文是逗号分隔裸值，无法被解析）；
+  令牌表补 `--warn` / `--error` / `--grad-code` / `--grad-verse` / `--tag-accent` / `--on-brand` / `--font-display`，
+  删除 `--ink-600~900` 与 `--radius-sm`。
+
