@@ -1,9 +1,12 @@
 /* ==========================================================================
-   theme-light.css —— 显式「浅色模式」覆盖层
-   仅在 <html class="force-light"> 时生效：用于抵消 layout.css / sidebar.css 中
-   @media (prefers-color-scheme: dark) 的深色规则。这样即使用户的系统是深色，
-   手动选择浅色也能真正生效（修复「点了浅色还是黑的」问题）。
-   本文件在默认状态下所有规则都不匹配，不会影响任何现有样式。
+   theme-light.css —— 手动切浅色时的令牌覆盖层
+
+   为什么存在：theme.css 的深色令牌挂在 `@media (prefers-color-scheme: dark)`
+   且用 `:root:not(.force-light)` 排除手动浅色，但仍有部分组件在系统深色下
+   需要显式回到浅色值。这里只写「浅色令牌覆盖」，不重复 theme.css 的结构。
+
+   规则：本文件的颜色同样只能引用令牌，不写裸色值。新增令牌时三处同步
+   （theme.css 的 @media、html.force-dark、html.force-light）。
    ========================================================================== */
 
 html.force-light {
@@ -19,6 +22,10 @@ html.force-light {
   --line-soft: rgba(74, 111, 165, 0.10);
   --blue: #4a6fa5;
   --blue-bright: #5b8dd6;
+  --warn: #9a6b16;
+  --error: #b4483f;
+  --grad-code: linear-gradient(160deg, #101628 0%, #141a33 100%);
+  --grad-verse: linear-gradient(112deg, #244b7d 0%, #43398f 52%, #5f47a8 100%);
 }
 
 /* ---------------------------------------------------------- 卡片与文章正文 */
@@ -29,7 +36,7 @@ html.force-light .category-list,
 html.force-light .tag-list,
 html.force-light .tag-cloud,
 html.force-light .site-footer {
-  background: rgba(255, 255, 255, 0.90) !important;
+  background: var(--paper) !important;
 }
 
 html.force-light .page-content h1,
@@ -40,21 +47,21 @@ html.force-light .page-content p,
 html.force-light .page-content li,
 html.force-light .post-content,
 html.force-light .post-container .post-content {
-  color: #39415c;
+  color: var(--text);
 }
 
 html.force-light .post-container .post-title,
 html.force-light .page-content h1 {
-  color: #4a6fa5 !important;
+  color: var(--blue) !important;
 }
 
 html.force-light .page-content blockquote {
-  color: #667089;
-  border-left-color: rgba(122, 92, 240, 0.35);
+  color: var(--text-soft);
+  border-left-color: color-mix(in srgb, var(--violet) 35%, transparent);
 }
 
 html.force-light .page-content hr {
-  border-top-color: rgba(74, 111, 165, 0.16);
+  border-top-color: var(--line);
 }
 
 html.force-light .page-content a {
@@ -62,115 +69,115 @@ html.force-light .page-content a {
 }
 
 html.force-light .community-intro {
-  color: #4a5a6a;
+  color: var(--text-soft);
 }
 
 html.force-light .verse-banner {
-  background: linear-gradient(120deg, rgba(74, 111, 165, 0.08), rgba(122, 92, 240, 0.10));
-  border-color: rgba(122, 92, 240, 0.20);
+  background: var(--line-soft);
+  border-color: var(--line);
 }
 
 html.force-light .verse-banner .verse-main {
-  color: #4a6fa5;
+  color: var(--blue);
 }
 
 /* ------------------------------------------------------------------ 侧边栏 */
 html.force-light .site-sidebar {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: var(--paper) !important;
 }
 
 html.force-light .sidebar-logo {
-  color: #2c3e50;
+  color: var(--text-strong);
 }
 
 html.force-light .sidebar-link {
-  color: #5a6a7a;
+  color: var(--text);
 }
 
 html.force-light .sidebar-link:hover {
-  background: rgba(74, 111, 165, 0.06);
-  color: #4a6fa5;
+  background: var(--line-soft);
+  color: var(--blue);
 }
 
 html.force-light .sidebar-link.active {
-  background: rgba(74, 111, 165, 0.10);
-  color: #4a6fa5;
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  color: var(--blue);
 }
 
 html.force-light .sidebar-search input {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: rgba(74, 111, 165, 0.18);
-  color: #2c3e50;
+  background: var(--paper-soft);
+  border-color: var(--line);
+  color: var(--text-strong);
 }
 
 html.force-light #sidebar-search-results {
-  background: #fff;
+  background: var(--paper);
 }
 
 html.force-light #sidebar-search-results a {
-  color: #2c3e50;
-  border-bottom-color: #eee;
+  color: var(--text-strong);
+  border-bottom-color: var(--line-soft);
 }
 
 html.force-light #sidebar-search-results a:hover {
-  background: rgba(74, 111, 165, 0.06);
+  background: var(--line-soft);
 }
 
 html.force-light .sidebar-tagline,
 html.force-light .sidebar-footer a,
 html.force-light .sidebar-footer button {
-  color: #7f8c8d;
+  color: var(--text-muted);
 }
 
 html.force-light .sidebar-footer a,
 html.force-light .sidebar-footer button {
-  border-color: #e2e8f0;
+  border-color: var(--line);
 }
 
 html.force-light .sidebar-footer a:hover,
 html.force-light .sidebar-footer button:hover {
-  border-color: #4a6fa5;
-  color: #4a6fa5;
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 html.force-light .sidebar-header {
-  border-bottom-color: rgba(0, 0, 0, 0.06);
+  border-bottom-color: var(--line-soft);
 }
 
 html.force-light .sidebar-footer {
-  border-top-color: rgba(0, 0, 0, 0.06);
+  border-top-color: var(--line-soft);
 }
 
 html.force-light .sidebar-verse .verse-line {
-  color: #6a7a8a;
+  color: var(--text-soft);
 }
 
 html.force-light .sidebar-verse .verse-author {
-  color: #95a5a6;
+  color: var(--text-muted);
 }
 
 html.force-light .sidebar-toggle {
-  background: rgba(255, 255, 255, 0.9);
-  color: #2c3e50;
+  background: var(--paper);
+  color: var(--text-strong);
 }
 
 /* ------------------------------------------------------ 目录卡片与进度条 */
 html.force-light .post-toc-nav,
 html.force-light .post-toc-toggle {
-  background: #fff !important;
-  border-color: rgba(74, 111, 165, 0.12) !important;
+  background: var(--paper) !important;
+  border-color: var(--line) !important;
 }
 
 html.force-light .post-toc-nav a {
-  color: #667089 !important;
+  color: var(--text-soft) !important;
 }
 
 /* ------------------------------------------------------------ 自定义页面 */
 html.force-light .page-card table th {
-  background: #f0f7ff;
-  color: #2c3e50;
+  background: var(--line-soft);
+  color: var(--text-strong);
 }
 
 html.force-light .page-card table td {
-  border-color: #ebeef5;
+  border-color: var(--line-soft);
 }

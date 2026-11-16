@@ -117,12 +117,8 @@ html[data-palette="ink"] {
 /* --------------------------------------------- 2. 深色映射（跟随系统深色） */
 @media (prefers-color-scheme: dark) {
 html[data-palette]:root:not(.force-light) {
-  /* 墨色层 */
+  /* 墨色层（只保留真正参与背景的底） */
   --ink-1000: var(--b-bg-d);
-  --ink-900: color-mix(in oklch, var(--b-bg-d) 86%, var(--b-card-d));
-  --ink-800: var(--b-card-d);
-  --ink-700: color-mix(in oklch, var(--b-card-d) 85%, var(--b-acc-d));
-  --ink-600: color-mix(in oklch, var(--b-card-d) 70%, var(--b-acc-d));
   /* 玻璃纸 */
   --paper: color-mix(in oklch, var(--b-card-d) 78%, transparent);
   --paper-soft: color-mix(in oklch, var(--b-card-d) 66%, transparent);
@@ -140,7 +136,6 @@ html[data-palette]:root:not(.force-light) {
   --blue-bright: color-mix(in oklch, var(--b-acc-d) 72%, white);
   --blue-deep: color-mix(in oklch, var(--b-acc-d) 75%, var(--b-bg-d));
   --azure: color-mix(in oklch, var(--b-acc-d) 86%, white);
-  --sea: color-mix(in oklch, var(--b-acc-d) 80%, var(--b-bg-d));
   --violet: var(--b-acc2-d);
   --violet-bright: color-mix(in oklch, var(--b-acc2-d) 70%, white);
   --violet-soft: color-mix(in oklch, var(--b-acc2-d) 55%, var(--b-bg-d));
@@ -151,6 +146,7 @@ html[data-palette]:root:not(.force-light) {
   --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
   --grad-sea: linear-gradient(180deg, var(--b-bg-d) 0%, var(--b-bg-d) 55%,
       color-mix(in oklch, var(--b-acc-d) 26%, var(--b-bg-d)) 100%);
+  --grad-verse: var(--grad-title);
   /* 内链与光晕 */
   --link-ink: var(--blue-bright);
   --link-ink-hover: var(--violet-bright);
@@ -161,10 +157,6 @@ html[data-palette]:root:not(.force-light) {
 /* 手动深色（force-dark）走同一套深色映射 */
 html[data-palette].force-dark {
   --ink-1000: var(--b-bg-d);
-  --ink-900: color-mix(in oklch, var(--b-bg-d) 86%, var(--b-card-d));
-  --ink-800: var(--b-card-d);
-  --ink-700: color-mix(in oklch, var(--b-card-d) 85%, var(--b-acc-d));
-  --ink-600: color-mix(in oklch, var(--b-card-d) 70%, var(--b-acc-d));
   --paper: color-mix(in oklch, var(--b-card-d) 78%, transparent);
   --paper-soft: color-mix(in oklch, var(--b-card-d) 66%, transparent);
   --paper-veil: color-mix(in oklch, var(--b-card-d) 52%, transparent);
@@ -178,7 +170,6 @@ html[data-palette].force-dark {
   --blue-bright: color-mix(in oklch, var(--b-acc-d) 72%, white);
   --blue-deep: color-mix(in oklch, var(--b-acc-d) 75%, var(--b-bg-d));
   --azure: color-mix(in oklch, var(--b-acc-d) 86%, white);
-  --sea: color-mix(in oklch, var(--b-acc-d) 80%, var(--b-bg-d));
   --violet: var(--b-acc2-d);
   --violet-bright: color-mix(in oklch, var(--b-acc2-d) 70%, white);
   --violet-soft: color-mix(in oklch, var(--b-acc2-d) 55%, var(--b-bg-d));
@@ -188,6 +179,7 @@ html[data-palette].force-dark {
   --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
   --grad-sea: linear-gradient(180deg, var(--b-bg-d) 0%, var(--b-bg-d) 55%,
       color-mix(in oklch, var(--b-acc-d) 26%, var(--b-bg-d)) 100%);
+  --grad-verse: var(--grad-title);
   --link-ink: var(--blue-bright);
   --link-ink-hover: var(--violet-bright);
   --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-d) 24%, transparent);
@@ -197,10 +189,6 @@ html[data-palette].force-dark {
 @media (prefers-color-scheme: light) {
 html[data-palette]:root:not(.force-dark) {
   --ink-1000: var(--b-bg-l);
-  --ink-900: color-mix(in oklch, var(--b-bg-l) 90%, var(--b-card-l));
-  --ink-800: var(--b-card-l);
-  --ink-700: color-mix(in oklch, var(--b-card-l) 86%, var(--b-acc-l));
-  --ink-600: color-mix(in oklch, var(--b-card-l) 70%, var(--b-acc-l));
   --paper: color-mix(in oklch, var(--b-card-l) 82%, transparent);
   --paper-soft: color-mix(in oklch, var(--b-card-l) 72%, transparent);
   --paper-veil: color-mix(in oklch, var(--b-card-l) 58%, transparent);
@@ -214,7 +202,6 @@ html[data-palette]:root:not(.force-dark) {
   --blue-bright: color-mix(in oklch, var(--b-acc-l) 72%, white);
   --blue-deep: color-mix(in oklch, var(--b-acc-l) 78%, var(--b-bg-l));
   --azure: color-mix(in oklch, var(--b-acc-l) 86%, white);
-  --sea: color-mix(in oklch, var(--b-acc-l) 80%, var(--b-bg-l));
   --violet: var(--b-acc2-l);
   --violet-bright: color-mix(in oklch, var(--b-acc2-l) 68%, white);
   --violet-soft: color-mix(in oklch, var(--b-acc2-l) 55%, var(--b-bg-l));
@@ -224,6 +211,7 @@ html[data-palette]:root:not(.force-dark) {
   --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
   --grad-sea: linear-gradient(180deg, var(--b-bg-l) 0%, var(--b-bg-l) 55%,
       color-mix(in oklch, var(--b-acc-l) 22%, var(--b-bg-l)) 100%);
+  --grad-verse: linear-gradient(112deg, var(--text-strong) 0%, var(--violet) 100%);
   --link-ink: var(--blue);
   --link-ink-hover: var(--blue-deep);
   --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-l) 22%, transparent);
@@ -233,10 +221,6 @@ html[data-palette]:root:not(.force-dark) {
 /* 手动浅色（force-light）走同一套浅色映射 */
 html[data-palette]:root.force-light {
   --ink-1000: var(--b-bg-l);
-  --ink-900: color-mix(in oklch, var(--b-bg-l) 90%, var(--b-card-l));
-  --ink-800: var(--b-card-l);
-  --ink-700: color-mix(in oklch, var(--b-card-l) 86%, var(--b-acc-l));
-  --ink-600: color-mix(in oklch, var(--b-card-l) 70%, var(--b-acc-l));
   --paper: color-mix(in oklch, var(--b-card-l) 82%, transparent);
   --paper-soft: color-mix(in oklch, var(--b-card-l) 72%, transparent);
   --paper-veil: color-mix(in oklch, var(--b-card-l) 58%, transparent);
@@ -250,7 +234,6 @@ html[data-palette]:root.force-light {
   --blue-bright: color-mix(in oklch, var(--b-acc-l) 72%, white);
   --blue-deep: color-mix(in oklch, var(--b-acc-l) 78%, var(--b-bg-l));
   --azure: color-mix(in oklch, var(--b-acc-l) 86%, white);
-  --sea: color-mix(in oklch, var(--b-acc-l) 80%, var(--b-bg-l));
   --violet: var(--b-acc2-l);
   --violet-bright: color-mix(in oklch, var(--b-acc2-l) 68%, white);
   --violet-soft: color-mix(in oklch, var(--b-acc2-l) 55%, var(--b-bg-l));
@@ -260,6 +243,7 @@ html[data-palette]:root.force-light {
   --grad-progress: linear-gradient(90deg, var(--azure) 0%, var(--violet) 55%, var(--violet-bright) 100%);
   --grad-sea: linear-gradient(180deg, var(--b-bg-l) 0%, var(--b-bg-l) 55%,
       color-mix(in oklch, var(--b-acc-l) 22%, var(--b-bg-l)) 100%);
+  --grad-verse: linear-gradient(112deg, var(--text-strong) 0%, var(--violet) 100%);
   --link-ink: var(--blue);
   --link-ink-hover: var(--blue-deep);
   --shadow-glow: 0 8px 30px color-mix(in oklch, var(--b-acc-l) 22%, transparent);
@@ -330,7 +314,7 @@ html[data-palette] #sidebar-search-results a { color: var(--text) !important; bo
 html[data-palette] #sidebar-search-results a:hover { background: color-mix(in oklch, var(--blue) 8%, transparent) !important; color: var(--blue) !important; }
 html[data-palette] #sidebar-search-results .search-title { color: var(--text-strong) !important; }
 html[data-palette] #sidebar-search-results .search-meta { color: var(--text-muted) !important; }
-html[data-palette] .sidebar-search .no-results { color: var(--text-muted) !important; }
+html[data-palette] .sidebar-search .no-results { color: var(--warn) !important; }
 html[data-palette] .sidebar-verse .verse-line { color: var(--text-soft) !important; }
 html[data-palette] .sidebar-verse .verse-author { color: var(--text-muted) !important; }
 html[data-palette] .sidebar-footer a,

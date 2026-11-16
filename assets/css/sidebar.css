@@ -118,7 +118,7 @@
 
 .sidebar-search .no-results {
   padding: 15px;
-  color: #95a5a6;
+  color: var(--warn);
   font-size: 0.85em;
   text-align: center;
 }

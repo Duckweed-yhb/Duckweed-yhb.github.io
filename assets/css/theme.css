@@ -5,14 +5,24 @@
    仅调整「形式」，不改变任何文章与页面的文字内容。
    ========================================================================== */
 
+/* 自托管「展示衬线」：只含拉丁字符，19 KB，用来补回 WIRED 那层
+   display 与 body 的双衬线对比；中文由 var(--font-serif) 的本机字体接下。
+   字体文件见 assets/fonts/，许可为 SIL OFL 1.1（Playfair Display）。 */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ---------------------------------------------------------------- 1. 设计令牌 */
 :root {
-  /* 墨色（黑）*/
+  /* 墨色（只保留真正参与背景的星海底色） */
   --ink-1000: #05070f;
-  --ink-900: #0a0e1e;
-  --ink-800: #121729;
-  --ink-700: #1b2138;
-  --ink-600: #262e4a;
 
   /* 纸（白）与灰 */
   --paper: rgba(255, 255, 255, 0.90);
@@ -30,12 +40,16 @@
   --blue-bright: #5b8dd6;
   --blue-deep: #2f4f7d;
   --azure: #4a9fe0;
-  --sea: #5b93d0;
 
   /* 紫 */
   --violet: #7a5cf0;
   --violet-bright: #a48bf7;
   --violet-soft: #cfc4ff;
+
+  /* 语义色：只用于「提醒 / 错误」两类状态，不参与品牌表达。
+     站点没有成功态 UI（无表单提交），因此不预置 --ok，避免出现无消费者的令牌。 */
+  --warn: #9a6b16;
+  --error: #b4483f;
 
   /* 渐变 */
   --grad-title: linear-gradient(112deg, #3f6fb5 0%, #6f63e6 52%, #a48bf7 100%);
@@ -45,21 +59,29 @@
   --grad-sea: linear-gradient(180deg,
       #05070f 0%, #080c1f 14%, #0d1330 32%, #141c4a 50%,
       #1e2d6b 66%, #2a468f 80%, #3a63ad 90%, #5b93d0 100%);
+  /* 诗词渐变：浅色下压暗，深色下沿用标题渐变，保证纸面与星海上都可读 */
+  --grad-verse: linear-gradient(112deg, #244b7d 0%, #43398f 52%, #5f47a8 100%);
 
   /* 阴影 */
   --shadow-sm: 0 2px 10px rgba(10, 14, 30, 0.07);
   --shadow-md: 0 10px 30px rgba(10, 14, 30, 0.10);
   --shadow-lg: 0 18px 48px rgba(10, 14, 30, 0.16);
+  --shadow-up: 0 -4px 12px rgba(10, 14, 30, 0.10);
   --shadow-glow: 0 8px 30px rgba(122, 92, 240, 0.22);
 
+  /* 面与内容的补充令牌 */
+  --grad-code: linear-gradient(160deg, #101628 0%, #141a33 100%); /* 深海代码块 */
+  --tag-accent: #fb7299; /* 标签芯片的暖粉，只用于 tags */
+  --on-brand: #ffffff;   /* 品牌色块上的文字 */
+
   /* 形状与节奏 */
-  --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 20px;
   --radius-pill: 999px;
 
   /* 字体 */
   --font-serif: "Noto Serif SC", "Songti SC", "SimSun", "STSong", "Source Han Serif SC", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", serif;
+  --font-display: "Playfair Display", var(--font-serif);
   --font-kai: "STKaiti", "KaiTi", "Kaiti SC", "楷体", var(--font-serif);
   --font-sans: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", Arial,
@@ -82,6 +104,10 @@
     --blue: #7fb3d5;
     --blue-bright: #9cc7ef;
     --blue-deep: #3b5f8f;
+    --warn: #d6a94a;
+    --error: #e0857c;
+    --grad-code: linear-gradient(160deg, #121a2e 0%, #172039 100%);
+    --grad-verse: var(--grad-title);
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
     --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.42);
     --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.5);
@@ -100,6 +126,10 @@ html.force-dark {
   --line-soft: rgba(164, 139, 247, 0.12);
   --blue: #7fb3d5;
   --blue-bright: #9cc7ef;
+  --warn: #d6a94a;
+  --error: #e0857c;
+  --grad-code: linear-gradient(160deg, #121a2e 0%, #172039 100%);
+  --grad-verse: var(--grad-title);
 }
 
 /* ---------------------------------------------------------------- 2. 基础排版 */
@@ -580,7 +610,7 @@ html.force-dark .post-meta .meta-item {
 .post-container .post-content pre,
 .page-card pre {
   position: relative;
-  background: linear-gradient(160deg, #101628 0%, #141a33 100%) !important;
+  background: var(--grad-code) !important;
   border: 1px solid rgba(164, 139, 247, 0.16);
   border-radius: var(--radius) !important;
   box-shadow: var(--shadow-sm) !important;
@@ -1024,10 +1054,21 @@ main.page-content {
   font-family: var(--font-kai);
   font-size: 1.28em !important;
   letter-spacing: 0.14em !important;
-  background: var(--grad-title);
+  color: var(--text-strong); /* 不支持渐变裁剪时的兜底 */
+  background: var(--grad-verse);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* 渐变文字在不支持 background-clip:text 的浏览器里会整段不可见，退回实色 */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .verse-banner .verse-main,
+  .footer-verse .verse-main {
+    background: none;
+    color: var(--text-strong);
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 .verse-banner .verse-sub {
@@ -1205,7 +1246,7 @@ main.page-content {
   letter-spacing: 0.16em;
   line-height: 1.9;
   margin: 0;
-  background: var(--grad-title);
+  background: var(--grad-verse);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1482,17 +1523,19 @@ main.page-content {
 }
 
 .error-404 .error-404-code {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 4.6em;
   line-height: 1.1;
   margin: 0 0 12px;
   letter-spacing: 0.06em;
-  background: var(--grad-title);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--blue) !important;
+  color: var(--error) !important; /* 语义色：404 是真正的错误态 */
   border-bottom: none !important;
+  /* 通用 .page-content h1 规则会做渐变裁剪 + 文字填充透明，
+     这里必须显式解掉，否则 404 数字只剩渐变底、看不出错误红。 */
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 
 .error-404 .error-404-desc {

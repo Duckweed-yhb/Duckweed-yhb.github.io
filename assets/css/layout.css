@@ -2,7 +2,7 @@
 body {
   display: flex;
   min-height: 100vh;
-  background: #0a1a3a;
+  background: var(--ink-1000);
   padding: 0;
   overflow-x: hidden;
 }
@@ -15,13 +15,7 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: linear-gradient(180deg,
-    #0a1e3d 0%,
-    #12325e 25%,
-    #1a4a7a 50%,
-    #2a5f96 72%,
-    #3a6fa8 88%,
-    #1a4a7a 100%);
+  background: var(--grad-sea);
   overflow: hidden;
 }
 
@@ -81,10 +75,10 @@ body {
 .page-card,
 .post-container,
 .page-header-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--paper);
   backdrop-filter: blur(8px);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   padding: 35px 30px;
   max-width: 1100px;
   margin: 0 auto 25px;
@@ -99,35 +93,35 @@ body {
 .community-intro {
   font-size: 1.05em;
   line-height: 1.9;
-  color: #4a5a6a;
+  color: var(--text-soft);
 }
 
 .verse-banner {
   margin: 1.5em 0;
   padding: 1.2em 1.5em;
-  background: rgba(74, 111, 165, 0.06);
+  background: var(--line-soft);
   border-radius: 10px;
   text-align: center;
-  border: 1px solid rgba(74, 111, 165, 0.15);
+  border: 1px solid var(--line);
 }
 
 .verse-banner .verse-main {
-  font-family: "STKaiti", "KaiTi", "Kaiti SC", "楷体", serif;
+  font-family: var(--font-kai);
   font-size: 1.2em;
-  color: #4a6fa5;
+  color: var(--blue);
   margin: 0 0 0.4em;
   letter-spacing: 2px;
 }
 
 .verse-banner .verse-sub {
   font-size: 0.8em;
-  color: #9aa8b8;
+  color: var(--text-muted);
   margin: 0;
   letter-spacing: 1px;
 }
 
 .post-date {
-  color: #9aa8b8;
+  color: var(--text-muted);
   font-size: 0.85em;
 }
 
@@ -135,33 +129,33 @@ body {
 .page-content h1 {
   font-size: 2em;
   font-weight: bold;
-  font-family: "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
-  border-bottom: 2px solid #4a6fa5;
+  font-family: var(--font-display);
+  border-bottom: 2px solid var(--blue);
   padding-bottom: 0.5em;
   margin: 0 0 0.5em;
-  color: #2c3e50;
+  color: var(--text-strong);
 }
 
 .page-content h2 {
   font-size: 1.5em;
   font-weight: bold;
-  font-family: "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
-  border-left: 4px solid #4a6fa5;
+  font-family: var(--font-display);
+  border-left: 4px solid var(--blue);
   padding-left: 0.5em;
   margin: 2em 0 1em;
-  color: #2c3e50;
+  color: var(--text-strong);
 }
 
 .page-content h3 {
   font-size: 1.2em;
   font-weight: bold;
-  color: #4a6fa5;
+  color: var(--blue);
   margin: 2em 0 1em;
 }
 
 .page-content p {
   margin: 1em 0;
-  color: #2c3e50;
+  color: var(--text);
 }
 
 .page-content a {
@@ -180,15 +174,15 @@ body {
 }
 
 .page-content blockquote {
-  border-left: 4px solid #eee;
+  border-left: 4px solid var(--line-soft);
   padding-left: 1em;
-  color: #7f8c8d;
+  color: var(--text-soft);
   margin: 1em 0;
 }
 
 .page-content hr {
   border: none;
-  border-top: 1px dashed #eee;
+  border-top: 1px dashed var(--line-soft);
   margin: 2em 0;
 }
 
@@ -236,8 +230,8 @@ body {
   }
 
   .verse-banner {
-    background: rgba(74, 111, 165, 0.15);
-    border-color: rgba(74, 111, 165, 0.25);
+    background: color-mix(in srgb, var(--blue) 15%, transparent);
+    border-color: color-mix(in srgb, var(--blue) 25%, transparent);
   }
 
   .verse-banner .verse-main {
@@ -249,9 +243,11 @@ body {
   }
 }
 
-/* ===== 手动强制暗黑模式 ===== */
+/* ===== 手动强制暗黑模式 =====
+   全部改为引用 theme.css 的全局令牌：手动切换与跟随系统走同一套值，
+   不再出现「系统深色正常、手动深色偏色」的两套硬编码。 */
 html.force-dark body {
-  background: #080810 !important;
+  background: var(--ink-1000) !important;
 }
 
 html.force-dark .page-card,
@@ -268,7 +264,7 @@ html.force-dark .friend-card,
 html.force-dark .blog-map-card,
 html.force-dark .exhibition-card,
 html.force-dark .post-related {
-  background: rgba(30, 30, 40, 0.88) !important;
+  background: var(--paper) !important;
 }
 
 html.force-dark .page-card h1,
@@ -290,7 +286,7 @@ html.force-dark .site-title,
 html.force-dark .page-content h1,
 html.force-dark .page-content h2,
 html.force-dark .page-content h3 {
-  color: #ecf0f1 !important;
+  color: var(--text-strong) !important;
 }
 
 html.force-dark .page-header-card p,
@@ -313,16 +309,16 @@ html.force-dark .page-content p,
 html.force-dark .page-content li,
 html.force-dark .page-content,
 html.force-dark .post-content {
-  color: #bdc3c7 !important;
+  color: var(--text) !important;
 }
 
 html.force-dark .page-link {
-  background: rgba(30, 30, 40, 0.9) !important;
-  color: #ecf0f1 !important;
+  background: var(--paper-soft) !important;
+  color: var(--text-strong) !important;
 }
 
 html.force-dark .post-link {
-  color: #7fb3d5 !important;
+  color: var(--blue) !important;
 }
 
 /* 正文内链的颜色由 assets/css/editorial.css 依据 --link-ink 令牌统一管理。
@@ -335,89 +331,90 @@ html.force-dark .page-content a {
 }
 
 html.force-dark .post-related {
-  background: rgba(30, 30, 40, 0.88) !important;
+  background: var(--paper) !important;
 }
 
 html.force-dark .post-related a {
-  color: #bdc3c7 !important;
+  color: var(--text) !important;
 }
 
 html.force-dark .post-related a:hover {
-  background: rgba(74, 111, 165, 0.15) !important;
-  color: #7fb3d5 !important;
+  background: color-mix(in srgb, var(--blue) 14%, transparent) !important;
+  color: var(--blue) !important;
 }
 
 html.force-dark .site-footer {
-  background: rgba(30, 30, 40, 0.88) !important;
+  background: var(--paper) !important;
 }
 
 /* ===== 侧边栏手动暗黑覆盖 ===== */
 html.force-dark .site-sidebar {
-  background: rgba(16, 16, 24, 0.95) !important;
+  background: var(--paper) !important;
 }
 
 html.force-dark .sidebar-logo {
-  color: #e8e8ec !important;
+  color: var(--text-strong) !important;
 }
 
 html.force-dark .sidebar-link {
-  color: #c8c8d0 !important;
+  color: var(--text) !important;
 }
 
 html.force-dark .sidebar-link:hover {
-  background: rgba(74, 111, 165, 0.15) !important;
+  background: color-mix(in srgb, var(--blue) 14%, transparent) !important;
 }
 
 html.force-dark .sidebar-link.active {
-  background: rgba(74, 111, 165, 0.18) !important;
-  color: #7fb3d5 !important;
+  background: color-mix(in srgb, var(--blue) 18%, transparent) !important;
+  color: var(--blue) !important;
 }
 
 html.force-dark .sidebar-search input {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-color: #3a3a4a !important;
-  color: #e8e8ec !important;
+  background: var(--line-soft) !important;
+  border-color: var(--line) !important;
+  color: var(--text-strong) !important;
 }
 
 html.force-dark #sidebar-search-results {
-  background: #1e1e2a !important;
+  background: var(--paper) !important;
 }
 
 html.force-dark #sidebar-search-results a {
-  color: #e8e8ec !important;
-  border-bottom-color: #2a2a3a !important;
+  color: var(--text-strong) !important;
+  border-bottom-color: var(--line-soft) !important;
 }
 
 html.force-dark #sidebar-search-results a:hover {
-  background: rgba(74, 111, 165, 0.1) !important;
+  background: var(--line-soft) !important;
 }
 
 html.force-dark .sidebar-tagline,
 html.force-dark .sidebar-footer a,
 html.force-dark .sidebar-footer button {
-  color: #888 !important;
+  color: var(--text-muted) !important;
 }
 
 html.force-dark .sidebar-footer a,
 html.force-dark .sidebar-footer button {
-  border-color: #3a3a4a !important;
+  border-color: var(--line) !important;
 }
 
 html.force-dark .sidebar-footer a:hover,
 html.force-dark .sidebar-footer button:hover {
-  border-color: #4a6fa5 !important;
-  color: #4a6fa5 !important;
+  border-color: var(--blue) !important;
+  color: var(--blue) !important;
 }
 
 html.force-dark .sidebar-header {
-  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  border-bottom-color: var(--line) !important;
 }
 
 html.force-dark .sidebar-footer {
-  border-top-color: rgba(255, 255, 255, 0.06) !important;
+  border-top-color: var(--line) !important;
 }
 
 html.force-dark .sidebar-toggle {
-  background: rgba(30, 30, 40, 0.9) !important;
-  color: #e8e8ec !important;
+  background: var(--paper) !important;
+  color: var(--text-strong) !important;
 }
+

@@ -96,7 +96,7 @@ html.force-dark {
 .page-header-card h2,
 .post-container .post-title,
 .archive-h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
 }

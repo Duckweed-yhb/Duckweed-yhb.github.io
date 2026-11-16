@@ -100,5 +100,5 @@ kramdown:
     block:
       line_numbers: false # 关闭代码行号（避免样式混乱）
 
-# ===================== 新增：搜索功能开关（匹配header.html） =====================
+# ===================== 新增：搜索功能开关（由 sidebar.html + default.html 消费） =====================
 has_search: true # 搜索功能已启用
