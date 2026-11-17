@@ -16,35 +16,42 @@
 ## 📝 最新博客（自动同步）
 |       发布日期       | 标题 |
 |----------------------|------|
-| 2026-10-15 | [没有 PM，用 HCD 流程领跑 4500 人的内网改造](https://duckweed-yhb.github.io/2026/10/15/用HCD流程领跑4500人的内网改造/) |
-| 2026-10-15 | [从使命愿景到 Logo：陪跑一家创业公司的品牌](https://duckweed-yhb.github.io/2026/10/15/陪跑一家创业公司的品牌/) |
 | 2026-10-15 | [用之美：一位日本设计师的 sense-making 工作法](https://duckweed-yhb.github.io/2026/10/15/用之美一位日本设计师的sense-making工作法/) |
+| 2026-10-15 | [没有 PM，用 HCD 流程领跑 4500 人的内网改造](https://duckweed-yhb.github.io/2026/10/15/用HCD流程领跑4500人的内网改造/) |
 | 2026-10-15 | [手段先行的 AI 项目，如何用探索性研究重新定义问题](https://duckweed-yhb.github.io/2026/10/15/手段先行的AI项目如何被重新定义/) |
+| 2026-10-15 | [从使命愿景到 Logo：陪跑一家创业公司的品牌](https://duckweed-yhb.github.io/2026/10/15/陪跑一家创业公司的品牌/) |
 | 2026-10-15 | [从「只招资深」到「能养设计师」：一份设计育成路线图](https://duckweed-yhb.github.io/2026/10/15/从只招资深到能养设计师/) |
 | 2026-10-15 | [一张用了三年还在用的旅程图：B2B 复杂服务的可视化](https://duckweed-yhb.github.io/2026/10/15/B2B复杂服务的一张旅程图/) |
-| 2026-10-14 | [适合初学者阅读的小于1000行的小型开源项目](https://duckweed-yhb.github.io/2026/10/14/适合初学者阅读的小型开源项目/) |
 | 2026-10-14 | [高级初学者的编程项目](https://duckweed-yhb.github.io/2026/10/14/高级初学者的编程项目/) |
+| 2026-10-14 | [适合初学者阅读的小于1000行的小型开源项目](https://duckweed-yhb.github.io/2026/10/14/适合初学者阅读的小型开源项目/) |
 
 ## 📂 项目结构（自动生成）
 ```
-├── 404.html
-├── DESIGN.md
-├── Gemfile
-├── LICENSE
-├── README.md
+├── .github
+│   ├── workflows
+│   │   ├── pages-jekyll.yml
+│   │   └── update-readme.yml
+│   └── dependabot.yml
 ├── _data
 │   ├── friends.yml
+│   ├── navigation.yml
 │   ├── series.yml
+│   └── social.yml
 ├── _includes
+│   ├── footer.html
 │   ├── head.html
 │   ├── header.html
-│   ├── search.html
 │   ├── sidebar.html
+│   └── social.html
 ├── _layouts
 │   ├── campus-guide.html
 │   ├── default.html
+│   └── post.html
 ├── _posts
+│   ├── 2026-02-21-Welcome to Duckweed's Space.md
 │   ├── 2026-03-16-latex-template.md
+│   ├── 2026-03-30-VScode插件推荐.md
+│   ├── 2026-03-30-VScode插件管理.md
 │   ├── 2026-04-03-通识教育.md
 │   ├── 2026-04-04-如何用LaTex优雅地写笔记.md
 │   ├── 2026-04-04-对高中生学习的一些建议.md
@@ -59,6 +66,7 @@
 │   ├── 2026-08-08-计算机自学之路.md
 │   ├── 2026-08-09-如何学习英语.md
 │   ├── 2026-08-10-我的学习路线.md
+│   ├── 2026-08-11-Markdown简明教程.md
 │   ├── 2026-08-12-学习写简历.md
 │   ├── 2026-08-13-工具环境的学习和使用.md
 │   ├── 2026-08-14-如何写好提交信息.md
@@ -74,6 +82,7 @@
 │   ├── 2026-08-24-读书笔记模板与示例.md
 │   ├── 2026-08-25-嘉立创插件开发入门.md
 │   ├── 2026-08-26-中文文案排版指北.md
+│   ├── 2026-08-27-VSCode+GitHub 下的 LaTeX 多源文档协作.md
 │   ├── 2026-08-28-从零造轮子.md
 │   ├── 2026-08-29-读《给各位天命人的劝退信》.md
 │   ├── 2026-08-30-一些有趣的活动和比赛.md
@@ -86,8 +95,11 @@
 │   ├── 2026-09-16-Hacking-with-LLMs.md
 │   ├── 2026-09-17-推荐一个CS自学社区.md
 │   ├── 2026-09-20-Agent工程师模拟面试.md
+│   ├── 2026-09-20-跟着Joye学Agent-上手引导篇.md
+│   ├── 2026-09-20-跟着Joye学Agent-面试篇.md
 │   ├── 2026-10-07-读《我办了一场Agent比赛》.md
 │   ├── 2026-10-12-读《Agent-Harness的三种协作尺度》.md
+│   ├── 2026-10-12-读《Personal-Agent拆解》.md
 │   ├── 2026-10-14-适合初学者阅读的小型开源项目.md
 │   ├── 2026-10-14-高级初学者的编程项目.md
 │   ├── 2026-10-15-B2B复杂服务的一张旅程图.md
@@ -98,12 +110,19 @@
 │   └── 2026-10-15-陪跑一家创业公司的品牌.md
 ├── assets
 │   ├── css
+│   │   ├── bloom.css
 │   │   ├── campus-guide.css
+│   │   ├── editorial.css
+│   │   ├── layout.css
 │   │   ├── main.css
 │   │   ├── sidebar.css
+│   │   ├── star-intro.css
 │   │   ├── starsea.css
 │   │   ├── theme-light.css
 │   │   └── theme.css
+│   ├── fonts
+│   │   ├── OFL.txt
+│   │   └── playfair-display-latin-400.woff2
 │   ├── images
 │   │   ├── 2026-03-30-1.png
 │   │   ├── 2026-03-30-2.png
@@ -118,18 +137,22 @@
 │   │   ├── bg.jpg
 │   │   ├── bilibili.svg
 │   │   ├── github.svg
+│   │   ├── icon-192.png
+│   │   ├── icon-512.png
 │   │   └── zhihu.svg
 │   ├── js
 │   │   ├── enhance.js
+│   │   └── star-intro.js
 │   └── pdf
-├── index.html
+│       └── electromagnetic-field-notes.pdf
 ├── pages
-│   ├── archive.html
 │   ├── campus
 │   │   └── hitsz-ee
 │   │       ├── beyond
-│   │       │   ├── README.md
+│   │       │   ├── competition.md
 │   │       │   ├── internship.md
+│   │       │   ├── project.md
+│   │       │   └── README.md
 │   │       ├── curriculum
 │   │       │   ├── README.md
 │   │       │   ├── y1-autumn.md
@@ -145,19 +168,46 @@
 │   │       │   ├── y4-spring.md
 │   │       │   └── y4-summer.md
 │   │       └── index.md
+│   ├── about.html
+│   ├── ai-dictionary.html
+│   ├── archive.html
+│   ├── blog-map.html
+│   ├── contribute.html
+│   ├── course-map.html
+│   ├── en-about.html
+│   ├── en-home.html
+│   ├── exhibition.html
 │   ├── friends.html
 │   ├── future.html
 │   ├── navigate.html
-├── requirements.txt
+│   └── network.html
 ├── scripts
+│   ├── compress_images.py
+│   ├── fix_frontmatter.py
 │   └── generate_readme.py
-├── sw.js
-└── templates
-    └── README.template.md
+├── templates
+│   └── README.template.md
+├── .gitignore
+├── 404.html
+├── _config.yml
+├── _config_verify.yml
+├── DESIGN.md
+├── favicon.png
+├── Gemfile
+├── index.html
+├── LICENSE
+├── LICENSE-posts.txt
+├── manifest.json
+├── README.md
+├── repo-guide.md
+├── requirements.txt
+├── robots.txt
+├── search.json
+└── sw.js
 ```
 
 ---
-> 最后更新：2026-11-16 03:57:18 | 由 GitHub Actions 自动同步 Jekyll 博客
+> 最后更新：2026-11-17 02:57:39 | 由 GitHub Actions 自动同步 Jekyll 博客
 
 
 
